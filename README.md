@@ -25,7 +25,7 @@ Every number on screen carries a provenance label. Facts from Steam, estimates f
 
 ## Architecture in one line
 
-The current backend discovers games from natural language through Grok and IGDB MCP at `POST /api/games/discover`, then collects live Steam and Gamalytic facts. Explicit AppIDs can use `POST /api/games/collect`. There is no game storage or result caching. See [the collector guide](docs/collector.md). The older corpus and scoring architecture below remains reference material for later stages.
+The current backend validates natural-language descriptions with Grok, previews IGDB MCP matches at `POST /api/games/discover`, and collects Steam/Gamalytic facts only after `POST /api/games/discover/collect` approval. Explicit AppIDs can use `POST /api/games/collect`. Pending previews live in memory for 30 minutes; full game results are not stored. See [the discovery guide](docs/discovery.md).
 
 ---
 
@@ -33,7 +33,7 @@ The current backend discovers games from natural language through Grok and IGDB 
 
 | Doc | What's in it |
 | --- | --- |
-| [discovery.md](docs/discovery.md) | Grok intent extraction, live candidate discovery, and verified selections |
+| [discovery.md](docs/discovery.md) | Grok validation, compact previews, approval, and verified collection |
 | [collector.md](docs/collector.md) | Current live collection API, setup, provenance, and limitations |
 | [architecture.md](docs/architecture.md) | System shape, request flow, what we cut and why |
 | [data-model.md](docs/data-model.md) | The frozen type contract every lane codes against |
