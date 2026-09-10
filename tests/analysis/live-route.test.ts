@@ -7,6 +7,29 @@ vi.mock('@/lib/corpus/load', () => ({
   }),
 }));
 
+vi.mock('@/lib/analysis/upcoming', () => ({
+  fetchUpcomingReleases: vi.fn(async () => ({
+    dated: [{
+      igdbId: 999,
+      steamAppId: null,
+      name: 'Future Fright',
+      expectedDate: '2026-10-16',
+      dateLabel: 'Oct 16, 2026',
+      dateConfidence: 'exact',
+      rangeStart: '2026-10-16',
+      rangeEnd: '2026-10-17',
+      similarity: 85,
+      threat: 90,
+      hypes: 120,
+      followers: null,
+      isMajorPublisher: false,
+    }],
+    undated: [],
+    fetchedAt: '2026-09-10T00:00:00.000Z',
+    issues: [],
+  })),
+}));
+
 import { getCorpus } from '@/lib/corpus/load';
 import { conceptHorrorCoop } from '@/lib/fixtures/concept.horror-coop';
 import { POST } from '@/app/api/analyze/route';
@@ -55,7 +78,7 @@ const request = () => new Request('http://localhost/api/analyze', {
   body: JSON.stringify({
     concept: conceptHorrorCoop,
     comparables: [liveGame],
-    horizonWeeks: 12,
+    horizonWeeks: 26,
   }),
 });
 
@@ -70,6 +93,12 @@ describe('live market analysis route', () => {
     expect(body.ok).toBe(true);
     expect(body.meta.corpusVersion).toBe('live');
     expect(body.data.report.revenue.basedOnCount).toBe(1);
+    expect(body.data.report.releaseData).toMatchObject({
+      status: 'live',
+      source: 'igdb-mcp',
+      datedCount: 1,
+    });
+    expect(body.data.report.releaseWindows).toHaveLength(26);
     expect(getCorpus).not.toHaveBeenCalled();
   });
 });
