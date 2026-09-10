@@ -12,10 +12,7 @@ type RevenueObservation = {
 };
 
 function roundSig(value: number, significantDigits: number): number {
-  if (value === 0) return 0;
-  const digits = Math.ceil(Math.log10(Math.abs(value)));
-  const magnitude = 10 ** (significantDigits - digits);
-  return Math.round(value * magnitude) / magnitude;
+  return Number(value.toPrecision(significantDigits));
 }
 
 function weightedPercentile(observations: RevenueObservation[], percentile: number): number | null {
