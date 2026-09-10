@@ -16,7 +16,8 @@
     "corpus:fetch:steam": "tsx scripts/fetch-steam-catalog.ts",
     "corpus:embed": "tsx scripts/embed-corpus.ts",
     "corpus:verify": "tsx scripts/verify-corpus.ts",
-    "collector:smoke": "node --conditions=react-server --import tsx scripts/collector-smoke.ts"
+    "collector:smoke": "node --conditions=react-server --import tsx scripts/collector-smoke.ts",
+    "discovery:smoke": "node --conditions=react-server --import tsx scripts/discovery-smoke.ts"
   },
   "dependencies": {
     "@ai-sdk/xai": "^4.0.57",
