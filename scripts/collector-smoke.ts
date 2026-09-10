@@ -1,6 +1,7 @@
 import { config } from 'dotenv';
 import { resolve } from 'node:path';
 
+async function main() {
 config({ path: resolve('.env.local'), quiet: true });
 config({ path: resolve('.env'), quiet: true });
 const { collectGames } = await import('../lib/collector/collect');
@@ -18,3 +19,6 @@ if (!ids.length || ids.some(id => !/^\d+$/.test(id))) {
     process.exitCode = 1;
   }
 }
+}
+
+void main().catch(() => { console.error("Smoke command failed"); process.exitCode = 1; });
