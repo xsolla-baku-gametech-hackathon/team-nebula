@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 interface SearchResult {
   steamAppId: number;
@@ -14,26 +14,29 @@ export function CompetitorSearch({ onAdd }: { onAdd: (appId: number) => void }) 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [open, setOpen] = useState(false);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
-    if (query.length < 2) {
-      setResults([]);
-      return;
-    }
-    clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(async () => {
+    if (query.length < 2) return;
+    const controller = new AbortController();
+    const debounce = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/games/search?q=${encodeURIComponent(query)}&limit=8`);
+        const res = await fetch(`/api/games/search?q=${encodeURIComponent(query)}&limit=8`, {
+          signal: controller.signal,
+        });
         const data = await res.json();
         setResults(data.data?.results ?? []);
         setOpen(true);
       } catch {
-        setResults([]);
+        if (!controller.signal.aborted) setResults([]);
       }
     }, 200);
-    return () => clearTimeout(debounceRef.current);
+    return () => {
+      clearTimeout(debounce);
+      controller.abort();
+    };
   }, [query]);
+
+  const visibleResults = query.length >= 2 ? results : [];
 
   return (
     <div className="relative">
@@ -41,14 +44,14 @@ export function CompetitorSearch({ onAdd }: { onAdd: (appId: number) => void }) 
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onFocus={() => results.length > 0 && setOpen(true)}
+        onFocus={() => visibleResults.length > 0 && setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 200)}
         placeholder="Search for a game you consider a competitor..."
         className="w-full px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-      {open && results.length > 0 && (
+      {open && visibleResults.length > 0 && (
         <div className="absolute z-10 mt-1 w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-lg max-h-64 overflow-y-auto">
-          {results.map((r) => (
+          {visibleResults.map((r) => (
             <button
               key={r.steamAppId}
               onClick={() => {
