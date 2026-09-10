@@ -1,5 +1,7 @@
 # Backend API
 
+> Current backend: [live collector](collector.md). `POST /api/games/collect` fetches selected games on demand without storing game data. The corpus-based routes and workflows described below are legacy plans and do not govern this endpoint.
+
 Next.js App Router route handlers under `app/api/`. Node runtime (not edge — we read files and hold the corpus in process memory).
 
 Stateless. Every request carries the state it needs. There are no session routes because there is no server session.

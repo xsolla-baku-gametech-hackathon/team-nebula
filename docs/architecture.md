@@ -1,5 +1,7 @@
 # Architecture
 
+> Current backend: [live collector](collector.md). `POST /api/games/collect` fetches selected games on demand without storing game data. The corpus-based routes and workflows described below are legacy plans and do not govern this endpoint.
+
 ## The governing constraint
 
 Everything below follows from one decision: **no third-party API is called on the demo path.**

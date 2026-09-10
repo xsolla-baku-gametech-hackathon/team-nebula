@@ -1,5 +1,7 @@
 # API & data guide
 
+> Current backend: [live collector](collector.md). `POST /api/games/collect` fetches selected games on demand without storing game data. The corpus-based routes and workflows described below are legacy plans and do not govern this endpoint.
+
 Which source owns which field, how each is called, what it costs, and what we do when it lies.
 
 **All of this runs offline**, in `scripts/`. None of it is on the demo path. See [corpus-build.md](corpus-build.md) for the pipeline that orchestrates it.
