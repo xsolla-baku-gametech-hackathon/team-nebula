@@ -33,6 +33,7 @@ The current backend validates natural-language descriptions with Grok, previews 
 
 | Doc | What's in it |
 | --- | --- |
+| [backend-reference](docs/backend-reference/README.md) | Code-oriented reference for the complete discovery and collection backend |
 | [discovery.md](docs/discovery.md) | Grok validation, compact previews, approval, and verified collection |
 | [collector.md](docs/collector.md) | Current live collection API, setup, provenance, and limitations |
 | [architecture.md](docs/architecture.md) | System shape, request flow, what we cut and why |
