@@ -368,7 +368,7 @@ export default function Home() {
       const horizonWeeks = analysisHorizonWeeks(concept.commercial.plannedRelease!, new Date());
       const result = await analyzeMarket(
         concept,
-        competitors.map((competitor) => competitor.game),
+        competitors,
         horizonWeeks,
       );
       const nextSnapshot = createSnapshot({

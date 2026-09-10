@@ -2,20 +2,21 @@ import { z } from 'zod';
 import { ok, fail } from '@/lib/api/envelope';
 import { fetchUpcomingReleases, type UpcomingCollection } from '@/lib/analysis/upcoming';
 import { getCorpus } from '@/lib/corpus/load';
-import { scoreSaturation, scoreRevenue, scoreReception, scoreReleaseRisk } from '@/lib/scoring';
-import type { GameConcept, NormalizedGame, MarketReport } from '@/lib/types';
+import { scoreCompetitor, scoreSaturation, scoreRevenue, scoreReception, scoreReleaseRisk } from '@/lib/scoring';
+import type { GameConcept, NormalizedGame, MarketReport, ScoredCompetitor } from '@/lib/types';
 
 export const runtime = 'nodejs';
 export const maxDuration = 120;
 
 const Schema = z.object({
   concept: z.unknown(),
+  competitors: z.array(z.unknown()).min(1).max(10).optional(),
   comparables: z.array(z.unknown()).min(1).max(10).optional(),
   competitorAppIds: z.array(z.number()).min(1).max(30).optional(),
   horizonWeeks: z.number().int().min(26).max(52).optional().default(26),
 }).refine(
-  body => Boolean(body.comparables?.length || body.competitorAppIds?.length),
-  { message: 'Provide live comparables or competitorAppIds' },
+  body => Boolean(body.competitors?.length || body.comparables?.length || body.competitorAppIds?.length),
+  { message: 'Provide scored competitors, live comparables, or competitorAppIds' },
 );
 
 export async function POST(req: Request) {
@@ -23,20 +24,39 @@ export async function POST(req: Request) {
   try {
     const body = Schema.parse(await req.json());
     const concept = body.concept as GameConcept;
-    let comparables = (body.comparables ?? []) as NormalizedGame[];
+    let competitors = (body.competitors ?? []) as ScoredCompetitor[];
     let corpusVersion = 'live';
 
+    if (competitors.length) {
+      competitors = competitors.map(competitor => scoreCompetitor(
+        concept,
+        competitor.game,
+        competitor.similarity.components.semantic,
+        '',
+        competitor.userAdded,
+      ));
+    }
+
+    // Compatibility inputs are scored here; the live UI submits canonical scored competitors.
+    if (!competitors.length && body.comparables?.length) {
+      competitors = (body.comparables as NormalizedGame[]).map(game =>
+        scoreCompetitor(concept, game, 0, 'Semantic evidence was unavailable for this compatibility request.'));
+    }
+
     // Keep the old ID-based contract available while the main UI uses live records.
-    if (!comparables.length && body.competitorAppIds?.length) {
+    if (!competitors.length && body.competitorAppIds?.length) {
       const corpus = getCorpus();
       const appIdSet = new Set(body.competitorAppIds);
-      comparables = corpus.games.filter(game => appIdSet.has(game.identity.steamAppId));
+      competitors = corpus.games
+        .filter(game => appIdSet.has(game.identity.steamAppId))
+        .map(game => scoreCompetitor(concept, game, 0, 'Semantic evidence was unavailable for this compatibility request.'));
       corpusVersion = corpus.meta.corpusVersion;
     }
 
-    if (!comparables.length) {
-      throw new Error('No comparable game records were supplied');
+    if (!competitors.length) {
+      throw new Error('No scored competitor records were supplied');
     }
+    const comparables = competitors.map(competitor => competitor.game);
 
     const today = new Date();
     let upcoming: UpcomingCollection;
@@ -57,7 +77,7 @@ export async function POST(req: Request) {
       comparables,
       releaseStatus === 'live' ? upcoming.dated.length + upcoming.undated.length : 0,
     );
-    const revenue = scoreRevenue(concept, comparables, saturation.score);
+    const revenue = scoreRevenue(concept, competitors, saturation.score);
     const reception = scoreReception(concept, comparables);
     const releaseRisk = releaseStatus === 'live'
       ? scoreReleaseRisk(concept, upcoming.dated, today, body.horizonWeeks)

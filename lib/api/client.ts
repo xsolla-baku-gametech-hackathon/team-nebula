@@ -7,7 +7,6 @@ import type {
   ClarifyingQuestion,
   GameConcept,
   MarketReport,
-  NormalizedGame,
   ScoredCompetitor,
 } from "@/lib/types";
 
@@ -187,13 +186,13 @@ export async function collectApprovedGames(
 /** Call /api/analyze with the live comparable records from collection. */
 export async function analyzeMarket(
   concept: GameConcept,
-  comparables: NormalizedGame[] | number[],
+  competitors: ScoredCompetitor[] | number[],
   horizonWeeks = 26,
 ): Promise<AnalyzeResult> {
-  const games = comparables as (NormalizedGame | number)[];
-  const input = typeof games[0] === "number"
-    ? { concept, competitorAppIds: games, horizonWeeks }
-    : { concept, comparables: games, horizonWeeks };
+  const entries = competitors as (ScoredCompetitor | number)[];
+  const input = typeof entries[0] === "number"
+    ? { concept, competitorAppIds: entries, horizonWeeks }
+    : { concept, competitors: entries, horizonWeeks };
   const response = await postEnvelope<{ report: MarketReport }>("/api/analyze", input);
   return {
     report: response.data.report,
