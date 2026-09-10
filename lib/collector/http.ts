@@ -31,6 +31,8 @@ const gates = globalThis.__collectorGates ??= {
   gamalytic: new RequestGate(SPACING.gamalytic, 'gamalytic'),
 };
 
+export function providerGate(provider: Provider) { return gates[provider]; }
+
 export function parseProvider<T extends z.ZodTypeAny>(provider: Provider, schema: T, input: unknown): z.infer<T> {
   const result = schema.safeParse(input);
   if (!result.success) throw new ProviderError(provider, 'invalid_data', `${provider} returned an unexpected data format`);
