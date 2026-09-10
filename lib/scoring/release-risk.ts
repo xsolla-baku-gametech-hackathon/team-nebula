@@ -94,7 +94,8 @@ export function scoreReleaseRisk(
 
   const eligible = windows.slice(MIN_MOVE_NOTICE_WEEKS);
   const best = eligible.length > 0
-    ? eligible.reduce((a, b) => a.risk < b.risk ? a : b)
+    ? eligible.reduce((earliestBest, candidate) =>
+        earliestBest.risk <= candidate.risk ? earliestBest : candidate)
     : null;
   const bestRisk = best?.risk ?? currentRisk;
 
