@@ -6,6 +6,16 @@ Next.js App Router route handlers under `app/api/`. Node runtime (not edge — w
 
 Stateless. Every request carries the state it needs. There are no session routes because there is no server session.
 
+## Live interactive flow
+
+The current UI uses the live, approval-gated routes:
+
+1. `POST /api/games/discover` validates the description with Grok. An unclear description returns questions without calling IGDB. A ready description returns up to ten verified Steam game names, match reasons, and tags.
+2. `POST /api/games/discover/collect` accepts only Steam IDs from that preview and fetches current Steam, IGDB, and Gamalytic details. Full game records are not persisted.
+3. `POST /api/analyze` scores those collected records directly.
+
+`POST /api/discover` and the other corpus routes remain available for compatibility, but the main UI does not use `data/games.json`.
+
 ---
 
 ## Conventions
