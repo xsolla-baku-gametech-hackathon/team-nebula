@@ -5,6 +5,14 @@ import { fetchIgdb } from '@/lib/collector/igdb';
 import { ProviderError } from '@/lib/collector/types';
 
 describe('IGDB identity matching', () => {
+  it('stops remaining lookups after an outage', async () => {
+    const call = vi.fn().mockRejectedValue(new Error('private upstream failure'));
+    vi.mocked(withMcp).mockImplementation(run => run(call));
+    const result = await fetchIgdb([1, 2, 3]);
+    expect(call).toHaveBeenCalledTimes(1);
+    expect(Object.keys(result.data.issues)).toEqual(['1', '2', '3']);
+    expect(JSON.stringify(result)).not.toContain('private');
+  });
   it('rejects ambiguous and non-Steam links without guessing by name', async () => {
     const call = vi.fn(async () => ({ results: [
       { uid: '1', game: 10, external_game_source: 1 }, { uid: '1', game: 11, external_game_source: 1 },
