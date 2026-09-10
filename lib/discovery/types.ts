@@ -66,7 +66,10 @@ export const ApprovalInput = z.union([
 ]);
 export type ApprovalInputValue = z.infer<typeof ApprovalInput>;
 export class DiscoveryError extends Error {
-  constructor(public code: 'AI_NOT_CONFIGURED' | 'AI_UNAVAILABLE' | 'INVALID_AI_OUTPUT' | 'DISCOVERY_UNAVAILABLE', message: string, options?: ErrorOptions) {
+  constructor(public code:
+    | 'AI_NOT_CONFIGURED' | 'AI_UNAVAILABLE' | 'INVALID_AI_OUTPUT' | 'DISCOVERY_UNAVAILABLE'
+    | 'PREVIEW_NOT_FOUND' | 'PREVIEW_EXPIRED' | 'PREVIEW_CONSUMED' | 'PREVIEW_BUSY' | 'INVALID_SELECTION',
+  message: string, options?: ErrorOptions) {
     super(message, options);
     this.name = 'DiscoveryError';
   }
