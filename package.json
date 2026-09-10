@@ -11,14 +11,16 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "corpus:fetch": "tsx scripts/fetch-steam-catalog.ts",
+    "corpus:embed": "tsx scripts/embed-corpus.ts",
+    "corpus:verify": "tsx scripts/verify-corpus.ts"
   },
   "dependencies": {
     "clsx": "^2",
     "lucide-react": "^0.500",
     "nanoid": "^5",
     "next": "16.3.4",
-    "pnpm": "^12.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "recharts": "^2",
@@ -32,9 +34,11 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitest/coverage-v8": "^3",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5",
     "vitest": "^3"
   },

@@ -48,3 +48,6 @@ data/*.bin
 # IDE
 .idea/
 .vscode/
+
+# MCP config (contains secrets)
+.mcp.json
