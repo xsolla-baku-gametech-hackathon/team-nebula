@@ -56,7 +56,7 @@ export function PrintReport({ snapshot }: { snapshot: Snapshot }) {
           <div><dt>Upside revenue</dt><dd>{money(report.revenue.upside)}</dd></div>
           <div><dt>Revenue confidence</dt><dd>{report.revenue.confidence}</dd></div>
           <div><dt>Market saturation</dt><dd>{report.saturation.score}/100 · {report.saturation.band}</dd></div>
-          <div><dt>Predicted positive reviews</dt><dd>{Math.round(report.reception.predictedPositiveRatio * 100)}%</dd></div>
+          <div><dt>Predicted positive reviews</dt><dd>{report.reception.predictedPositiveRatio === null ? "Unavailable" : `${Math.round(report.reception.predictedPositiveRatio * 100)}%`}</dd></div>
         </dl>
         <h3>Release verdict: {report.verdict.decision}</h3>
         <p>Planned: {report.verdict.currentDate || "Unavailable"} · Recommended: {report.verdict.recommendedDate || "Unavailable"}</p>

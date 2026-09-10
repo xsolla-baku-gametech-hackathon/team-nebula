@@ -84,7 +84,9 @@ export default function AnalyticsPhase({
     week: `W${index + 1}`,
     risk: Math.round(window.risk),
   }));
-  const positivePercent = Math.round(report.reception.predictedPositiveRatio * 100);
+  const positivePercent = report.reception.predictedPositiveRatio === null
+    ? null
+    : Math.round(report.reception.predictedPositiveRatio * 100);
   const price = concept?.commercial.priceUsd;
 
   return (
@@ -144,9 +146,17 @@ export default function AnalyticsPhase({
 
           <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4 flex flex-col items-center justify-center text-center gap-2">
             <h2 className="text-[14px] font-semibold text-on-surface">Predicted reviews</h2>
-            <Donut value={positivePercent} />
-            <p className="text-[14px] font-semibold text-on-surface">{sentimentLabel(report.reception.predictedPositiveRatio)}</p>
-            <p className="text-[12px] text-on-surface-variant">Cohort median: {Math.round(report.reception.cohortMedian * 100)}%</p>
+            {positivePercent === null ? (
+              <p className="text-[13px] text-on-surface-variant py-8">Insufficient review evidence</p>
+            ) : (
+              <>
+                <Donut value={positivePercent} />
+                <p className="text-[14px] font-semibold text-on-surface">{sentimentLabel(report.reception.predictedPositiveRatio!)}</p>
+              </>
+            )}
+            <p className="text-[12px] text-on-surface-variant">
+              Cohort median: {report.reception.cohortMedian === null ? "Unavailable" : `${Math.round(report.reception.cohortMedian * 100)}%`}
+            </p>
             <p className="text-[11px] text-on-surface-variant">Confidence: {report.reception.band}</p>
           </div>
         </div>
