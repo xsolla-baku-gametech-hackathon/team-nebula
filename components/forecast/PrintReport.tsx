@@ -111,13 +111,13 @@ export function PrintReport({ snapshot }: { snapshot: Snapshot }) {
             {uniqueReleases.map((release) => (
               <tr key={release.igdbId}>
                 <td>{release.name}</td><td>{release.dateLabel}</td><td>{release.dateConfidence}</td>
-                <td>{Math.round(release.similarity * 100)}%</td><td>{release.threat}</td>
+                <td>{release.similarity}%</td><td>{release.threat}</td>
               </tr>
             ))}
             {report.undatedReleases.map((release) => (
               <tr key={release.igdbId}>
                 <td>{release.name}</td><td>{release.dateLabel}</td><td>{release.dateConfidence}</td>
-                <td>{Math.round(release.similarity * 100)}%</td><td>{release.threat}</td>
+                <td>{release.similarity}%</td><td>{release.threat}</td>
               </tr>
             ))}
           </tbody>

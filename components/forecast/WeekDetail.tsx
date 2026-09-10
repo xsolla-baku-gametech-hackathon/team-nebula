@@ -14,7 +14,7 @@ export function WeekDetail({ window: releaseWindow }: { window: ReleaseWindow })
             <div key={release.igdbId} className="flex flex-wrap justify-between gap-x-4 gap-y-1">
               <span className="font-medium text-on-surface">{release.name}</span>
               <span className="text-on-surface-variant font-mono text-[10px]">
-                {release.dateLabel} · {release.dateConfidence} · {Math.round(release.similarity * 100)}% similar
+                {release.dateLabel} · {release.dateConfidence} · {release.similarity}% similar
                 {release.hypes !== null ? ` · ${release.hypes} hypes` : ""}
               </span>
             </div>

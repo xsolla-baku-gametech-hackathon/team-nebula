@@ -173,7 +173,7 @@ export default function AnalyticsPhase({
               <div className="flex flex-wrap gap-2">
                 {report.undatedReleases.map((release) => (
                   <span key={release.igdbId} className="rounded-lg border border-outline-variant/20 px-2.5 py-1.5 text-[10px] text-on-surface-variant">
-                    <strong className="text-on-surface">{release.name}</strong> · {release.dateLabel} · {Math.round(release.similarity * 100)}% similar
+                    <strong className="text-on-surface">{release.name}</strong> · {release.dateLabel} · {release.similarity}% similar
                   </span>
                 ))}
               </div>

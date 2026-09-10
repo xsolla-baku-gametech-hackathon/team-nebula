@@ -219,8 +219,8 @@ export type UpcomingRelease = {
   dateConfidence: 'exact' | 'month' | 'quarter' | 'vague';
   rangeStart: string | null;
   rangeEnd: string | null;
-  similarity: number;
-  threat: number;
+  similarity: number; // 0-100
+  threat: number; // 0-100
   hypes: number | null;
   followers: number | null;
   isMajorPublisher: boolean;
