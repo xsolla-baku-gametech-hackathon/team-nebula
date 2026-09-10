@@ -14,11 +14,11 @@
 
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
+import { config } from 'dotenv';
+config({ path: '.env.local' });
+
 import { igdbGames, igdbQuery } from './igdb-client';
 import { getAppReviews } from './steam-client';
-
-// Load env
-import 'dotenv/config';
 
 const DATA_DIR = join(process.cwd(), 'data');
 const RAW_DIR = join(DATA_DIR, 'raw');
