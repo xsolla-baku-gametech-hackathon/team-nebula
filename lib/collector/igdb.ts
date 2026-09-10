@@ -38,7 +38,14 @@ export async function fetchIgdb(appIds: number[]) {
           names('genre', game.genres), names('theme', game.themes), names('keyword', game.keywords), names('player_perspective', game.player_perspectives),
         ]);
         games[appId] = { id: game.id, genres, themes, keywords, perspectives };
-      } catch (error) { issues[appId] = providerIssue('igdb', error); }
+      } catch (error) {
+        const issue = providerIssue('igdb', error);
+        issues[appId] = issue;
+        if (issue.code === 'rate_limited' || issue.code === 'unavailable') {
+          for (const remaining of appIds.slice(appIds.indexOf(appId) + 1)) issues[remaining] = issue;
+          break;
+        }
+      }
     }
     return { data: { games, issues }, fetchedAt: new Date().toISOString() };
   });
