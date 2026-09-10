@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const SnapshotSchema = z.object({
-  snapshotId: z.string().trim().min(1).max(100),
+  snapshotId: z.string().uuid(),
   generatedAt: z.string().datetime(),
   conceptVersion: z.number().int().nonnegative(),
   concept: z.record(z.unknown()),
