@@ -19,8 +19,18 @@ export async function withMcp<T>(run: (call: (name: string, args: Record<string,
         headers.set('Authorization', `Bearer ${token}`);
         headers.set('Client-ID', clientId);
         const timeout = AbortSignal.timeout(15_000);
-        const response = await fetch(url, { ...init, headers, cache: 'no-store',
-          signal: init?.signal ? AbortSignal.any([init.signal, timeout]) : timeout });
+        let response: Response;
+        try {
+          response = await fetch(url, { ...init, headers, cache: 'no-store',
+            signal: init?.signal ? AbortSignal.any([init.signal, timeout]) : timeout });
+        } catch (error) {
+          if (attempt === 0 && !init?.signal?.aborted) continue;
+          throw error;
+        }
+        if (response.status >= 500 && attempt === 0) {
+          await response.body?.cancel();
+          continue;
+        }
         if (response.status === 401 && attempt === 0) {
           await response.body?.cancel();
           mcpTokens.invalidate(token);
