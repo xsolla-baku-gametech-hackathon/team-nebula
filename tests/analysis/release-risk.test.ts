@@ -39,7 +39,7 @@ describe('release window scoring', () => {
     );
 
     const planned = result.windows.find((window) => window.competingReleases.length);
-    expect(planned?.risk).toBe(81);
+    expect(planned?.risk).toBe(90);
     expect(result.verdict.decision).toBe('MOVE');
     expect(result.verdict.recommendedDate).not.toBe('2026-10-16');
   });
@@ -65,5 +65,59 @@ describe('release window scoring', () => {
       26,
     );
     expect(result.verdict.decision).toBe('INSUFFICIENT_DATA');
+  });
+
+  it('does not multiply an upstream threat by similarity again', () => {
+    const result = scoreReleaseRisk(
+      conceptWithDate('2026-10-16'),
+      [release({ similarity: 50, threat: 80 })],
+      new Date('2026-09-10T00:00:00.000Z'),
+      26,
+    );
+    const planned = result.windows.find((window) => window.competingReleases.length);
+
+    expect(planned?.risk).toBe(80);
+  });
+
+  it('anchors weeks to Monday at midnight UTC', () => {
+    const result = scoreReleaseRisk(
+      conceptWithDate('2026-09-14'),
+      [],
+      new Date('2026-09-13T23:30:00-04:00'),
+      2,
+    );
+
+    expect(result.windows.map((window) => window.weekStart)).toEqual(['2026-09-14', '2026-09-21']);
+  });
+
+  it('measures move distance from the planned launch week', () => {
+    const result = scoreReleaseRisk(
+      conceptWithDate('2027-01-27'),
+      [release({
+        expectedDate: '2027-01-27',
+        dateLabel: 'Jan 27, 2027',
+        rangeStart: '2027-01-27',
+        rangeEnd: '2027-01-28',
+        threat: 90,
+      })],
+      new Date('2026-09-10T00:00:00.000Z'),
+      26,
+    );
+
+    expect(result.verdict.decision).toBe('MITIGATE');
+    expect(result.verdict.reasoning[0]).toContain('17 weeks');
+  });
+
+  it('reports only evidence-backed release pressure drivers', () => {
+    const result = scoreReleaseRisk(
+      conceptWithDate('2026-10-16'),
+      [release()],
+      new Date('2026-09-10T00:00:00.000Z'),
+      26,
+    );
+    const drivers = result.windows.flatMap((window) => window.drivers);
+
+    expect(new Set(drivers.map((item) => item.label))).toEqual(new Set(['Upcoming competitor pressure']));
+    expect(drivers.some((item) => /seasonal|historical/i.test(item.detail))).toBe(false);
   });
 });
