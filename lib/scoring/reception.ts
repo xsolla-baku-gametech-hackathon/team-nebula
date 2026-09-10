@@ -5,8 +5,6 @@
 
 import type { NormalizedGame, GameConcept, EstimatedPlayerReception, ConfidenceBand } from '@/lib/types';
 
-const DEFAULT_PREDICTED_POSITIVE_RATIO: number = 0.80;
-const DEFAULT_COHORT_MEDIAN_POSITIVE_REVIEWS: number = 0.80;
 const DEFAULT_CONFIDENCE_BAND: ConfidenceBand = 'LOW';
 
 const MEDIUM_CONFIDENCE_CUTOFF: number = 4;
@@ -27,20 +25,34 @@ export function scoreReception(
 ): EstimatedPlayerReception {
   const ratios = comparables
     .map(g => g.reviews.positiveRatio.value)
-    .filter((v): v is number => v !== null)
+    .filter((value): value is number =>
+      value !== null && Number.isFinite(value) && value >= 0 && value <= 1)
     .sort((a, b) => a - b);
 
-  if (ratios.length === 0){
-	return { 
-		predictedPositiveRatio: DEFAULT_PREDICTED_POSITIVE_RATIO,
-		cohortMedianPositiveRatio: DEFAULT_COHORT_MEDIAN_POSITIVE_REVIEWS,
-		band: DEFAULT_CONFIDENCE_BAND 
-	};
-  } 
+  if (ratios.length === 0) {
+    return {
+      predictedPositiveRatio: null,
+      cohortMedianPositiveRatio: null,
+      band: DEFAULT_CONFIDENCE_BAND,
+    };
+  }
 
-  const cohortMedianPositiveRatio = ratios[Math.floor(ratios.length / 2)];
-  const cohortMedianPrice = comparables.reduce((s, g) => s + (g.commercial.priceUsd.value ?? 0), 0) / comparables.length;
-  const userPrice = concept.commercial.priceUsd ?? 14.99;
+  const ratioMiddle = Math.floor(ratios.length / 2);
+  const cohortMedianPositiveRatio = ratios.length % 2
+    ? ratios[ratioMiddle]
+    : (ratios[ratioMiddle - 1] + ratios[ratioMiddle]) / 2;
+  const prices = comparables
+    .map(g => g.commercial.priceUsd.value)
+    .filter((value): value is number =>
+      value !== null && Number.isFinite(value) && value >= 0)
+    .sort((a, b) => a - b);
+  const priceMiddle = Math.floor(prices.length / 2);
+  const cohortMedianPrice = prices.length === 0
+    ? null
+    : prices.length % 2
+      ? prices[priceMiddle]
+      : (prices[priceMiddle - 1] + prices[priceMiddle]) / 2;
+  const userPrice = concept.commercial.priceUsd;
 
   /**
    * Adjustment for the predicted positive ratio based on how different the 
@@ -52,19 +64,23 @@ export function scoreReception(
    * For example, if the user's game is priced $10 above the median price,
    * the prediction will be nudged down by 0.004 * 10 = 4%.
    */
-  const adj = Math.max(
-					0.92,
-					Math.min(
-						1.05,
-						1 - USER_PRICE_ADJUSTMENT_CALIBRATION * (userPrice - cohortMedianPrice)
-					)
-				);
+  const adjustment = userPrice === null || cohortMedianPrice === null
+    ? 1
+    : Math.max(
+        0.92,
+        Math.min(
+          1.05,
+          1 - USER_PRICE_ADJUSTMENT_CALIBRATION * (userPrice - cohortMedianPrice),
+        ),
+      );
 
   return {
-    predictedPositiveRatio: Math.round(cohortMedianPositiveRatio * adj * 100) / 100,
-    cohortMedianPositiveRatio: cohortMedianPositiveRatio,
-    band: 
-		ratios.length >= HIGH_CONFIDENCE_CUTOFF ? 'HIGH' :
-		ratios.length >= MEDIUM_CONFIDENCE_CUTOFF ? 'MEDIUM' : 'LOW',
+    predictedPositiveRatio: Math.round(
+      Math.max(0, Math.min(1, cohortMedianPositiveRatio * adjustment)) * 100,
+    ) / 100,
+    cohortMedianPositiveRatio,
+    band:
+      ratios.length >= HIGH_CONFIDENCE_CUTOFF ? 'HIGH' :
+      ratios.length >= MEDIUM_CONFIDENCE_CUTOFF ? 'MEDIUM' : 'LOW',
   };
 }

@@ -268,8 +268,8 @@ export type MarketReport = {
   };
 
   reception: {
-    predictedPositiveRatio: number;
-    cohortMedian: number;
+    predictedPositiveRatio: number | null;
+    cohortMedian: number | null;
     band: ConfidenceBand;
   };
 
@@ -316,8 +316,8 @@ export type Snapshot = {
  * The estimated reception of the game described by the player.
  */
 export type EstimatedPlayerReception = {
-	predictedPositiveRatio: number;
-	cohortMedianPositiveRatio: number; 
+	predictedPositiveRatio: number | null;
+	cohortMedianPositiveRatio: number | null; 
 	band: ConfidenceBand
 }
 
