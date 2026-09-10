@@ -58,6 +58,7 @@ export function PrintReport({ snapshot }: { snapshot: Snapshot }) {
           <div><dt>Market saturation</dt><dd>{report.saturation.score}/100 · {report.saturation.band}</dd></div>
           <div><dt>Predicted positive reviews</dt><dd>{report.reception.predictedPositiveRatio === null ? "Unavailable" : `${Math.round(report.reception.predictedPositiveRatio * 100)}%`}</dd></div>
         </dl>
+        {report.revenue.drivers?.length ? <ul>{report.revenue.drivers.map((item) => <li key={item.label}>{item.detail}</li>)}</ul> : null}
         <h3>Release verdict: {report.verdict.decision}</h3>
         <p>Planned: {report.verdict.currentDate || "Unavailable"} · Recommended: {report.verdict.recommendedDate || "Unavailable"}</p>
         <ul>{report.verdict.reasoning.map((reason) => <li key={reason}>{reason}</li>)}</ul>

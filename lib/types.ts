@@ -265,6 +265,7 @@ export type MarketReport = {
     confidence: ConfidenceBand;
     basedOnCount: number;
     method: string;
+    drivers: Driver[];
   };
 
   reception: {

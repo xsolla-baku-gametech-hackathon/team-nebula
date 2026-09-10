@@ -115,6 +115,9 @@ export default function AnalyticsPhase({
           <MetricCard label="Upside" value={fmt(report.revenue.upside)} sub="80th percentile" />
           <MetricCard label="Price point" value={price === null || price === undefined ? "Not provided" : `$${price.toFixed(2)}`} sub={`Confidence: ${report.revenue.confidence}`} />
         </div>
+        <div className="flex flex-wrap gap-x-4 gap-y-1 mb-5 text-[10px] text-on-surface-variant">
+          {report.revenue.drivers?.map((item) => <span key={item.label}>{item.detail}</span>)}
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-5">
           <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">

@@ -105,6 +105,7 @@ export async function POST(req: Request) {
         confidence: revenue.confidence,
         basedOnCount: revenue.basedOnCount,
         method: revenue.method,
+        drivers: revenue.drivers,
       },
       reception: {
         predictedPositiveRatio: reception.predictedPositiveRatio,
