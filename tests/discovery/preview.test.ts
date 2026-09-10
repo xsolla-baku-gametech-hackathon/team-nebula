@@ -11,7 +11,7 @@ const ready: DescriptionValidation = { status: 'ready', normalizedDescription: '
 function providers(): PreviewProviders {
   return {
     validate: vi.fn(async () => ready),
-    candidates: vi.fn(async () => [{ igdbId: 1, name: 'Haunted Team', description: 'Long private candidate description', context: 'Horror', gameModes: [2] }]),
+    candidates: vi.fn(async () => [{ igdbId: 1, name: 'Haunted Team', description: 'Long private candidate description', context: 'Horror', gameModes: [2], semanticScore: 0.87 }]),
     rank: vi.fn(async () => ({ selections: [{ igdbId: 1, reason: 'Co-op horror match', matchedTags: ['Horror', 'Multiplayer'] }] })),
     resolve: vi.fn(async () => ({ 1: 100 })), store: new PreviewStore(),
   };
@@ -35,7 +35,7 @@ describe('discovery preview', () => {
     expect(result.status).toBe('ready_for_approval');
     if (result.status !== 'ready_for_approval') throw new Error('Expected ready preview');
     expect(result.candidates).toEqual([{ steamAppId: 100, igdbId: 1, name: 'Haunted Team',
-      reason: 'Co-op horror match', matchedTags: ['Horror', 'Multiplayer'] }]);
+      semanticScore: 0.87, reason: 'Co-op horror match', matchedTags: ['Horror', 'Multiplayer'] }]);
     expect(JSON.stringify(result.candidates)).not.toContain('private candidate description');
     expect(deps.store.get(result.previewId).candidates).toEqual(result.candidates);
   });

@@ -12,8 +12,8 @@ const validation: DescriptionValidation = { status: 'ready', normalizedDescripti
     { name: 'Co-op', category: 'mode', priority: 'required', basis: 'explicit' },
   ], mustHave: ['horror'], avoid: [], multiplayer: true, questions: [] };
 const candidates: PreviewCandidate[] = [
-  { steamAppId: 100, igdbId: 1, name: 'First', reason: 'First reason', matchedTags: ['Horror'] },
-  { steamAppId: 200, igdbId: 2, name: 'Second', reason: 'Second reason', matchedTags: ['Horror', 'Co-op'] },
+  { steamAppId: 100, igdbId: 1, name: 'First', semanticScore: 0.81, reason: 'First reason', matchedTags: ['Horror'] },
+  { steamAppId: 200, igdbId: 2, name: 'Second', semanticScore: 0.92, reason: 'Second reason', matchedTags: ['Horror', 'Co-op'] },
 ];
 const game = (steamAppId: number, igdbId: number) => ({ ...normalizeGame(SteamDetailsSchema.parse({ steam_appid: steamAppId,
   type: 'game', name: `Game ${steamAppId}`, release_date: { coming_soon: false, date: '' } }), { issues: [], fetches: {} }),
@@ -31,7 +31,7 @@ describe('preview approval', () => {
     const { record, deps } = setup();
     const result = await approvePreview({ previewId: record.id, selectedSteamAppIds: [200] }, deps);
     expect(deps.collect).toHaveBeenCalledWith({ steamAppIds: [200] });
-    expect(result.games[0].match).toEqual({ source: 'xai', reason: 'Second reason', matchedTags: ['Horror', 'Co-op'], candidateIgdbId: 2 });
+    expect(result.games[0].match).toEqual({ source: 'xai', reason: 'Second reason', matchedTags: ['Horror', 'Co-op'], candidateIgdbId: 2, semanticScore: 0.92 });
   });
 
   it('supports approving every previewed candidate', async () => {

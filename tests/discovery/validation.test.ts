@@ -4,7 +4,7 @@ import { validatePreviewRanking, validateRanking } from '@/lib/discovery/selecti
 import { parseCandidates } from '@/lib/discovery/candidates';
 import { steamIdentity } from '@/lib/discovery/steam-identities';
 const intent = { multiplayer: true };
-const candidates: Candidate[] = [{ igdbId: 1, name: 'Game', description: 'Horror', context: '', gameModes: [2] }];
+const candidates: Candidate[] = [{ igdbId: 1, name: 'Game', description: 'Horror', context: '', gameModes: [2], semanticScore: 0.8 }];
 const validation = { status: 'ready' as const, normalizedDescription: 'Horror multiplayer', confidence: 0.9,
   tags: [
     { name: 'Horror', category: 'theme' as const, priority: 'required' as const, basis: 'explicit' as const },
@@ -26,12 +26,13 @@ describe('discovery validation', () => {
   });
   it('filters missing multiplayer evidence and empty descriptions', () => {
     const result = parseCandidates({ results: [
-      { game: { id: 1, name: 'Solo', summary: 'Horror', game_modes: [1] } },
-      { game: { id: 2, name: 'Co-op', summary: '<b>Horror</b>', game_modes: [1, 3] } },
-      { game: { id: 3, name: 'Empty', game_modes: [2] } },
+      { game: { id: 1, name: 'Solo', summary: 'Horror', game_modes: [1] }, similarity: 0.7 },
+      { game: { id: 2, name: 'Co-op', summary: '<b>Horror</b>', game_modes: [1, 3] }, similarity: 0.9 },
+      { game: { id: 3, name: 'Empty', game_modes: [2] }, similarity: 0.8 },
     ] }, intent);
     expect(result.map(game => game.igdbId)).toEqual([2]);
     expect(result[0].description).toBe('Horror');
+    expect(result[0].semanticScore).toBe(0.9);
   });
   it('matches only one exact Steam identity', () => {
     const link = (game: number, uid: string, source = 1) => ({ game, uid, external_game_source: source });
