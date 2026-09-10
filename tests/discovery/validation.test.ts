@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { DiscoverInput, type Candidate, type DiscoveryIntent } from '@/lib/discovery/types';
+import { DiscoverInput, type Candidate } from '@/lib/discovery/types';
 import { validatePreviewRanking, validateRanking } from '@/lib/discovery/selection';
 import { parseCandidates } from '@/lib/discovery/candidates';
 import { steamIdentity } from '@/lib/discovery/steam-identities';
-const intent: DiscoveryIntent = { summary: 'Horror', searchQueries: ['horror'], mustHave: [], avoid: [], multiplayer: true };
+const intent = { multiplayer: true };
 const candidates: Candidate[] = [{ igdbId: 1, name: 'Game', description: 'Horror', context: '', gameModes: [2] }];
 const validation = { status: 'ready' as const, normalizedDescription: 'Horror multiplayer', confidence: 0.9,
   tags: [

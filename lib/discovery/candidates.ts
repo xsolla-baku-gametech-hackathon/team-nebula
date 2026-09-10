@@ -4,13 +4,13 @@ import { withMcp } from '@/lib/collector/mcp-client';
 import { parseProvider } from '@/lib/collector/http';
 import { plainText } from '@/lib/collector/steam-details';
 import { buildSearchQueries } from './search-queries';
-import type { Candidate, DescriptionValidation, DiscoveryIntent } from './types';
+import type { Candidate, DescriptionValidation } from './types';
 
 const SearchResult = z.object({ results: z.array(z.object({
   game: z.object({ id: z.number().int().positive(), name: z.string().min(1), summary: z.string().nullish(), game_modes: z.array(z.number().int()).nullish() }),
   content: z.string().optional(),
 })) });
-export function parseCandidates(input: unknown, intent: Pick<DiscoveryIntent, 'multiplayer'>): Candidate[] {
+export function parseCandidates(input: unknown, intent: { multiplayer: boolean | null }): Candidate[] {
   const result = parseProvider('igdb', SearchResult, input);
   const unique = new Map<number, Candidate>();
   for (const { game, content } of result.results) {
@@ -31,16 +31,6 @@ export async function findPreviewCandidates(validation: DescriptionValidation): 
     for (const query of buildSearchQueries(validation)) {
       const result = await call('semantic_search_games', { query, limit: 40, fields: ['id', 'name', 'summary', 'game_modes'] });
       for (const candidate of parseCandidates(result, validation)) if (!unique.has(candidate.igdbId)) unique.set(candidate.igdbId, candidate);
-    }
-    return [...unique.values()].slice(0, 60);
-  });
-}
-export async function findCandidates(intent: DiscoveryIntent): Promise<Candidate[]> {
-  return withMcp(async call => {
-    const unique = new Map<number, Candidate>();
-    for (const query of intent.searchQueries) {
-      const result = await call('semantic_search_games', { query, limit: 40, fields: ['id', 'name', 'summary', 'game_modes'] });
-      for (const candidate of parseCandidates(result, intent)) if (!unique.has(candidate.igdbId)) unique.set(candidate.igdbId, candidate);
     }
     return [...unique.values()].slice(0, 60);
   });
