@@ -1,46 +1,85 @@
-# Automatic live game discovery
+# Two-stage live game discovery
 
-`POST /api/games/discover` accepts natural language and returns up to ten matching games with their full collector data. It uses the configured xAI key; there is no manual game list or keyword-only fallback.
+Automatic discovery validates the user's game description, proposes search tags, previews matching names, and collects expensive statistics only after approval. Grok receives and ranks IGDB candidate data but does not call MCP itself; the backend owns all MCP calls and validation.
 
-```json
+## 1. Validate and preview
+
+```http
+POST /api/games/discover
+Content-Type: application/json
+
 {"query":"multiplayer horror games","limit":10}
 ```
 
-`query` must contain 3–2000 characters. `limit` defaults to ten and accepts integers from one to ten. Unknown properties are rejected.
+`query` contains 3–2000 characters and `limit` defaults to ten. A revised request may add up to three `clarifications` shaped as `{question,answer}`. Unknown properties are rejected.
 
-## Request flow
+Grok first returns a normalized description, confidence, explicit requirements, exclusions, and 2–12 discovery tags. Each tag has a category, required/preferred priority, and explicit/inferred basis. These are normalized discovery facets, not claims about Steam's canonical tags.
 
-1. Grok interprets the query into a summary, must-have requirements, exclusions, multiplayer preference, and up to two semantic search queries.
-2. IGDB MCP searches live for up to forty candidates per query. The backend deduplicates them, checks explicit multiplayer requirements against IGDB mode metadata, and sends at most sixty candidates to Grok.
-3. Grok ranks up to twenty matching candidates and explains each match. IDs must belong to the retrieved set and cannot repeat. A candidate's description is treated as data, not instructions.
-4. The backend resolves exact Steam external-game identities from IGDB. Ambiguous mappings are omitted.
-5. The live collector retrieves the highest-ranked games' Steam descriptions, prices, reviews, three comments, tags, and optional IGDB/Gamalytic enrichment. If Steam cannot load a selected game, lower-ranked Grok selections can replace it.
-6. The API returns structured facts and separately labelled AI match reasons. Fewer results are returned when there are not enough verified matches; the list is never padded with unrelated games.
+A description is searchable only when confidence is at least 0.65, it has at least two unique tags and one required tag, and Grok has no unanswered questions. Otherwise the API returns:
 
-## Response
+```json
+{"ok":true,"data":{"status":"needs_clarification","previewId":null,"questions":["What does the player do?"],"validation":{}}}
+```
 
-`{ok:true,data:{query,intent,games,failures,discovery},meta:{mode:"live",durationMs}}`
+No IGDB search occurs in that case. After clarification, the backend constructs semantic queries from the validated description and every accepted tag, searches IGDB MCP, and asks Grok to rank only those candidates. Candidate IDs and matched tags are checked against the supplied sets. Exact IGDB-to-Steam identities are required.
 
-Each game has the complete [collector contract](collector.md), plus `match:{source:"xai",reason,candidateIgdbId}`. Names are at `identity.name`; descriptions at `metadata.summary`. The discovery object records the model, candidate count, ranked count, Steam candidate count, requested/returned counts, completeness, and shortfall issues.
+A ready response contains no prices, reviews, sales estimates, or full game descriptions:
 
-A successful search with no matches returns 200 with an empty games array and `complete:false`. Input errors return 400. AI configuration, AI output, or discovery-provider failures return 503 with a typed safe error. Unexpected internal errors return 500. Optional enrichment failures remain per-game collector issues.
+```json
+{
+  "ok": true,
+  "data": {
+    "status": "ready_for_approval",
+    "previewId": "uuid",
+    "expiresAt": "ISO-8601 timestamp",
+    "validation": {},
+    "candidates": [
+      {"steamAppId":739630,"igdbId":132516,"name":"Phasmophobia","reason":"...","matchedTags":["Horror","Online co-op"]}
+    ],
+    "discovery": {"requestedCount":10,"returnedCount":10,"complete":true,"issues":[]}
+  },
+  "meta": {"mode":"live","durationMs":0}
+}
+```
 
-## Configuration and boundaries
+If no exact Steam matches exist, `status` is `no_matches` and no preview is stored. Fewer candidates may be returned rather than padding with unrelated games.
 
-Set `XAI_API_KEY`, `IGDB_MCP_CLIENT_ID`, and `IGDB_MCP_CLIENT_SECRET` in root `.env.local`. `XAI_MODEL` defaults to `grok-4.6`, verified against the account's model list when implemented. The backend calls xAI directly through `@ai-sdk/xai` and AI SDK structured outputs.
+## 2. Approve and collect
 
-Each successful nonempty discovery normally makes two paid Grok requests. Each AI stage has a 45-second timeout and a 4,000-output-token limit. Transient provider failures can retry once within that deadline. Input descriptions and candidate metadata are sent to xAI for interpretation/ranking. Responses API storage is disabled with `store:false`. This does not control a provider's other retention policies.
+Approve every displayed candidate:
 
-No game data, prompts, or discovery results are stored locally. HTTP responses and fetches use `no-store`; existing OAuth token and request gate coordination is retained. This endpoint permits 300 seconds; the host must support long requests. Ten-game collection alone usually takes about a minute; search, ranking, identity resolution, and replacement candidates add latency.
+```http
+POST /api/games/discover/collect
+Content-Type: application/json
 
-Similarity and requirement matching are model judgments, not guaranteed exhaustive search. The backend validates IDs, schemas, and multiplayer evidence; it does not independently prove every free-text preference. Sources can omit data or be unavailable. Missing revenue remains null.
+{"previewId":"uuid","approveAll":true}
+```
 
-The frontend and older `/api/discover` contract are unchanged. This endpoint is the backend entry point for the new live workflow. Market analysis and revenue prediction are still separate future work.
+Or approve a subset:
 
-## Run
+```json
+{"previewId":"uuid","selectedSteamAppIds":[739630,1966720]}
+```
+
+Exactly one approval form is required. IDs must be unique and belong to the stored preview. The collector then retrieves Steam descriptions, USD prices, release dates, tags, global review totals, up to three recent English comments, IGDB enrichment, and available Gamalytic estimates. Every returned game includes `match:{source:"xai",reason,matchedTags,candidateIgdbId}`.
+
+Approved games are not replaced silently. A failed approved game appears in `failures`, while successful games remain in the response. Direct AppID collection at `POST /api/games/collect` remains available and does not call Grok.
+
+## Preview lifecycle
+
+Ready previews are held in process memory for 30 minutes, with at most 100 records. Expired records are pruned and oldest records are evicted at capacity. A preview is claimed atomically during collection, released after an unexpected failure, and consumed after a normal result. It cannot be collected concurrently or reused.
+
+This memory store is suitable for the current single-process demo. Restarts remove previews, and multi-instance deployments require sticky routing or a future shared store. Full game statistics are never stored in the preview.
+
+Lifecycle errors use `PREVIEW_NOT_FOUND` (404), `PREVIEW_EXPIRED` (410), `PREVIEW_BUSY` or `PREVIEW_CONSUMED` (409), and `INVALID_SELECTION` (400). AI and discovery-provider failures return sanitized 503 responses. Every response uses `Cache-Control: no-store`.
+
+## Configuration and verification
+
+Set `XAI_API_KEY`, `IGDB_MCP_CLIENT_ID`, and `IGDB_MCP_CLIENT_SECRET` in root `.env.local`. `XAI_MODEL` defaults to `grok-4.6`. Structured xAI responses use `store:false`, a 45-second timeout, a 4,000-token output limit, and one bounded transient retry.
 
 ```bash
 corepack pnpm discovery:smoke "multiplayer horror games"
+corepack pnpm discovery:smoke --approve-all "multiplayer horror games"
 ```
 
-The command prints complete JSON without writing game files. Its exit status is nonzero for errors or fewer than ten verified games. Tests mock providers; the smoke command uses the real configured accounts.
+The first command prints only the preview. The second also collects all approved data. Both use live providers and write no game files. Market analysis, sales-history charts, and frontend integration remain separate work.
