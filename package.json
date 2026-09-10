@@ -12,11 +12,13 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "corpus:fetch": "tsx scripts/fetch-steam-catalog.ts",
+    "corpus:fetch": "tsx scripts/fetch-igdb-mcp.ts",
+    "corpus:fetch:steam": "tsx scripts/fetch-steam-catalog.ts",
     "corpus:embed": "tsx scripts/embed-corpus.ts",
     "corpus:verify": "tsx scripts/verify-corpus.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "clsx": "^2",
     "lucide-react": "^0.500",
     "nanoid": "^5",
@@ -29,6 +31,7 @@
     "zustand": "^5"
   },
   "devDependencies": {
+    "@phalcode/ts-igdb-client": "^1.0.31",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -37,6 +40,7 @@
     "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
+    "playwright": "^1.63.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.13",
     "typescript": "^5",
