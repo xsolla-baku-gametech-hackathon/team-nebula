@@ -8,6 +8,12 @@ import { driver } from './drivers';
 const MIN_MOVE_NOTICE_WEEKS = 3;
 const MOVE_THRESHOLD = 15;
 const MAX_MOVE_WEEKS = 8;
+const DATE_CONFIDENCE_WEIGHT = {
+  exact: 1,
+  month: 0.8,
+  quarter: 0.5,
+  vague: 0,
+} as const;
 
 function weekStart(base: Date, offset: number): Date {
   const d = new Date(base);
@@ -37,17 +43,32 @@ export function scoreReleaseRisk(
   horizonWeeks: number = 26,
 ): ReleaseWindowRisk {
   const windows: ReleaseWindow[] = [];
+  const scheduled = upcoming.filter(release =>
+    release.dateConfidence !== 'vague' && release.rangeStart && release.rangeEnd);
+
+  const weekRanges = Array.from({ length: horizonWeeks }, (_, offset) => {
+    const start = weekStart(today, offset);
+    return { start, end: weekStart(today, offset + 1) };
+  });
+  const overlapCount = new Map<number, number>();
+  for (const release of scheduled) {
+    const count = weekRanges.filter(({ start, end }) =>
+      release.rangeStart! < iso(end) && release.rangeEnd! > iso(start)).length;
+    overlapCount.set(release.igdbId, Math.max(1, count));
+  }
 
   for (let w = 0; w < horizonWeeks; w++) {
-    const ws = weekStart(today, w);
-    const we = weekStart(today, w + 1);
+    const ws = weekRanges[w].start;
+    const we = weekRanges[w].end;
 
-    const inWindow = upcoming.filter(r => {
-      if (r.dateConfidence === 'vague') return false;
-      return r.expectedDate >= iso(ws) && r.expectedDate < iso(we);
-    });
+    const inWindow = scheduled.filter(release =>
+      release.rangeStart! < iso(we) && release.rangeEnd! > iso(ws));
 
-    const threatSum = inWindow.reduce((s, r) => s + r.threat * r.similarity / 100, 0);
+    const threatSum = inWindow.reduce((sum, release) => {
+      const confidence = DATE_CONFIDENCE_WEIGHT[release.dateConfidence];
+      const possibleWeeks = overlapCount.get(release.igdbId) ?? 1;
+      return sum + (release.threat * release.similarity / 100) * confidence / possibleWeeks;
+    }, 0);
     const risk = clamp(0, 100, Math.round(threatSum));
 
     const drivers: Driver[] = [
@@ -82,9 +103,12 @@ export function scoreReleaseRisk(
   const reasoning: string[] = [];
 
   if (!plannedDate) {
-    decision = 'KEEP';
+    decision = 'INSUFFICIENT_DATA';
     recommendedDate = best?.weekStart ?? null;
-    reasoning.push('No planned date set.', best ? `Lowest-risk week: ${best.weekStart}.` : '');
+    reasoning.push('Add a planned release date to compare its risk with other weeks.');
+  } else if (!currentWindow) {
+    decision = 'INSUFFICIENT_DATA';
+    reasoning.push('The planned release date falls outside the available analysis horizon.');
   } else if (currentRisk - bestRisk >= MOVE_THRESHOLD) {
     const bestIdx = windows.indexOf(best!);
     if (bestIdx <= MIN_MOVE_NOTICE_WEEKS + MAX_MOVE_WEEKS) {
