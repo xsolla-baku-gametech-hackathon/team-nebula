@@ -89,7 +89,7 @@ export default function AnalyticsPhase({
 
   return (
     <>
-      <main className="screen-report max-w-[1200px] mx-auto px-6 py-5">
+      <div className="screen-report max-w-[1200px] mx-auto px-6 py-5">
         <StepPills active="launch-window" unlocked={unlockedSteps} onNavigate={onNavigate} />
 
         {resultsStale ? (
@@ -186,7 +186,7 @@ export default function AnalyticsPhase({
             <span className="material-symbols-outlined text-[14px]">restart_alt</span> New session
           </button>
         </div>
-      </main>
+      </div>
       {snapshot ? <PrintReport snapshot={snapshot} /> : null}
     </>
   );
