@@ -12,6 +12,12 @@ export async function GET() {
       igdbMcpConfigured: Boolean(process.env.IGDB_MCP_CLIENT_ID && process.env.IGDB_MCP_CLIENT_SECRET),
       // Configuration only; this health route does not probe upstream availability.
       grokConfigured: Boolean(process.env.XAI_API_KEY),
+      discovery: {
+        flow: 'preview_then_approve',
+        pendingPreviewStorage: 'memory',
+        previewTtlMinutes: 30,
+        maxPendingPreviews: 100,
+      },
     },
     corpus: { loaded: false, count: 0, version: 'none', upcomingCount: 0 },
     ai: {
