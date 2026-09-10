@@ -258,9 +258,9 @@ export type MarketReport = {
   };
 
   revenue: {
-    conservative: number;
-    base: number;
-    upside: number;
+    conservative: number | null;
+    base: number | null;
+    upside: number | null;
     currency: 'USD';
     confidence: ConfidenceBand;
     basedOnCount: number;
@@ -324,9 +324,9 @@ export type EstimatedPlayerReception = {
 // ── EstimatedRevenue ────────────────────────────────────────────────────
 
 export type EstimatedRevenue = {
-	conservative: number;
-	base: number;
-	upside: number;
+	conservative: number | null;
+	base: number | null;
+	upside: number | null;
 	confidence: ConfidenceBand;
 	basedOnCount: number;
 	method: string;

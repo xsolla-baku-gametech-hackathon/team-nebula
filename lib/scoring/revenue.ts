@@ -1,79 +1,87 @@
 /**
- * Predicts revenue range for comparable games or a candidate launch.
+ * Predicts a revenue range from scored comparable games.
  */
 
-import type { NormalizedGame, GameConcept, ConfidenceBand, Driver, EstimatedRevenue } from '@/lib/types';
+import type { ConfidenceBand, EstimatedRevenue, GameConcept, ScoredCompetitor } from '@/lib/types';
 import { driver } from './drivers';
 
-function roundSig(n: number, sig: number): number {
-  if (n === 0) return 0;
-  const d = Math.ceil(Math.log10(Math.abs(n)));
-  const power = sig - d;
-  const magnitude = 10 ** power;
-  return Math.round(n * magnitude) / magnitude;
+type RevenueObservation = {
+  adjustedRevenue: number;
+  weight: number;
+  priceNormalized: boolean;
+};
+
+function roundSig(value: number, significantDigits: number): number {
+  if (value === 0) return 0;
+  const digits = Math.ceil(Math.log10(Math.abs(value)));
+  const magnitude = 10 ** (significantDigits - digits);
+  return Math.round(value * magnitude) / magnitude;
 }
 
-function weightedPercentile(values: number[], weights: number[], p: number): number {
-  const pairs = values.map((v, i) => ({ v, w: weights[i] })).sort((a, b) => a.v - b.v);
-  const totalW = pairs.reduce((s, x) => s + x.w, 0);
-  if (totalW === 0) return 0;
+function weightedPercentile(observations: RevenueObservation[], percentile: number): number | null {
+  const sorted = [...observations].sort((a, b) => a.adjustedRevenue - b.adjustedRevenue);
+  const totalWeight = sorted.reduce((sum, item) => sum + item.weight, 0);
+  if (!sorted.length || !Number.isFinite(totalWeight) || totalWeight <= 0) return null;
 
-  let cumW = 0;
-  for (const pair of pairs) {
-    cumW += pair.w;
-    if (cumW / totalW >= p) return pair.v;
+  let cumulativeWeight = 0;
+  for (const observation of sorted) {
+    cumulativeWeight += observation.weight;
+    if (cumulativeWeight / totalWeight >= percentile) return observation.adjustedRevenue;
   }
-  return pairs[pairs.length - 1].v;
+  return sorted.at(-1)?.adjustedRevenue ?? null;
 }
 
-/**
- * Estimates a likely revenue range for a game concept by comparing it against similar released titles.
- *
- * Each comparable's revenue is normalized to the user's target price using a mild price elasticity
- * adjustment: revenue × (userPrice / comparablePrice)^0.6. The adjusted values are then summarized into
- * a conservative, base, and upside estimate using the 25th, 50th, and 80th percentiles.
- *
- * After the percentile-based estimate is calculated, the model applies a saturation penalty/boost and a
- * first-title discount to account for market crowding and launch experience risk. The result is rounded
- * to 2 significant figures and returned with a confidence band and explanatory drivers.
- */
+function knownNonNegative(value: number | null): value is number {
+  return value !== null && Number.isFinite(value) && value >= 0;
+}
+
 export function scoreRevenue(
   concept: GameConcept,
-  comparables: NormalizedGame[],
+  competitors: ScoredCompetitor[],
   saturationScore: number,
 ): EstimatedRevenue {
-  const withRevenue = comparables.filter(g => g.commercial.estimatedRevenueUsd.value !== null);
+  const rawTargetPrice = concept.commercial.priceUsd;
+  const targetPrice = knownNonNegative(rawTargetPrice) ? rawTargetPrice : null;
+  const observations = competitors.flatMap<RevenueObservation>(competitor => {
+    const revenue = competitor.game.commercial.estimatedRevenueUsd.value;
+    const similarity = competitor.similarity.score;
+    if (!knownNonNegative(revenue) || !Number.isFinite(similarity)) return [];
 
-  if (withRevenue.length === 0) {
+    const boundedSimilarity = Math.max(0, Math.min(1, similarity));
+    const weight = boundedSimilarity ** 2;
+    if (weight <= 0) return [];
+
+    const comparablePrice = competitor.game.commercial.priceUsd.value;
+    const canNormalizePrice = targetPrice !== null
+      && targetPrice > 0
+      && knownNonNegative(comparablePrice)
+      && comparablePrice > 0;
+    const adjustedRevenue = canNormalizePrice
+      ? revenue * (targetPrice / comparablePrice) ** 0.6
+      : revenue;
+    if (!Number.isFinite(adjustedRevenue)) return [];
+
+    return [{ adjustedRevenue, weight, priceNormalized: canNormalizePrice }];
+  });
+
+  const conservativeValue = weightedPercentile(observations, 0.25);
+  const baseValue = weightedPercentile(observations, 0.50);
+  const upsideValue = weightedPercentile(observations, 0.80);
+  if (conservativeValue === null || baseValue === null || upsideValue === null) {
     return {
-      conservative: 0,
-      base: 0,
-      upside: 0,
+      conservative: null,
+      base: null,
+      upside: null,
       confidence: 'LOW',
       basedOnCount: 0,
-      method: 'insufficient data',
-      drivers: [driver('No revenue data', 0, 'No comparables have revenue estimates')],
+      method: 'insufficient revenue evidence',
+      drivers: [driver('No usable revenue evidence', 0, 'No comparable combines known revenue with a positive similarity weight')],
     };
   }
 
-  const userPrice = concept.commercial.priceUsd ?? 14.99;
-
-  const revenues: number[] = [];
-  const weights: number[] = [];
-
-  for (const g of withRevenue) {
-    const rev = g.commercial.estimatedRevenueUsd.value!;
-    const gamePrice = g.commercial.priceUsd.value ?? userPrice;
-    const adj = rev * Math.pow(userPrice / gamePrice, 0.6);
-    revenues.push(adj);
-    weights.push(1); // simplified: equal weights for skeleton
-  }
-
-  let conservative = weightedPercentile(revenues, weights, 0.25);
-  let base = weightedPercentile(revenues, weights, 0.50);
-  let upside = weightedPercentile(revenues, weights, 0.80);
-
-  // Saturation modifier
+  let conservative = conservativeValue;
+  let base = baseValue;
+  let upside = upsideValue;
   if (saturationScore > 70) {
     conservative *= 0.85;
     base *= 0.85;
@@ -83,8 +91,6 @@ export function scoreRevenue(
     base *= 1.10;
     upside *= 1.10;
   }
-
-  // First title modifier
   if (concept.commercial.isFirstTitle) {
     conservative *= 0.75;
     base *= 0.75;
@@ -95,22 +101,27 @@ export function scoreRevenue(
   base = roundSig(base, 2);
   upside = roundSig(upside, 2);
 
-  // Confidence
   let confidence: ConfidenceBand = 'LOW';
-  if (withRevenue.length >= 10) confidence = 'HIGH';
-  else if (withRevenue.length >= 6) confidence = 'MEDIUM';
+  if (observations.length >= 10) confidence = 'HIGH';
+  else if (observations.length >= 6) confidence = 'MEDIUM';
 
-  const drivers: Driver[] = [
-    driver('Comparable cohort', base, `${withRevenue.length} games with revenue data`),
-  ];
+  const normalizedCount = observations.filter(item => item.priceNormalized).length;
+  const priceDetail = targetPrice === null
+    ? 'Target price unavailable; price normalization omitted'
+    : targetPrice === 0
+      ? 'Free target price; paid-unit price normalization omitted'
+      : `${normalizedCount} of ${observations.length} observations price-normalized; free or unknown comparable prices used reported revenue`;
 
   return {
     conservative,
     base,
     upside,
     confidence,
-    basedOnCount: withRevenue.length,
-    method: 'weighted percentile over comparable revenue',
-    drivers,
+    basedOnCount: observations.length,
+    method: 'similarity-weighted percentiles over comparable revenue',
+    drivers: [
+      driver('Similarity-weighted cohort', base, `${observations.length} games with usable revenue and similarity evidence`),
+      driver('Price normalization', 0, priceDetail),
+    ],
   };
 }
