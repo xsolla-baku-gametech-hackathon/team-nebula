@@ -105,6 +105,10 @@ describe('live market analysis route', () => {
     expect(body.meta.corpusVersion).toBe('live');
     expect(body.data.report.revenue.basedOnCount).toBe(1);
     expect(body.data.report.revenue.method).toContain('similarity-weighted');
+    expect(body.data.report.revenue.drivers).toEqual(expect.arrayContaining([
+      expect.objectContaining({ label: 'Similarity-weighted cohort' }),
+      expect.objectContaining({ label: 'Price normalization' }),
+    ]));
     expect(body.data.report.releaseData).toMatchObject({
       status: 'live',
       source: 'igdb-mcp',

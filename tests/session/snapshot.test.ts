@@ -13,6 +13,7 @@ const report: MarketReport = {
     confidence: 'MEDIUM',
     basedOnCount: 1,
     method: 'Comparable cohort',
+    drivers: [],
   },
   reception: { predictedPositiveRatio: 0.85, cohortMedian: 0.82, band: 'MEDIUM' },
   releaseWindows: [],
