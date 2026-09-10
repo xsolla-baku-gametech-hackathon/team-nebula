@@ -12,7 +12,6 @@ import {
   ApiClientError,
   collectApprovedGames,
   discoverGamePreview,
-  type ApprovedGame,
   type DiscoveryCandidate,
   type DiscoveryValidation,
 } from "@/lib/api/client";
@@ -29,11 +28,11 @@ import {
   createSnapshot,
   snapshotFromImport,
 } from "@/lib/session/snapshot";
+import { scoreCompetitor } from "@/lib/scoring/competitor";
 import type {
   GameConcept,
   GameMode,
   Perspective,
-  ScoredCompetitor,
 } from "@/lib/types";
 
 type DiscoveryStage = "idle" | "validating" | "collecting";
@@ -108,35 +107,6 @@ function fallbackConcept(query: string, validation: DiscoveryValidation): GameCo
       "priceUsd",
       "plannedRelease",
     ],
-  };
-}
-
-function toCompetitor(game: ApprovedGame, validation: DiscoveryValidation): ScoredCompetitor {
-  const matched = new Set(game.match.matchedTags.map((tag) => tag.toLocaleLowerCase()));
-  const required = validation.tags.filter((tag) => tag.priority === "required");
-  const preferred = validation.tags.filter((tag) => tag.priority === "preferred");
-  const ratio = (tags: DiscoveryValidation["tags"]) =>
-    tags.length
-      ? tags.filter((tag) => matched.has(tag.name.toLocaleLowerCase())).length / tags.length
-      : 1;
-  const score = Math.min(1, ratio(required) * 0.75 + ratio(preferred) * 0.25);
-
-  return {
-    game,
-    similarity: {
-      score,
-      rationale: game.match.reason,
-      components: {
-        semantic: score,
-        mechanics: 0,
-        genre: 0,
-        theme: 0,
-        gameMode: 0,
-        price: 0,
-      },
-    },
-    competitiveThreat: Math.round(score * 100),
-    userAdded: false,
   };
 }
 
@@ -329,7 +299,7 @@ export default function Home() {
         },
       };
       const nextCompetitors = collectionResult.value.games.map((game) =>
-        toCompetitor(game, validation),
+        scoreCompetitor(nextConcept, game, game.match.semanticScore, game.match.reason),
       );
       if (!nextCompetitors.length) throw new Error("No approved game details could be collected.");
 
