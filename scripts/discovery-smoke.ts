@@ -10,11 +10,11 @@ async function main() {
     process.exitCode = 1;
     return;
   }
-  const { discoverGames } = await import('../lib/discovery/discover');
+  const { previewGames } = await import('../lib/discovery/preview');
   const started = Date.now();
-  const result = await discoverGames({ query, limit: 10 });
+  const result = await previewGames({ query, limit: 10 });
   console.log(JSON.stringify({ ...result, durationMs: Date.now() - started }, null, 2));
-  if (!result.discovery.complete) process.exitCode = 1;
+  if (result.status !== 'ready_for_approval' || !result.discovery.complete) process.exitCode = 1;
 }
 void main().catch(() => {
   console.error('Discovery failed; check provider configuration and retry.');
