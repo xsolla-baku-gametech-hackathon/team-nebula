@@ -12,7 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "corpus:fetch": "tsx scripts/build-corpus.ts",
+    "corpus:fetch": "tsx scripts/fetch-steam-catalog.ts",
     "corpus:embed": "tsx scripts/embed-corpus.ts",
     "corpus:verify": "tsx scripts/verify-corpus.ts"
   },
