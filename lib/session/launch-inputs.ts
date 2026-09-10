@@ -35,6 +35,9 @@ export function launchDateError(value: string | null, today = new Date()): strin
   const maximum = new Date(start);
   maximum.setUTCFullYear(maximum.getUTCFullYear() + 1);
 
+  if (Number.isNaN(candidate.getTime()) || dateOnly(candidate) !== normalized) {
+    return 'Choose a valid planned release date.';
+  }
   if (candidate < start) return 'The planned release date must be today or later.';
   if (candidate > maximum) return 'The live launch calendar supports dates within the next 12 months.';
   return null;
