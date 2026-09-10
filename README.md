@@ -25,7 +25,7 @@ Every number on screen carries a provenance label. Facts from Steam, estimates f
 
 ## Architecture in one line
 
-The current backend validates natural-language descriptions with Grok, previews IGDB MCP matches at `POST /api/games/discover`, and collects Steam/Gamalytic facts only after `POST /api/games/discover/collect` approval. Explicit AppIDs can use `POST /api/games/collect`. Pending previews live in memory for 30 minutes; full game results are not stored. See [the discovery guide](docs/discovery.md).
+The current backend validates natural-language descriptions with Grok, previews IGDB MCP matches at `POST /api/games/discover`, and collects Steam/Gamalytic facts only after `POST /api/games/discover/collect` approval. `POST /api/analyze` then queries IGDB MCP for similar upcoming PC releases and scores a 26–52 week launch calendar. Pending previews live in memory for 30 minutes; game and report data are not stored on the server. See [the discovery guide](docs/discovery.md).
 
 ---
 
@@ -58,7 +58,7 @@ pnpm collector:smoke 739630       # optional live backend check; no data files
 pnpm dev
 ```
 
-The interactive discovery flow requires `XAI_API_KEY` plus the IGDB MCP credentials. It validates with Grok, searches IGDB, and fetches approved records live. `data/games.json` and `data/index.bin` remain available only to legacy corpus routes; the main UI does not use them.
+The interactive discovery flow requires `XAI_API_KEY` plus the IGDB MCP credentials. It validates with Grok, searches IGDB, and fetches approved records and upcoming releases live. The browser retains the latest completed session in localStorage and can export its frozen snapshot as JSON or a complete print-to-PDF report. `data/games.json` and `data/index.bin` remain available only to legacy corpus routes; the main UI does not use them.
 
 ## Stack
 

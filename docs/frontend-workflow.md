@@ -20,36 +20,22 @@ Single Zustand store, persisted to localStorage.
 
 ```ts
 type Store = {
-  phase: 'landing' | 'concept' | 'refine' | 'comparables' | 'forecast';
-
+  phase: 'landing' | 'describe' | 'comparables' | 'analytics';
+  description: string;
+  genres: string[];
   concept: GameConcept | null;
-  questions: ClarifyingQuestion[];
-  answeredFields: Set<ConceptField>;
-
+  validation: DiscoveryValidation | null;
+  questions: string[];
   competitors: ScoredCompetitor[];
-  excludedAppIds: number[];
-  manualAppIds: number[];
-
+  report: MarketReport | null;
   snapshot: Snapshot | null;
-  snapshotStale: boolean;              // concept.version !== snapshot.conceptVersion
-
-  loading: Partial<Record<'analyze'|'discover'|'report', boolean>>;
-  degraded: DegradedFlag[];
-
-  // actions
-  analyzeConcept(text: string): Promise<void>;
-  answerQuestion(field: ConceptField, value: string): void;
-  discover(): Promise<void>;
-  toggleCompetitor(appId: number): void;
-  addCompetitor(appId: number): Promise<void>;
-  runAnalysis(): Promise<void>;
-  reset(): void;
+  resultsStale: boolean;
 };
 ```
 
 Three rules:
 
-- **Server calls only from actions.** Components never `fetch`. This keeps every network call in one file, which makes the `DEMO_MODE` swap a single interception point.
+- **Server calls use the typed API client in `lib/api/client.ts`.** The page orchestrator owns transient request state; only stable session data is persisted.
 - **`snapshot` is deep-frozen.** Sections 3 and 4 read from it exclusively. Nothing recomputes; nothing derives a number a second time.
 - **Editing the concept never mutates the snapshot.** It bumps `concept.version`, which sets `snapshotStale`, which shows a re-analyze banner. The old numbers stay on screen and stay internally consistent until explicitly replaced.
 
@@ -293,7 +279,7 @@ Both read the frozen snapshot. Both stamp `snapshotId` and `corpusVersion` into 
 
 ## PDF export
 
-`window.print()` against a print stylesheet. No server route, no PDF library, no headless browser.
+`window.print()` against a print stylesheet. The print-only report includes the concept and assumptions, forecast metrics and verdict, every comparable game with up to three review comments, and the live upcoming-release calendar. No server route, PDF library, or headless browser is required.
 
 ```css
 @media print {
@@ -376,7 +362,7 @@ Staged progress makes a sub-second wait feel purposeful. It also happens to narr
 
 ## Reset
 
-Always visible at the bottom: **Start new session**. Confirms, clears the store and localStorage, returns to section 0.
+Always visible at the bottom: **Start new session**. It clears the store and localStorage and returns to section 0.
 
 Needs to be one click during a demo. Between two run-throughs you do not want to be clearing storage in devtools.
 

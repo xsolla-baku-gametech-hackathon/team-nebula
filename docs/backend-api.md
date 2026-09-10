@@ -12,7 +12,7 @@ The current UI uses the live, approval-gated routes:
 
 1. `POST /api/games/discover` validates the description with Grok. An unclear description returns questions without calling IGDB. A ready description returns up to ten verified Steam game names, match reasons, and tags.
 2. `POST /api/games/discover/collect` accepts only Steam IDs from that preview and fetches current Steam, IGDB, and Gamalytic details. Full game records are not persisted.
-3. `POST /api/analyze` scores those collected records directly.
+3. `POST /api/analyze` scores those collected records and queries IGDB MCP for similar upcoming PC releases in the requested launch horizon.
 
 `POST /api/discover` and the other corpus routes remain available for compatibility, but the main UI does not use `data/games.json`.
 
@@ -211,14 +211,16 @@ Concept + competitors → the full market report.
   concept: GameConcept;
   comparables?: NormalizedGame[];      // 1–10, used by the live UI
   competitorAppIds?: number[];          // legacy corpus compatibility
-  horizonWeeks?: number;                // default 26
+  horizonWeeks?: number;                // integer, 26–52; default 26
 }
 
 // response data
 { report: MarketReport }
 ```
 
-Runs saturation, revenue, reception and release-risk over the given competitor set. Live comparable records are scored directly; the corpus is loaded only for the legacy AppID request form.
+Runs saturation, revenue, reception and release-risk over the given competitor set. Live comparable records are scored directly; the corpus is loaded only for the legacy AppID request form. Release risk comes from a fresh IGDB MCP semantic search followed by PC release-date lookup. Exact, month, quarter and unknown dates keep separate confidence levels, and uncertain windows contribute proportionally across the weeks they overlap.
+
+The report includes `releaseData.status`, counts, timestamp and issues. If the upcoming-release provider fails, the other forecast sections still return and the verdict is `INSUFFICIENT_DATA`; the route never presents missing provider data as a zero-risk calendar.
 
 Kept separate from discovery so selecting competitors never repeats Grok validation, IGDB search, or collection. The user approves live records first, then analyzes that selected cohort once.
 
@@ -246,7 +248,7 @@ The client already holds the snapshot; this route exists to set the download hea
 }
 ```
 
-Re-importable through `/api/concept/import`, which closes the loop.
+The browser can re-import the wrapper directly and restore the exact frozen analysis snapshot.
 
 PDF export is client-side (`window.print()`), so there is no route for it. See [frontend-workflow.md](frontend-workflow.md#pdf-export).
 
