@@ -1,6 +1,6 @@
 # Live game data collector
 
-`similar-games-data-collector` prepares structured game facts for later display and analysis. The current entry point accepts selected Steam AppIDs. Game selection, Grok concept extraction, analysis, sales-history charts, and frontend integration are separate future work.
+`similar-games-data-collector` prepares structured game facts for later display and analysis. The current entry point accepts selected Steam AppIDs. For automatic selection from natural language, use the [Grok discovery endpoint](discovery.md). Market analysis, sales-history charts, and frontend integration remain future work.
 
 ## Request
 
@@ -26,7 +26,7 @@ Invalid JSON/input returns 400. Partial success returns 200 with per-game failur
 
 ## Providers and configuration
 
-Set `IGDB_MCP_CLIENT_ID` and `IGDB_MCP_CLIENT_SECRET` in root `.env.local`. These are MCP portal credentials, not Twitch REST credentials. Next.js does not load nested route-directory env files. Never commit secrets. Steam's public store endpoints and Gamalytic's free list endpoint do not require keys. `XAI_API_KEY` is reserved for the later AI stage and is not used here.
+Set `IGDB_MCP_CLIENT_ID` and `IGDB_MCP_CLIENT_SECRET` in root `.env.local`. These are MCP portal credentials, not Twitch REST credentials. Next.js does not load nested route-directory env files. Never commit secrets. Steam's public store endpoints and Gamalytic's free list endpoint do not require keys. `XAI_API_KEY` is used by the discovery endpoint for intent extraction and ranking; collecting explicit AppIDs does not call Grok.
 
 The MCP SDK connects directly to `https://mcp.igdb.com/mcp`; no Python bridge or local MCP server is required. OAuth uses `https://mcp-auth.igdb.com/oauth2/token` with the `igdb-mcp/read` scope. Matching requires one unique Steam external-game identity; ambiguous matches are omitted instead of guessing names.
 
