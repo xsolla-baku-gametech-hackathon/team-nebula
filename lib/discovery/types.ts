@@ -1,5 +1,13 @@
 import { z } from 'zod';
 
+export const DiscoveryTagSchema = z.object({
+  name: z.string().trim().min(1).max(80),
+  category: z.enum(['genre', 'theme', 'mechanic', 'mode', 'perspective', 'setting', 'tone']),
+  priority: z.enum(['required', 'preferred']),
+  basis: z.enum(['explicit', 'inferred']),
+}).strict();
+export type DiscoveryTag = z.infer<typeof DiscoveryTagSchema>;
+
 export const DiscoverInput = z.object({
   query: z.string().trim().min(3).max(2000),
   limit: z.number().int().min(1).max(10).default(10),
