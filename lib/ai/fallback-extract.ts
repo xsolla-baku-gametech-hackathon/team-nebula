@@ -107,7 +107,11 @@ export function fallbackExtract(text: string): { concept: GameConcept; questions
 
   const questions: { field: ConceptField; question: string; suggestions?: string[]; skippable: true }[] = [];
   if (!genres[0]) questions.push({ field: 'primaryGenre', question: "What's the primary genre?", suggestions: ['Horror', 'RPG', 'Shooter', 'Platformer', 'Strategy', 'Survival'], skippable: true });
+  if (modes.length === 0) questions.push({ field: 'gameModes', question: "How many players? (solo, co-op, multiplayer)", suggestions: ['Singleplayer', 'Online Co-op', 'Local Co-op', 'Online PvP', 'MMO'], skippable: true });
   if (!perspective) questions.push({ field: 'perspective', question: "What's the camera perspective?", suggestions: ['First person', 'Third person', 'Isometric', 'Top down', 'Side view'], skippable: true });
+  if (mechanics.length < 2) questions.push({ field: 'mechanics', question: "What are the core mechanics? (e.g. crafting, stealth, permadeath, procedural)", skippable: true });
+  if (!priceUsd) questions.push({ field: 'priceUsd', question: "What's your target price point?", suggestions: ['$4.99', '$9.99', '$14.99', '$19.99', '$29.99'], skippable: true });
+  if (!plannedRelease) questions.push({ field: 'plannedRelease', question: "When are you planning to release?", suggestions: ['Q1 2026', 'Q2 2026', 'Q3 2026', 'Q4 2026'], skippable: true });
 
   return { concept, questions };
 }
