@@ -19,7 +19,9 @@
     "collector:smoke": "node --conditions=react-server --import tsx scripts/collector-smoke.ts"
   },
   "dependencies": {
+    "@ai-sdk/xai": "^4.0.57",
     "@modelcontextprotocol/sdk": "^1.30.0",
+    "ai": "^7.0.97",
     "cheerio": "^1.2.0",
     "clsx": "^2",
     "lucide-react": "^0.500",
