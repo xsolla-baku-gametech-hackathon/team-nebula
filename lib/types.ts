@@ -97,6 +97,15 @@ export type TimePoint = { t: string; v: number };
  * A normalized Steam title after ingestion and cleaning.
  * This is the canonical shape used for corpus matching, scoring, and reporting.
  */
+export type GameReviewComment = {
+  id: string;
+  text: string;
+  language: 'english';
+  recommended: boolean;
+  createdAt: string;
+  helpfulVotes: number;
+};
+
 export type NormalizedGame = {
   identity: {
     steamAppId: number;
@@ -136,6 +145,7 @@ export type NormalizedGame = {
     negative: Sourced<number>;
     positiveRatio: Sourced<number>;
     sentimentSummary: Sourced<string>;
+    comments?: GameReviewComment[];
   };
 
   history?: {
