@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import WelcomePhase from "@/components/phases/WelcomePhase";
 import DescribePhase from "@/components/phases/DescribePhase";
 import ComparablesPhase from "@/components/phases/ComparablesPhase";
 import AnalyticsPhase from "@/components/phases/AnalyticsPhase";
+import type { Step } from "@/components/phases/StepPills";
 import {
   analyzeDescription,
   analyzeMarket,
@@ -15,15 +16,26 @@ import {
   type DiscoveryCandidate,
   type DiscoveryValidation,
 } from "@/lib/api/client";
+import {
+  analysisHorizonWeeks,
+  dateInputValue,
+  launchDateError,
+} from "@/lib/session/launch-inputs";
+import {
+  SESSION_STORAGE_KEY,
+  useSessionStore,
+} from "@/lib/session/store";
+import {
+  createSnapshot,
+  snapshotFromImport,
+} from "@/lib/session/snapshot";
 import type {
   GameConcept,
   GameMode,
-  MarketReport,
   Perspective,
   ScoredCompetitor,
 } from "@/lib/types";
 
-export type Phase = "landing" | "describe" | "comparables" | "analytics";
 type DiscoveryStage = "idle" | "validating" | "collecting";
 
 function errorMessage(error: unknown): string {
@@ -129,26 +141,44 @@ function toCompetitor(game: ApprovedGame, validation: DiscoveryValidation): Scor
 }
 
 export default function Home() {
-  const [phase, setPhase] = useState<Phase>("landing");
-  const [description, setDescription] = useState("");
-  const [genres, setGenres] = useState<string[]>([]);
-  const [concept, setConcept] = useState<GameConcept | null>(null);
-  const [validation, setValidation] = useState<DiscoveryValidation | null>(null);
-  const [questions, setQuestions] = useState<string[]>([]);
+  const session = useSessionStore();
+  const {
+    phase, description, genres, concept, validation, questions, competitors,
+    report, snapshot, resultsStale, hasHydrated, patchSession, resetSession,
+    rehydrateSession,
+  } = session;
   const [previewId, setPreviewId] = useState<string | null>(null);
   const [candidates, setCandidates] = useState<DiscoveryCandidate[]>([]);
   const [selectedSteamAppIds, setSelectedSteamAppIds] = useState<number[]>([]);
-  const [competitors, setCompetitors] = useState<ScoredCompetitor[]>([]);
-  const [report, setReport] = useState<MarketReport | null>(null);
   const [discoveryStage, setDiscoveryStage] = useState<DiscoveryStage>("idle");
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const goTo = useCallback((nextPhase: Phase) => setPhase(nextPhase), []);
+  useEffect(() => {
+    void rehydrateSession();
+    const syncSession = (event: StorageEvent) => {
+      if (event.key === SESSION_STORAGE_KEY || event.key === null) void rehydrateSession();
+    };
+    window.addEventListener("storage", syncSession);
+    return () => window.removeEventListener("storage", syncSession);
+  }, [rehydrateSession]);
+
+  const unlockedSteps: Step[] = [
+    "describe",
+    ...(competitors.length ? ["comparables" as const] : []),
+    ...(report ? ["launch-window" as const] : []),
+  ];
+
+  const navigateStep = useCallback((step: Step) => {
+    if (step === "comparables" && !competitors.length) return;
+    if (step === "launch-window" && !report) return;
+    patchSession({
+      phase: step === "launch-window" ? "analytics" : step,
+    });
+    setError(null);
+  }, [competitors.length, patchSession, report]);
 
   const clearPreview = useCallback(() => {
-    setValidation(null);
-    setQuestions([]);
     setPreviewId(null);
     setCandidates([]);
     setSelectedSteamAppIds([]);
@@ -156,37 +186,70 @@ export default function Home() {
   }, []);
 
   const handleDescriptionChange = useCallback((value: string) => {
-    setDescription(value);
     clearPreview();
-  }, [clearPreview]);
+    patchSession({
+      description: value,
+      validation: null,
+      questions: [],
+      resultsStale: Boolean(competitors.length || report),
+    });
+  }, [clearPreview, competitors.length, patchSession, report]);
 
   const handleGenresChange = useCallback((value: string[]) => {
-    setGenres(value);
     clearPreview();
-  }, [clearPreview]);
+    patchSession({
+      genres: value,
+      validation: null,
+      questions: [],
+      resultsStale: Boolean(competitors.length || report),
+    });
+  }, [clearPreview, competitors.length, patchSession, report]);
 
   const startNewSession = useCallback(() => {
-    setPhase("landing");
-    setDescription("");
-    setGenres([]);
-    setConcept(null);
-    setValidation(null);
-    setQuestions([]);
+    resetSession();
     setPreviewId(null);
     setCandidates([]);
     setSelectedSteamAppIds([]);
-    setCompetitors([]);
-    setReport(null);
     setDiscoveryStage("idle");
     setAnalysisLoading(false);
     setError(null);
-  }, []);
+  }, [resetSession]);
 
   const handleImport = useCallback((data: Record<string, unknown>) => {
-    if (typeof data.description === "string") setDescription(data.description);
-    if (Array.isArray(data.genres)) setGenres(data.genres as string[]);
-    setPhase("describe");
-  }, []);
+    const importedSnapshot = snapshotFromImport(data);
+    if (importedSnapshot) {
+      patchSession({
+        phase: "analytics",
+        description: importedSnapshot.concept.concept.rawText,
+        genres: importedSnapshot.concept.taxonomy.primaryGenre
+          ? [importedSnapshot.concept.taxonomy.primaryGenre]
+          : [],
+        concept: importedSnapshot.concept,
+        validation: null,
+        questions: [],
+        competitors: importedSnapshot.competitors,
+        report: importedSnapshot.report,
+        snapshot: importedSnapshot,
+        resultsStale: false,
+      });
+      clearPreview();
+      return;
+    }
+
+    patchSession({
+      phase: "describe",
+      description: typeof data.description === "string" ? data.description : "",
+      genres: Array.isArray(data.genres) ? data.genres.filter((item): item is string => typeof item === "string") : [],
+      concept: null,
+      validation: null,
+      questions: [],
+      competitors: [],
+      report: null,
+      snapshot: null,
+      resultsStale: false,
+    });
+    clearPreview();
+  }, [clearPreview, patchSession]);
 
   const handleAnalyze = useCallback(async (
     clarifications: { question: string; answer: string }[],
@@ -203,14 +266,14 @@ export default function Home() {
         clarifications,
         10,
       );
-      setValidation(result.validation);
+      patchSession({ validation: result.validation });
 
       if (result.status === "needs_clarification") {
-        setQuestions(result.questions);
+        patchSession({ questions: result.questions });
         return;
       }
 
-      setQuestions([]);
+      patchSession({ questions: [] });
       setCandidates(result.candidates);
       setPreviewId(result.previewId);
       setSelectedSteamAppIds(result.candidates.map((candidate) => candidate.steamAppId));
@@ -219,13 +282,12 @@ export default function Home() {
         setError(result.discovery.issues[0] ?? "No verified Steam matches were found.");
       }
     } catch (requestError) {
-      setValidation(null);
-      setQuestions([]);
+      patchSession({ validation: null, questions: [] });
       setError(errorMessage(requestError));
     } finally {
       setDiscoveryStage("idle");
     }
-  }, [description, genres]);
+  }, [description, genres, patchSession]);
 
   const handleToggleCandidate = useCallback((steamAppId: number) => {
     setSelectedSteamAppIds((previous) =>
@@ -256,60 +318,123 @@ export default function Home() {
 
     try {
       if (collectionResult.status === "rejected") throw collectionResult.reason;
-      const nextConcept = conceptResult.status === "fulfilled"
+      const extractedConcept = conceptResult.status === "fulfilled"
         ? conceptResult.value.concept
         : fallbackConcept(query, validation);
+      const nextConcept: GameConcept = {
+        ...extractedConcept,
+        commercial: {
+          ...extractedConcept.commercial,
+          plannedRelease: dateInputValue(extractedConcept.commercial.plannedRelease) || null,
+        },
+      };
       const nextCompetitors = collectionResult.value.games.map((game) =>
         toCompetitor(game, validation),
       );
+      if (!nextCompetitors.length) throw new Error("No approved game details could be collected.");
 
-      if (!nextCompetitors.length) {
-        throw new Error("No approved game details could be collected.");
-      }
-
-      setConcept(nextConcept);
-      setCompetitors(nextCompetitors);
-      setReport(null);
+      patchSession({
+        phase: "comparables",
+        concept: nextConcept,
+        competitors: nextCompetitors,
+        report: null,
+        snapshot: null,
+        resultsStale: false,
+      });
+      setPreviewId(null);
+      setCandidates([]);
+      setSelectedSteamAppIds([]);
       if (collectionResult.value.failures.length) {
         setError(`${collectionResult.value.failures.length} approved game(s) could not be collected.`);
       }
-      goTo("comparables");
     } catch (requestError) {
       setError(errorMessage(requestError));
     } finally {
       setDiscoveryStage("idle");
     }
   }, [
-    concept,
-    description,
-    genres,
-    goTo,
-    previewId,
-    selectedSteamAppIds,
+    concept, description, genres, patchSession, previewId, selectedSteamAppIds,
     validation,
   ]);
 
+  const handlePlannedReleaseChange = useCallback((value: string) => {
+    if (!concept) return;
+    patchSession({
+      concept: {
+        ...concept,
+        commercial: { ...concept.commercial, plannedRelease: value || null },
+      },
+      resultsStale: Boolean(report),
+    });
+  }, [concept, patchSession, report]);
+
+  const handleTargetPriceChange = useCallback((value: number | null) => {
+    if (!concept) return;
+    patchSession({
+      concept: {
+        ...concept,
+        commercial: {
+          ...concept.commercial,
+          priceUsd: value !== null && Number.isFinite(value) && value >= 0 ? value : null,
+        },
+      },
+      resultsStale: Boolean(report),
+    });
+  }, [concept, patchSession, report]);
+
+  const currentLaunchError = launchDateError(concept?.commercial.plannedRelease ?? null);
+
   const handleRunPredictions = useCallback(async () => {
     if (!concept || !competitors.length) return;
+    const launchError = launchDateError(concept.commercial.plannedRelease);
+    if (launchError) {
+      setError(launchError);
+      return;
+    }
 
     setAnalysisLoading(true);
     setError(null);
     try {
+      const horizonWeeks = analysisHorizonWeeks(concept.commercial.plannedRelease!, new Date());
       const result = await analyzeMarket(
         concept,
         competitors.map((competitor) => competitor.game),
+        horizonWeeks,
       );
-      setReport(result.report);
-      goTo("analytics");
+      const nextSnapshot = createSnapshot({
+        concept,
+        competitors,
+        report: result.report,
+        corpusVersion: result.corpusVersion,
+      });
+      patchSession({
+        phase: "analytics",
+        report: result.report,
+        snapshot: nextSnapshot,
+        resultsStale: false,
+      });
     } catch (requestError) {
       setError(errorMessage(requestError));
     } finally {
       setAnalysisLoading(false);
     }
-  }, [concept, competitors, goTo]);
+  }, [concept, competitors, patchSession]);
+
+  if (!hasHydrated) {
+    return (
+      <div className="min-h-[calc(100vh-48px)] flex items-center justify-center text-on-surface-variant text-[13px]">
+        Restoring your latest session...
+      </div>
+    );
+  }
 
   if (phase === "landing") {
-    return <WelcomePhase onStartScratch={() => goTo("describe")} onImport={handleImport} />;
+    return (
+      <WelcomePhase
+        onStartScratch={() => patchSession({ phase: "describe" })}
+        onImport={handleImport}
+      />
+    );
   }
 
   if (phase === "describe") {
@@ -330,19 +455,31 @@ export default function Home() {
         onSelectAllCandidates={handleSelectAllCandidates}
         onApprove={handleApprove}
         onStartNewSession={startNewSession}
+        hasCollectedResults={Boolean(competitors.length)}
+        unlockedSteps={unlockedSteps}
+        onNavigate={navigateStep}
+        onViewCollectedResults={() => patchSession({ phase: "comparables" })}
       />
     );
   }
 
-  if (phase === "comparables") {
+  if (phase === "comparables" && concept) {
     return (
       <ComparablesPhase
         competitors={competitors}
         onNext={handleRunPredictions}
-        onBack={() => goTo("describe")}
+        onBack={() => patchSession({ phase: "describe" })}
         onStartNewSession={startNewSession}
         loading={analysisLoading}
         error={error}
+        resultsStale={resultsStale}
+        plannedRelease={dateInputValue(concept.commercial.plannedRelease)}
+        targetPrice={concept.commercial.priceUsd}
+        launchInputError={currentLaunchError}
+        unlockedSteps={unlockedSteps}
+        onNavigate={navigateStep}
+        onPlannedReleaseChange={handlePlannedReleaseChange}
+        onTargetPriceChange={handleTargetPriceChange}
       />
     );
   }
@@ -352,6 +489,10 @@ export default function Home() {
       report={report}
       concept={concept}
       competitors={competitors}
+      snapshot={snapshot}
+      resultsStale={resultsStale}
+      unlockedSteps={unlockedSteps}
+      onNavigate={navigateStep}
       onStartNewSession={startNewSession}
     />
   );

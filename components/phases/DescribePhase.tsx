@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import StepPills from "@/components/phases/StepPills";
+import StepPills, { type Step } from "@/components/phases/StepPills";
 import { GENRE_SUGGESTIONS } from "@/lib/mock-data";
 import type {
   DiscoveryCandidate,
@@ -24,6 +24,10 @@ interface Props {
   onSelectAllCandidates: () => void;
   onApprove: () => Promise<void>;
   onStartNewSession: () => void;
+  hasCollectedResults: boolean;
+  unlockedSteps: Step[];
+  onNavigate: (step: Step) => void;
+  onViewCollectedResults: () => void;
 }
 
 function TagList({ items, onRemove }: { items: string[]; onRemove: (value: string) => void }) {
@@ -214,6 +218,10 @@ export default function DescribePhase({
   onSelectAllCandidates,
   onApprove,
   onStartNewSession,
+  hasCollectedResults,
+  unlockedSteps,
+  onNavigate,
+  onViewCollectedResults,
 }: Props) {
   const [genreInput, setGenreInput] = useState("");
   const [answers, setAnswers] = useState<Record<number, string>>({});
@@ -235,7 +243,7 @@ export default function DescribePhase({
 
   return (
     <div className="max-w-[1200px] mx-auto px-6 py-5">
-      <StepPills active="describe" />
+      <StepPills active="describe" unlocked={unlockedSteps} onNavigate={onNavigate} />
 
       <div className={validation ? "grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-5 items-start" : "max-w-[720px]"}>
         <div className="flex flex-col gap-4">
@@ -347,6 +355,20 @@ export default function DescribePhase({
                 onSelectAll={onSelectAllCandidates}
                 onApprove={onApprove}
               />
+            ) : hasCollectedResults ? (
+              <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-5">
+                <p className="text-[13px] font-semibold text-on-surface">Live game details are already collected.</p>
+                <p className="text-[11px] text-on-surface-variant mt-1 mb-4">
+                  Open Comparables to review the retained results, or edit the description and validate again.
+                </p>
+                <button
+                  type="button"
+                  onClick={onViewCollectedResults}
+                  className="w-full h-10 rounded-lg bg-primary text-on-primary text-[13px] font-semibold"
+                >
+                  View collected results
+                </button>
+              </div>
             ) : validation.status === "ready" && !validating ? (
               <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-5 text-[13px] text-on-surface-variant">
                 No verified Steam matches were returned. Add a more specific gameplay or theme detail and validate again.
