@@ -1,49 +1,62 @@
-# Xsolla Baku GameTech Hackathon
+# ReleaseSignal
 
-Welcome! This repository is the starting template for teams participating in the **Xsolla Baku GameTech Hackathon** (September 9–11).
+**Launch-timing intelligence for Steam developers.**
 
-## About the Hackathon
+Tags get you 300 roguelikes. Your description gets you the 15 that actually play like yours — and tells you who is launching against you next month.
 
-Xsolla Baku is organizing a GameTech Hackathon to introduce Azerbaijan's developer community to the gametech industry and give developers a chance to build real prototype solutions.
+---
 
-- **Sept 9** — Workshops: Xsolla team members introduce industry solutions and challenges across different gametech areas.
-- **Sept 10–11** — Build days: teams design and build a prototype solution, then present it to the jury.
+## The problem
 
-## How to Use This Template
+In the last week of August 2026, 720 games launched on Steam. 530 of them finished with fewer than ten reviews. Ten crossed a thousand. That is roughly 103 releases a day, and the rate is still climbing — ~12,000 games in H1 2026, up 19% year over year.
 
-1. Click **"Use this template"** at the top of this repo (not "Fork").
-2. Name your new repo `team-yourteamname` — use the same team name you registered with, so it's easy to match against the participant list.
-3. Set your new repo to **Public**.
-4. Add your teammates as collaborators (or ask the organizers to add them — you'll need to have submitted GitHub profile links during registration).
-5. Start building! Commit early and often — your commit history is part of how the project is evaluated.
+Every existing tool (SteamDB, Gamalytic, VG Insights, GameDiscoverCo, SteamPeek) is good at one question: *how did last year's games do?* None of them answer the question that matters at 103 releases a day: *who am I launching against next month, and should I move?*
 
-## Judging Categories
+## What this is
 
-| Category | What it means |
-|---|---|
-| **Best Project** | Overall strongest execution and prototype quality |
-| **Best Idea** | Most original/impactful concept |
-| **Best Code** | Code quality, structure, readability |
-| **Most GitHub Commits** | Team repo with the most commits as of the end of Sept 11 |
+A four-step analysis session:
 
-## Ground Rules
+1. Describe your game in plain text.
+2. We extract a structured concept and find genuinely comparable games — matched on gameplay description, not genre tags.
+3. We show you what those comparables actually did: revenue, copies, reviews, price, timing.
+4. We score every candidate release week ahead of you and tell you to **KEEP**, **MOVE**, or **MITIGATE**.
 
-- All work must happen in your team's public repo on this GitHub organization.
-- Development happens during the official build window (Sept 10–11). Work done before or after this window may not count toward judging.
-- Keep commits meaningful — commit history should reflect real progress, not artificially inflate commit counts. As a reference, consider following [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) conventions for clear, structured commit messages.
-- No confidential or proprietary Xsolla data may be used or shared in your project.
-- Be respectful and collaborative — see [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
+Every number on screen carries a provenance label. Facts from Steam, estimates from our model, predictions from our engines — visibly separated, never blended.
 
-## Submission Checklist
+## Architecture in one line
 
-- [ ] Repo is public and named `team-yourteamname`
-- [ ] README explains what your project does and how to run it
-- [ ] All teammates are added as collaborators
-- [ ] Final commit made before the Sept 11 deadline
-- [ ] Presentation prepared for the jury
+A pre-built local corpus of Steam titles with pre-computed embeddings, queried by pure scoring functions, served by a stateless Next.js API. No live third-party calls on the demo path.
 
-## Questions?
+---
 
-The Google Developers Group (GDG) team will be coordinating and supporting teams throughout the hackathon — reach out to them in person during the event, or through whatever channel is shared with participants at kickoff.
+## Documentation
 
-Good luck, and have fun building! 🎮
+| Doc | What's in it |
+| --- | --- |
+| [architecture.md](docs/architecture.md) | System shape, request flow, what we cut and why |
+| [data-model.md](docs/data-model.md) | The frozen type contract every lane codes against |
+| [api-data-guide.md](docs/api-data-guide.md) | Source-priority matrix, endpoints, rate limits, provenance rules |
+| [corpus-build.md](docs/corpus-build.md) | The offline pipeline that produces `games.json` + `index.bin` |
+| [ai-integration.md](docs/ai-integration.md) | LLM extraction, the diff loop, embeddings, prompts, failure modes |
+| [scoring-models.md](docs/scoring-models.md) | Similarity, saturation, revenue range, release risk — the actual math |
+| [backend-api.md](docs/backend-api.md) | Every route, request/response shape, error envelope |
+| [frontend-workflow.md](docs/frontend-workflow.md) | Sections 0–4, state machine, component tree, snapshot freeze |
+| [testing.md](docs/testing.md) | What is tested, what is deliberately not, how to run it |
+| [contributing.md](docs/contributing.md) | Commit conventions, branch model, CI, definition of done |
+| [decisions.md](docs/decisions.md) | ADR log — every significant choice with its rejected alternative |
+| [demo-runbook.md](docs/demo-runbook.md) | Freeze protocol, cached queries, fallback chain |
+
+## Quick start
+
+```bash
+pnpm install
+cp .env.example .env.local        # see api-data-guide.md
+pnpm corpus:fetch                 # offline, ~40 min, run once
+pnpm dev
+```
+
+The app runs without API keys if `data/games.json` and `data/index.bin` are present. That is deliberate — see [decisions.md](docs/decisions.md#adr-001).
+
+## Stack
+
+Next.js 15 (App Router) · TypeScript strict · Tailwind + shadcn/ui · Recharts · Zustand · Vitest · Python 3.11 for the offline corpus builder only.
