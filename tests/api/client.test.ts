@@ -1,9 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
+  analyzeMarket,
   ApiClientError,
   collectApprovedGames,
   discoverGamePreview,
 } from '@/lib/api/client';
+import type { GameConcept, ScoredCompetitor } from '@/lib/types';
 
 const preview = {
   status: 'ready_for_approval',
@@ -94,5 +96,24 @@ describe('live discovery API client', () => {
         message: 'Grok is temporarily unavailable',
       }),
     );
+  });
+
+  it('submits canonical scored competitors to market analysis', async () => {
+    fetchMock.mockResolvedValue(new Response(JSON.stringify({
+      ok: true,
+      data: { report: {} },
+      meta: { durationMs: 1, corpusVersion: 'live' },
+    })));
+    const concept = { version: 1 } as GameConcept;
+    const competitors = [{
+      game: { identity: { steamAppId: 1 } },
+      similarity: { score: 0.91 },
+    }] as ScoredCompetitor[];
+
+    await analyzeMarket(concept, competitors, 26);
+
+    expect(fetchMock).toHaveBeenCalledWith('/api/analyze', expect.objectContaining({
+      body: JSON.stringify({ concept, competitors, horizonWeeks: 26 }),
+    }));
   });
 });

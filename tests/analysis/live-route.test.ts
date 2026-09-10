@@ -72,12 +72,23 @@ const liveGame: NormalizedGame = {
   },
 };
 
+const liveCompetitor = {
+  game: liveGame,
+  similarity: {
+    score: 0.91,
+    rationale: 'Canonical live score',
+    components: { semantic: 0.9, mechanics: 0.8, genre: 1, theme: 0.7, gameMode: 1, price: 1 },
+  },
+  competitiveThreat: 91,
+  userAdded: false,
+};
+
 const request = () => new Request('http://localhost/api/analyze', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     concept: conceptHorrorCoop,
-    comparables: [liveGame],
+    competitors: [liveCompetitor],
     horizonWeeks: 26,
   }),
 });
@@ -93,6 +104,7 @@ describe('live market analysis route', () => {
     expect(body.ok).toBe(true);
     expect(body.meta.corpusVersion).toBe('live');
     expect(body.data.report.revenue.basedOnCount).toBe(1);
+    expect(body.data.report.revenue.method).toContain('similarity-weighted');
     expect(body.data.report.releaseData).toMatchObject({
       status: 'live',
       source: 'igdb-mcp',
