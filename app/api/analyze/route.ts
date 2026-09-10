@@ -1,4 +1,3 @@
-import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { ok, fail } from '@/lib/api/envelope';
 import { getCorpus } from '@/lib/corpus/load';
@@ -15,7 +14,7 @@ const Schema = z.object({
   { message: 'Provide live comparables or competitorAppIds' },
 );
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   const t0 = performance.now();
   try {
     const body = Schema.parse(await req.json());
