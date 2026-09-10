@@ -1,4 +1,5 @@
 export { scoreSimilarity } from './similarity';
+export { scoreCompetitor } from './competitor';
 export { scoreSaturation } from './saturation';
 export { scoreRevenue } from './revenue';
 export { scoreReception } from './reception';

@@ -3,7 +3,7 @@
  */
 
 
-import type { GameConcept, NormalizedGame, ScoredCompetitor, SimilarityComponents, Driver } from '@/lib/types';
+import type { GameConcept, NormalizedGame, SimilarityComponents, Driver } from '@/lib/types';
 import { driver } from './drivers';
 
 /** Semantic match dominates: description-over-tags is the core claim. */
@@ -35,7 +35,7 @@ function jaccard(a: string[], b: string[]): number {
 }
 
 function priceComponent(conceptPrice: number | null, gamePrice: number | null): number {
-  if (conceptPrice === null || gamePrice === null) return 0.5;
+  if (conceptPrice === null || gamePrice === null) return 0;
   return Math.max(0, 1 - Math.min(1, Math.abs(conceptPrice - gamePrice) / 20));
 }
 
@@ -63,7 +63,7 @@ function genreScore(concept: GameConcept, game: NormalizedGame): number {
  * The algorithm weights the strongest factors most heavily: semantic match (40%), mechanics (20%),
  * genre (15%), theme (10%), game mode (10%), and price (5%). Each component is normalized to a 0–1
  * value, and the weighted score is averaged across the active factors to produce a final similarity
- * score out of 100. The function also returns the per-component values, an explanation of the strongest
+ * score from 0 to 1. The function also returns the per-component values, an explanation of the strongest
  * matching drivers, and a short rationale string for UI display.
  */
 export function scoreSimilarity(
@@ -71,6 +71,7 @@ export function scoreSimilarity(
   game: NormalizedGame,
   semanticScore: number,
 ): { score: number; components: SimilarityComponents; drivers: Driver[]; rationale: string } {
+  const semantic = Number.isFinite(semanticScore) ? Math.max(0, Math.min(1, semanticScore)) : 0;
   const mechanics = jaccard(concept.taxonomy.mechanics, game.metadata.keywords);
   const genre = genreScore(concept, game);
   const theme = jaccard(concept.taxonomy.themes, game.metadata.themes);
@@ -81,12 +82,12 @@ export function scoreSimilarity(
   const price = priceComponent(concept.commercial.priceUsd, game.commercial.priceUsd.value);
 
   const components: ComponentEntry[] = [
-    { name: 'semantic', weight: W_SEMANTIC, value: Math.max(0, Math.min(1, semanticScore)), available: true },
-    { name: 'mechanics', weight: W_MECHANICS, value: mechanics, available: game.metadata.keywords.length > 0 },
-    { name: 'genre', weight: W_GENRE, value: genre, available: true },
-    { name: 'theme', weight: W_THEME, value: theme, available: game.metadata.themes.length > 0 },
-    { name: 'gameMode', weight: W_GAME_MODE, value: gameMode, available: true },
-    { name: 'price', weight: W_PRICE, value: price, available: true },
+    { name: 'semantic', weight: W_SEMANTIC, value: semantic, available: true },
+    { name: 'mechanics', weight: W_MECHANICS, value: mechanics, available: concept.taxonomy.mechanics.length > 0 && game.metadata.keywords.length > 0 },
+    { name: 'genre', weight: W_GENRE, value: genre, available: Boolean(concept.taxonomy.primaryGenre || concept.taxonomy.secondaryGenres.length) && game.metadata.genres.length > 0 },
+    { name: 'theme', weight: W_THEME, value: theme, available: concept.taxonomy.themes.length > 0 && game.metadata.themes.length > 0 },
+    { name: 'gameMode', weight: W_GAME_MODE, value: gameMode, available: concept.taxonomy.gameModes.length > 0 && game.metadata.gameModes.length > 0 },
+    { name: 'price', weight: W_PRICE, value: price, available: concept.commercial.priceUsd !== null && game.commercial.priceUsd.value !== null },
   ];
 
   const active = components.filter(c => c.available);
@@ -95,7 +96,7 @@ export function scoreSimilarity(
     ? 0
     : active.reduce((s, c) => s + (c.weight / totalWeight) * c.value, 0);
 
-  const score = Math.round(rawScore * 100);
+  const score = Math.round(rawScore * 10_000) / 10_000;
 
   const sorted = [...active].sort((a, b) => b.value * b.weight - a.value * a.weight);
   const top = sorted.slice(0, 2);

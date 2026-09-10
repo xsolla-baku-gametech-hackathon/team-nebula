@@ -177,7 +177,7 @@ export type ScoredCompetitor = {
   game: NormalizedGame;
 
   similarity: {
-    score: number;
+    score: number; // 0-1
     components: SimilarityComponents;
     rationale: string;
   };
