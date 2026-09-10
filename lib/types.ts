@@ -204,19 +204,24 @@ export type Driver = {
 export type ConfidenceBand = 'LOW' | 'MEDIUM' | 'HIGH';
 export type SaturationBand = 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
 export type RiskBand = 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
-export type Verdict = 'KEEP' | 'MOVE' | 'MITIGATE';
+export type Verdict = 'KEEP' | 'MOVE' | 'MITIGATE' | 'INSUFFICIENT_DATA';
 
 /**
  * A future Steam title that may overlap with the user's planned launch window.
  * Used to model competitive pressure in the forecast.
  */
 export type UpcomingRelease = {
-  steamAppId: number;
+  igdbId: number;
+  steamAppId: number | null;
   name: string;
-  expectedDate: string;
+  expectedDate: string | null;
+  dateLabel: string;
   dateConfidence: 'exact' | 'month' | 'quarter' | 'vague';
+  rangeStart: string | null;
+  rangeEnd: string | null;
   similarity: number;
   threat: number;
+  hypes: number | null;
   followers: number | null;
   isMajorPublisher: boolean;
 };
@@ -269,6 +274,17 @@ export type MarketReport = {
   };
 
   releaseWindows: ReleaseWindow[];
+
+  releaseData: {
+    status: 'live' | 'unavailable';
+    source: 'igdb-mcp';
+    fetchedAt: string;
+    datedCount: number;
+    undatedCount: number;
+    issues: string[];
+  };
+
+  undatedReleases: UpcomingRelease[];
 
   verdict: {
     decision: Verdict;
