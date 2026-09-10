@@ -3,6 +3,10 @@ import { z } from 'zod';
 export const DiscoverInput = z.object({
   query: z.string().trim().min(3).max(2000),
   limit: z.number().int().min(1).max(10).default(10),
+  clarifications: z.array(z.object({
+    question: z.string().trim().min(1).max(500),
+    answer: z.string().trim().min(1).max(1000),
+  }).strict()).max(3).optional(),
 }).strict();
 export const IntentSchema = z.object({
   summary: z.string().min(1).max(500),
