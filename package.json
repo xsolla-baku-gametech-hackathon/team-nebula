@@ -13,7 +13,6 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "corpus:fetch": "tsx scripts/fetch-igdb-mcp.ts",
-    "corpus:fetch:igdb-sdk": "tsx scripts/fetch-igdb-corpus.ts",
     "corpus:fetch:steam": "tsx scripts/fetch-steam-catalog.ts",
     "corpus:embed": "tsx scripts/embed-corpus.ts",
     "corpus:verify": "tsx scripts/verify-corpus.ts"
