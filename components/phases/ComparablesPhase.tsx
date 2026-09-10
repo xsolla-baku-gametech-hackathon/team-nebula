@@ -155,7 +155,7 @@ export default function ComparablesPhase({
               step="0.01"
               value={targetPrice ?? ""}
               onChange={(event) => onTargetPriceChange(event.target.value ? Number(event.target.value) : null)}
-              placeholder="14.99 assumed"
+              placeholder="Optional"
               className="block mt-1 h-10 w-[140px] px-3 rounded-lg bg-surface-container border border-outline-variant/30 text-on-surface text-[13px] focus:outline-none focus:border-primary/50"
             />
           </label>
@@ -172,7 +172,7 @@ export default function ComparablesPhase({
       </div>
 
       {launchInputError ? <p className="text-[11px] text-red text-right mb-3">{launchInputError}</p> : null}
-      {targetPrice === null ? <p className="text-[10px] text-on-surface-variant text-right mb-3">Revenue will use the disclosed $14.99 assumption.</p> : null}
+      {targetPrice === null ? <p className="text-[10px] text-on-surface-variant text-right mb-3">Without a target price, revenue uses reported comparable revenue without price normalization.</p> : null}
 
       {competitors.length === 0 ? (
         <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-8 text-center text-on-surface-variant">

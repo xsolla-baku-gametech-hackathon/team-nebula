@@ -39,7 +39,7 @@ export function PrintReport({ snapshot }: { snapshot: Snapshot }) {
         <dl className="print-grid">
           <div><dt>Primary genre</dt><dd>{concept.taxonomy.primaryGenre || "Unspecified"}</dd></div>
           <div><dt>Planned release</dt><dd>{concept.commercial.plannedRelease || "Unspecified"}</dd></div>
-          <div><dt>Target price</dt><dd>{concept.commercial.priceUsd === null ? "$14.99 assumed" : money(concept.commercial.priceUsd)}</dd></div>
+          <div><dt>Target price</dt><dd>{concept.commercial.priceUsd === null ? "Not provided" : money(concept.commercial.priceUsd)}</dd></div>
           <div><dt>Platforms</dt><dd>{concept.concept.platforms.join(", ")}</dd></div>
           <div><dt>Modes</dt><dd>{concept.taxonomy.gameModes.join(", ") || "Unspecified"}</dd></div>
           <div><dt>Perspective</dt><dd>{concept.taxonomy.perspective || "Unspecified"}</dd></div>

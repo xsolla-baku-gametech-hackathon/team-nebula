@@ -44,7 +44,8 @@ function MetricCard({ label, value, sub }: { label: string; value: string; sub?:
   );
 }
 
-function fmt(value: number): string {
+function fmt(value: number | null): string {
+  if (value === null) return "Unavailable";
   if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
   if (value >= 1_000) return `$${(value / 1_000).toFixed(0)}K`;
   return `$${value}`;
@@ -112,7 +113,7 @@ export default function AnalyticsPhase({
           <MetricCard label="Conservative" value={fmt(report.revenue.conservative)} sub="25th percentile" />
           <MetricCard label="Base estimate" value={fmt(report.revenue.base)} sub="50th percentile" />
           <MetricCard label="Upside" value={fmt(report.revenue.upside)} sub="80th percentile" />
-          <MetricCard label="Price point" value={price === null || price === undefined ? "$14.99*" : `$${price.toFixed(2)}`} sub={`Confidence: ${report.revenue.confidence}`} />
+          <MetricCard label="Price point" value={price === null || price === undefined ? "Not provided" : `$${price.toFixed(2)}`} sub={`Confidence: ${report.revenue.confidence}`} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-5">

@@ -2,13 +2,23 @@
 
 import type { MarketReport } from "@/lib/types";
 
-function fmt(n: number): string {
+function fmt(n: number | null): string {
+  if (n === null) return "Unavailable";
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}k`;
   return `$${n}`;
 }
 
 export function RevenueRange({ revenue }: { revenue: MarketReport["revenue"] }) {
+  if (revenue.conservative === null || revenue.base === null || revenue.upside === null) {
+    return (
+      <div className="space-y-1">
+        <h3 className="text-lg font-semibold">Estimated First-Year Gross</h3>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">Insufficient revenue evidence.</p>
+      </div>
+    );
+  }
+
   const range = revenue.upside - revenue.conservative;
   const basePos = range > 0 ? ((revenue.base - revenue.conservative) / range) * 100 : 50;
 
