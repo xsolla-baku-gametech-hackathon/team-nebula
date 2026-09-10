@@ -18,6 +18,11 @@ async function structured<T extends z.ZodTypeAny>(schema: T, system: string, inp
     });
     return schema.parse(result.output);
   } catch (cause) {
+    const diagnostic = cause as { name?: string; statusCode?: number; finishReason?: string; cause?: { name?: string } };
+    console.error('Grok generation failed', {
+      errorType: diagnostic?.name, status: diagnostic?.statusCode,
+      finishReason: diagnostic?.finishReason, validationType: diagnostic?.cause?.name,
+    });
     throw new DiscoveryError('AI_UNAVAILABLE', 'Grok could not produce a valid response; retry later', { cause });
   }
 }
