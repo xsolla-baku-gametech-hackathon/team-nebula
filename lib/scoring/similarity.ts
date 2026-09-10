@@ -39,6 +39,10 @@ function priceComponent(conceptPrice: number | null, gamePrice: number | null): 
   return Math.max(0, 1 - Math.min(1, Math.abs(conceptPrice - gamePrice) / 20));
 }
 
+function validPrice(value: number | null): number | null {
+  return value !== null && Number.isFinite(value) && value >= 0 ? value : null;
+}
+
 function genreScore(concept: GameConcept, game: NormalizedGame): number {
   const primary = concept.taxonomy.primaryGenre?.toLowerCase();
   const gameGenres = game.metadata.genres.map(g => g.toLowerCase());
@@ -79,7 +83,9 @@ export function scoreSimilarity(
     concept.taxonomy.gameModes,
     game.metadata.gameModes,
   );
-  const price = priceComponent(concept.commercial.priceUsd, game.commercial.priceUsd.value);
+  const conceptPrice = validPrice(concept.commercial.priceUsd);
+  const gamePrice = validPrice(game.commercial.priceUsd.value);
+  const price = priceComponent(conceptPrice, gamePrice);
 
   const components: ComponentEntry[] = [
     { name: 'semantic', weight: W_SEMANTIC, value: semantic, available: true },
@@ -87,7 +93,7 @@ export function scoreSimilarity(
     { name: 'genre', weight: W_GENRE, value: genre, available: Boolean(concept.taxonomy.primaryGenre || concept.taxonomy.secondaryGenres.length) && game.metadata.genres.length > 0 },
     { name: 'theme', weight: W_THEME, value: theme, available: concept.taxonomy.themes.length > 0 && game.metadata.themes.length > 0 },
     { name: 'gameMode', weight: W_GAME_MODE, value: gameMode, available: concept.taxonomy.gameModes.length > 0 && game.metadata.gameModes.length > 0 },
-    { name: 'price', weight: W_PRICE, value: price, available: concept.commercial.priceUsd !== null && game.commercial.priceUsd.value !== null },
+    { name: 'price', weight: W_PRICE, value: price, available: conceptPrice !== null && gamePrice !== null },
   ];
 
   const active = components.filter(c => c.available);

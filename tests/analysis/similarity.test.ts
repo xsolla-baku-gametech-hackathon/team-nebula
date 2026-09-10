@@ -51,4 +51,15 @@ describe('canonical competitor similarity', () => {
     expect(scoreSimilarity(conceptHorrorCoop, game(), Number.NaN).score).toBeGreaterThanOrEqual(0);
     expect(scoreSimilarity(conceptHorrorCoop, game(), 9).components.semantic).toBe(1);
   });
+
+  it('omits invalid prices from similarity evidence', () => {
+    const invalidPriceConcept = {
+      ...conceptHorrorCoop,
+      commercial: { ...conceptHorrorCoop.commercial, priceUsd: Number.NaN },
+    };
+    const result = scoreSimilarity(invalidPriceConcept, game(), 0.9);
+
+    expect(result.components.price).toBe(0);
+    expect(result.drivers.map(driver => driver.label)).not.toContain('price');
+  });
 });
