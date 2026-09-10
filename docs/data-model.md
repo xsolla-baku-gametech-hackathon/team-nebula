@@ -203,6 +203,7 @@ export type MarketReport = {
     confidence: 'LOW' | 'MEDIUM' | 'HIGH';
     basedOnCount: number;       // how many comparables fed the estimate
     method: string;
+    drivers: Driver[];          // weighting and price-normalization disclosures
   };
 
   reception: {
