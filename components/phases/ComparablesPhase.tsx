@@ -12,56 +12,52 @@ interface Props {
 
 function Card({ c }: { c: ComparableGame }) {
   return (
-    <div className="bg-[#D9D9DE]/90 rounded-2xl p-3 flex flex-col shadow-md hover:-translate-y-0.5 transition-transform">
-      {/* Cover */}
-      <div className="w-full h-[160px] rounded-xl flex items-center justify-center relative overflow-hidden" style={{ backgroundColor: c.color }}>
-        <span className="font-heading text-[28px] font-bold text-white/80">{c.initials}</span>
-      </div>
+    <div className="relative rounded-xl overflow-hidden border border-outline-variant/20 hover:border-outline-variant/40 transition-colors group">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={c.headerImage} alt="" className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity" />
+      <div className="absolute inset-0 bg-gradient-to-r from-surface-container via-surface-container/90 to-surface-container/50" />
 
-      {/* Name + description */}
-      <div className="pt-3 pb-1">
-        <h3 className="font-heading text-[17px] font-bold text-[#1E1E2A] truncate">{c.name}</h3>
-        <p className="text-[12px] text-[#6E6E7C] italic line-clamp-2 leading-snug mt-0.5">{c.description}</p>
-      </div>
-
-      {/* Metrics: revenue, copies, reviews, price */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-2 pt-2 border-t border-black/5 text-[#1E1E2A]">
-        <div><span className="text-[10px] text-[#6E6E7C] uppercase font-mono">Est. Revenue</span><p className="font-heading text-[15px] font-bold">{c.estRevenue}</p></div>
-        <div><span className="text-[10px] text-[#6E6E7C] uppercase font-mono">Est. Copies</span><p className="font-heading text-[15px] font-bold">{c.estCopies}</p></div>
-        <div><span className="text-[10px] text-[#6E6E7C] uppercase font-mono">Reviews</span><p className="font-heading text-[15px] font-bold">{c.reviews}</p></div>
-        <div><span className="text-[10px] text-[#6E6E7C] uppercase font-mono">Price</span><p className="font-heading text-[15px] font-bold">{c.price}</p></div>
-      </div>
-
-      {/* Sales history mini-chart */}
-      <div className="mt-2 pt-2 border-t border-black/5">
-        <span className="text-[10px] text-[#6E6E7C] uppercase font-mono">Sales trend</span>
-        <div className="h-[50px] mt-1">
-          <ResponsiveContainer width="100%" height={50}>
-            <LineChart data={c.salesHistory}>
-              <Tooltip
-                contentStyle={{ background: "#1E1E2A", border: "none", borderRadius: 6, color: "#fff", fontSize: 11, padding: "4px 8px" }}
-                formatter={(v: number) => [`${(v / 1000).toFixed(0)}K`, "Units"]}
-                labelStyle={{ color: "#B8C4FF", fontSize: 10 }}
-              />
-              <Line type="monotone" dataKey="units" stroke="#4354B4" strokeWidth={1.5} dot={false} />
-            </LineChart>
-          </ResponsiveContainer>
+      <div className="relative p-4 flex flex-col gap-2.5">
+        <div className="flex items-start justify-between">
+          <div>
+            <h3 className="font-heading text-[16px] font-semibold text-on-surface">{c.name}</h3>
+            <p className="text-[12px] text-on-surface-variant truncate max-w-[280px]">{c.description}</p>
+          </div>
+          <a href={c.steamUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-primary hover:underline flex items-center gap-0.5 shrink-0">
+            Steam <span className="material-symbols-outlined text-[12px]">open_in_new</span>
+          </a>
         </div>
-      </div>
 
-      {/* Tags */}
-      <div className="flex flex-wrap gap-1 mt-2 pt-2 border-t border-black/5">
-        {c.tags.map((t) => (
-          <span key={t} className="px-2 py-0.5 rounded bg-black/5 text-[10px] text-[#6E6E7C] font-mono">{t}</span>
-        ))}
-      </div>
+        <div className="grid grid-cols-4 gap-3">
+          {[
+            { l: "Revenue", v: c.estRevenue },
+            { l: "Copies", v: c.estCopies },
+            { l: "Reviews", v: c.reviews },
+            { l: "Price", v: c.price },
+          ].map((m) => (
+            <div key={m.l}>
+              <span className="text-[10px] text-on-surface-variant/60 uppercase font-mono">{m.l}</span>
+              <p className="font-heading text-[15px] font-bold text-on-surface leading-tight">{m.v}</p>
+            </div>
+          ))}
+        </div>
 
-      {/* Footer: release date + Steam link */}
-      <div className="flex items-center justify-between mt-2 pt-2 border-t border-black/5">
-        <span className="text-[11px] text-[#6E6E7C]">{c.releaseDate}</span>
-        <a href={c.steamUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-[#4354B4] hover:underline flex items-center gap-0.5">
-          Steam <span className="material-symbols-outlined text-[12px]">open_in_new</span>
-        </a>
+        <div className="flex items-end gap-3 pt-1 border-t border-outline-variant/10">
+          <div className="w-[100px] h-[28px] shrink-0">
+            <ResponsiveContainer width="100%" height={28}>
+              <LineChart data={c.salesHistory}>
+                <Tooltip contentStyle={{ background: "#1a1c26", border: "1px solid #363842", borderRadius: 6, color: "#e8e9ed", fontSize: 10, padding: "3px 6px" }} formatter={(v: number) => [`${(v / 1000).toFixed(0)}K`, ""]} />
+                <Line type="monotone" dataKey="units" stroke="#6c8cff" strokeWidth={1.5} dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="flex flex-wrap gap-1 flex-1">
+            {c.tags.map((t) => (
+              <span key={t} className="px-1.5 py-0.5 rounded text-[9px] text-on-surface-variant/60 border border-outline-variant/20 font-mono">{t}</span>
+            ))}
+          </div>
+          <span className="text-[11px] text-on-surface-variant/50 shrink-0">{c.releaseDate}</span>
+        </div>
       </div>
     </div>
   );
@@ -69,27 +65,26 @@ function Card({ c }: { c: ComparableGame }) {
 
 export default function ComparablesPhase({ onNext, onBack, onStartNewSession }: Props) {
   return (
-    <div className="max-w-[900px] mx-auto px-8 py-8 relative">
+    <div className="max-w-[1200px] mx-auto px-6 py-5">
       <StepPills active="comparables" />
 
-      <h1 className="font-heading text-[32px] font-semibold text-white tracking-tight mb-1">Comparable games &mdash; {COMPARABLE_GAMES.length}</h1>
-      <p className="text-[15px] text-on-surface-variant mb-6">Matched on gameplay description, not tags. Here&apos;s what each one actually did.</p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {COMPARABLE_GAMES.map((c) => <Card key={c.initials} c={c} />)}
-      </div>
-
-      {/* Proceed */}
-      <div className="flex justify-end mt-8">
-        <button onClick={onNext} className="px-6 py-3 rounded-xl bg-primary-container hover:bg-inverse-primary text-white font-heading text-[16px] font-semibold flex items-center gap-2 shadow-md transition-all active:scale-95">
-          Run predictions <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+      <div className="flex items-baseline justify-between mb-4">
+        <div>
+          <h1 className="font-heading text-[24px] font-semibold text-on-surface">Comparable games</h1>
+          <p className="text-[13px] text-on-surface-variant">{COMPARABLE_GAMES.length} games matched on gameplay description</p>
+        </div>
+        <button onClick={onNext} className="h-10 px-5 rounded-xl bg-primary text-on-primary text-[14px] font-semibold hover:bg-primary/90 transition-colors flex items-center gap-2">
+          Run predictions <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
         </button>
       </div>
 
-      <div className="flex justify-center mt-12">
-        <button onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[13px] transition-colors flex items-center gap-1.5">
-          <span className="material-symbols-outlined text-[16px]">restart_alt</span>
-          Start new session
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        {COMPARABLE_GAMES.map((c) => <Card key={c.initials} c={c} />)}
+      </div>
+
+      <div className="flex justify-center mt-8">
+        <button onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
+          <span className="material-symbols-outlined text-[14px]">restart_alt</span> New session
         </button>
       </div>
     </div>

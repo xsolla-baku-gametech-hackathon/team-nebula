@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import StepPills from "@/components/phases/StepPills";
-import { GENRE_SUGGESTIONS, GAME_SUGGESTIONS, type AnalysisResponse } from "@/lib/mock-data";
+import { GENRE_SUGGESTIONS, GAME_SUGGESTIONS, type AnalysisResponse, type FollowUpQuestion } from "@/lib/mock-data";
 
 interface Props {
   description: string;
@@ -12,10 +12,55 @@ interface Props {
   similarGames: string[];
   onSimilarGamesChange: (v: string[]) => void;
   analyzed: boolean;
-  questions: string[];
+  questions: FollowUpQuestion[];
   onAnalyze: () => Promise<AnalysisResponse>;
   onNext: () => void;
   onStartNewSession: () => void;
+}
+
+function TagList({ items, onRemove }: { items: string[]; onRemove: (v: string) => void }) {
+  return (
+    <div className="flex flex-col gap-1">
+      {items.map((item) => (
+        <div key={item} className="h-9 rounded-lg bg-surface-container-highest px-3 flex items-center justify-between group">
+          <span className="text-[14px] text-on-surface">{item}</span>
+          <button onClick={() => onRemove(item)} className="text-on-surface-variant/40 hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="material-symbols-outlined text-[16px]">close</span>
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AddInput({ value, onChange, onAdd, placeholder }: { value: string; onChange: (v: string) => void; onAdd: () => void; placeholder: string }) {
+  return (
+    <div className="flex gap-1.5 mt-1.5">
+      <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter") onAdd(); }}
+        className="flex-1 h-9 px-3 rounded-lg bg-surface-container-highest text-on-surface placeholder:text-on-surface-variant/40 text-[13px] border border-outline-variant/20 focus:outline-none focus:border-primary/50"
+        placeholder={placeholder}
+      />
+      <button onClick={onAdd} className="h-9 w-9 rounded-lg bg-surface-container-highest border border-outline-variant/20 text-on-surface-variant hover:text-on-surface flex items-center justify-center">
+        <span className="material-symbols-outlined text-[18px]">add</span>
+      </button>
+    </div>
+  );
+}
+
+function Suggestions({ items, onAdd }: { items: string[]; onAdd: (v: string) => void }) {
+  if (!items.length) return null;
+  return (
+    <div className="flex flex-wrap gap-1 mt-1.5">
+      {items.map((s) => (
+        <button key={s} onClick={() => onAdd(s)} className="px-2 py-0.5 rounded-md text-[11px] text-on-surface-variant hover:text-primary border border-outline-variant/20 hover:border-primary/30 transition-colors">
+          + {s}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 export default function DescribePhase({
@@ -28,158 +73,111 @@ export default function DescribePhase({
   const [genreInput, setGenreInput] = useState("");
   const [gameInput, setGameInput] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
+  const [answers, setAnswers] = useState<Record<number, string>>({});
 
-  const addGenre = (tag: string) => { if (tag && !genres.includes(tag)) onGenresChange([...genres, tag]); };
-  const removeGenre = (tag: string) => onGenresChange(genres.filter((g) => g !== tag));
-  const addGame = (title: string) => { if (title && !similarGames.includes(title)) onSimilarGamesChange([...similarGames, title]); };
-  const removeGame = (title: string) => onSimilarGamesChange(similarGames.filter((g) => g !== title));
+  const addGenre = (t: string) => { if (t && !genres.includes(t)) onGenresChange([...genres, t]); };
+  const addGame = (t: string) => { if (t && !similarGames.includes(t)) onSimilarGamesChange([...similarGames, t]); };
 
-  const handleAnalyze = async () => {
-    setAnalyzing(true);
-    await onAnalyze();
-    setAnalyzing(false);
+  const handleAnalyze = async () => { setAnalyzing(true); await onAnalyze(); setAnalyzing(false); };
+
+  const appendAnswers = () => {
+    const filled = Object.entries(answers).filter(([, v]) => v.trim()).map(([i, v]) => `${questions[Number(i)]}: ${v.trim()}`).join("\n");
+    if (filled) { onDescriptionChange(description + "\n\n" + filled); setAnswers({}); }
   };
 
+  const hasAnswers = Object.values(answers).some((v) => v.trim());
+
   return (
-    <div className="max-w-[720px] mx-auto px-8 py-8 relative">
+    <div className="max-w-[1200px] mx-auto px-6 py-5">
       <StepPills active="describe" />
 
-      <div className="flex flex-col gap-12">
-        {/* ══════ SECTION 1: Description ══════ */}
-        <section>
-          <h1 className="font-heading text-[32px] font-semibold text-white tracking-tight mb-1">Description</h1>
-          <p className="text-[15px] text-on-surface-variant mb-4">Tell us about your game.</p>
-
-          <div className="rounded-2xl bg-[#D9D9DE]/90 shadow-lg border-t border-white/70 overflow-hidden">
-            <textarea
-              value={description}
-              onChange={(e) => onDescriptionChange(e.target.value)}
-              className="w-full h-[220px] p-5 bg-transparent resize-none font-heading text-[18px] text-[#1E1E2A] placeholder:text-[#1E1E2A]/40 focus:outline-none leading-relaxed"
-              placeholder="Describe the moment-to-moment gameplay. What does the player actually do?"
-            />
-            <div className="px-5 py-2.5 bg-black/5 text-right text-[12px] text-[#6E6E7C] font-mono">
-              {description.length} chars
+      <div className={analyzed ? "grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-5 items-start" : "max-w-[720px]"}>
+        {/* LEFT */}
+        <div className="flex flex-col gap-4">
+          {/* Description */}
+          <div>
+            <h2 className="text-[14px] font-semibold text-on-surface mb-2 uppercase tracking-wide">Description</h2>
+            <div className="rounded-xl bg-surface-container border border-outline-variant/20 overflow-hidden">
+              <textarea
+                value={description}
+                onChange={(e) => onDescriptionChange(e.target.value)}
+                className="w-full h-[140px] p-4 bg-transparent resize-none text-[15px] text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none leading-relaxed"
+                placeholder="Describe the moment-to-moment gameplay. What does the player actually do?"
+              />
+              <div className="px-4 py-2 border-t border-outline-variant/10 flex items-center justify-between">
+                <span className="text-[11px] text-on-surface-variant font-mono">{description.length} chars</span>
+                <button
+                  onClick={handleAnalyze}
+                  disabled={description.trim().length < 20 || analyzing}
+                  className="px-4 py-1.5 rounded-lg bg-primary text-on-primary text-[13px] font-semibold flex items-center gap-1.5 hover:bg-primary/90 transition-all disabled:opacity-30"
+                >
+                  {analyzing ? "Analyzing..." : analyzed ? "Re-analyze" : "Analyze"}
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Follow-up questions from analyzer */}
-          {questions.length > 0 && !analyzed && (
-            <div className="mt-4 rounded-xl bg-surface-container-high p-4 flex flex-col gap-3">
-              <div className="flex items-center gap-2 text-primary text-[13px] font-semibold">
-                <span className="material-symbols-outlined text-[18px]">help</span>
-                We need a bit more detail:
-              </div>
-              <ul className="flex flex-col gap-2">
+          {/* Questions */}
+          {questions.length > 0 && (
+            <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">
+              <p className="text-[13px] font-semibold text-on-surface mb-3 flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-primary text-[16px]">help</span>
+                Follow-up questions
+              </p>
+              <div className="flex flex-col gap-2.5">
                 {questions.map((q, i) => (
-                  <li key={i} className="text-[14px] text-on-surface-variant pl-6 relative">
-                    <span className="absolute left-0 text-primary font-mono text-[12px]">{i + 1}.</span>
-                    {q}
-                  </li>
+                  <div key={i}>
+                    <label className="text-[12px] text-on-surface-variant mb-1 block">{q}</label>
+                    <input
+                      value={answers[i] ?? ""}
+                      onChange={(e) => setAnswers((p) => ({ ...p, [i]: e.target.value }))}
+                      className="w-full h-9 px-3 rounded-lg bg-surface-container-highest text-on-surface text-[13px] border border-outline-variant/20 focus:outline-none focus:border-primary/50 placeholder:text-on-surface-variant/30"
+                      placeholder="Type your answer..."
+                    />
+                  </div>
                 ))}
-              </ul>
-              <p className="text-[12px] text-on-surface-variant/60">Add these details to your description above, then click Update.</p>
+              </div>
+              {hasAnswers && (
+                <button onClick={appendAnswers} className="mt-3 px-4 py-1.5 rounded-lg bg-primary/10 text-primary text-[13px] font-medium hover:bg-primary/20 transition-colors flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[15px]">add</span>
+                  Append answers to description
+                </button>
+              )}
             </div>
           )}
+        </div>
 
-          {/* Analyze / Update button */}
-          <div className="flex justify-end mt-4">
-            <button
-              onClick={handleAnalyze}
-              disabled={description.trim().length < 20 || analyzing}
-              className="px-5 py-2.5 rounded-xl bg-primary-container hover:bg-inverse-primary text-white font-heading text-[15px] font-semibold flex items-center gap-2 shadow-md transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              {analyzing ? (
-                <><span className="animate-spin">&#9696;</span> Analyzing...</>
-              ) : (
-                <><span className="material-symbols-outlined text-[18px]">{analyzed ? "refresh" : "psychology"}</span> {analyzed ? "Update" : "Analyze"}</>
-              )}
+        {/* RIGHT — Genres + Similar Games */}
+        {analyzed && (
+          <div className="flex flex-col gap-5">
+            <div>
+              <h2 className="text-[14px] font-semibold text-on-surface mb-2 uppercase tracking-wide">Genres</h2>
+              <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-3">
+                <TagList items={genres} onRemove={(g) => onGenresChange(genres.filter((x) => x !== g))} />
+                <AddInput value={genreInput} onChange={setGenreInput} onAdd={() => { if (genreInput.trim()) { addGenre(genreInput.trim()); setGenreInput(""); } }} placeholder="Add genre..." />
+                <Suggestions items={GENRE_SUGGESTIONS.filter((s) => !genres.includes(s))} onAdd={addGenre} />
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-[14px] font-semibold text-on-surface mb-2 uppercase tracking-wide">Similar Games</h2>
+              <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-3">
+                <TagList items={similarGames} onRemove={(g) => onSimilarGamesChange(similarGames.filter((x) => x !== g))} />
+                <AddInput value={gameInput} onChange={setGameInput} onAdd={() => { if (gameInput.trim()) { addGame(gameInput.trim()); setGameInput(""); } }} placeholder="Search for a game..." />
+                <Suggestions items={GAME_SUGGESTIONS.filter((s) => !similarGames.includes(s))} onAdd={addGame} />
+              </div>
+            </div>
+
+            <button onClick={onNext} className="w-full h-11 rounded-xl bg-primary text-on-primary font-heading text-[14px] font-semibold flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors">
+              Find comparables <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
             </button>
           </div>
-        </section>
-
-        {/* ══════ SECTION 2: Genres + Similar Games (after analysis) ══════ */}
-        {analyzed && (
-          <>
-            <section>
-              <h2 className="font-heading text-[32px] font-semibold text-white tracking-tight mb-1">Genres</h2>
-              <p className="text-[15px] text-on-surface-variant mb-4">Auto-detected from your description. Edit as needed.</p>
-
-              <div className="flex flex-col gap-2">
-                {genres.map((g) => (
-                  <div key={g} className="h-[44px] rounded-xl bg-[#D9D9DE] px-4 flex items-center justify-between shadow-sm">
-                    <span className="font-heading text-[16px] font-semibold text-[#1E1E2A]">{g}</span>
-                    <button onClick={() => removeGenre(g)} className="text-[#1E1E2A]/50 hover:text-[#1E1E2A]">
-                      <span className="material-symbols-outlined text-[18px]">close</span>
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex gap-2 mt-3">
-                <input
-                  value={genreInput}
-                  onChange={(e) => setGenreInput(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter" && genreInput.trim()) { addGenre(genreInput.trim()); setGenreInput(""); } }}
-                  className="flex-1 h-[44px] px-4 rounded-xl bg-[#D9D9DE]/90 text-[#1E1E2A] placeholder:text-[#1E1E2A]/40 text-[14px] focus:outline-none focus:ring-2 focus:ring-primary-container"
-                  placeholder="Add a genre..."
-                />
-                <button onClick={() => { if (genreInput.trim()) { addGenre(genreInput.trim()); setGenreInput(""); } }} className="h-[44px] px-4 rounded-xl bg-[#D9D9DE] font-heading text-[18px] font-semibold text-[#1E1E2A] hover:bg-white transition-colors">+</button>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-3">
-                {GENRE_SUGGESTIONS.filter((s) => !genres.includes(s)).map((s) => (
-                  <button key={s} onClick={() => addGenre(s)} className="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface-variant text-[12px] hover:text-on-surface transition-colors">+ {s}</button>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="font-heading text-[32px] font-semibold text-white tracking-tight mb-1">Similar games</h2>
-              <p className="text-[15px] text-on-surface-variant mb-4">Games that feel like yours. <span className="text-primary text-[13px]">(you can add non-Steam games too)</span></p>
-
-              <div className="flex flex-col gap-2">
-                {similarGames.map((g) => (
-                  <div key={g} className="h-[44px] rounded-xl bg-[#D9D9DE] px-4 flex items-center justify-between shadow-sm">
-                    <span className="font-heading text-[16px] font-semibold text-[#1E1E2A]">{g}</span>
-                    <button onClick={() => removeGame(g)} className="text-[#1E1E2A]/50 hover:text-[#1E1E2A]">
-                      <span className="material-symbols-outlined text-[18px]">close</span>
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex gap-2 mt-3">
-                <input
-                  value={gameInput}
-                  onChange={(e) => setGameInput(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === "Enter" && gameInput.trim()) { addGame(gameInput.trim()); setGameInput(""); } }}
-                  className="flex-1 h-[44px] px-4 rounded-xl bg-[#D9D9DE]/90 text-[#1E1E2A] placeholder:text-[#1E1E2A]/40 text-[14px] focus:outline-none focus:ring-2 focus:ring-primary-container"
-                  placeholder="Search for a game..."
-                />
-                <button onClick={() => { if (gameInput.trim()) { addGame(gameInput.trim()); setGameInput(""); } }} className="h-[44px] px-4 rounded-xl bg-[#D9D9DE] font-heading text-[18px] font-semibold text-[#1E1E2A] hover:bg-white transition-colors">+</button>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mt-3">
-                {GAME_SUGGESTIONS.filter((s) => !similarGames.includes(s)).map((s) => (
-                  <button key={s} onClick={() => addGame(s)} className="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface-variant text-[12px] hover:text-on-surface transition-colors">+ {s}</button>
-                ))}
-              </div>
-            </section>
-
-            {/* Proceed button */}
-            <div className="flex justify-end">
-              <button onClick={onNext} className="px-6 py-3 rounded-xl bg-primary-container hover:bg-inverse-primary text-white font-heading text-[16px] font-semibold flex items-center gap-2 shadow-md transition-all active:scale-95">
-                Find comparables <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-              </button>
-            </div>
-          </>
         )}
       </div>
 
-      <div className="flex justify-center mt-16">
-        <button onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[13px] transition-colors flex items-center gap-1.5">
-          <span className="material-symbols-outlined text-[16px]">restart_alt</span>
-          Start new session
+      <div className="flex justify-center mt-10">
+        <button onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
+          <span className="material-symbols-outlined text-[14px]">restart_alt</span> New session
         </button>
       </div>
     </div>

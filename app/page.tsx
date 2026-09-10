@@ -9,6 +9,7 @@ import {
   ANALYSIS_INSUFFICIENT,
   ANALYSIS_SUFFICIENT,
   type AnalysisResponse,
+  type FollowUpQuestion,
 } from "@/lib/mock-data";
 
 export type Phase = "landing" | "describe" | "comparables" | "analytics";
@@ -19,7 +20,7 @@ export default function Home() {
   const [genres, setGenres] = useState<string[]>([]);
   const [similarGames, setSimilarGames] = useState<string[]>([]);
   const [analyzed, setAnalyzed] = useState(false);
-  const [questions, setQuestions] = useState<string[]>([]);
+  const [questions, setQuestions] = useState<FollowUpQuestion[]>([]);
   const [analyzeCount, setAnalyzeCount] = useState(0);
 
   const goTo = useCallback((p: Phase) => setPhase(p), []);
@@ -57,7 +58,8 @@ export default function Home() {
           setQuestions(response.questions);
         } else {
           response = ANALYSIS_SUFFICIENT;
-          setQuestions([]);
+          // Keep questions visible — don't clear them
+          if (questions.length === 0) setQuestions(ANALYSIS_INSUFFICIENT.questions);
           setAnalyzed(true);
           // Auto-populate genres and similar games from analysis
           setGenres((prev) => {

@@ -10,11 +10,13 @@
    SECTION 1 — user-game-analyzer service
    ═══════════════════════════════════════════════════════ */
 
+export type FollowUpQuestion = string;
+
 export interface AnalysisResponse {
   /** true when the description has enough info to proceed */
   sufficient: boolean;
-  /** follow-up questions if not sufficient */
-  questions: string[];
+  /** follow-up questions the user can answer in textboxes */
+  questions: FollowUpQuestion[];
   /** auto-extracted genres (populates Section 2) */
   genres: string[];
   /** auto-suggested similar games (populates Section 2) */
@@ -25,9 +27,11 @@ export interface AnalysisResponse {
 export const ANALYSIS_INSUFFICIENT: AnalysisResponse = {
   sufficient: false,
   questions: [
-    "How many players does this support? (solo / co-op / multiplayer)",
+    "How many players does this support? (solo, co-op, multiplayer)",
     "What is the average session length?",
     "What is your target price point?",
+    "Which platforms are you targeting?",
+    "What camera perspective does the game use?",
   ],
   genres: [],
   suggestedGames: [],
@@ -85,6 +89,8 @@ export interface ComparableGame {
   /** Display helpers */
   color: string;
   initials: string;
+  /** Steam header image URL (460x215) */
+  headerImage: string;
 }
 
 export const COMPARABLE_GAMES: ComparableGame[] = [
@@ -106,6 +112,7 @@ export const COMPARABLE_GAMES: ComparableGame[] = [
     description: "A co-op horror game about scavenging at abandoned moons to sell scrap to the Company.",
     color: "#4A3728",
     initials: "LC",
+    headerImage: "https://cdn.akamai.steamstatic.com/steam/apps/1966720/header.jpg",
   },
   {
     name: "Barotrauma",
@@ -125,6 +132,7 @@ export const COMPARABLE_GAMES: ComparableGame[] = [
     description: "A 2D co-op submarine simulator set on Jupiter's moon Europa. Manage your crew and survive.",
     color: "#1E3F4B",
     initials: "BT",
+    headerImage: "https://cdn.akamai.steamstatic.com/steam/apps/602960/header.jpg",
   },
   {
     name: "Phasmophobia",
@@ -144,6 +152,7 @@ export const COMPARABLE_GAMES: ComparableGame[] = [
     description: "4-player online co-op ghost hunting game. Use ghost hunting equipment to find paranormal activity.",
     color: "#2A1F3D",
     initials: "PH",
+    headerImage: "https://cdn.akamai.steamstatic.com/steam/apps/739630/header.jpg",
   },
   {
     name: "GTFO",
@@ -163,6 +172,7 @@ export const COMPARABLE_GAMES: ComparableGame[] = [
     description: "Hardcore 4-player co-op action horror FPS. Work together to explore hostile environments.",
     color: "#8B2500",
     initials: "GT",
+    headerImage: "https://cdn.akamai.steamstatic.com/steam/apps/493520/header.jpg",
   },
   {
     name: "The Outlast Trials",
@@ -182,6 +192,7 @@ export const COMPARABLE_GAMES: ComparableGame[] = [
     description: "Cold War era co-op survival horror. Subjects undergo mind-control experiments in Murkoff facilities.",
     color: "#6E2631",
     initials: "OT",
+    headerImage: "https://cdn.akamai.steamstatic.com/steam/apps/1304930/header.jpg",
   },
   {
     name: "We Need to Go Deeper",
@@ -201,6 +212,7 @@ export const COMPARABLE_GAMES: ComparableGame[] = [
     description: "2-4 player co-op submarine roguelike. Dive into the depths, fight monsters, survive together.",
     color: "#5B6A47",
     initials: "WN",
+    headerImage: "https://cdn.akamai.steamstatic.com/steam/apps/307110/header.jpg",
   },
 ];
 
