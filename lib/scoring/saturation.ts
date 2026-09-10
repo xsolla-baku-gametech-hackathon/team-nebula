@@ -40,12 +40,15 @@ export function scoreSaturation(
   // Density: how many comparables exist
   const densityFactor = clamp(0, 1, comparables.length / 80);
 
-  // Success rate (inverted): fewer successes = higher saturation
-  const aboveFloor = comparables.filter(
-    g => (g.commercial.estimatedRevenueUsd.value ?? 0) >= revenueFloor,
-  ).length;
-  const successRate = comparables.length > 0 ? aboveFloor / comparables.length : 0;
-  const successRateFactor = clamp(0, 1, 1 - successRate);
+  // Revenue-based factors must never treat missing estimates as zero.
+  const knownRevenue = comparables
+    .map(g => g.commercial.estimatedRevenueUsd.value)
+    .filter((value): value is number =>
+      value !== null && Number.isFinite(value) && value >= 0,
+    );
+  const aboveFloor = knownRevenue.filter(value => value >= revenueFloor).length;
+  const successRate = knownRevenue.length ? aboveFloor / knownRevenue.length : null;
+  const successRateFactor = successRate === null ? 0 : clamp(0, 1, 1 - successRate);
 
   // Upcoming pressure
   const trailingAvgMonthly = comparables.length / 12;
@@ -55,13 +58,12 @@ export function scoreSaturation(
     : 0;
 
   // Concentration (Herfindahl)
-  const totalRevenue = comparables.reduce(
-    (s, g) => s + (g.commercial.estimatedRevenueUsd.value ?? 0), 0,
-  );
+  const positiveRevenue = knownRevenue.filter(value => value > 0);
+  const totalRevenue = positiveRevenue.reduce((sum, value) => sum + value, 0);
   let hhi = 0;
   if (totalRevenue > 0) {
-    for (const g of comparables) {
-      const share = (g.commercial.estimatedRevenueUsd.value ?? 0) / totalRevenue;
+    for (const revenue of positiveRevenue) {
+      const share = revenue / totalRevenue;
       hhi += share * share;
     }
   }
@@ -83,7 +85,9 @@ export function scoreSaturation(
     driver(
       'Success rate',
       successContrib,
-      `${Math.round(successRate * 100)}% cleared $${(revenueFloor / 1000).toFixed(0)}k revenue`,
+      successRate === null
+        ? 'Revenue estimates unavailable; success-rate factor omitted'
+        : `${Math.round(successRate * 100)}% of ${knownRevenue.length} games with revenue data cleared $${(revenueFloor / 1000).toFixed(0)}k revenue`,
     ),
     driver(
       'Upcoming pressure',
@@ -93,7 +97,9 @@ export function scoreSaturation(
     driver(
       'Revenue concentration',
       concentrationContrib,
-      `HHI ${(hhi * 100).toFixed(0)}%`,
+      totalRevenue > 0
+        ? `HHI ${(hhi * 100).toFixed(0)}% across ${positiveRevenue.length} games with positive revenue estimates`
+        : 'Revenue estimates unavailable; concentration factor omitted',
     ),
   ];
 
