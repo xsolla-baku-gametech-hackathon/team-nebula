@@ -11,31 +11,36 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "corpus:fetch": "tsx scripts/build-corpus.ts",
+    "corpus:embed": "tsx scripts/embed-corpus.ts",
+    "corpus:verify": "tsx scripts/verify-corpus.ts"
   },
   "dependencies": {
+    "clsx": "^2",
+    "lucide-react": "^0.500",
+    "nanoid": "^5",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "zustand": "^5",
-    "zod": "^3",
-    "nanoid": "^5",
     "recharts": "^2",
-    "lucide-react": "^0.500",
-    "clsx": "^2",
-    "tailwind-merge": "^3"
+    "tailwind-merge": "^3",
+    "zod": "^3",
+    "zustand": "^5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^3",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5",
-    "vitest": "^3",
-    "@vitest/coverage-v8": "^3"
+    "vitest": "^3"
   },
   "packageManager": "pnpm@10.16.0"
 }
