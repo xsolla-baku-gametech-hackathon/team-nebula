@@ -272,6 +272,17 @@ export type Snapshot = {
   corpusVersion: string;
 };
 
+// ── EstimatedPlayerReception ────────────────────────────────────────────────────
+
+/**
+ * The estimated reception of the game described by the player.
+ */
+export type EstimatedPlayerReception = {
+	predictedPositiveRatio: number;
+	cohortMedianPositiveRatio: number; 
+	band: ConfidenceBand
+}
+
 // ── API envelope ───────────────────────────────────────────────────
 
 export type DegradedFlag =
