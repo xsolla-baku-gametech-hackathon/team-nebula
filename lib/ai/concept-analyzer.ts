@@ -1,14 +1,22 @@
 import type { GameConcept, ClarifyingQuestion } from '@/lib/types';
 import { fallbackExtract } from './fallback-extract';
 import { generateQuestions } from './grok-questions';
+import { grokExtract } from './grok-extract';
 
 export async function analyzeConcept(input: {
   text: string;
   previous?: GameConcept;
   answers?: Record<string, string>;
 }): Promise<{ concept: GameConcept; questions: ClarifyingQuestion[]; degraded: boolean }> {
-  // Extract concept using keyword fallback
-  const { concept } = fallbackExtract(input.text);
+  // Try Grok LLM extraction first, fall back to keywords
+  let concept = await grokExtract(input.text);
+  let degraded = false;
+
+  if (!concept) {
+    const fallback = fallbackExtract(input.text);
+    concept = fallback.concept;
+    degraded = true;
+  }
 
   // Merge with previous if provided
   if (input.previous) {
@@ -33,8 +41,8 @@ export async function analyzeConcept(input: {
     }
   }
 
-  // Generate follow-up questions via Grok (falls back to hardcoded if no API key)
+  // Generate follow-up questions via Grok
   const questions = await generateQuestions(concept);
 
-  return { concept, questions, degraded: !process.env.XAI_API_KEY };
+  return { concept, questions, degraded };
 }
