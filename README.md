@@ -25,7 +25,7 @@ Every number on screen carries a provenance label. Facts from Steam, estimates f
 
 ## Architecture in one line
 
-A pre-built local corpus of Steam titles with pre-computed embeddings, queried by pure scoring functions, served by a stateless Next.js API. No live third-party calls on the demo path.
+The current backend collects selected Steam games live from Steam, IGDB MCP, and Gamalytic through `POST /api/games/collect`, with no game storage or result caching. See [the collector guide](docs/collector.md). The older corpus and scoring architecture below remains reference material for later stages.
 
 ---
 
@@ -33,6 +33,7 @@ A pre-built local corpus of Steam titles with pre-computed embeddings, queried b
 
 | Doc | What's in it |
 | --- | --- |
+| [collector.md](docs/collector.md) | Current live collection API, setup, provenance, and limitations |
 | [architecture.md](docs/architecture.md) | System shape, request flow, what we cut and why |
 | [data-model.md](docs/data-model.md) | The frozen type contract every lane codes against |
 | [api-data-guide.md](docs/api-data-guide.md) | Source-priority matrix, endpoints, rate limits, provenance rules |
@@ -51,7 +52,7 @@ A pre-built local corpus of Steam titles with pre-computed embeddings, queried b
 ```bash
 pnpm install
 cp .env.example .env.local        # see api-data-guide.md
-pnpm corpus:fetch                 # offline, ~40 min, run once
+pnpm collector:smoke 739630       # optional live backend check; no data files
 pnpm dev
 ```
 
