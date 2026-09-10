@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #12121d;
-  --color-surface: #12121d;
-  --color-surface-dim: #12121d;
-  --color-surface-bright: #383844;
-  --color-surface-container-lowest: #0d0d18;
-  --color-surface-container-low: #1b1b26;
-  --color-surface-container: #1f1f2a;
-  --color-surface-container-high: #292935;
-  --color-surface-container-highest: #343440;
-  --color-surface-variant: #343440;
+  --color-background: #191a1f;
+  --color-surface: #191a1f;
+  --color-surface-dim: #191a1f;
+  --color-surface-bright: #35363d;
+  --color-surface-container-lowest: #111115;
+  --color-surface-container-low: #1e1f24;
+  --color-surface-container: #232429;
+  --color-surface-container-high: #2c2d33;
+  --color-surface-container-highest: #37383e;
+  --color-surface-variant: #37383e;
 
   --color-on-surface: #e3e0f1;
   --color-on-surface-variant: #c5c5d3;
@@ -67,7 +67,9 @@
 }
 
 html {
+  -webkit-font-smoothing: antialiased;
   scrollbar-width: none;
+  overscroll-behavior: none;
 }
 
 body {
@@ -75,6 +77,16 @@ body {
   color: var(--color-on-surface);
   font-family: var(--font-sans);
   overscroll-behavior: none;
+  position: relative;
+}
+
+/* Stitch-inspired ambient glow — baked into body background */
+body {
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 110%, rgba(90, 110, 220, 0.25) 0%, rgba(60, 80, 200, 0.10) 40%, transparent 70%),
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(100, 120, 210, 0.15) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(80, 100, 200, 0.08) 0%, transparent 60%),
+    var(--color-background);
 }
 
 ::selection {
