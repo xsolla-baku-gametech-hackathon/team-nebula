@@ -1,0 +1,85 @@
+import type { NormalizedGame, Driver, SaturationBand } from '@/lib/types';
+import { driver } from './drivers';
+
+function clamp(min: number, max: number, v: number): number {
+  return Math.max(min, Math.min(max, v));
+}
+
+function band(score: number): SaturationBand {
+  if (score < 30) return 'LOW';
+  if (score < 55) return 'MODERATE';
+  if (score < 80) return 'HIGH';
+  return 'CRITICAL';
+}
+
+export function scoreSaturation(
+  comparables: NormalizedGame[],
+  upcomingCount: number,
+  revenueFloor: number = 50_000,
+): { score: number; band: SaturationBand; drivers: Driver[] } {
+  if (comparables.length === 0) {
+    return { score: 0, band: 'LOW', drivers: [driver('No comparables found', 0, 'Insufficient data')] };
+  }
+
+  // Density: how many comparables exist
+  const densityFactor = clamp(0, 1, comparables.length / 80);
+
+  // Success rate (inverted): fewer successes = higher saturation
+  const aboveFloor = comparables.filter(
+    g => (g.commercial.estimatedRevenueUsd.value ?? 0) >= revenueFloor,
+  ).length;
+  const successRate = comparables.length > 0 ? aboveFloor / comparables.length : 0;
+  const successRateFactor = clamp(0, 1, 1 - successRate);
+
+  // Upcoming pressure
+  const trailingAvgMonthly = comparables.length / 12;
+  const upcomingMonthly = upcomingCount / 3;
+  const upcomingPressureFactor = trailingAvgMonthly > 0
+    ? clamp(0, 1, (upcomingMonthly / trailingAvgMonthly - 1) * 2)
+    : 0;
+
+  // Concentration (Herfindahl)
+  const totalRevenue = comparables.reduce(
+    (s, g) => s + (g.commercial.estimatedRevenueUsd.value ?? 0), 0,
+  );
+  let hhi = 0;
+  if (totalRevenue > 0) {
+    for (const g of comparables) {
+      const share = (g.commercial.estimatedRevenueUsd.value ?? 0) / totalRevenue;
+      hhi += share * share;
+    }
+  }
+  const concentrationFactor = clamp(0, 1, hhi * 4);
+
+  const densityContrib = Math.round(35 * densityFactor);
+  const successContrib = Math.round(30 * successRateFactor);
+  const upcomingContrib = Math.round(20 * upcomingPressureFactor);
+  const concentrationContrib = Math.round(15 * concentrationFactor);
+
+  const score = clamp(0, 100, densityContrib + successContrib + upcomingContrib + concentrationContrib);
+
+  const drivers: Driver[] = [
+    driver(
+      'Comparable releases',
+      densityContrib,
+      `${comparables.length} comparable games in the corpus`,
+    ),
+    driver(
+      'Success rate',
+      successContrib,
+      `${Math.round(successRate * 100)}% cleared $${(revenueFloor / 1000).toFixed(0)}k revenue`,
+    ),
+    driver(
+      'Upcoming pressure',
+      upcomingContrib,
+      `${upcomingCount} upcoming comparable releases`,
+    ),
+    driver(
+      'Revenue concentration',
+      concentrationContrib,
+      `HHI ${(hhi * 100).toFixed(0)}%`,
+    ),
+  ];
+
+  return { score, band: band(score), drivers };
+}
