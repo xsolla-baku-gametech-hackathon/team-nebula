@@ -1,10 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { DiscoverInput, type Candidate, type DiscoveryIntent } from '@/lib/discovery/types';
-import { validateRanking } from '@/lib/discovery/selection';
+import { validatePreviewRanking, validateRanking } from '@/lib/discovery/selection';
 import { parseCandidates } from '@/lib/discovery/candidates';
 import { steamIdentity } from '@/lib/discovery/steam-identities';
 const intent: DiscoveryIntent = { summary: 'Horror', searchQueries: ['horror'], mustHave: [], avoid: [], multiplayer: true };
 const candidates: Candidate[] = [{ igdbId: 1, name: 'Game', description: 'Horror', context: '', gameModes: [2] }];
+const validation = { status: 'ready' as const, normalizedDescription: 'Horror multiplayer', confidence: 0.9,
+  tags: [
+    { name: 'Horror', category: 'theme' as const, priority: 'required' as const, basis: 'explicit' as const },
+    { name: 'Multiplayer', category: 'mode' as const, priority: 'required' as const, basis: 'explicit' as const },
+  ], mustHave: ['horror'], avoid: [], multiplayer: true, questions: [] };
 describe('discovery validation', () => {
   it('defaults to ten games and rejects invalid or excessive requests', () => {
     expect(DiscoverInput.parse({ query: ' horror ' })).toEqual({ query: 'horror', limit: 10 });
@@ -14,6 +19,10 @@ describe('discovery validation', () => {
     expect(() => validateRanking({ selections: [{ igdbId: 2, reason: 'Invented' }] }, candidates)).toThrow('unknown');
     expect(() => validateRanking({ selections: [{ igdbId: 1, reason: 'a' }, { igdbId: 1, reason: 'b' }] }, candidates)).toThrow('duplicate');
     expect(validateRanking({ selections: [] }, candidates)).toEqual([]);
+  });
+  it('rejects match tags that were not validated', () => {
+    expect(() => validatePreviewRanking({ selections: [{ igdbId: 1, reason: 'Match', matchedTags: ['Survival'] }] }, candidates, validation)).toThrow('unknown');
+    expect(validatePreviewRanking({ selections: [{ igdbId: 1, reason: 'Match', matchedTags: ['Horror'] }] }, candidates, validation)[0].matchedTags).toEqual(['Horror']);
   });
   it('filters missing multiplayer evidence and empty descriptions', () => {
     const result = parseCandidates({ results: [
