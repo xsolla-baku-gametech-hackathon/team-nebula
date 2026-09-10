@@ -35,6 +35,24 @@ export class PreviewStore {
     return record;
   }
 
+  claim(id: string): PreviewRecord {
+    const record = this.get(id);
+    if (record.state === 'collecting') throw new DiscoveryError('PREVIEW_BUSY', 'Discovery preview is already being collected');
+    if (record.state === 'consumed') throw new DiscoveryError('PREVIEW_CONSUMED', 'Discovery preview has already been used');
+    record.state = 'collecting';
+    return record;
+  }
+
+  complete(id: string) {
+    const record = this.records.get(id);
+    if (record?.state === 'collecting') record.state = 'consumed';
+  }
+
+  release(id: string) {
+    const record = this.records.get(id);
+    if (record?.state === 'collecting') record.state = 'ready';
+  }
+
   private prune() {
     const now = this.now();
     for (const [id, record] of this.records) if (record.expiresAt <= now) this.records.delete(id);
