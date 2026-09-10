@@ -1,19 +1,18 @@
 import type { GameConcept, ClarifyingQuestion } from '@/lib/types';
 import { fallbackExtract } from './fallback-extract';
+import { generateQuestions } from './grok-questions';
 
 export async function analyzeConcept(input: {
   text: string;
   previous?: GameConcept;
   answers?: Record<string, string>;
 }): Promise<{ concept: GameConcept; questions: ClarifyingQuestion[]; degraded: boolean }> {
-  // TODO: implement LLM extraction with Anthropic API
-  // For now, use keyword fallback
-  const { concept, questions } = fallbackExtract(input.text);
+  // Extract concept using keyword fallback
+  const { concept } = fallbackExtract(input.text);
 
   // Merge with previous if provided
   if (input.previous) {
     concept.version = input.previous.version + 1;
-    // Carry forward fields the fallback didn't find
     if (!concept.taxonomy.primaryGenre && input.previous.taxonomy.primaryGenre) {
       concept.taxonomy.primaryGenre = input.previous.taxonomy.primaryGenre;
     }
@@ -34,5 +33,8 @@ export async function analyzeConcept(input: {
     }
   }
 
-  return { concept, questions, degraded: true };
+  // Generate follow-up questions via Grok (falls back to hardcoded if no API key)
+  const questions = await generateQuestions(concept);
+
+  return { concept, questions, degraded: !process.env.XAI_API_KEY };
 }
