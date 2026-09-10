@@ -2,7 +2,7 @@
 
 import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
 import StepPills from "@/components/phases/StepPills";
-import type { ScoredCompetitor, NormalizedGame } from "@/lib/types";
+import type { ScoredCompetitor } from "@/lib/types";
 
 interface Props {
   competitors: ScoredCompetitor[];
@@ -10,6 +10,7 @@ interface Props {
   onBack: () => void;
   onStartNewSession: () => void;
   loading?: boolean;
+  error?: string | null;
 }
 
 function steamHeaderUrl(appId: number): string {
@@ -61,6 +62,8 @@ function Card({ c }: { c: ScoredCompetitor }) {
           <div><span className="text-[10px] text-on-surface-variant/60 uppercase font-mono">Price</span><p className="font-heading text-[15px] font-bold text-on-surface leading-tight">${g.commercial.priceUsd.value?.toFixed(2) ?? "—"}</p></div>
         </div>
 
+        <p className="text-[11px] text-on-surface-variant leading-relaxed">{c.similarity.rationale}</p>
+
         <div className="flex items-end gap-3 pt-1 border-t border-outline-variant/10">
           {g.history?.revenue && g.history.revenue.length > 0 && (
             <div className="w-[100px] h-[28px] shrink-0">
@@ -79,15 +82,37 @@ function Card({ c }: { c: ScoredCompetitor }) {
           </div>
           <span className="text-[11px] text-on-surface-variant/50 shrink-0">{g.release.date?.slice(0, 7) ?? "TBD"}</span>
         </div>
+
+        {g.reviews.comments?.length ? (
+          <div className="pt-2 border-t border-outline-variant/10">
+            <p className="text-[10px] uppercase font-mono text-on-surface-variant/60 mb-1.5">Recent helpful reviews</p>
+            <div className="grid gap-1.5">
+              {g.reviews.comments.slice(0, 3).map((comment) => (
+                <p key={comment.id} className="text-[10px] text-on-surface-variant leading-relaxed line-clamp-2">
+                  <span className={comment.recommended ? "text-green" : "text-red"}>
+                    {comment.recommended ? "Recommended" : "Not recommended"}:
+                  </span>{" "}
+                  {comment.text}
+                </p>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
 }
 
-export default function ComparablesPhase({ competitors, onNext, onBack, onStartNewSession, loading }: Props) {
+export default function ComparablesPhase({ competitors, onNext, onBack, onStartNewSession, loading, error }: Props) {
   return (
     <div className="max-w-[1200px] mx-auto px-6 py-5">
       <StepPills active="comparables" />
+
+      {error ? (
+        <div role="alert" className="rounded-xl border border-red/30 bg-red/10 px-4 py-3 mb-4 text-[13px] text-red">
+          {error}
+        </div>
+      ) : null}
 
       <div className="flex items-baseline justify-between mb-4">
         <div>
@@ -113,8 +138,11 @@ export default function ComparablesPhase({ competitors, onNext, onBack, onStartN
         </div>
       )}
 
-      <div className="flex justify-center mt-8">
-        <button onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
+      <div className="flex justify-center gap-5 mt-8">
+        <button type="button" onClick={onBack} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
+          <span className="material-symbols-outlined text-[14px]">arrow_back</span> Change selection
+        </button>
+        <button type="button" onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
           <span className="material-symbols-outlined text-[14px]">restart_alt</span> New session
         </button>
       </div>
