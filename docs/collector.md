@@ -34,7 +34,7 @@ Gamalytic uses `/steam-games/list` with selected AppIDs and `steamId,copiesSold,
 
 ## Realtime behavior
 
-Every collection makes fresh provider requests using `cache: no-store`. No game records, datasets, snapshots, or result caches are written or retained between requests. Only short-lived OAuth tokens and request-rate coordination remain in process memory. Providers may independently cache their own data.
+Every collection makes fresh provider requests using `cache: no-store`. No full game records, datasets, snapshots, or result caches are written or retained between collection requests. Automatic discovery temporarily keeps compact pending previews in process memory for approval; they expire after 30 minutes and contain no collected statistics. Short-lived OAuth tokens and request-rate coordination also remain in memory. Providers may independently cache their own data.
 
 Requests are spaced per provider (Steam 1.5 seconds) and have timeouts. Ordinary HTTP calls retry transient failures once; 429 responses trigger a cooldown. Steam enrichment takes up to four requests per game, so ten games usually take at least about a minute. The route permits 180 seconds; hosting must support that duration. Concurrent callers share process-local queues; this is not a distributed rate limiter.
 
