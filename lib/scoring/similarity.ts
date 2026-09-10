@@ -1,3 +1,8 @@
+/**
+ * This script is used to calculate similarity between user concept and candidate games.
+ */
+
+
 import type { GameConcept, NormalizedGame, ScoredCompetitor, SimilarityComponents, Driver } from '@/lib/types';
 import { driver } from './drivers';
 
@@ -11,6 +16,14 @@ const W_PRICE = 0.05;
 
 type ComponentEntry = { name: string; weight: number; value: number; available: boolean };
 
+/**
+ * Computes the Jaccard similarity between two string sets.
+ *
+ * It measures overlap as the size of the intersection divided by the size of the union,
+ * so it returns a value between 0 and 1 where 1 means the sets are identical and 0 means
+ * they have no shared terms. This is used for comparing gameplay tags, mechanics, themes,
+ * and game modes while ignoring duplicate values and case differences.
+ */
 function jaccard(a: string[], b: string[]): number {
   if (a.length === 0 && b.length === 0) return 0;
   const setA = new Set(a.map(s => s.toLowerCase()));
@@ -43,6 +56,16 @@ function genreScore(concept: GameConcept, game: NormalizedGame): number {
   return Math.min(1, score);
 }
 
+/**
+ * Combines a semantic embedding match with several structured metadata signals to score how similar
+ * a game's concept is to a candidate comparable.
+ *
+ * The algorithm weights the strongest factors most heavily: semantic match (40%), mechanics (20%),
+ * genre (15%), theme (10%), game mode (10%), and price (5%). Each component is normalized to a 0–1
+ * value, and the weighted score is averaged across the active factors to produce a final similarity
+ * score out of 100. The function also returns the per-component values, an explanation of the strongest
+ * matching drivers, and a short rationale string for UI display.
+ */
 export function scoreSimilarity(
   concept: GameConcept,
   game: NormalizedGame,

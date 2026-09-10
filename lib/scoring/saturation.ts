@@ -1,3 +1,7 @@
+/**
+ * This files is used to measure market saturation; how crowded a release window or genre space is.
+ */
+
 import type { NormalizedGame, Driver, SaturationBand } from '@/lib/types';
 import { driver } from './drivers';
 
@@ -12,6 +16,18 @@ function band(score: number): SaturationBand {
   return 'CRITICAL';
 }
 
+/**
+ * Scores how crowded a market segment is by combining four signals: density of comparable games,
+ * how many of those games clear a revenue floor, the amount of upcoming pressure in the next quarter,
+ * and how concentrated revenue is among the top performers.
+ *
+ * The function converts each signal into a 0–1 factor, weights them into a 100-point score, and then
+ * maps the result to a LOW / MODERATE / HIGH / CRITICAL band. It also returns explanatory driver
+ * entries so the UI can show why the market looks crowded or open.
+ *
+ * In practice, the score rises when there are many comparables, fewer of them are commercially successful,
+ * more upcoming releases are clustering, and revenue is concentrated in a small number of winners.
+ */
 export function scoreSaturation(
   comparables: NormalizedGame[],
   upcomingCount: number,
