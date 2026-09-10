@@ -1,4 +1,4 @@
-import { DiscoveryError, RankingSchema, type Candidate } from './types';
+import { DiscoveryError, RankingSchema, type Candidate, type DescriptionValidation } from './types';
 
 export function validateRanking(input: unknown, candidates: Candidate[]) {
   const parsed = RankingSchema.safeParse(input);
@@ -12,4 +12,15 @@ export function validateRanking(input: unknown, candidates: Candidate[]) {
     seen.add(selected.igdbId);
   }
   return parsed.data.selections;
+}
+
+export function validatePreviewRanking(input: unknown, candidates: Candidate[], validation: DescriptionValidation) {
+  const selections = validateRanking(input, candidates);
+  const tags = new Set(validation.tags.map(tag => tag.name));
+  for (const selection of selections) {
+    if (new Set(selection.matchedTags).size !== selection.matchedTags.length || selection.matchedTags.some(tag => !tags.has(tag))) {
+      throw new DiscoveryError('INVALID_AI_OUTPUT', 'Grok selected an unknown or duplicate discovery tag');
+    }
+  }
+  return selections;
 }
