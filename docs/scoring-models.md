@@ -6,7 +6,7 @@ This directory is the product. Everything else is plumbing around it.
 
 ```
 lib/scoring/
-  similarity.ts       concept ↔ game, 0–100
+  similarity.ts       concept ↔ game, 0–1
   saturation.ts       market crowding, 0–100
   revenue.ts          conservative / base / upside
   reception.ts        predicted positive ratio
@@ -85,7 +85,7 @@ similarity =
 | `gameMode` | exact set overlap | co-op vs singleplayer is a hard commercial split |
 | `price` | `1 − min(1, |Δprice| / 20)` | $15 vs $60 games are not competitors |
 
-Output ×100, rounded.
+Output stays in the normalized 0–1 range and is rounded to four decimal places. UI components multiply by 100 only for display.
 
 **Why these weights.** Semantic dominates because it is the claim — description matching over tag matching. Mechanics is second because it is the most precise structural signal; two games sharing "proximity voice chat" and "session-based runs" are competitors regardless of how they're tagged. Price is small but non-zero: it doesn't determine similarity, it prevents a $60 AAA title outranking a $15 indie on semantics alone.
 
@@ -103,7 +103,7 @@ const total  = sum(active.map(c => c.weight));
 score = sum(active.map(c => (c.weight / total) * c.value));
 ```
 
-`components` in the returned object marks dropped ones as `null`, so the UI hover shows *"theme: unavailable"* rather than *"theme: 0."* Different meanings, different renderings.
+Unavailable components are omitted from the driver list and from the weighted denominator. Their raw component slot remains zero for the stable API shape.
 
 ### Rationale string
 
@@ -119,17 +119,7 @@ Not LLM-generated. Templates are deterministic, instant, and cannot hallucinate 
 
 Similarity is *how alike*. Threat is *how much it hurts you*.
 
-```
-threat =
-    0.45 × similarity
-  + 0.25 × recency        # exp decay, 18-month half-life
-  + 0.20 × commercialScale # log-scaled revenue percentile within cohort
-  + 0.10 × activity        # current players percentile
-```
-
-A 2019 game scoring 95 on similarity is a weaker threat than a 2026 game scoring 80. Recency decays continuously rather than by band, so there is no cliff at an arbitrary date.
-
-`commercialScale` is log-scaled and percentile-ranked *within the returned cohort*, not globally. A $50M comparable and a $200k comparable should not compress every other game to zero.
+For approved historical comparables, competitive threat is currently the normalized similarity expressed on a 0–100 scale. For upcoming IGDB releases, threat starts with semantic similarity and adds a capped hype boost. Release-risk scoring consumes that upstream threat once; it does not apply similarity again.
 
 ---
 
@@ -174,11 +164,12 @@ Four sentences a developer can act on, versus `Market saturated: yes`.
 `revenue.ts` — comparable-based, never LLM-based.
 
 ```
-1. take top N comparables by similarity (N = 12, min 5)
-2. weight each: w_i = (similarity_i / 100)^2
-3. for each, normalize revenue to the user's price:
+1. keep comparables with known non-negative revenue and positive similarity
+2. weight each: w_i = similarity_i^2
+3. when both prices are known and above zero, normalize revenue to the user's price:
      adj_i = revenue_i × (userPrice / price_i)^0.6
-4. weighted percentiles over adj:
+   otherwise keep the reported revenue without price normalization
+4. similarity-weighted percentiles over adj:
      conservative = P25
      base         = P50
      upside       = P80
@@ -190,6 +181,8 @@ Four sentences a developer can act on, versus `Market saturated: yes`.
 
 **Price elasticity `^0.6`** rather than linear. Doubling price does not double revenue; the exponent is a standard rough approximation for premium game demand. It is a stated assumption, in a comment, in the code.
 
+No target price is invented. A missing target price, missing comparable price, or free game skips price normalization and is disclosed in a driver. When no comparable combines revenue evidence with a positive similarity weight, all three estimates are `null` rather than `$0`.
+
 Modifiers, multiplicative:
 
 | Modifier | Condition | Factor |
@@ -197,15 +190,13 @@ Modifiers, multiplicative:
 | Saturation | `saturation > 70` | ×0.85 |
 | Saturation | `saturation < 30` | ×1.10 |
 | First title | `isFirstTitle === true` | ×0.75 |
-| Small team | `teamSize <= 2` | ×0.90 |
-| Market growth | corpus-wide YoY release growth | ×(1 + g/2) |
 
 Confidence:
 
 | | Condition |
 | --- | --- |
-| `HIGH` | ≥ 10 comparables, top-5 mean similarity ≥ 80, P80/P25 spread < 8× |
-| `MEDIUM` | ≥ 6 comparables, spread < 20× |
+| `HIGH` | ≥ 10 usable scored comparables |
+| `MEDIUM` | ≥ 6 usable scored comparables |
 | `LOW` | otherwise |
 
 ### Presentation

@@ -160,7 +160,7 @@ export type ScoredCompetitor = {
   game: NormalizedGame;
 
   similarity: {
-    score: number;              // 0–100, final
+    score: number;              // 0–1, final
     components: {
       semantic: number;
       mechanics: number;
@@ -196,9 +196,9 @@ export type MarketReport = {
   };
 
   revenue: {
-    conservative: number;
-    base: number;
-    upside: number;
+    conservative: number | null;
+    base: number | null;
+    upside: number | null;      // nulls mean insufficient revenue evidence
     currency: 'USD';
     confidence: 'LOW' | 'MEDIUM' | 'HIGH';
     basedOnCount: number;       // how many comparables fed the estimate

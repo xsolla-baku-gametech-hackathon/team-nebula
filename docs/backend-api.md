@@ -209,7 +209,8 @@ Concept + competitors → the full market report.
 // request
 {
   concept: GameConcept;
-  comparables?: NormalizedGame[];      // 1–10, used by the live UI
+  competitors?: ScoredCompetitor[];    // 1–10, used by the live UI
+  comparables?: NormalizedGame[];      // compatibility path, scored server-side
   competitorAppIds?: number[];          // legacy corpus compatibility
   horizonWeeks?: number;                // integer, 26–52; default 26
 }
@@ -218,7 +219,7 @@ Concept + competitors → the full market report.
 { report: MarketReport }
 ```
 
-Runs saturation, revenue, reception and release-risk over the given competitor set. Live comparable records are scored directly; the corpus is loaded only for the legacy AppID request form. Release risk comes from a fresh IGDB MCP semantic search followed by PC release-date lookup. Exact, month, quarter and unknown dates keep separate confidence levels, and uncertain windows contribute proportionally across the weeks they overlap.
+Runs saturation, similarity-weighted revenue, reception and release-risk over the given competitor set. The live UI preserves IGDB semantic evidence through approval, runs the canonical six-component similarity scorer, and submits scored competitors. The route recomputes those scores before revenue analysis. The corpus is loaded only for the legacy AppID request form. Release risk comes from a fresh IGDB MCP semantic search followed by PC release-date lookup. Exact, month, quarter and unknown dates keep separate confidence levels, and uncertain windows contribute proportionally across the weeks they overlap.
 
 The report includes `releaseData.status`, counts, timestamp and issues. If the upcoming-release provider fails, the other forecast sections still return and the verdict is `INSUFFICIENT_DATA`; the route never presents missing provider data as a zero-risk calendar.
 
