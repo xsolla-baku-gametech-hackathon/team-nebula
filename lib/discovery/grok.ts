@@ -12,7 +12,7 @@ async function structured<T extends z.ZodTypeAny>(schema: T, system: string, inp
   try {
     const result = await generateText({
       model: xai(grokModelId()), output: Output.object({ schema }), system,
-      prompt: JSON.stringify(input), maxOutputTokens: 4000, maxRetries: 0,
+      prompt: JSON.stringify(input), maxOutputTokens: 4000, maxRetries: 1,
       abortSignal: AbortSignal.timeout(45_000),
       providerOptions: { xai: { store: false, reasoningEffort: 'low' } },
     });

@@ -8,7 +8,7 @@ describe('Grok integration', () => {
   it('calls the provider with validated output and storage disabled', async () => {
     vi.mocked(generateText).mockResolvedValue({ output: intent } as Awaited<ReturnType<typeof generateText>>);
     expect(await interpretQuery('horror')).toEqual(intent);
-    expect(generateText).toHaveBeenCalledWith(expect.objectContaining({ maxRetries: 0, providerOptions: { xai: { store: false, reasoningEffort: 'low' } } }));
+    expect(generateText).toHaveBeenCalledWith(expect.objectContaining({ maxRetries: 1, providerOptions: { xai: { store: false, reasoningEffort: 'low' } } }));
   });
   it('fails explicitly when credentials are missing', async () => {
     vi.stubEnv('XAI_API_KEY', '');

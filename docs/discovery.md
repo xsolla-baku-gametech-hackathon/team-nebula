@@ -29,7 +29,7 @@ A successful search with no matches returns 200 with an empty games array and `c
 
 Set `XAI_API_KEY`, `IGDB_MCP_CLIENT_ID`, and `IGDB_MCP_CLIENT_SECRET` in root `.env.local`. `XAI_MODEL` defaults to `grok-4.6`, verified against the account's model list when implemented. The backend calls xAI directly through `@ai-sdk/xai` and AI SDK structured outputs.
 
-Each successful nonempty discovery normally makes two paid Grok requests. Each AI call has a 45-second timeout, a 4,000-output-token limit, and no automatic retries. Input descriptions and candidate metadata are sent to xAI for interpretation/ranking. Responses API storage is disabled with `store:false`. This does not control a provider's other retention policies.
+Each successful nonempty discovery normally makes two paid Grok requests. Each AI stage has a 45-second timeout and a 4,000-output-token limit. Transient provider failures can retry once within that deadline. Input descriptions and candidate metadata are sent to xAI for interpretation/ranking. Responses API storage is disabled with `store:false`. This does not control a provider's other retention policies.
 
 No game data, prompts, or discovery results are stored locally. HTTP responses and fetches use `no-store`; existing OAuth token and request gate coordination is retained. This endpoint permits 300 seconds; the host must support long requests. Ten-game collection alone usually takes about a minute; search, ranking, identity resolution, and replacement candidates add latency.
 
