@@ -1,5 +1,9 @@
 // ── Provenance primitives ──────────────────────────────────────────
 
+/**
+ * The provenance source for a numeric or text fact.
+ * This lets the app distinguish raw Steam data from model estimates or user input.
+ */
 export type Source =
   | 'steam'
   | 'igdb'
@@ -7,6 +11,10 @@ export type Source =
   | 'releasesignal'
   | 'user';
 
+/**
+ * Wraps a value with provenance metadata so every displayed fact can be traced back to its source.
+ * The `estimated` flag tells whether the value came from a model rather than a direct source.
+ */
 export type Sourced<T> = {
   value: T | null;
   source: Source;
@@ -44,7 +52,9 @@ export type ConceptField =
   | 'platforms';
 
 // ── GameConcept ────────────────────────────────────────────────────
-
+/**
+ * Stores the game concept described by the user.
+ */
 export type GameConcept = {
   version: number;
 
@@ -78,8 +88,15 @@ export type GameConcept = {
 
 // ── NormalizedGame ─────────────────────────────────────────────────
 
+/**
+ * A single time-series point, typically used for CCU or revenue history over time.
+ */
 export type TimePoint = { t: string; v: number };
 
+/**
+ * A normalized Steam title after ingestion and cleaning.
+ * This is the canonical shape used for corpus matching, scoring, and reporting.
+ */
 export type NormalizedGame = {
   identity: {
     steamAppId: number;
@@ -129,6 +146,10 @@ export type NormalizedGame = {
 
 // ── ScoredCompetitor ───────────────────────────────────────────────
 
+/**
+ * The weighted pieces that make up a similarity score between
+ *  the user's game concept and a candidate title.
+ */
 export type SimilarityComponents = {
   semantic: number;
   mechanics: number;
@@ -138,6 +159,10 @@ export type SimilarityComponents = {
   price: number;
 };
 
+/**
+ * A comparable game candidate after matching and ranking against the user's concept.
+ * Includes the game data and the model's explanation of why it is relevant.
+ */
 export type ScoredCompetitor = {
   game: NormalizedGame;
 
@@ -153,6 +178,11 @@ export type ScoredCompetitor = {
 
 // ── Driver ─────────────────────────────────────────────────────────
 
+/**
+ * A named explanation for a market score.
+ * Used to show why a result changed, 
+ * such as a crowded release week or high similarity to a competitor.
+ */
 export type Driver = {
   label: string;
   contribution: number;
@@ -166,6 +196,10 @@ export type SaturationBand = 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
 export type RiskBand = 'LOW' | 'MODERATE' | 'HIGH' | 'CRITICAL';
 export type Verdict = 'KEEP' | 'MOVE' | 'MITIGATE';
 
+/**
+ * A future Steam title that may overlap with the user's planned launch window.
+ * Used to model competitive pressure in the forecast.
+ */
 export type UpcomingRelease = {
   steamAppId: number;
   name: string;
@@ -177,6 +211,9 @@ export type UpcomingRelease = {
   isMajorPublisher: boolean;
 };
 
+/**
+ * A time bucket representing a risk analysis window with competing releases and explanatory drivers.
+ */
 export type ReleaseWindow = {
   weekStart: string;
   weekEnd: string;
@@ -221,6 +258,10 @@ export type MarketReport = {
 
 // ── Snapshot ───────────────────────────────────────────────────────
 
+/**
+ * A frozen analysis artifact representing one complete concept-to-forecast session.
+ * It is used for reproducibility and for preserving a calculated report snapshot.
+ */
 export type Snapshot = {
   snapshotId: string;
   generatedAt: string;
