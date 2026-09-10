@@ -231,7 +231,7 @@ async function main() {
       : {};
 
     if (reviewsCache[key]) {
-      reviews = reviewsCache[key] as typeof reviews;
+      reviews = reviewsCache[key] as unknown as typeof reviews;
     } else {
       reviews = await fetchReviews(app.appid);
       reviewsCache[key] = reviews;
