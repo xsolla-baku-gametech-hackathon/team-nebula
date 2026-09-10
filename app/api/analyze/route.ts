@@ -1,14 +1,18 @@
 import { z } from 'zod';
 import { ok, fail } from '@/lib/api/envelope';
+import { fetchUpcomingReleases, type UpcomingCollection } from '@/lib/analysis/upcoming';
 import { getCorpus } from '@/lib/corpus/load';
 import { scoreSaturation, scoreRevenue, scoreReception, scoreReleaseRisk } from '@/lib/scoring';
 import type { GameConcept, NormalizedGame, MarketReport } from '@/lib/types';
+
+export const runtime = 'nodejs';
+export const maxDuration = 120;
 
 const Schema = z.object({
   concept: z.unknown(),
   comparables: z.array(z.unknown()).min(1).max(10).optional(),
   competitorAppIds: z.array(z.number()).min(1).max(30).optional(),
-  horizonWeeks: z.number().optional().default(26),
+  horizonWeeks: z.number().int().min(26).max(52).optional().default(26),
 }).refine(
   body => Boolean(body.comparables?.length || body.competitorAppIds?.length),
   { message: 'Provide live comparables or competitorAppIds' },
@@ -20,7 +24,6 @@ export async function POST(req: Request) {
     const body = Schema.parse(await req.json());
     const concept = body.concept as GameConcept;
     let comparables = (body.comparables ?? []) as NormalizedGame[];
-    let upcomingCount = 0;
     let corpusVersion = 'live';
 
     // Keep the old ID-based contract available while the main UI uses live records.
@@ -28,7 +31,6 @@ export async function POST(req: Request) {
       const corpus = getCorpus();
       const appIdSet = new Set(body.competitorAppIds);
       comparables = corpus.games.filter(game => appIdSet.has(game.identity.steamAppId));
-      upcomingCount = corpus.upcoming.length;
       corpusVersion = corpus.meta.corpusVersion;
     }
 
@@ -36,10 +38,38 @@ export async function POST(req: Request) {
       throw new Error('No comparable game records were supplied');
     }
 
-    const saturation = scoreSaturation(comparables, upcomingCount);
+    const today = new Date();
+    let upcoming: UpcomingCollection;
+    let releaseStatus: MarketReport['releaseData']['status'] = 'live';
+    try {
+      upcoming = await fetchUpcomingReleases(concept, today, body.horizonWeeks);
+    } catch {
+      releaseStatus = 'unavailable';
+      upcoming = {
+        dated: [],
+        undated: [],
+        fetchedAt: new Date().toISOString(),
+        issues: ['Live upcoming-release data is temporarily unavailable.'],
+      };
+    }
+
+    const saturation = scoreSaturation(
+      comparables,
+      releaseStatus === 'live' ? upcoming.dated.length + upcoming.undated.length : 0,
+    );
     const revenue = scoreRevenue(concept, comparables, saturation.score);
     const reception = scoreReception(concept, comparables);
-    const releaseRisk = scoreReleaseRisk(concept, [], new Date(), body.horizonWeeks);
+    const releaseRisk = releaseStatus === 'live'
+      ? scoreReleaseRisk(concept, upcoming.dated, today, body.horizonWeeks)
+      : {
+          windows: [],
+          verdict: {
+            decision: 'INSUFFICIENT_DATA' as const,
+            currentDate: concept.commercial.plannedRelease,
+            recommendedDate: null,
+            reasoning: ['Upcoming release data could not be loaded, so no launch verdict was calculated.'],
+          },
+        };
 
     const report: MarketReport = {
       saturation: {
@@ -62,6 +92,15 @@ export async function POST(req: Request) {
         band: reception.band,
       },
       releaseWindows: releaseRisk.windows,
+      releaseData: {
+        status: releaseStatus,
+        source: 'igdb-mcp',
+        fetchedAt: upcoming.fetchedAt,
+        datedCount: upcoming.dated.length,
+        undatedCount: upcoming.undated.length,
+        issues: upcoming.issues,
+      },
+      undatedReleases: upcoming.undated,
       verdict: releaseRisk.verdict,
     };
 
