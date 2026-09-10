@@ -2,7 +2,7 @@
  * Predicts revenue range for comparable games or a candidate launch.
  */
 
-import type { NormalizedGame, GameConcept, ConfidenceBand, Driver } from '@/lib/types';
+import type { NormalizedGame, GameConcept, ConfidenceBand, Driver, EstimatedRevenue } from '@/lib/types';
 import { driver } from './drivers';
 
 function roundSig(n: number, sig: number): number {
@@ -41,15 +41,7 @@ export function scoreRevenue(
   concept: GameConcept,
   comparables: NormalizedGame[],
   saturationScore: number,
-): {
-  conservative: number;
-  base: number;
-  upside: number;
-  confidence: ConfidenceBand;
-  basedOnCount: number;
-  method: string;
-  drivers: Driver[];
-} {
+): EstimatedRevenue {
   const withRevenue = comparables.filter(g => g.commercial.estimatedRevenueUsd.value !== null);
 
   if (withRevenue.length === 0) {

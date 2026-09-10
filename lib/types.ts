@@ -232,7 +232,7 @@ export type ReleaseWindowRisk = {
 		recommendedDate: string | null;
 		reasoning: string[];
 	}
-	
+
 }
 
 export type MarketReport = {
@@ -293,6 +293,18 @@ export type EstimatedPlayerReception = {
 	predictedPositiveRatio: number;
 	cohortMedianPositiveRatio: number; 
 	band: ConfidenceBand
+}
+
+// ── EstimatedRevenue ────────────────────────────────────────────────────
+
+export type EstimatedRevenue = {
+	conservative: number;
+	base: number;
+	upside: number;
+	confidence: ConfidenceBand;
+	basedOnCount: number;
+	method: string;
+	drivers: Driver[];
 }
 
 // ── API envelope ───────────────────────────────────────────────────
