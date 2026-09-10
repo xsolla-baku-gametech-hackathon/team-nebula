@@ -47,6 +47,7 @@ export type DiscoveryIntent = z.infer<typeof IntentSchema>;
 export type Candidate = { igdbId: number; name: string; description: string; context: string; gameModes: number[] };
 export const RankingSchema = z.object({ selections: z.array(z.object({
   igdbId: z.number().int().positive(), reason: z.string().min(1).max(400),
+  matchedTags: z.array(z.string().trim().min(1).max(80)).max(12).default([]),
 })).max(20) });
 export type Ranking = z.infer<typeof RankingSchema>;
 export class DiscoveryError extends Error {
