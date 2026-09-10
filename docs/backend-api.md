@@ -209,21 +209,20 @@ Concept + competitors → the full market report.
 // request
 {
   concept: GameConcept;
-  competitorAppIds: number[];          // 3–30
-  horizonWeeks?: number;               // default 26
+  comparables?: NormalizedGame[];      // 1–10, used by the live UI
+  competitorAppIds?: number[];          // legacy corpus compatibility
+  horizonWeeks?: number;                // default 26
 }
 
 // response data
 { report: MarketReport }
 ```
 
-Runs saturation, revenue, reception and release-risk over the given competitor set. Entirely synchronous after corpus load.
+Runs saturation, revenue, reception and release-risk over the given competitor set. Live comparable records are scored directly; the corpus is loaded only for the legacy AppID request form.
 
-Deliberately separate from `/api/discover` so that adding or removing a competitor doesn't re-run the LLM or re-embed. The user curates in section 2, then analyzes once.
+Kept separate from discovery so selecting competitors never repeats Grok validation, IGDB search, or collection. The user approves live records first, then analyzes that selected cohort once.
 
-Fewer than 3 competitors returns `INVALID_INPUT` — a market report over two games would be arithmetic dressed as insight.
-
-Typical: 30 ms.
+At least one comparable is required. The live UI normally submits the approved cohort returned by collection.
 
 ---
 
