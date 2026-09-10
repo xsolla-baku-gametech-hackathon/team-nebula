@@ -7,39 +7,39 @@ import type { GameConcept, NormalizedGame, MarketReport } from '@/lib/types';
 
 const Schema = z.object({
   concept: z.unknown(),
-  competitorAppIds: z.array(z.number()).min(1).max(30),
+  comparables: z.array(z.unknown()).min(1).max(10).optional(),
+  competitorAppIds: z.array(z.number()).min(1).max(30).optional(),
   horizonWeeks: z.number().optional().default(26),
-});
+}).refine(
+  body => Boolean(body.comparables?.length || body.competitorAppIds?.length),
+  { message: 'Provide live comparables or competitorAppIds' },
+);
 
 export async function POST(req: NextRequest) {
   const t0 = performance.now();
   try {
     const body = Schema.parse(await req.json());
     const concept = body.concept as GameConcept;
+    let comparables = (body.comparables ?? []) as NormalizedGame[];
+    let upcomingCount = 0;
+    let corpusVersion = 'live';
 
-    let corpus;
-    try {
-      corpus = getCorpus();
-    } catch {
-      return fail(new Error('Corpus not available'), t0);
+    // Keep the old ID-based contract available while the main UI uses live records.
+    if (!comparables.length && body.competitorAppIds?.length) {
+      const corpus = getCorpus();
+      const appIdSet = new Set(body.competitorAppIds);
+      comparables = corpus.games.filter(game => appIdSet.has(game.identity.steamAppId));
+      upcomingCount = corpus.upcoming.length;
+      corpusVersion = corpus.meta.corpusVersion;
     }
 
-    // Resolve competitor games from corpus
-    const appIdSet = new Set(body.competitorAppIds);
-    const comparables: NormalizedGame[] = corpus.games.filter(g =>
-      appIdSet.has(g.identity.steamAppId)
-    );
+    if (!comparables.length) {
+      throw new Error('No comparable game records were supplied');
+    }
 
-    // 1. Saturation
-    const saturation = scoreSaturation(comparables, corpus.upcoming.length);
-
-    // 2. Revenue
+    const saturation = scoreSaturation(comparables, upcomingCount);
     const revenue = scoreRevenue(concept, comparables, saturation.score);
-
-    // 3. Reception
     const reception = scoreReception(concept, comparables);
-
-    // 4. Release risk (use upcoming games as empty for demo — no upcoming data)
     const releaseRisk = scoreReleaseRisk(concept, [], new Date(), body.horizonWeeks);
 
     const report: MarketReport = {
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
       verdict: releaseRisk.verdict,
     };
 
-    return ok({ report }, t0, corpus.meta.corpusVersion);
+    return ok({ report }, t0, corpusVersion);
   } catch (e) {
     return fail(e, t0);
   }
