@@ -52,7 +52,10 @@ export function scoreReception(
     : prices.length % 2
       ? prices[priceMiddle]
       : (prices[priceMiddle - 1] + prices[priceMiddle]) / 2;
-  const userPrice = concept.commercial.priceUsd;
+  const rawUserPrice = concept.commercial.priceUsd;
+  const userPrice = rawUserPrice !== null && Number.isFinite(rawUserPrice) && rawUserPrice >= 0
+    ? rawUserPrice
+    : null;
 
   /**
    * Adjustment for the predicted positive ratio based on how different the 

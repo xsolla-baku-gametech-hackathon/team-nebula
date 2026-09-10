@@ -63,4 +63,9 @@ describe('reception evidence', () => {
     const result = scoreReception(concept(0), [game(1, 1, 100)]);
     expect(result.predictedPositiveRatio).toBe(1);
   });
+
+  it('ignores an invalid concept price instead of producing NaN', () => {
+    const result = scoreReception(concept(Number.NaN), [game(1, 0.82, 20)]);
+    expect(result.predictedPositiveRatio).toBe(0.82);
+  });
 });
