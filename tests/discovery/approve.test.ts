@@ -4,6 +4,7 @@ import { PreviewStore } from '@/lib/discovery/preview-store';
 import { normalizeGame } from '@/lib/collector/normalize';
 import { SteamDetailsSchema } from '@/lib/collector/steam-details';
 import type { DescriptionValidation, PreviewCandidate } from '@/lib/discovery/types';
+import type { CollectionResult } from '@/lib/collector/types';
 
 const validation: DescriptionValidation = { status: 'ready', normalizedDescription: 'Co-op horror', confidence: 0.9,
   tags: [
@@ -20,7 +21,8 @@ const game = (steamAppId: number, igdbId: number) => ({ ...normalizeGame(SteamDe
 function setup() {
   const store = new PreviewStore();
   const record = store.create({ query: 'co-op horror', validation, candidates });
-  const collect = vi.fn(async (input: unknown) => ({ games: (input as { steamAppIds: number[] }).steamAppIds.map(id => game(id, id === 100 ? 1 : 2)), failures: [] }));
+  const collect = vi.fn(async (input: unknown): Promise<CollectionResult> =>
+    ({ games: (input as { steamAppIds: number[] }).steamAppIds.map(id => game(id, id === 100 ? 1 : 2)), failures: [] }));
   return { record, deps: { store, collect } satisfies ApprovalProviders };
 }
 
