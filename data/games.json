@@ -1,1 +1,1196 @@
-{"meta":{"corpusVersion":"2026-09-10T14:35:06.776Z","count":83,"embeddingModel":"text-embedding-3-small","dims":1536,"enrichedCount":0},"games":[{"identity":{"steamAppId":1174180,"igdbId":25076,"name":"Red Dead Redemption 2","steamUrl":"https://store.steampowered.com/app/1174180"},"metadata":{"summary":"Red Dead Redemption 2 is the epic tale of outlaw Arthur Morgan and the infamous Van der Linde gang, on the run across America at the dawn of the modern age.","genres":["Shooter","Role-playing (RPG)","Adventure"],"themes":["Action","Drama","Open world"],"tags":["Shooter","Role-playing (RPG)","Adventure","Action","Drama","Open world"],"keywords":["western","hunting","bloody","animals","murder","3d","fishing","horse","wild west","action-adventure","achievements","gore","bullet time","wildlife","united states","snow","nudity","sequel","bear","realistic","horse riding","sexual content","steam achievements","xbox controller support for pc","xbox one x enhanced","gun","animal cruelty","gore system","dual wielding","severed limbs","remote play","the game awards 2017","the game awards - best score or music - winner","the game awards - nominee","the game awards 2016","controller support","male protagonist","adult protagonist","you can pet the dog","sexual violence","horse taming","the game awards - best action-adventure game - nominee","the game awards - best art direction - nominee","the game awards - best audio design - winner","the game awards - most anticipated game - nominee","the game awards - best game direction - nominee","the game awards - best narrative - winner","the game awards - best performance - winner","the game awards - game of the year - nominee","cowboys","buy and sell","fish","regional censorship","money","previously on - xbox gamepass","swamp"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-10-26","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1593500,"igdbId":19560,"name":"God of War","steamUrl":"https://store.steampowered.com/app/1593500"},"metadata":{"summary":"God of War is the sequel to God of War III as well as a continuation of the canon God of War chronology. Unlike previous installments, this game focuses on Norse mythology and follows an older and more seasoned Kratos and his son Atreus in the years since the third game. It is in this harsh, unforgiving world that he must fight to survive… and teach his son to do the same.","genres":["Role-playing (RPG)","Hack and slash/Beat 'em up","Adventure"],"themes":["Action","Fantasy","Historical"],"tags":["Role-playing (RPG)","Hack and slash/Beat 'em up","Adventure","Action","Fantasy","Historical"],"keywords":["greek mythology","exploration","violence","story driven","norse mythology","crafting","dark fantasy","upgradable weapons","cinematic","deer","mythology","hand-to-hand combat","combat","over the shoulder","emotional","trolls","boss fight","game critics awards","bow and arrow","descendants of other characters","skill tree","the game awards - best score or music - nominee","the game awards 2017","the game awards - nominee","the game awards 2016","narrative","norse","male protagonist","kratos","the game awards - best action-adventure game - winner","the game awards - best art direction - nominee","the game awards - best audio design - nominee","the game awards - most anticipated game - nominee","the game awards - best game direction - winner","the game awards - best narrative - nominee","the game awards - best performance - nominee","the game awards - game of the year - winner","father and son relationship","axe"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-04-20","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1245620,"igdbId":119133,"name":"Elden Ring","steamUrl":"https://store.steampowered.com/app/1245620"},"metadata":{"summary":"Elden Ring is an action RPG developed by FromSoftware and published by Bandai Namco Entertainment, released in February 2022. Directed by Hidetaka Miyazaki, with world-building contributions from novelist George R. R. Martin, the game features an expansive open world called the Lands Between. Players assume the role of a customisable character known as the Tarnished, who must explore this world, battle formidable enemies, and seek to restore the Elden Ring to become the Elden Lord.\n\nThe game builds on the challenging gameplay mechanics familiar from the Dark Souls series but introduces a more open-ended structure with vast exploration, dynamic weather, and a day-night cycle. It offers deep lore, complex characters, and an interconnected world filled with secrets, dungeons, and powerful bosses.","genres":["Role-playing (RPG)","Adventure"],"themes":["Action","Fantasy","Open world"],"tags":["Role-playing (RPG)","Adventure","Action","Fantasy","Open world"],"keywords":["exploration","monsters","knights","violence","medieval","brutal","magic","sword","3d","dragons","death","horse","archery","difficult","insanity","dragon","achievements","apocalypse","undead","online","traps","steam trading cards","explorable world","horse riding","boss fight","steam achievements","xbox controller support for pc","steam cloud","customizable characters","polygonal 3d","bow and arrow","upgradeable weapons","wasd movement","non-player character","minotaurs","ragdoll physics","checkpoints","saving the world","moral decisions","side quests","branching storyline","player vs player","melee","auto-saving","optional boss","parrying","mercenary","non-linear storytelling","multiple enemy boss fights","stealth kill","new game plus","dual wielding","fast traveling","secret achievements","status effects","hidden room","souls as currency","soul steal","old-fashioned english","pyromancer","the game awards - best score or music - nominee","controller support","soulslike","dual wield","fictional world","bosses","the game awards - best art direction - winner","the game awards - best audio design - nominee","the game awards - best game direction - winner","the game awards - best narrative - nominee","the game awards - best roleplaying game - winner","the game awards - game of the year - winner","the game awards - game of the year - nominee","lore rich","interconnected-world","shield","epic adventure","axe","steam families","sword sorcery","spear","scythe","dynamic weather","the game awards 2022","the game awards - most anticipated game - winner"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2022-02-25","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1145360,"igdbId":113112,"name":"Hades","steamUrl":"https://store.steampowered.com/app/1145360"},"metadata":{"summary":"A rogue-lite hack and slash dungeon crawler in which Zagreus, son of Hades the Greek god of the dead, attempts to escape his home and his oppressive father by fighting the souls of the dead through the various layers of the ever-shifting underworld, while getting to know and forging relationships with its inhabitants.","genres":["Role-playing (RPG)","Hack and slash/Beat 'em up","Adventure","Indie"],"themes":["Action","Fantasy","Drama"],"tags":["Role-playing (RPG)","Hack and slash/Beat 'em up","Adventure","Indie","Action","Fantasy","Drama"],"keywords":["greek mythology","roguelike","difficult","mythology","supernatural","stylized","dungeon crawler","story rich","the game awards - best score or music - nominee","roguelite","netflix","you can pet the dog","the game awards - best action game - winner","the game awards - best art direction - nominee","the game awards - best game direction - nominee","the game awards - best independent game - winner","the game awards - best narrative - nominee","the game awards - best performance - nominee","the game awards - game of the year - nominee","weapons"],"gameModes":["Single player"],"perspectives":["Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-09-17","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1091500,"igdbId":1877,"name":"Cyberpunk 2077","steamUrl":"https://store.steampowered.com/app/1091500"},"metadata":{"summary":"Cyberpunk 2077 is an open-world action-adventure game set in Night City, a sprawling metropolis driven by power, glamour, and body modification. Players assume the role of V, a mercenary outlaw in pursuit of a unique implant that holds the key to immortality. The game allows extensive customization of cyberware, skills, and playstyle. Choices made throughout the journey influence both the narrative and the world.","genres":["Shooter","Role-playing (RPG)","Adventure"],"themes":["Action","Science fiction","Sandbox","Open world"],"tags":["Shooter","Role-playing (RPG)","Adventure","Action","Science fiction","Sandbox","Open world"],"keywords":["cyberpunk","cybernetics","dystopian","futuristic","multiple endings","atmospheric","nudity","story rich","choices matter","licensed game","year in the title","based on - tabletop rpg","censored version","immersive sim","dystopian future"],"gameModes":["Single player"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-12-10","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1086940,"igdbId":119171,"name":"Baldur's Gate III","steamUrl":"https://store.steampowered.com/app/1086940"},"metadata":{"summary":"An ancient evil has returned to Baldur's Gate, intent on devouring it from the inside out. The fate of Faerun lies in your hands. Alone, you may resist. But together, you can overcome.","genres":["Role-playing (RPG)","Strategy","Turn-based strategy (TBS)"],"themes":["Action","Fantasy"],"tags":["Role-playing (RPG)","Strategy","Turn-based strategy (TBS)","Action","Fantasy"],"keywords":["exploration","monsters","violence","bloody","medieval","character customization","dark","magic","turn-based","choose your own adventure","crafting","dark fantasy","demons","gore","multiple endings","traps","combat","grid-based movement","dice","nudity","dungeon crawler","good vs evil","party-based","choices matter","sexual content","tactical turn-based combat","customizable characters","leveling up","loot gathering","multiple storylines","character creation","moral decisions","branching storyline","betrayal","redemption","friendship","the game awards - best score or music - nominee","immersive","meaningful choices","turn-based rpg","you can pet the dog","steam deck","the game awards - best game direction - nominee","the game awards - best multiplayer game - winner","the game awards - best narrative - nominee","the game awards - best performance - winner","the game awards - best roleplaying game - winner","the game awards - game of the year - winner","spells","puzzles","isometric"],"gameModes":["Single player","Multiplayer","Co-operative","Split screen"],"perspectives":["Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-08-03","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":504230,"igdbId":26226,"name":"Celeste","steamUrl":"https://store.steampowered.com/app/504230"},"metadata":{"summary":"Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight platformer from the creators of TowerFall. Brave hundreds of hand-crafted challenges, uncover devious secrets, and piece together the mystery of the mountain.","genres":["Platform","Adventure","Indie"],"themes":["Action","Fantasy"],"tags":["Platform","Adventure","Indie","Action","Fantasy"],"keywords":["exploration","retro","psychological exploration","2d","rock climbing","difficult","female protagonist","side-scrolling","cute","atmospheric","pixel art","snow","pixel graphics","anxiety","transgender","story rich","great soundtrack","mental health","digital distribution","pax west 2017","puzzle platformer","depression","the game awards - best score or music - nominee","lgbtq+","conversation","precision platforming","the game awards - best independent game - winner","the game awards - game of the year - nominee","sidescroller","lgbtq","transgender protagonist","previously on - stadia pro","precision platformer"],"gameModes":["Single player"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-01-25","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":883710,"igdbId":19686,"name":"Resident Evil 2","steamUrl":"https://store.steampowered.com/app/883710"},"metadata":{"summary":"Resident Evil 2 is a remake of 1998's Resident Evil 2. The game was not developed with the intent of improving the original, but rather a reimagining of the original story with redesigned maps, characters and story elements. Gameplay mechanics are more similar to Resident Evil 7: Biohazard though with the use of an over-the-shoulder camera.","genres":["Shooter","Adventure"],"themes":["Action","Horror","Survival"],"tags":["Shooter","Adventure","Action","Horror","Survival"],"keywords":["zombies","bloody","resource management","gore","survival horror","gore system","strategic dismemberment","severed limbs","censored version","the game awards - best action-adventure game - nominee","the game awards - best audio design - nominee","the game awards - best game direction - nominee","the game awards - game of the year - nominee","available on - luna plus"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-01-25","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":814380,"igdbId":76882,"name":"Sekiro: Shadows Die Twice","steamUrl":"https://store.steampowered.com/app/814380"},"metadata":{"summary":"Sekiro: Shadows Die Twice is an action-adventure game set in a reimagined late 1500s Sengoku-era Japan.\n\nPlayers control Wolf, a shinobi on a mission to rescue his kidnapped lord and seek revenge on his enemies. The game emphasizes precise sword combat, stealth, and mobility, replacing traditional RPG elements with a posture-based dueling system.","genres":["Adventure"],"themes":["Action","Fantasy","Historical","Stealth"],"tags":["Adventure","Action","Fantasy","Historical","Stealth"],"keywords":["ninja","japan","skill tree","the game awards 2017","sengoku period","shinobi","the game awards - best action-adventure game - winner","the game awards - best art direction - nominee","the game awards - best audio design - nominee","the game awards - best game direction - nominee","the game awards - game of the year - winner","the game awards - world premiere"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-03-22","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1222140,"igdbId":14362,"name":"Detroit: Become Human","steamUrl":"https://store.steampowered.com/app/1222140"},"metadata":{"summary":"Detroit: Become Human is an interactive narrative adventure game developed by Quantic Dream and released in 2018. Set in a near-future Detroit where androids serve humans, the story follows three android protagonists—Kara, Connor, and Markus—who shape the city’s fate through their choices. Gameplay combines exploration, dialogue interactions, and quick-time events, with branching storylines and multiple endings. The narrative explores themes of artificial intelligence, freedom, and morality.","genres":["Adventure"],"themes":["Action","Science fiction","Thriller","Drama","Mystery"],"tags":["Adventure","Action","Science fiction","Thriller","Drama","Mystery"],"keywords":["neo noir","investigation","androids","female protagonist","multiple protagonists","pax west 2017","david cage"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-05-25","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":632470,"igdbId":26472,"name":"Disco Elysium","steamUrl":"https://store.steampowered.com/app/632470"},"metadata":{"summary":"Disco Elysium is a role-playing game developed and published by ZA/UM. It is set in the fictional city of Revachol, where players assume the role of an amnesic detective investigating a murder. The game emphasizes dialogue and skill-based choices, with character attributes represented by internal voices that influence decisions and interactions. Its narrative explores themes of politics, philosophy, and personal identity, and it is known for its unconventional gameplay and deep storytelling.","genres":["Role-playing (RPG)","Adventure","Indie"],"themes":["Thriller","Drama","Mystery"],"tags":["Role-playing (RPG)","Adventure","Indie","Thriller","Drama","Mystery"],"keywords":["psychological exploration","politics","detective","drugs","police","self-discovery","alternate history","war","multiple endings","murder mystery","psychedelic","dialogue trees","satire","crime","dark humor","amnesia","choice and consequence","social issues","story rich","based on novel","psychology","text-heavy","moral decisions","based on - tabletop rpg","depression","fascism","sociopathy","revolution","political","psychological trauma","philosophical","meaningful choices","socialism","character relationships","social commentary","ideology","literary","expressionist","literary reference","police procedural","labor unions","multiple-choice interactive fiction"],"gameModes":["Single player"],"perspectives":["Bird view / Isometric","Text"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-10-15","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2322010,"igdbId":112875,"name":"God of War Ragnarök","steamUrl":"https://store.steampowered.com/app/2322010"},"metadata":{"summary":"God of War: Ragnarök is the ninth installment in the God of War series and the sequel to 2018's God of War. Continuing with the Norse mythology theme, the game is set in ancient Norway and features series protagonists Kratos, the former Greek God of War, and his young son Atreus. The game kicked off the events of Ragnarök, where Kratos and Atreus must journey to each of the Nine Realms in search of answers as they prepare for the prophesied battle that will end the world.","genres":["Role-playing (RPG)","Hack and slash/Beat 'em up","Adventure"],"themes":["Action","Fantasy","Open world"],"tags":["Role-playing (RPG)","Hack and slash/Beat 'em up","Adventure","Action","Fantasy","Open world"],"keywords":["greek mythology","exploration","magic","3d","story driven","norse mythology","dark fantasy","upgradable weapons","archery","cinematic","mythology","hand-to-hand combat","multiple protagonists","multiple endings","combat","over the shoulder","dwarves","talking animals","emotional","climbing","squirrel","gods","trolls","voice acting","bow and arrow","questing","male antagonist","shielded enemies","parrying","skill tree","greek alphabet","the game awards - best score or music - winner","narrative","norse","thor","male protagonist","zeus","kratos","multiple playable characters","full voice acting","the game awards - best action-adventure game - winner","the game awards - best art direction - nominee","the game awards - best audio design - winner","the game awards - most anticipated game - nominee","the game awards - best game direction - nominee","the game awards - best narrative - winner","the game awards - best performance - nominee","the game awards - best performance - winner","the game awards - game of the year - nominee","father and son relationship","shield","winter","axe","canoeing","boat","spear"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2022-11-09","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1426210,"igdbId":135243,"name":"It Takes Two","steamUrl":"https://store.steampowered.com/app/1426210"},"metadata":{"summary":"It Takes Two is a cooperative action-adventure game designed exclusively for two players, playable in local split-screen or online. Players control Cody and May, a married couple transformed into dolls, as they travel through fantastical environments based on their home and relationship. Gameplay combines platforming, puzzle-solving, and action sequences, with each level introducing new mechanics and giving the two characters different abilities that must be used together to progress. The game frequently changes its core mechanics from chapter to chapter, incorporating sections involving shooting, racing, flight, and other genres.","genres":["Platform","Puzzle","Adventure"],"themes":["Action"],"tags":["Platform","Puzzle","Adventure","Action"],"keywords":["exploration","collecting","story driven","skill-based","cinematic","cute","funny","emotional","3d platformer","family friendly","split-screen multiplayer","puzzle platformer","narrative","the game awards - best family game - winner","the game awards - best game direction - nominee","the game awards - best game direction - winner","the game awards - best multiplayer game - winner","the game awards - best narrative - nominee","the game awards - game of the year - winner","bees"],"gameModes":["Multiplayer","Co-operative","Split screen"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2021-03-25","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1172380,"igdbId":74701,"name":"Star Wars Jedi: Fallen Order","steamUrl":"https://store.steampowered.com/app/1172380"},"metadata":{"summary":"Star Wars Jedi: Fallen Order is a narratively driven, single-player game puts you in the role of a Jedi Padawan who narrowly escaped the purge of Order 66 following the events of Episode III: Revenge of the Sith. On a quest to rebuild the Jedi Order, you must pick up the pieces of your shattered past to complete your training, develop new powerful Force abilities and master the art of the iconic lightsaber - all while staying one step ahead of the Empire and its deadly Inquisitors.","genres":["Adventure"],"themes":["Action","Fantasy","Science fiction"],"tags":["Adventure","Action","Fantasy","Science fiction"],"keywords":["star wars","space","male protagonist","canon star wars","the game awards - best action-adventure game - nominee","available on - luna plus"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-11-15","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":812140,"igdbId":103054,"name":"Assassin's Creed Odyssey","steamUrl":"https://store.steampowered.com/app/812140"},"metadata":{"summary":"Write your own epic odyssey and become a legendary Spartan hero in Assassin's Creed Odyssey, an inspiring adventure where you must forge your destiny and define your own path in a world on the brink of tearing itself apart. Influence how history unfolds as you experience a rich and ever-changing world shaped by your decisions.","genres":["Role-playing (RPG)","Adventure"],"themes":["Action","Historical","Stealth","Open world"],"tags":["Role-playing (RPG)","Adventure","Action","Historical","Stealth","Open world"],"keywords":["assassin","ancient greece","mythology","female protagonist","parrying","bad endings with story","stylish action","the game awards - best action-adventure game - nominee","the game awards - best art direction - nominee","the game awards - best performance - nominee","the game awards - game of the year - nominee","alternative history","spear","save anytime","story driven rpg"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-10-05","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":870780,"igdbId":103329,"name":"Control","steamUrl":"https://store.steampowered.com/app/870780"},"metadata":{"summary":"Control is a third-person action-adventure game set in the Federal Bureau of Control, a secretive U.S. government agency that studies paranormal phenomena. Players control Jesse Faden, who arrives at the Bureau's headquarters, the Oldest House, to find it invaded by a hostile force called the Hiss. Gameplay combines supernatural abilities with a shape-shifting firearm, and the environment is reactive and destructible.","genres":["Shooter","Adventure"],"themes":["Action","Fantasy","Science fiction","Horror","Thriller"],"tags":["Shooter","Adventure","Action","Fantasy","Science fiction","Horror","Thriller"],"keywords":["exploration","monsters","psychological horror","paranormal","surrealism","character customization","dark","3d","story driven","dystopian","cinematic","female protagonist","supernatural","psychic abilities","new york","steam trading cards","atmospheric","surreal","psychological","steam achievements","xbox controller support for pc","steam cloud","collectibles","side quests","physics manipulation","superpowers","controller support","narrative","political","realtime 3d","super powers","liminal space","the game awards - best action-adventure game - nominee","the game awards - best art direction - winner","the game awards - best audio design - nominee","the game awards - best game direction - nominee","the game awards - best narrative - nominee","the game awards - best performance - nominee","the game awards - game of the year - nominee","lore rich","interconnected-world","office","anomaly"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-08-27","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1903340,"igdbId":305152,"name":"Clair Obscur: Expedition 33","steamUrl":"https://store.steampowered.com/app/1903340"},"metadata":{"summary":"Lead the members of Expedition 33 on their quest to destroy the Paintress so that she can never paint death again. Explore a world of wonders inspired by Belle Époque France and battle unique enemies in this turn-based RPG with real-time mechanics.","genres":["Role-playing (RPG)","Turn-based strategy (TBS)","Adventure","Indie"],"themes":["Action","Fantasy"],"tags":["Role-playing (RPG)","Turn-based strategy (TBS)","Adventure","Indie","Action","Fantasy"],"keywords":["post-apocalyptic","exploration","violence","character customization","magic","3d","turn-based","jrpg","dark fantasy","party-based combat","achievements","gore","narration","party-based","turn-based combat","realistic","story rich","steam achievements","xbox controller support for pc","steam cloud","60 fps on consoles","controller recommendation","the game awards - best score or music - winner","4k ultra hd","controller support","soulslike","turn-based rpg","suggestive themes","party-based rpg","xbox achievements","the game awards - best art direction - winner","the game awards - best debut indie game - winner","the game awards - best game direction - winner","the game awards - best independent game - winner","the game awards - best narrative - winner","the game awards - best performance - winner","the game awards - game of the year - winner","lore rich","steam families","cloud saves","dualsense support for pc","xbox cloud saves"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2025-04-24","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1190460,"igdbId":19564,"name":"Death Stranding","steamUrl":"https://store.steampowered.com/app/1190460"},"metadata":{"summary":"Death Stranding is an action game set in a post-apocalyptic United States.\n\nPlayers control Sam Porter Bridges, a courier tasked with reconnecting isolated cities via a communication network while delivering essential cargo. The gameplay blends traversal, resource management, and narrative elements, with a focus on social connectivity through asynchronous multiplayer. It is known for its unique mechanics, atmospheric world, and philosophical themes.","genres":["Shooter","Role-playing (RPG)","Adventure"],"themes":["Action","Science fiction","Survival","Stealth","Open world"],"tags":["Shooter","Role-playing (RPG)","Adventure","Action","Science fiction","Survival","Stealth","Open world"],"keywords":["post-apocalyptic","exploration","kojima","explorable world","the game awards 2017","the game awards - best score or music - winner","the game awards 2016","the game awards - best action-adventure game - nominee","the game awards - best art direction - nominee","the game awards - best audio design - nominee","the game awards - best game direction - winner","the game awards - best narrative - nominee","the game awards - best performance - nominee","the game awards - best performance - winner","the game awards - game of the year - nominee","the game awards - world premiere","delivery"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-11-08","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":753640,"igdbId":11737,"name":"Outer Wilds","steamUrl":"https://store.steampowered.com/app/753640"},"metadata":{"summary":"Outer Wilds is a critically-acclaimed and award-winning open world mystery about a solar system trapped in an endless time loop. The newest member of the space program in a small village on the planet Timber Hearth, the player navigates a space shuttle and travels across their solar system to get to the bottom of its mysteries by exploring the cosmos and gathering the knowledge hidden within each of the system's planets, left behind by another civilization in the distant past.","genres":["Puzzle","Simulator","Adventure","Indie"],"themes":["Action","Science fiction","Open world","Mystery"],"tags":["Puzzle","Simulator","Adventure","Indie","Action","Science fiction","Open world","Mystery"],"keywords":["space simulation","exploration","time travel","astronaut"],"gameModes":["Single player"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-05-28","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":552520,"igdbId":28552,"name":"Far Cry 5","steamUrl":"https://store.steampowered.com/app/552520"},"metadata":{"summary":"Welcome to Hope County, Montana, land of the free and the brave, but also home to a fanatical doomsday cult known as The Project at Eden’s Gate that is threatening the community's freedom. Stand up to the cult’s leader, Joseph Seed and the Heralds, and spark the fires of resistance that will liberate the besieged community.\n\nIn this expansive world, your limits and creativity will be tested against the biggest and most ruthless baddest enemy Far Cry has ever seen. It’ll be wild and it’ll get weird, but as long as you keep your wits about you, the residents of Hope County can rest assured knowing you’re their beacon of hope.","genres":["Shooter","Adventure"],"themes":["Action","Survival","Open world"],"tags":["Shooter","Adventure","Action","Survival","Open world"],"keywords":["hunting","exploration","character customization","story driven","crafting","resource management","shooting","cinematic","base management","cult","choices matter","pax west 2017","customizable characters","xbox one x enhanced","bow and arrow","upgradeable weapons","resource gathering","character creation","resistance","questing","useable vehicles","stealth kill","4k ultra hd","narrative","weapons","bees","survival shooter"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-03-26","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":752590,"igdbId":27316,"name":"A Plague Tale: Innocence","steamUrl":"https://store.steampowered.com/app/752590"},"metadata":{"summary":"A Plague Tale: Innocence is a third-person action-adventure game set in 14th-century France during the Black Death. Players control Amicia, a young girl protecting her little brother Hugo as they flee the Inquisition and navigate environments overrun by swarms of plague rats. Gameplay combines stealth, puzzle-solving, and light combat, with an emphasis on using fire and light to manage the rat hordes.","genres":["Adventure"],"themes":["Action","Fantasy","Historical","Stealth","Drama"],"tags":["Adventure","Action","Fantasy","Historical","Stealth","Drama"],"keywords":["rats","female protagonist","xbox one x enhanced","rat","previously on - prime gaming"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-05-14","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1888930,"igdbId":204350,"name":"The Last of Us Part I","steamUrl":"https://store.steampowered.com/app/1888930"},"metadata":{"summary":"Experience the emotional storytelling and unforgettable characters of Joel and Ellie in The Last of Us, winner of over 200 Game of the Year awards and now rebuilt for PlayStation 5.\n\nEnjoy a total overhaul of the original experience, faithfully reproduced but incorporating modernized gameplay, improved controls and expanded accessibility options. Plus, feel immersed with improved effects and enhanced exploration and combat.\n\nIt also includes the Left Behind story DLC.","genres":["Shooter","Adventure"],"themes":["Action","Horror","Survival","Stealth"],"tags":["Shooter","Adventure","Action","Horror","Survival","Stealth"],"keywords":["zombies","post-apocalyptic","hand-to-hand combat","4k"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2022-09-02","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":782330,"igdbId":103298,"name":"Doom Eternal","steamUrl":"https://store.steampowered.com/app/782330"},"metadata":{"summary":"Doom Eternal is a first-person shooter developed by id Software and the sequel to Doom (2016). Players control the Doom Slayer as he fights to end a demonic invasion of Earth. Combat is built around aggressive resource management, where health, armor, and ammo are gained by executing, igniting, or chainsawing enemies. The game introduces platforming segments, destructible enemy weak points, an expanded weapon arsenal, and a multiplayer mode called Battlemode, where one player-controlled Slayer fights two player-controlled demons.","genres":["Shooter"],"themes":["Action","Fantasy","Science fiction","Horror","Warfare"],"tags":["Shooter","Action","Fantasy","Science fiction","Horror","Warfare"],"keywords":["exploration","violence","bloody","difficult","demons","gore","apocalypse","silent protagonist","collectibles","the game awards - best score or music - nominee","the game awards - best action game - nominee","the game awards - best audio design - nominee","the game awards - game of the year - nominee","chainsaw"],"gameModes":["Single player","Multiplayer"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-03-19","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1332010,"igdbId":110248,"name":"Stray","steamUrl":"https://store.steampowered.com/app/1332010"},"metadata":{"summary":"Stray is a third-person cat adventure game set amidst the detailed neon-lit alleys of a decaying cybercity and the murky environments of its seedy underbelly. Roam surroundings high and low, defend against unforeseen threats and solve the mysteries of this unwelcoming place inhabited by nothing but unassuming droids and dangerous creatures.\n\nSee the world through the eyes of a stray and interact with the environment in playful ways. Be stealthy, nimble, silly, and sometimes as annoying as possible with the strange inhabitants of this foreign world.","genres":["Platform","Adventure","Indie"],"themes":["Action","Science fiction","Mystery"],"tags":["Platform","Adventure","Indie","Action","Science fiction","Mystery"],"keywords":["post-apocalyptic","exploration","cyberpunk","story driven","dystopian","robots","animal protagonist","steam","achievements","cute","steam trading cards","atmospheric","colorful","steam achievements","digital distribution","steam cloud","playstation trophies","cat","collectibles","puzzle platformer","cross buy","immersive","narrative","beautiful","the game awards - best action-adventure game - nominee","the game awards - best art direction - nominee","the game awards - best debut indie game - winner","the game awards - best game direction - nominee","the game awards - best independent game - winner","the game awards - game of the year - nominee"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2022-07-19","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":750920,"igdbId":37777,"name":"Shadow of the Tomb Raider","steamUrl":"https://store.steampowered.com/app/750920"},"metadata":{"summary":"As Lara Croft races to save the world from a Maya apocalypse, she must become the Tomb Raider she is destined to be.","genres":["Shooter","Puzzle","Adventure"],"themes":["Action","Survival","Historical","Stealth","Mystery"],"tags":["Shooter","Puzzle","Adventure","Action","Survival","Historical","Stealth","Mystery"],"keywords":["action-adventure","mexico","lara croft"],"gameModes":["Single player","Co-operative"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-09-14","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":990080,"igdbId":136625,"name":"Hogwarts Legacy","steamUrl":"https://store.steampowered.com/app/990080"},"metadata":{"summary":"Hogwarts Legacy is an immersive, open-world action RPG set in the world first introduced in the Harry Potter books. Now you can take control of the action and be at the center of your own adventure in the wizarding world. Embark on a journey through familiar and new locations as you explore and discover fantastic beasts, customize your character and craft potions, master spell casting, upgrade talents, and become the wizard you want to be. Discover the feeling of living at Hogwarts as you make allies, battle Dark wizards, and ultimately decide the fate of the wizarding world. Your legacy is what you make of it.","genres":["Role-playing (RPG)","Adventure"],"themes":["Action","Fantasy","Open world"],"tags":["Role-playing (RPG)","Adventure","Action","Fantasy","Open world"],"keywords":["exploration","wizards","character customization","dark","magic","3d","insects","goblin","dragon","nature","forest","witches","bird","flying","based on - movie","achievements","based on - book","atmospheric","combat","giant insects","castle","story rich","family friendly","trolls","steam achievements","xbox controller support for pc","steam cloud","spider","dualshock 4 support for pc","voice acting","goblins","young protagonist","spellcaster","teenager","lock picking","controller support","in-app purchases","animated cutscenes","wand","full voice acting","spell caster","merlin","spells","spiders","steam families","cloud saves","dualsense support for pc","alcohol","woodland","cave","available on - luna plus"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-02-10","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":412020,"igdbId":37016,"name":"Metro Exodus","steamUrl":"https://store.steampowered.com/app/412020"},"metadata":{"summary":"Metro Exodus is an epic, story-driven first person shooter from 4A Games that blends deadly combat and stealth with exploration and survival horror in one of the most immersive game worlds ever created. Explore the Russian wilderness across vast, non-linear levels and follow a thrilling story-line that spans an entire year through spring, summer and autumn to the depths of nuclear winter. Inspired by the novels of Dmitry Glukhovsky, Metro Exodus continues Artyom’s story in the greatest Metro adventure yet.","genres":["Shooter","Adventure"],"themes":["Action","Science fiction","Horror","Survival","Stealth"],"tags":["Shooter","Adventure","Action","Science fiction","Horror","Survival","Stealth"],"keywords":["post-apocalyptic","russia","gore","violent","xbox one x enhanced","the game awards 2017","the game awards - world premiere","available on - luna plus","previously on - stadia pro","available on - luna gog"],"gameModes":["Single player"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-02-15","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2050650,"igdbId":132181,"name":"Resident Evil 4","steamUrl":"https://store.steampowered.com/app/2050650"},"metadata":{"summary":"Resident Evil 4 is a remake of the 2005 original Resident Evil 4 reimagined for 2023 to bring state-of-the-art survival horror. Resident Evil 4 preserves the essence of the original game, while introducing modernized gameplay, a reimagined storyline,\nand vividly detailed graphics to make this the latest survival horror game where life and death, terror and catharsis intersect.","genres":["Shooter","Puzzle","Adventure"],"themes":["Action","Horror","Mystery"],"tags":["Shooter","Puzzle","Adventure","Action","Horror","Mystery"],"keywords":["zombies","exploration","psychological horror","dark","story driven","resource management","cinematic","gore","atmospheric","survival horror","over the shoulder","inventory management","creepy","violent","upgradeable weapons","extreme violence","weapon modification","zombie shooter","the game awards - best action-adventure game - nominee","the game awards - best audio design - nominee","the game awards - most anticipated game - nominee","the game awards - game of the year - nominee","survival shooter","regional censorship"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-03-24","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1687950,"igdbId":114283,"name":"Persona 5 Royal","steamUrl":"https://store.steampowered.com/app/1687950"},"metadata":{"summary":"Persona 5 Royal is an enhanced version of the turn-based role-playing game Persona 5, set in modern-day Tokyo. Players control a high school student who leads a group of secret vigilantes called the Phantom Thieves of Hearts, exploring supernatural dungeons called Palaces to change the hearts of corrupt adults. The game combines dungeon crawling and turn-based combat with social simulation elements, where players manage daily activities, build relationships, and develop character statistics across a school year. Royal adds new characters, a third semester, an additional Palace, new music, and expanded story content to the original game.","genres":["Role-playing (RPG)","Adventure"],"themes":["Fantasy","Comedy","Drama","Mystery"],"tags":["Role-playing (RPG)","Adventure","Fantasy","Comedy","Drama","Mystery"],"keywords":["jrpg","party-based combat","multiple endings","enhanced version","party-based","turn-based combat","censored version","male protagonist","turn-based rpg","party-based rpg"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-10-31","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1222700,"igdbId":36897,"name":"A Way Out","steamUrl":"https://store.steampowered.com/app/1222700"},"metadata":{"summary":"A Way Out is a cooperative action-adventure game designed exclusively for two-player split-screen play, either locally or online. Each player controls one of two protagonists, Leo and Vincent, who form a reluctant partnership to break out of prison. Gameplay involves stealth, combat, driving, and environmental puzzle-solving, with both characters taking different cooperative roles in each situation. The game features a branching narrative that unfolds simultaneously for both players through its split-screen presentation.","genres":["Adventure"],"themes":["Action"],"tags":["Adventure","Action"],"keywords":["action-adventure","crime","split-screen multiplayer","xbox one x enhanced","the game awards 2017","the game awards 2014","the game awards - world premiere"],"gameModes":["Multiplayer","Co-operative","Split screen"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-03-23","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1172470,"igdbId":114795,"name":"Apex Legends","steamUrl":"https://store.steampowered.com/app/1172470"},"metadata":{"summary":"Conquer with character in Apex Legends, a free-to-play Hero shooter where legendary characters with powerful abilities team up to battle for fame & fortune on the fringes of the Frontier.\n\nMaster an ever-growing roster of diverse Legends, deep tactical squad play and bold new innovations that go beyond the Battle Royale experience—all within a rugged world where anything goes. Welcome to the next evolution of Hero Shooter.","genres":["Shooter","Tactical"],"themes":["Action","Science fiction"],"tags":["Shooter","Tactical","Action","Science fiction"],"keywords":["thief","comics","squad based","crafting","pvp","soldier","robots","androids","doctor","female protagonist","achievements","wall climbing","portals","in-game currency","teleportation","mad scientist","melee combat","free-to-play","hunter","hacker","drone","hitman","loot boxes","daily login rewards","bow and arrow","microtransaction","hologram","black market","melee","grapple","in-game achievement menu","in-game achievements","respawning","mercenary","squad","scientist","healer","squad based shooter","mechanic","invisibility","air strike","crow","seasons","passive ability","male protagonist","lesbian","nonbinary protagonist","gay protagonist"],"gameModes":["Multiplayer","Co-operative","Battle Royale"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-02-04","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":578650,"igdbId":113114,"name":"The Outer Worlds","steamUrl":"https://store.steampowered.com/app/578650"},"metadata":{"summary":"The Outer Worlds is a new single-player sci-fi RPG from Obsidian Entertainment and Private Division. As you explore the furthest reaches of space and encounter a host of factions all vying for power, who you decide to become will determine the fate of everyone in Halcyon. In the corporate equation for the colony, you are the unplanned variable.","genres":["Shooter","Role-playing (RPG)","Adventure"],"themes":["Action","Science fiction","Open world"],"tags":["Shooter","Role-playing (RPG)","Adventure","Action","Science fiction","Open world"],"keywords":["aliens","character customization","space","customizable characters","character creation","rpg elements","the game awards - best narrative - winner","the game awards - best performance - nominee","the game awards - best roleplaying game - nominee","the game awards - game of the year - nominee"],"gameModes":["Single player"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-10-25","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":588650,"igdbId":26855,"name":"Dead Cells","steamUrl":"https://store.steampowered.com/app/588650"},"metadata":{"summary":"Dead Cells is a 2D side-scrolling action platformer combining roguelike and Metroidvania design. Players control the Prisoner, an immortal creature that possesses corpses and fights through procedurally generated levels filled with mutated enemies. Combat centers on melee weapons, bows, traps, and dodging, with enemy patterns that reward careful observation. Death is permanent for each run, stripping the player of most collected items, though an in-game currency called Cells allows for purchasing upgrades that persist between attempts. Levels are assembled from pre-designed sections in randomized configurations, and progression through the game unlocks new traversal abilities via collectible Runes.","genres":["Platform","Adventure","Indie"],"themes":["Action","Fantasy"],"tags":["Platform","Adventure","Indie","Action","Fantasy"],"keywords":["roguelike","metroidvania","permadeath","action-adventure","steam","pixel art","random level generation","teleportation","wall jump","steam achievements","digital distribution","steam cloud","pax west 2017","pax east 2017","pre-release public testing","steam workshop","shopping","skill points in game","bow and arrow","parrying","roguelite","the game awards - best action game - winner","the game awards - best independent game - nominee"],"gameModes":["Single player"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-08-06","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1259420,"igdbId":19561,"name":"Days Gone","steamUrl":"https://store.steampowered.com/app/1259420"},"metadata":{"summary":"Days Gone is an open-world action-adventure game developed by Bend Studio and published by Sony Interactive Entertainment. Released in April 2019 for PlayStation 4 and later for PC in May 2021, the game is set in a post-apocalyptic world where players control Deacon St. John, a drifter and bounty hunter navigating a landscape overrun by \"Freakers,\" zombie-like creatures created by a global pandemic.\n\nThe gameplay focuses on exploration, combat, and survival elements, with players able to use various weapons, craft supplies, and upgrade Deacon’s motorcycle, essential for travelling across the vast and hostile environment. Days Gone combines narrative-driven missions with an open world filled with dynamic events, enemy camps, and environmental challenges.","genres":["Shooter","Adventure"],"themes":["Action","Horror","Survival","Sandbox","Open world"],"tags":["Shooter","Adventure","Action","Horror","Survival","Sandbox","Open world"],"keywords":["zombies","motorcycle","post-apocalyptic","bloody","action-adventure","day/night cycle"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-04-26","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":952060,"igdbId":115115,"name":"Resident Evil 3","steamUrl":"https://store.steampowered.com/app/952060"},"metadata":{"summary":"Resident Evil 3 is a remake of the original Resident Evil 3: Nemesis released in 1999. It updates the story and gameplay for a modern audience. Like the Resident Evil 2 remake, the game uses over-the-shoulder third person point of view similar to Resident Evil 4 and later installments. Players will spend most of their time playing as Jill Valentine, although on some occasions they will assume the role of Carlos Oliveira, giving him more screen time as a deuteragonist.","genres":["Shooter","Adventure"],"themes":["Action","Horror","Survival"],"tags":["Shooter","Adventure","Action","Horror","Survival"],"keywords":["zombies","monsters","female protagonist","hospital","mutants","survival horror","alternate costumes","ranking system","unlockables","recurring boss","medical herb","zombie virus","stalker","sewer","puzzles","art gallery","1990s origin","chase sequence","police station","shotgun"],"gameModes":["Single player","Multiplayer"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-04-03","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":264710,"igdbId":9254,"name":"Subnautica","steamUrl":"https://store.steampowered.com/app/264710"},"metadata":{"summary":"Descend into the depths of an alien underwater world filled with wonder and peril. Craft equipment, pilot submarines and out-smart wildlife to explore lush coral reefs, volcanoes, cave systems, and more, all while trying to survive.","genres":["Adventure","Indie"],"themes":["Science fiction","Survival","Open world"],"tags":["Adventure","Indie","Science fiction","Survival","Open world"],"keywords":["exploration","underwater","swimming","aquatic","underwater gameplay","pax east 2014","submarine"],"gameModes":["Single player"],"perspectives":["First person","Virtual Reality"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-01-23","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1196590,"igdbId":55163,"name":"Resident Evil Village","steamUrl":"https://store.steampowered.com/app/1196590"},"metadata":{"summary":"Resident Evil Village is a first-person survival horror game and the sequel to Resident Evil 7: Biohazard. The game maintains elements from previous Resident Evil games, with players having to scavenge environments for items and manage their resources. However, it adds more action-oriented gameplay, with higher enemy counts and a greater emphasis on combat.","genres":["Shooter","Adventure"],"themes":["Action","Horror","Survival","Stealth"],"tags":["Shooter","Adventure","Action","Horror","Survival","Stealth"],"keywords":["zombies","exploration","gothic","crafting","dark fantasy","resource management","shooting","occult","supernatural","village","trading","backtracking","atmospheric","survival horror","castle","inventory management","creepy","folklore","vampires","violent","boss fight","upgradeable weapons","jump scare moment","merchants","lycanthropy","isolation","suspense","gothic horror","the game awards - best action-adventure game - nominee","the game awards - best audio design - nominee","the game awards - best performance - winner","the game awards - game of the year - nominee","factory","survival shooter"],"gameModes":["Single player"],"perspectives":["First person","Virtual Reality"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2021-05-06","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":397540,"igdbId":19164,"name":"Borderlands 3","steamUrl":"https://store.steampowered.com/app/397540"},"metadata":{"summary":"Borderlands 3 is a first-person looter shooter set seven years after the events of Borderlands 2. Players select one of four new Vault Hunters and travel across multiple planets to stop Troy and Tyreen Calypso, twin cult leaders seeking to harness the power of alien Vaults scattered throughout the galaxy. The game features procedurally generated weapons, cooperative multiplayer for up to four players, expanded skill trees with multiple action skills per character, and new traversal mechanics including sliding and mantling.","genres":["Shooter","Role-playing (RPG)","Adventure"],"themes":["Action","Fantasy","Comedy","Open world"],"tags":["Shooter","Role-playing (RPG)","Adventure","Action","Fantasy","Comedy","Open world"],"keywords":["looter shooter","the game awards - best action-adventure game - nominee","the game awards - best multiplayer game - nominee","available on - luna plus"],"gameModes":["Single player","Multiplayer","Co-operative","Split screen"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-09-13","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":945360,"igdbId":111469,"name":"Among Us","steamUrl":"https://store.steampowered.com/app/945360"},"metadata":{"summary":"Play with 4-15 player online or via local WiFi as you attempt to prepare your spaceship for departure, but beware as one or more random players among the Crew are Impostors bent on killing everyone!\n\nOriginally created as a party game, we recommend playing with friends at a LAN party or online using voice chat. Enjoy cross-platform play between Android, iOS, PC, and console.","genres":["Strategy","Indie"],"themes":["Action","Survival","Stealth","Party"],"tags":["Strategy","Indie","Action","Survival","Stealth","Party"],"keywords":["violence","character customization","murder","investigation","2d","space","online co-op","social","cartoon graphics","memes","cartoon violence","meme origin","teamwork","social deduction","minigame","reference to other games"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-06-15","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1817190,"igdbId":134581,"name":"Marvel's Spider-Man: Miles Morales","steamUrl":"https://store.steampowered.com/app/1817190"},"metadata":{"summary":"Marvel's Spider-Man: Miles Morales is a third-person action-adventure game and a standalone continuation of Marvel's Spider-Man (2018). Set in an open-world version of New York City during winter, the game follows Miles Morales as he takes on the role of Spider-Man while Peter Parker is abroad. Gameplay focuses on traversal, combat, and completing missions across the city. Miles has unique abilities distinct from Peter, including bio-electric \"Venom\" attacks and temporary invisibility. The game features unlockable suits, gadgets, and a skill tree progression system.","genres":["Hack and slash/Beat 'em up","Adventure"],"themes":["Action","Stealth","Open world"],"tags":["Hack and slash/Beat 'em up","Adventure","Action","Stealth","Open world"],"keywords":["hand-to-hand combat","achievements","new york","black protagonist","superhero","comic book","alternate costumes","voice acting","invisibility","rhino","male protagonist","the game awards - best action-adventure game - nominee","the game awards - best performance - nominee","american sign language"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-11-12","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":582010,"igdbId":36926,"name":"Monster Hunter: World","steamUrl":"https://store.steampowered.com/app/582010"},"metadata":{"summary":"Welcome to a new world! Take on the role of a hunter and slay ferocious monsters in a living, breathing ecosystem where you can use the landscape and its diverse inhabitants to get the upper hand. Hunt alone or in co-op with up to three other players, and use materials collected from fallen foes to craft new gear and take on even bigger, badder beasts!","genres":["Role-playing (RPG)","Adventure"],"themes":["Action","Fantasy"],"tags":["Role-playing (RPG)","Adventure","Action","Fantasy"],"keywords":["dragon","online","hunter","pax west 2017","xbox one x enhanced","the game awards 2017","the game awards - nominee","the game awards - most anticipated game - nominee","the game awards - best multiplayer game - nominee","the game awards - best roleplaying game - winner","the game awards - game of the year - nominee","previously on - xbox gamepass"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-01-26","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1057090,"igdbId":37001,"name":"Ori and the Will of the Wisps","steamUrl":"https://store.steampowered.com/app/1057090"},"metadata":{"summary":"Ori and the Will of the Wisps is a platform-adventure game that combines exploration, traversal, and combat within an interconnected world. Designed in a Metroidvania style, it focuses on navigating varied environments, uncovering hidden areas, and acquiring abilities that expand movement and progression options.\nThe game features a system of upgrades and spirit-based skills that support different playstyles, along with environmental challenges and encounters that require timing and precision. Its presentation emphasizes detailed animation and a cohesive audiovisual design that supports both exploration and gameplay.","genres":["Platform","Adventure"],"themes":["Action","Fantasy"],"tags":["Platform","Adventure","Action","Fantasy"],"keywords":["xbox play anywhere","xbox one x enhanced"],"gameModes":["Single player"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-03-10","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1097150,"igdbId":119313,"name":"Fall Guys","steamUrl":"https://store.steampowered.com/app/1097150"},"metadata":{"summary":"Fall Guys flings hordes of contestants together online in a mad dash through round after round of escalating chaos until one victor remains! Battle bizarre obstacles, shove through unruly competitors, and overcome the unbending laws of physics to avoid both humiliation and elimination. Leave your dignity at the door and prepare for hilarious failure in your quest for the crown.","genres":["Platform","Racing","Indie"],"themes":["Action","Comedy","Party"],"tags":["Platform","Racing","Indie","Action","Comedy","Party"],"keywords":["game show","colorful","customization","last man standing","obstacle course","the game awards - best independent game - nominee","the game awards - best multiplayer game - nominee"],"gameModes":["Multiplayer","Co-operative","Battle Royale"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-08-04","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":570940,"igdbId":81085,"name":"Dark Souls: Remastered","steamUrl":"https://store.steampowered.com/app/570940"},"metadata":{"summary":"Dark Souls Remastered is a remastered version of the original game Dark Souls. The updated version of the game features graphical enhancements, an expanded online mode, and the Artorias of the Abyss DLC.","genres":["Role-playing (RPG)","Adventure"],"themes":["Action","Fantasy"],"tags":["Role-playing (RPG)","Adventure","Action","Fantasy"],"keywords":["magic","3d","dragon","undead","secret areas within secret areas","soulslike","interconnected-world"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-05-23","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":683320,"igdbId":22917,"name":"Gris","steamUrl":"https://store.steampowered.com/app/683320"},"metadata":{"summary":"Gris is a 2D platformer developed by Nomada Studio and published by Devolver Digital. It is a visually striking game that follows the journey of a young woman named Gris as she navigates a world of grief and loss. The game features no dialogue, relying on its hand-painted art style, evocative music, and environmental storytelling to convey its themes.\n\nGameplay involves exploration, light platforming, and puzzle-solving, with Gris gaining new abilities as the story progresses. It received critical acclaim for its artistic design and emotional depth.","genres":["Platform","Puzzle","Adventure","Indie"],"themes":["Action","Fantasy","Drama"],"tags":["Platform","Puzzle","Adventure","Indie","Action","Fantasy","Drama"],"keywords":["female protagonist","side-scrolling","walking simulator","atmospheric","singing","emotional","hand-drawn","puzzle platformer","ambient music","immersive","beautiful","non-violent","apple arcade","previously on - apple arcade"],"gameModes":["Single player"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-12-13","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":601150,"igdbId":76253,"name":"Devil May Cry 5","steamUrl":"https://store.steampowered.com/app/601150"},"metadata":{"summary":"Devil May Cry 5 is a brand-new entry in the legendary over-the-top action series Devil May Cry. The game features three playable characters, each with a radically different stylish combat play style as they take on the city overrun with demons. Developed with Capcom’s in-house proprietary RE engine, the series continues to achieve new heights in fidelity with graphics that utilize photorealistic character designs and stunning lighting and environmental effects.","genres":["Hack and slash/Beat 'em up","Adventure"],"themes":["Action","Fantasy"],"tags":["Hack and slash/Beat 'em up","Adventure","Action","Fantasy"],"keywords":["the game awards - best score or music - nominee","the game awards - best action game - winner","previously on - xbox gamepass","available on - luna plus"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-03-08","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":362890,"igdbId":6739,"name":"Black Mesa","steamUrl":"https://store.steampowered.com/app/362890"},"metadata":{"summary":"Black Mesa is a re-envisioning of Valve Software's classic science fiction first person shooter, Half-Life. Powered by Source Engine, You will re-visit the inaugural role of Gordon Freeman and his memorable journey through the Black Mesa Research Facility. Expect detailed environments to explore, a huge cast of characters and experimental weaponry. All-new music, voice acting, choreography and added dialogue give way to a more expansive and immersive experience than ever before.","genres":["Shooter","Platform","Adventure","Indie"],"themes":["Action","Science fiction","Warfare"],"tags":["Shooter","Platform","Adventure","Indie","Action","Science fiction","Warfare"],"keywords":["aliens","assassin","bloody","military","total conversion","steam","steam trading cards","conspiracy","teleportation","silent protagonist","swimming","steam greenlight","alien invasion","one-man army","steam achievements","digital distribution","steam cloud","pre-release public testing","polygonal 3d","pop culture reference","cameo appearance","color separation","non-player character","ragdoll physics","environmental puzzles","a.i. companion","self-referential humor","inconvenient malfunction","rock music","interactive environments","been here before","game with chapters","mod origin","fan service","severed limbs","environment as weapons","novint falcon support","fangame"],"gameModes":["Single player","Multiplayer"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-03-06","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":646570,"igdbId":40477,"name":"Slay the Spire","steamUrl":"https://store.steampowered.com/app/646570"},"metadata":{"summary":"Slay the Spire is a single-player roguelike deck-building game. Players choose from four characters, each with a unique set of cards, and attempt to climb a procedurally generated spire consisting of multiple floors of increasingly difficult enemies and bosses. Combat uses a card-based system where players build and refine their deck on the fly from rewards earned through encounters. Between battles, players collect relics that provide permanent buffs and make strategic choices about which paths to take, which cards to add or remove, and how to spend limited resources. The game is widely credited with popularizing the roguelike deck-building genre.","genres":["Role-playing (RPG)","Strategy","Turn-based strategy (TBS)","Adventure","Indie","Card & Board Game"],"themes":["Fantasy"],"tags":["Role-playing (RPG)","Strategy","Turn-based strategy (TBS)","Adventure","Indie","Card & Board Game","Fantasy"],"keywords":["management","vaporware","hip-hop","roguelite","deck-building"],"gameModes":["Single player"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-01-23","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":653530,"igdbId":9643,"name":"Return of the Obra Dinn","steamUrl":"https://store.steampowered.com/app/653530"},"metadata":{"summary":"In this 1-bit first-person mystery game, a merchant ship called the Obra Dinn has appeared at a London harbor, years after being declared lost at sea. As an insurance adjuster, the player must examine the ship for clues.","genres":["Puzzle","Adventure","Indie"],"themes":["Fantasy","Historical","Mystery"],"tags":["Puzzle","Adventure","Indie","Fantasy","Historical","Mystery"],"keywords":["detective","18th century","death","time manipulation","murder mystery","digital distribution","pax west 2017","polygonal 3d","aquatic","deliberately retro","non-linear storytelling","ditherpunk"],"gameModes":["Single player"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-10-18","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1030300,"igdbId":115289,"name":"Hollow Knight: Silksong","steamUrl":"https://store.steampowered.com/app/1030300"},"metadata":{"summary":"Hollow Knight: Silksong is the epic sequel to Hollow Knight, the epic action-adventure of bugs and heroes. As the lethal hunter Hornet, journey to all-new lands, discover new powers, battle vast hordes of bugs and beasts and uncover ancient secrets tied to your nature and your past.","genres":["Platform","Adventure","Indie"],"themes":["Action","Fantasy"],"tags":["Platform","Adventure","Indie","Action","Fantasy"],"keywords":["exploration","sword","2d","metroidvania","insects","female protagonist","side-scrolling","achievements","steam trading cards","atmospheric","bugs","sequel","melee combat","hand-drawn","2d platformer","steam achievements","xbox controller support for pc","steam cloud","dualshock 4 support for pc","controller recommendation","melee","text dialogue","remote play","the game awards - best score or music - nominee","controller support","steam deck","the game awards - best action-adventure game - winner","the game awards - best art direction - nominee","the game awards - best independent game - nominee","the game awards - game of the year - nominee","interconnected-world","health","steam families","money","cloud saves","dualsense support for pc","save anytime","playable without timed input","stereo sound","keyboard only option","camera comfort"],"gameModes":["Single player"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2025-09-04","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1030840,"igdbId":134070,"name":"Mafia: Definitive Edition","steamUrl":"https://store.steampowered.com/app/1030840"},"metadata":{"summary":"Re-made from the ground up, rise through the ranks of the Mafia during the Prohibition era of organized crime. After a run-in with the mob, cab driver Tommy Angelo is thrust into a deadly underworld. Initially uneasy about falling in with the Salieri crime family, Tommy soon finds that the rewards are too big to ignore.","genres":["Shooter","Adventure"],"themes":["Action","Drama","Open world"],"tags":["Shooter","Adventure","Action","Drama","Open world"],"keywords":["bloody","italian mafia","gangster","steam achievements","betrayal","game with chapters"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-09-25","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":379430,"igdbId":4843,"name":"Kingdom Come: Deliverance","steamUrl":"https://store.steampowered.com/app/379430"},"metadata":{"summary":"Story-driven open-world RPG that immerses you in an epic adventure in the Holy Roman Empire. Avenge your parents' death as you battle invading forces, go on game-changing quests, and make influential choices. Explore castles, forests, villages and other realistic settings in medieval Bohemia!","genres":["Role-playing (RPG)","Adventure"],"themes":["Action","Historical","Stealth","Open world"],"tags":["Role-playing (RPG)","Adventure","Action","Historical","Stealth","Open world"],"keywords":["knights","medieval","steam trading cards","melee combat","non-linear","crowdfunding - kickstarter","day/night cycle","inventory management","alchemy","crowdfunding","steam achievements","steam cloud","human","xbox one x enhanced","using dialogue to avoid combat","real-time combat","crowd funded","rpg elements","mercenary","realism","pickpocketing","lock picking","character models based on actual people","steam families"],"gameModes":["Single player"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-02-13","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2208920,"igdbId":133004,"name":"Assassin's Creed Valhalla","steamUrl":"https://store.steampowered.com/app/2208920"},"metadata":{"summary":"In Assassin's Creed Valhalla, become Eivor, a legendary Viking raider on a quest for glory. Explore a dynamic and beautiful open world set against the brutal backdrop of England’s Dark Ages. Raid your enemies, grow your settlement, and build your political power in the quest to earn a place among the gods in Valhalla.","genres":["Role-playing (RPG)","Adventure"],"themes":["Action","Historical","Stealth","Open world"],"tags":["Role-playing (RPG)","Adventure","Action","Historical","Stealth","Open world"],"keywords":["norse mythology","vikings","england","you can pet the dog"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2020-11-10","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2000950,"igdbId":119177,"name":"Call of Duty: Modern Warfare","steamUrl":"https://store.steampowered.com/app/2000950"},"metadata":{"summary":"Call of Duty: Modern Warfare is a first-person shooter that serves as a reboot of the Modern Warfare sub-series. The game features a single-player campaign, cooperative Special Ops missions, and a multiplayer suite with cross-platform play. The campaign emphasizes tactical realism, with morally complex scenarios, civilian threat assessments, and night-vision operations. Multiplayer introduces a revised gunplay system with extensive weapon customization, a Realism mode that removes the HUD, a Ground War mode supporting over 100 players, and a 2v2 Gunfight mode. Post-launch, the game received the free-to-play battle royale mode Warzone. The traditional season pass was replaced with free content updates delivered through seasonal battle passes.","genres":["Shooter"],"themes":["Action","Warfare"],"tags":["Shooter","Action","Warfare"],"keywords":["reboot"],"gameModes":["Single player","Multiplayer","Co-operative","Split screen"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-10-25","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1293830,"igdbId":82090,"name":"Forza Horizon 4","steamUrl":"https://store.steampowered.com/app/1293830"},"metadata":{"summary":"Forza Horizon 4 is an open world racing game set in a fictionalized representation of Great Britain, featuring regions inspired by Edinburgh, the Scottish Highlands, the Lake District, and the Cotswolds. The game introduces a dynamic seasonal system where the shared game world cycles through spring, summer, autumn, and winter each week, altering road conditions, opening new routes, and changing the landscape. Players collect and drive over 750 licensed cars across a variety of races, stunts, and challenges in servers supporting up to 72 players.","genres":["Racing","Sport","Adventure"],"themes":["Action","Open world"],"tags":["Racing","Sport","Adventure","Action","Open world"],"keywords":["aliens","exploration","cars","3d","vehicle simulation","lego","pvp","ufo","street racing","driving","racing simulator","trains","forest","achievements","steam trading cards","explorable world","upgrade","season winter","drifting","atmospheric","snow","cross-platform multiplayer","online multiplayer","realistic","racing sim","off-roading","steam achievements","xbox controller support for pc","steam cloud","voice acting","xbox play anywhere","vehicle customization","upgradeable vehicles","off-road racing","sports cars","seasons","the game awards - best sports or racing game - winner","4k ultra hd","xbox live cross-platform multiplayer","controller support","vehicles","xbox achievements","xbox smart delivery","cross-platform","season summer","full voice acting","the game awards - best audio design - nominee","online coop","beach","ocean","trucks","winter","thunderstorm","season spring","alien","desert","steam families","money","automobile","online pvp","season fall","automobile sim","upgrades","xbox cloud saves"],"gameModes":["Single player","Multiplayer","Co-operative","Battle Royale"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-10-02","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":323190,"igdbId":23248,"name":"Frostpunk","steamUrl":"https://store.steampowered.com/app/323190"},"metadata":{"summary":"Frostpunk, the newest title from the creators of This War of Mine, is a society survival game where heat means life and every decision comes at a price. In an entirely frozen world, people develop steam-powered technology to oppose the overwhelming cold. You face the task of building the last city on Earth and securing the means necessary for your community to survive.\n\nOptimization and resource management often clash with empathy and thoughtful decision-making. While city and society management will consume most of the ruler’s time, at some point exploration of the outside world is necessary to understand its history and present state.","genres":["Simulator","Strategy","Indie"],"themes":["Survival","Drama"],"tags":["Simulator","Strategy","Indie","Survival","Drama"],"keywords":["steampunk","digital distribution","pax west 2017"],"gameModes":["Single player"],"perspectives":["Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-04-24","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1238810,"igdbId":83728,"name":"Battlefield V","steamUrl":"https://store.steampowered.com/app/1238810"},"metadata":{"summary":"Battlefield V is a first-person shooter set during World War II. Its multiplayer features large-scale battles with infantry, vehicles, and aircraft across various theaters of the war, with modes including Grand Operations (multi-stage campaigns simulating wartime offensives) and Firestorm (a battle royale mode). The single-player component consists of episodic \"War Stories\" that follow different characters across lesser-known fronts of the conflict. The game emphasizes squad-based teamwork, player customization through a Company system, and resource scarcity. It is the successor to the World War I-themed Battlefield 1.","genres":["Shooter"],"themes":["Action","Historical","Warfare"],"tags":["Shooter","Action","Historical","Warfare"],"keywords":["world war ii - ww2","controversy","nazis","ray tracing"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-11-20","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2357570,"igdbId":125174,"name":"Overwatch","steamUrl":"https://store.steampowered.com/app/2357570"},"metadata":{"summary":"Overwatch is a free-to-play first-person hero shooter developed by Blizzard Entertainment. Players choose from a large roster of role-based heroes and compete in 5v5 team matches across various objective-based game modes, with both casual and ranked competitive play. Originally released as Overwatch 2 in 2023 as a successor to the 2016 original, the game was rebranded to simply Overwatch in 2026 with a renewed focus on seasonal narrative content and expanded hero rosters.","genres":["Shooter"],"themes":["Action","Science fiction"],"tags":["Shooter","Action","Science fiction"],"keywords":["pvp","pve","controversy","title changed after release"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-08-10","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1088850,"igdbId":152249,"name":"Marvel's Guardians of the Galaxy","steamUrl":"https://store.steampowered.com/app/1088850"},"metadata":{"summary":"Fire up a wild ride across the cosmos with a fresh take on Marvel’s Guardians of the Galaxy. In this action-adventure game, you are Star-Lord leading the unpredictable Guardians from one explosion of chaos to the next. You got this. Probably.","genres":["Shooter","Role-playing (RPG)","Adventure"],"themes":["Action","Science fiction","Comedy"],"tags":["Shooter","Role-playing (RPG)","Adventure","Action","Science fiction","Comedy"],"keywords":["aliens","exploration","cinematic","space","superhero","story rich","cult","violent","voice acting","based on - comics","realism","the game awards - best score or music - nominee","dogs","dialogue choice","you can pet the dog","the game awards - best action-adventure game - nominee","the game awards - best narrative - winner"],"gameModes":["Single player"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2021-10-26","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1092790,"igdbId":139090,"name":"Inscryption","steamUrl":"https://store.steampowered.com/app/1092790"},"metadata":{"summary":"Inscryption is an inky black card-based odyssey that blends the deckbuilding roguelike, escape-room style puzzles, and psychological horror into a blood-laced smoothie. Darker still are the secrets inscrybed upon the cards...","genres":["Puzzle","Strategy","Adventure","Indie","Card & Board Game"],"themes":["Horror","Mystery"],"tags":["Puzzle","Strategy","Adventure","Indie","Card & Board Game","Horror","Mystery"],"keywords":["weird","deck-building","roguelike deckbuilder"],"gameModes":["Single player"],"perspectives":["First person","Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2021-10-19","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":242760,"igdbId":7504,"name":"The Forest","steamUrl":"https://store.steampowered.com/app/242760"},"metadata":{"summary":"As the lone survivor of a passenger jet crash, you find yourself in a mysterious forest battling to stay alive against a society of cannibalistic mutants.\nBuild, explore, survive in this terrifying first person survival horror simulator.","genres":["Puzzle","Simulator","Adventure","Indie"],"themes":["Action","Horror","Survival","Open world"],"tags":["Puzzle","Simulator","Adventure","Indie","Action","Horror","Survival","Open world"],"keywords":["female protagonist","forest","plane crash","hidden object","digital distribution","vr experience"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["First person","Virtual Reality"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-04-30","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2379780,"igdbId":251833,"name":"Balatro","steamUrl":"https://store.steampowered.com/app/2379780"},"metadata":{"summary":"Balatro is a deck-building roguelite in which players construct poker hands to earn chips and overcome enemy blinds. The game features mechanics for enhancing a deck of playing cards, purchasing Jokers that modify hand effects, and discovering synergies to progress through increasingly challenging encounters.","genres":["Strategy","Turn-based strategy (TBS)","Indie","Card & Board Game"],"themes":[],"tags":["Strategy","Turn-based strategy (TBS)","Indie","Card & Board Game"],"keywords":["poker","roguelike","clowns","collecting card game - ccg","collaboration","the game awards - best debut indie game - winner","the game awards - best game direction - nominee","the game awards - best independent game - winner","the game awards - best mobile game - winner","the game awards - game of the year - nominee","available on - apple arcade"],"gameModes":["Single player"],"perspectives":["Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2024-02-20","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2651280,"igdbId":127044,"name":"Marvel's Spider-Man 2","steamUrl":"https://store.steampowered.com/app/2651280"},"metadata":{"summary":"Marvel's Spider-Man 2 is an action-adventure game developed by Insomniac Games and published by Sony Interactive Entertainment. Released in October 2023 exclusively for the PlayStation 5, it is a direct sequel to Marvel's Spider-Man (2018) and Marvel's Spider-Man: Miles Morales (2020). The game continues the story of Peter Parker and Miles Morales as they face new challenges and threats in New York City.\n\nIn Marvel's Spider-Man 2, players can switch between Peter and Miles, each with unique abilities and combat styles. The game introduces new villains, including Kraven the Hunter and Venom, while expanding the open-world environment with more detailed and interactive elements.","genres":["Hack and slash/Beat 'em up","Adventure"],"themes":["Action","Science fiction","Stealth","Drama","Open world"],"tags":["Hack and slash/Beat 'em up","Adventure","Action","Science fiction","Stealth","Drama","Open world"],"keywords":["exploration","collecting","story driven","parkour","fast paced","cinematic","hand-to-hand combat","multiple protagonists","stylized","new york","combat","over the shoulder","superhero","great soundtrack","alternate costumes","special attacks","skill tree","acrobatics","narrative","multiple playable characters","the game awards - best action-adventure game - nominee","the game awards - best audio design - nominee","the game awards - best game direction - nominee","the game awards - best narrative - nominee","the game awards - best performance - nominee","the game awards - game of the year - nominee","alien"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-10-20","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1794680,"igdbId":186725,"name":"Vampire Survivors","steamUrl":"https://store.steampowered.com/app/1794680"},"metadata":{"summary":"Mow thousands of night creatures and survive until dawn! Vampire Survivors is a gothic horror casual game with rogue-lite elements, where your choices can allow you to quickly snowball against the hundreds of monsters that get thrown at you.","genres":["Role-playing (RPG)","Adventure","Indie","Arcade"],"themes":["Action","Fantasy","Survival"],"tags":["Role-playing (RPG)","Adventure","Indie","Arcade","Action","Fantasy","Survival"],"keywords":["pixel graphics","increasing difficulty","roguelite","bullet heaven","danmaku"],"gameModes":["Single player","Multiplayer","Co-operative","Split screen"],"perspectives":["Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2022-02-01","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2344520,"igdbId":125165,"name":"Diablo IV","steamUrl":"https://store.steampowered.com/app/2344520"},"metadata":{"summary":"Endless demons to slaughter. Deep customization through Talents, Skill Points, Runes, and Legendary loot. Randomized dungeons contained in a dynamic open world. Survive and conquer darkness—or succumb to the shadows.","genres":["Role-playing (RPG)","Hack and slash/Beat 'em up"],"themes":["Action","Fantasy","Horror"],"tags":["Role-playing (RPG)","Hack and slash/Beat 'em up","Action","Fantasy","Horror"],"keywords":["exploration","wizards","demon","character customization","magic","sword","dark fantasy","demons","gore","pve","dungeon crawling","dungeon crawler","story rich","violent","boss fight","battle","armor","character creation","dungeon fighter","bossfight","dungeon","bosses","the game awards - best multiplayer game - nominee","weapons","shield","monster"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-06-06","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1328670,"igdbId":140839,"name":"Mass Effect Legendary Edition","steamUrl":"https://store.steampowered.com/app/1328670"},"metadata":{"summary":"One person is all that stands between humanity and the greatest threat it’s ever faced. Relive the legend of Commander Shepard in the highly acclaimed Mass Effect trilogy with the Mass Effect Legendary Edition. Includes single-player base content and over 40 DLCs from Mass Effect, Mass Effect 2, and Mass Effect 3 games, including promo weapons, armors and packs. Experience an amazingly rich and detailed universe where your decisions have profound consequences on the action and the outcome.","genres":["Shooter","Role-playing (RPG)","Strategy","Adventure"],"themes":["Action","Science fiction","Drama","Open world"],"tags":["Shooter","Role-playing (RPG)","Strategy","Adventure","Action","Science fiction","Drama","Open world"],"keywords":["aliens","future","military","permadeath","futuristic","action-adventure","space travel","multiple endings","character development","over the shoulder","side quests"],"gameModes":["Single player","Multiplayer"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2021-05-14","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1551360,"igdbId":141503,"name":"Forza Horizon 5","steamUrl":"https://store.steampowered.com/app/1551360"},"metadata":{"summary":"Your Ultimate Horizon Adventure awaits! Explore the vibrant and ever-evolving open-world landscapes of Mexico with limitless, fun driving action in hundreds of the world’s greatest cars.","genres":["Racing"],"themes":["Action","Open world"],"tags":["Racing","Action","Open world"],"keywords":["rally","character customization","vehicle simulation","mexico","racing sim","color customization","party system","realism","the game awards - best sports or racing game - winner","vehicles","ray tracing","the game awards - best audio design - winner","drag racing","automobile","dynamic weather","offroad"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2021-11-09","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":730,"igdbId":242408,"name":"Counter-Strike 2","steamUrl":"https://store.steampowered.com/app/730"},"metadata":{"summary":"Counter-Strike 2 is a free-to-play multiplayer tactical first-person shooter developed and published by Valve. Released in September 2023, it is the fifth main entry in the Counter-Strike series and serves as a direct replacement for Counter-Strike: Global Offensive on Steam. Two teams, Terrorists and Counter-Terrorists, compete in objective-based rounds across modes such as bomb defusal and hostage rescue. Built on the Source 2 engine, the game introduced volumetric smoke physics, revised weapon handling, and a new sub-tick server architecture. It inherited all cosmetic items from its predecessor and features both a map-specific Competitive mode and a numerically ranked Premier mode.","genres":["Shooter","Tactical"],"themes":["Action","Warfare"],"tags":["Shooter","Tactical","Action","Warfare"],"keywords":["loot boxes","terrorists","competitve","bombs"],"gameModes":["Single player","Multiplayer"],"perspectives":["First person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-09-27","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1716740,"igdbId":96437,"name":"Starfield","steamUrl":"https://store.steampowered.com/app/1716740"},"metadata":{"summary":"Starfield is a single-player action role-playing game developed by Bethesda Game Studios and set in an open-world space environment. Players create a customizable character and explore a region of the Milky Way galaxy spanning approximately 50 light-years, landing on over 1,000 planets with procedurally generated landscapes. Gameplay includes first-person and third-person combat using firearms, explosives, and melee weapons, as well as spaceship construction, outpost building, resource gathering, and crafting. Players recruit companion characters, join factions, and progress through skill trees spanning Physical, Social, Combat, Science, and Tech categories.","genres":["Shooter","Role-playing (RPG)","Adventure"],"themes":["Action","Science fiction","Sandbox","Open world"],"tags":["Shooter","Role-playing (RPG)","Adventure","Action","Science fiction","Sandbox","Open world"],"keywords":["space","space exploration","spaceship customization","space combat","the game awards - most anticipated game - nominee","the game awards - best roleplaying game - nominee","nasa punk"],"gameModes":["Single player"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-09-06","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2767030,"igdbId":294041,"name":"Marvel Rivals","steamUrl":"https://store.steampowered.com/app/2767030"},"metadata":{"summary":"Marvel Rivals is a super hero team-based PvP shooter developed by NetEase Games! Assemble an all-star Marvel squad, devise countless strategies by combining powers to form unique Team-Up skills and fight in destructible, ever-changing battlefields across the continually evolving Marvel universe!","genres":["Shooter"],"themes":["Action"],"tags":["Shooter","Action"],"keywords":["pvp","marvel","team-based","free-to-play","superhero","online pvp"],"gameModes":["Multiplayer","Co-operative"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2024-12-06","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":460950,"igdbId":20150,"name":"Katana Zero","steamUrl":"https://store.steampowered.com/app/460950"},"metadata":{"summary":"Katana Zero is a fast paced neo-noir action platformer, focusing on tight, instant-death acrobatic combat, and a dark 80's neon aesthetic. Aided with your trusty katana, the time manipulation drug Chronos and the rest of your assassin's arsenal, fight your way through a fractured city, and take back what's rightfully yours.","genres":["Platform","Strategy","Adventure","Indie","Arcade"],"themes":["Action"],"tags":["Platform","Strategy","Adventure","Indie","Arcade","Action"],"keywords":["neo noir","cyberpunk","pixel art","digital distribution","pax east 2016","pax west 2016","pax prime 2015","netflix","speedrun mode","previously on - netflix"],"gameModes":["Single player"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-04-18","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1627720,"igdbId":148241,"name":"Lies of P","steamUrl":"https://store.steampowered.com/app/1627720"},"metadata":{"summary":"Lies of P is an action role-playing game set in a dark, Belle Époque-inspired city overrun by deadly puppets. Players control Pinocchio, reimagined as a mechanical warrior, navigating a decaying world while making choices that affect the unfolding narrative. The game features challenging melee combat, weapon customization, and a mechanical arm with various abilities.","genres":["Role-playing (RPG)","Adventure"],"themes":["Action","Horror","Open world"],"tags":["Role-playing (RPG)","Adventure","Action","Horror","Open world"],"keywords":["europe","20th century","steampunk","atmospheric","19th century","story rich","soulslike","male protagonist"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-09-18","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":860510,"igdbId":121760,"name":"Little Nightmares II","steamUrl":"https://store.steampowered.com/app/860510"},"metadata":{"summary":"Little Nightmares II is a puzzle-platformer and survival horror game in which players control Mono, a young boy navigating a nightmarish world warped by the transmission of a distant Signal Tower. Gameplay combines environmental puzzle-solving with stealth and light combat, as Mono and his AI companion Six work together to evade grotesque enemies and traverse dangerous environments. The game is a prequel to the original Little Nightmares and features collectible items that unlock additional story content.","genres":["Platform","Puzzle","Adventure"],"themes":["Action","Horror","Stealth","Mystery"],"tags":["Platform","Puzzle","Adventure","Action","Horror","Stealth","Mystery"],"keywords":["dark","atmospheric","previously on - stadia pro"],"gameModes":["Single player"],"perspectives":["Third person","Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2021-02-10","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":976310,"igdbId":112916,"name":"Mortal Kombat 11","steamUrl":"https://store.steampowered.com/app/976310"},"metadata":{"summary":"Mortal Kombat is back and better than ever in the next evolution of the iconic franchise. The all new Custom Character Variations give you unprecedented control of your fighters to make them your own. The new graphics engine showcases every skull-shattering, eye-popping moment, bringing you so close to the fight you can feel it. Featuring a roster of new and returning Klassic Fighters, Mortal Kombat's best-in-class cinematic story mode continues the epic saga over 25 years in the making.","genres":["Fighting"],"themes":["Action","Fantasy"],"tags":["Fighting","Action","Fantasy"],"keywords":["violence","character customization","time manipulation","gore"],"gameModes":["Single player","Multiplayer"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-04-22","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":3764200,"igdbId":347668,"name":"Resident Evil Requiem","steamUrl":"https://store.steampowered.com/app/3764200"},"metadata":{"summary":"Resident Evil Requiem is the ninth entry in the Resident Evil series. Experience terrifying survival horror with FBI analyst Grace Ashcroft, and dive into pulse-pounding action with legendary agent Leon S. Kennedy. Both of their journeys and unique gameplay styles intertwine into a heart-stopping, emotional experience that will chill you to your core.","genres":["Shooter","Puzzle","Adventure"],"themes":["Action","Horror","Survival"],"tags":["Shooter","Puzzle","Adventure","Action","Horror","Survival"],"keywords":["zombies","exploration","crafting","resource management","shooting","backtracking","survival horror","inventory management","violent","boss fight","upgradeable weapons","jump scare moment","suspense","survival shooter"],"gameModes":["Single player"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2026-02-27","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1774580,"igdbId":201156,"name":"Star Wars Jedi: Survivor","steamUrl":"https://store.steampowered.com/app/1774580"},"metadata":{"summary":"The story of Cal Kestis continues in Star Wars Jedi: Survivor, a third-person, galaxy-spanning, action-adventure game from Respawn Entertainment, developed in collaboration with Lucasfilm Games. This narratively driven, single-player title picks up five years after the events of Star Wars Jedi: Fallen Order and follows Cal’s increasingly desperate fight as the galaxy descends further into darkness. Pushed to the edges of the galaxy by the Empire, Cal will find himself surrounded by threats new and familiar. As one of the last surviving Jedi Knights, Cal is driven to make a stand during the galaxy’s darkest times — but how far is he willing to go to protect himself, his crew, and the legacy of the Jedi Order?","genres":["Adventure"],"themes":["Action","Fantasy","Science fiction"],"tags":["Adventure","Action","Fantasy","Science fiction"],"keywords":["character customization","jedi","soulslike","canon star wars","the game awards - best action-adventure game - nominee","the game awards - best performance - nominee","available on - luna plus"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2023-04-28","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":532210,"igdbId":62151,"name":"Life Is Strange 2","steamUrl":"https://store.steampowered.com/app/532210"},"metadata":{"summary":"Life Is Strange 2 is an episodic adventure game played from a third-person perspective. Players control Sean Diaz, a teenager on the run with his younger brother Daniel after a tragic incident forces them to flee their home in Seattle. The game uses a road trip structure inspired by films like Into the Wild and Stand By Me, with each episode set in a new location along the US West Coast. Sean must make choices that affect both the story's branching paths and Daniel's developing morality and behavior. The game explores themes of family, brotherhood, and contemporary social issues through its narrative-driven gameplay.","genres":["Adventure"],"themes":["Action","Fantasy","Science fiction","Drama"],"tags":["Adventure","Action","Fantasy","Science fiction","Drama"],"keywords":["episodic","graphic adventure"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-09-26","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":863550,"igdbId":103210,"name":"Hitman 2","steamUrl":"https://store.steampowered.com/app/863550"},"metadata":{"summary":"Travel the globe and track your targets across exotic sandbox locations in Hitman 2. From sun-drenched streets to dark and dangerous rainforests, nowhere is safe from the world’s most creative assassin, Agent 47 in the ultimate spy thriller story.","genres":["Shooter","Tactical","Adventure"],"themes":["Action","Stealth"],"tags":["Shooter","Tactical","Adventure","Action","Stealth"],"keywords":["assassin","hitman","throwing weapons","sabotage","cover system","poisoning","previously on - stadia pro","sniper"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-11-13","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":1895880,"igdbId":134582,"name":"Ratchet & Clank: Rift Apart","steamUrl":"https://store.steampowered.com/app/1895880"},"metadata":{"summary":"Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality. Jump between action-packed worlds and beyond at mind-blowing speeds, complete with dazzling visuals and an insane arsenal.","genres":["Shooter","Platform","Adventure"],"themes":["Action","Science fiction"],"tags":["Shooter","Platform","Adventure","Action","Science fiction"],"keywords":["aliens","pirates","collecting","story driven","fast paced","robots","cinematic","space","stylized","portals","funny","3d platformer","colorful","boss fight","cartoony","sheep","upgradeable weapons","alternate reality","planet","narrative","multiple playable characters","the game awards - best action-adventure game - nominee","the game awards - best art direction - nominee","the game awards - best audio design - nominee","the game awards - best game direction - nominee","the game awards - game of the year - nominee","weapons"],"gameModes":["Single player"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2021-06-11","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":774361,"igdbId":26820,"name":"Blasphemous","steamUrl":"https://store.steampowered.com/app/774361"},"metadata":{"summary":"Blasphemous is a punishing action-platformer that combines the fast-paced, skilled combat of a hack-n-slash game with a deep and evocative narrative core. Explore this nightmarish world of twisted religion and discover its many secrets hidden deep inside. Use devastating combos and brutal executions to smite the hordes of grotesque monsters and titanic bosses, who are all ready to rip your limbs off. Locate and equip relics, rosary beads and prayers that call on the powers of the heavens to aid you in your quest to break your eternal damnation.","genres":["Platform","Role-playing (RPG)","Hack and slash/Beat 'em up","Adventure","Indie"],"themes":["Action","Fantasy","Horror"],"tags":["Platform","Role-playing (RPG)","Hack and slash/Beat 'em up","Adventure","Indie","Action","Fantasy","Horror"],"keywords":["retro","bloody","2d","gothic","metroidvania","dark fantasy","difficult","side-scrolling","crossover","religion","achievements","gore","steam trading cards","pixel art","nudity","religious","melee combat","silent protagonist","2d platformer","violent","great soundtrack","steam achievements","xbox controller support for pc","single-player only","steam cloud","parrying","moving platforms","religious themes","brutality","remote play","soulslike","male protagonist","gothic horror","you can pet the dog","steam deck","lore rich","interconnected-world","character skin","steam families","sidescroller","previously on - utomik","available on - blacknut"],"gameModes":["Single player"],"perspectives":["Side view"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-09-10","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":2221490,"igdbId":90099,"name":"Tom Clancy's The Division 2","steamUrl":"https://store.steampowered.com/app/2221490"},"metadata":{"summary":"The Division 2 is an action-shooter RPG set in an open-world. Play in co-op and PvP modes that offer more variety in missions and challenges, new progression systems with unique twists and surprises, and fresh gaming innovations to engage players for years to come.","genres":["Shooter","Role-playing (RPG)","Tactical","Adventure"],"themes":["Action","Science fiction","Open world"],"tags":["Shooter","Role-playing (RPG)","Tactical","Adventure","Action","Science fiction","Open world"],"keywords":["post-apocalyptic","looter shooter","the game awards - best multiplayer game - nominee","washington dc"],"gameModes":["Single player","Multiplayer","Co-operative","Massively Multiplayer Online (MMO)"],"perspectives":["Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2019-03-15","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":728880,"igdbId":103341,"name":"Overcooked! 2","steamUrl":"https://store.steampowered.com/app/728880"},"metadata":{"summary":"Overcooked 2 is a cooperative cooking simulation game for up to four players. Teams work together to prepare and serve food orders in increasingly chaotic kitchen environments, coordinating tasks like chopping, cooking, plating, and dishwashing under time pressure. Levels feature dynamic obstacles such as moving floors, portals, fires, and shifting layouts that complicate coordination. The sequel to Overcooked introduces a throwing mechanic for tossing ingredients across the kitchen and adds online multiplayer alongside local co-op.","genres":["Simulator","Strategy","Tactical","Indie","Arcade"],"themes":["Action","Comedy","Kids","Party"],"tags":["Simulator","Strategy","Tactical","Indie","Arcade","Action","Comedy","Kids","Party"],"keywords":["cooking","you can pet the dog","the game awards - best family game - winner","available on - luna plus","available on - luna gog"],"gameModes":["Single player","Multiplayer","Co-operative","Split screen"],"perspectives":["Bird view / Isometric"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2018-08-07","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}},{"identity":{"steamAppId":553850,"igdbId":250616,"name":"Helldivers 2","steamUrl":"https://store.steampowered.com/app/553850"},"metadata":{"summary":"Helldivers 2 is a cooperative third-person shooter in which squads of up to four players are deployed from orbit onto hostile planets to complete strategic missions. Players select loadouts of weapons, armor, and stratagems that allow them to call in orbital strikes, supply drops, vehicles, and turrets during combat. Friendly fire is always active, requiring coordination between teammates. The game features a persistent galactic war where community-wide performance determines which planets are liberated or lost.","genres":["Shooter","Tactical"],"themes":["Action","Science fiction"],"tags":["Shooter","Tactical","Action","Science fiction"],"keywords":["aliens","friendly fire","squad based shooter","the game awards - best action game - nominee","the game awards - best multiplayer game - winner","the game awards - best ongoing game - winner"],"gameModes":["Single player","Multiplayer","Co-operative"],"perspectives":["First person","Third person"],"platforms":["PC"],"developers":[],"publishers":[]},"release":{"date":"2024-02-08","isReleased":true,"isEarlyAccess":false},"commercial":{"priceUsd":{"value":null,"source":"steam","estimated":false},"estimatedCopiesSold":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"},"estimatedRevenueUsd":{"value":null,"source":"releasesignal","estimated":true,"method":"boxleiter x32"}},"reviews":{"total":{"value":null,"source":"steam","estimated":false},"positive":{"value":null,"source":"steam","estimated":false},"negative":{"value":null,"source":"steam","estimated":false},"positiveRatio":{"value":null,"source":"steam","estimated":false},"sentimentSummary":{"value":null,"source":"steam","estimated":false}}}]}
+{
+  "meta": {
+    "corpusVersion": "demo-1.0",
+    "count": 12,
+    "embeddingModel": "none-tag-only",
+    "dims": 16,
+    "enrichedCount": 12
+  },
+  "games": [
+    {
+      "identity": {
+        "steamAppId": 1966720,
+        "igdbId": null,
+        "name": "Lethal Company",
+        "steamUrl": "https://store.steampowered.com/app/1966720"
+      },
+      "metadata": {
+        "summary": "A co-op horror game about scavenging at abandoned moons to sell scrap to the Company.",
+        "genres": [
+          "Horror",
+          "Action"
+        ],
+        "themes": [
+          "Sci-Fi",
+          "Dark"
+        ],
+        "tags": [
+          "Co-op",
+          "Horror",
+          "Online Co-Op",
+          "Multiplayer",
+          "Indie",
+          "Atmospheric"
+        ],
+        "keywords": [
+          "scavenging",
+          "co-op",
+          "horror",
+          "monsters",
+          "sci-fi"
+        ],
+        "gameModes": [
+          "Online Co-op"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Zeekerss"
+        ],
+        "publishers": [
+          "Zeekerss"
+        ]
+      },
+      "release": {
+        "date": "2023-10-23",
+        "isReleased": true,
+        "isEarlyAccess": true
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 9.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 6800000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 68000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 186420,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 178965,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 7455,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.96,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Overwhelmingly Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 602960,
+        "igdbId": null,
+        "name": "Barotrauma",
+        "steamUrl": "https://store.steampowered.com/app/602960"
+      },
+      "metadata": {
+        "summary": "A 2D co-op submarine simulator set on Jupiter's moon Europa. Manage your crew and survive.",
+        "genres": [
+          "Simulation",
+          "RPG"
+        ],
+        "themes": [
+          "Sci-Fi",
+          "Underwater"
+        ],
+        "tags": [
+          "Co-op",
+          "Submarine",
+          "Survival",
+          "Horror",
+          "Online Co-Op",
+          "2D"
+        ],
+        "keywords": [
+          "submarine",
+          "co-op",
+          "survival",
+          "underwater",
+          "europa"
+        ],
+        "gameModes": [
+          "Online Co-op"
+        ],
+        "perspectives": [
+          "Side view"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "FakeFish",
+          "Undertow Games"
+        ],
+        "publishers": [
+          "Daedalic Entertainment"
+        ]
+      },
+      "release": {
+        "date": "2023-03-13",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 29.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 940000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 28000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 42870,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 37726,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 5144,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.88,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Very Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 739630,
+        "igdbId": null,
+        "name": "Phasmophobia",
+        "steamUrl": "https://store.steampowered.com/app/739630"
+      },
+      "metadata": {
+        "summary": "4-player online co-op ghost hunting game. Use ghost hunting equipment to find paranormal activity.",
+        "genres": [
+          "Horror",
+          "Adventure"
+        ],
+        "themes": [
+          "Supernatural",
+          "Dark"
+        ],
+        "tags": [
+          "Horror",
+          "Co-op",
+          "Online Co-Op",
+          "Psychological Horror",
+          "Multiplayer"
+        ],
+        "keywords": [
+          "ghost",
+          "hunting",
+          "co-op",
+          "paranormal",
+          "investigation"
+        ],
+        "gameModes": [
+          "Online Co-op"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Kinetic Games"
+        ],
+        "publishers": [
+          "Kinetic Games"
+        ]
+      },
+      "release": {
+        "date": "2020-09-18",
+        "isReleased": true,
+        "isEarlyAccess": true
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 13.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 8000000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 112000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 298540,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 268686,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 29854,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.9,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Very Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 493520,
+        "igdbId": null,
+        "name": "GTFO",
+        "steamUrl": "https://store.steampowered.com/app/493520"
+      },
+      "metadata": {
+        "summary": "Hardcore 4-player co-op action horror FPS. Work together to explore hostile environments.",
+        "genres": [
+          "Action",
+          "Horror"
+        ],
+        "themes": [
+          "Sci-Fi",
+          "Dark"
+        ],
+        "tags": [
+          "Horror",
+          "Co-op",
+          "FPS",
+          "Difficult",
+          "Online Co-Op",
+          "Atmospheric"
+        ],
+        "keywords": [
+          "hardcore",
+          "co-op",
+          "shooter",
+          "horror",
+          "stealth"
+        ],
+        "gameModes": [
+          "Online Co-op"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "10 Chambers"
+        ],
+        "publishers": [
+          "10 Chambers"
+        ]
+      },
+      "release": {
+        "date": "2021-12-09",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 39.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 450000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 18000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 28910,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 23707,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 5203,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.82,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Very Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 1304930,
+        "igdbId": null,
+        "name": "The Outlast Trials",
+        "steamUrl": "https://store.steampowered.com/app/1304930"
+      },
+      "metadata": {
+        "summary": "Cold War era co-op survival horror. Subjects undergo mind-control experiments.",
+        "genres": [
+          "Horror",
+          "Action"
+        ],
+        "themes": [
+          "Dark",
+          "Psychological"
+        ],
+        "tags": [
+          "Horror",
+          "Co-op",
+          "Survival Horror",
+          "Stealth",
+          "Online Co-Op",
+          "Multiplayer"
+        ],
+        "keywords": [
+          "outlast",
+          "co-op",
+          "horror",
+          "stealth",
+          "survival"
+        ],
+        "gameModes": [
+          "Online Co-op",
+          "Singleplayer"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Red Barrels"
+        ],
+        "publishers": [
+          "Red Barrels"
+        ]
+      },
+      "release": {
+        "date": "2024-03-05",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 29.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 730000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 22000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 34220,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 27034,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 7186,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.79,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Mostly Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 307110,
+        "igdbId": null,
+        "name": "We Need to Go Deeper",
+        "steamUrl": "https://store.steampowered.com/app/307110"
+      },
+      "metadata": {
+        "summary": "2-4 player co-op submarine roguelike. Dive into the depths, fight monsters, survive together.",
+        "genres": [
+          "Action",
+          "Adventure"
+        ],
+        "themes": [
+          "Underwater",
+          "Roguelike"
+        ],
+        "tags": [
+          "Co-op",
+          "Submarine",
+          "Roguelike",
+          "Adventure",
+          "Online Co-Op",
+          "Indie"
+        ],
+        "keywords": [
+          "submarine",
+          "co-op",
+          "roguelike",
+          "underwater",
+          "monsters"
+        ],
+        "gameModes": [
+          "Online Co-op",
+          "Local Co-op"
+        ],
+        "perspectives": [
+          "Side view"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Deli Interactive"
+        ],
+        "publishers": [
+          "Deli Interactive"
+        ]
+      },
+      "release": {
+        "date": "2019-11-01",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 14.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 160000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 2400000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 3870,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 3251,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 619,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.84,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Very Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 945360,
+        "igdbId": null,
+        "name": "Among Us",
+        "steamUrl": "https://store.steampowered.com/app/945360"
+      },
+      "metadata": {
+        "summary": "An online multiplayer social deduction game. Find the impostor among your crewmates.",
+        "genres": [
+          "Casual",
+          "Strategy"
+        ],
+        "themes": [
+          "Sci-Fi",
+          "Social"
+        ],
+        "tags": [
+          "Multiplayer",
+          "Social Deduction",
+          "Online Co-Op",
+          "Space",
+          "Funny"
+        ],
+        "keywords": [
+          "social deduction",
+          "impostor",
+          "multiplayer",
+          "space",
+          "crewmates"
+        ],
+        "gameModes": [
+          "Online Co-op",
+          "Online PvP"
+        ],
+        "perspectives": [
+          "Top down"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Innersloth"
+        ],
+        "publishers": [
+          "Innersloth"
+        ]
+      },
+      "release": {
+        "date": "2018-11-16",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 4.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 12000000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 60000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 612000,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 556920,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 55080,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.91,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Very Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 552500,
+        "igdbId": null,
+        "name": "Deep Rock Galactic",
+        "steamUrl": "https://store.steampowered.com/app/548430"
+      },
+      "metadata": {
+        "summary": "1-4 player co-op FPS featuring badass space dwarves, 100% destructible environments, and procedural caves.",
+        "genres": [
+          "Action",
+          "FPS"
+        ],
+        "themes": [
+          "Sci-Fi",
+          "Mining"
+        ],
+        "tags": [
+          "Co-op",
+          "FPS",
+          "Online Co-Op",
+          "Procedural Generation",
+          "Multiplayer",
+          "Indie"
+        ],
+        "keywords": [
+          "dwarves",
+          "mining",
+          "co-op",
+          "shooter",
+          "caves",
+          "procedural"
+        ],
+        "gameModes": [
+          "Online Co-op",
+          "Singleplayer"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Ghost Ship Games"
+        ],
+        "publishers": [
+          "Coffee Stain Publishing"
+        ]
+      },
+      "release": {
+        "date": "2020-05-13",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 29.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 5600000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 168000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 224000,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 218400,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 5600,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.975,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Overwhelmingly Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 700580,
+        "igdbId": null,
+        "name": "Subnautica: Below Zero",
+        "steamUrl": "https://store.steampowered.com/app/848450"
+      },
+      "metadata": {
+        "summary": "Dive into a freezing underwater adventure on an alien planet. Craft, build, and survive.",
+        "genres": [
+          "Adventure",
+          "Survival"
+        ],
+        "themes": [
+          "Underwater",
+          "Sci-Fi",
+          "Open World"
+        ],
+        "tags": [
+          "Survival",
+          "Open World",
+          "Underwater",
+          "Crafting",
+          "Exploration",
+          "Sci-Fi"
+        ],
+        "keywords": [
+          "underwater",
+          "survival",
+          "crafting",
+          "alien",
+          "exploration"
+        ],
+        "gameModes": [
+          "Singleplayer"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Unknown Worlds Entertainment"
+        ],
+        "publishers": [
+          "Unknown Worlds Entertainment"
+        ]
+      },
+      "release": {
+        "date": "2021-05-14",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 29.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 2100000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 63000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 28400,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 23604,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 4796,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.83,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Very Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 264710,
+        "igdbId": null,
+        "name": "Subnautica",
+        "steamUrl": "https://store.steampowered.com/app/264710"
+      },
+      "metadata": {
+        "summary": "Descend into the depths of an alien underwater world filled with wonder and peril.",
+        "genres": [
+          "Adventure",
+          "Survival"
+        ],
+        "themes": [
+          "Underwater",
+          "Sci-Fi",
+          "Open World"
+        ],
+        "tags": [
+          "Survival",
+          "Open World",
+          "Underwater",
+          "Crafting",
+          "Exploration",
+          "Horror"
+        ],
+        "keywords": [
+          "underwater",
+          "survival",
+          "crafting",
+          "alien",
+          "ocean",
+          "leviathan"
+        ],
+        "gameModes": [
+          "Singleplayer"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Unknown Worlds Entertainment"
+        ],
+        "publishers": [
+          "Unknown Worlds Entertainment"
+        ]
+      },
+      "release": {
+        "date": "2018-01-23",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 29.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 8500000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 255000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 234000,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 222300,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 11700,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.95,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Overwhelmingly Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 1313140,
+        "igdbId": null,
+        "name": "Content Warning",
+        "steamUrl": "https://store.steampowered.com/app/2881650"
+      },
+      "metadata": {
+        "summary": "Film scary monsters with friends in the old world to go viral on SpookTube.",
+        "genres": [
+          "Horror",
+          "Action"
+        ],
+        "themes": [
+          "Comedy",
+          "Dark"
+        ],
+        "tags": [
+          "Co-op",
+          "Horror",
+          "Funny",
+          "Online Co-Op",
+          "Multiplayer",
+          "Indie"
+        ],
+        "keywords": [
+          "filming",
+          "co-op",
+          "horror",
+          "comedy",
+          "viral",
+          "monsters"
+        ],
+        "gameModes": [
+          "Online Co-op"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Landfall"
+        ],
+        "publishers": [
+          "Landfall"
+        ]
+      },
+      "release": {
+        "date": "2024-04-01",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 7.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 3200000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 25600000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 48900,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 44988,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 3912,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.92,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Very Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    },
+    {
+      "identity": {
+        "steamAppId": 1229490,
+        "igdbId": null,
+        "name": "Devour",
+        "steamUrl": "https://store.steampowered.com/app/1274570"
+      },
+      "metadata": {
+        "summary": "1-4 player co-op horror survival game. Stop possessed cultists before they drag you to hell.",
+        "genres": [
+          "Horror",
+          "Action"
+        ],
+        "themes": [
+          "Supernatural",
+          "Dark"
+        ],
+        "tags": [
+          "Horror",
+          "Co-op",
+          "Online Co-Op",
+          "Survival",
+          "Multiplayer",
+          "Indie"
+        ],
+        "keywords": [
+          "cultist",
+          "co-op",
+          "horror",
+          "demons",
+          "ritual"
+        ],
+        "gameModes": [
+          "Online Co-op",
+          "Singleplayer"
+        ],
+        "perspectives": [
+          "First person"
+        ],
+        "platforms": [
+          "PC"
+        ],
+        "developers": [
+          "Straight Back Games"
+        ],
+        "publishers": [
+          "Straight Back Games"
+        ]
+      },
+      "release": {
+        "date": "2021-01-28",
+        "isReleased": true,
+        "isEarlyAccess": false
+      },
+      "commercial": {
+        "priceUsd": {
+          "value": 4.99,
+          "source": "steam",
+          "estimated": false
+        },
+        "estimatedCopiesSold": {
+          "value": 1800000,
+          "source": "gamalytic",
+          "estimated": true
+        },
+        "estimatedRevenueUsd": {
+          "value": 9000000,
+          "source": "gamalytic",
+          "estimated": true
+        }
+      },
+      "reviews": {
+        "total": {
+          "value": 32400,
+          "source": "steam",
+          "estimated": false
+        },
+        "positive": {
+          "value": 29484,
+          "source": "steam",
+          "estimated": false
+        },
+        "negative": {
+          "value": 2916,
+          "source": "steam",
+          "estimated": false
+        },
+        "positiveRatio": {
+          "value": 0.91,
+          "source": "steam",
+          "estimated": false
+        },
+        "sentimentSummary": {
+          "value": "Very Positive",
+          "source": "steam",
+          "estimated": false
+        }
+      }
+    }
+  ]
+}
