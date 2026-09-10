@@ -206,15 +206,15 @@ export type MarketReport = {
   };
 
   reception: {
-    predictedPositiveRatio: number;
-    cohortMedian: number;
-    band: 'LOW' | 'MODERATE' | 'HIGH';
+    predictedPositiveRatio: number | null; // null when no valid review evidence exists
+    cohortMedian: number | null;
+    band: 'LOW' | 'MEDIUM' | 'HIGH';
   };
 
   releaseWindows: ReleaseWindow[];
 
   verdict: {
-    decision: 'KEEP' | 'MOVE' | 'MITIGATE';
+    decision: 'KEEP' | 'MOVE' | 'MITIGATE' | 'INSUFFICIENT_DATA';
     currentDate: string | null;
     recommendedDate: string | null;
     reasoning: string[];        // 2–4 short lines
@@ -231,13 +231,18 @@ export type ReleaseWindow = {
 };
 
 export type UpcomingRelease = {
-  steamAppId: number;
+  igdbId: number;
+  steamAppId: number | null;
   name: string;
-  expectedDate: string;
+  expectedDate: string | null;
+  dateLabel: string;
   dateConfidence: 'exact' | 'month' | 'quarter' | 'vague';
+  rangeStart: string | null;
+  rangeEnd: string | null;
   similarity: number;           // 0–100 against the user's concept
   threat: number;               // 0–100
   followers: number | null;
+  hypes: number | null;
   isMajorPublisher: boolean;
 };
 
