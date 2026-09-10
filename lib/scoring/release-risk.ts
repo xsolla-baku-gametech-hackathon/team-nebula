@@ -17,7 +17,9 @@ const DATE_CONFIDENCE_WEIGHT = {
 
 function weekStart(base: Date, offset: number): Date {
   const d = new Date(base);
-  d.setDate(d.getDate() - d.getDay() + 1 + offset * 7);
+  const daysSinceMonday = (d.getUTCDay() + 6) % 7;
+  d.setUTCDate(d.getUTCDate() - daysSinceMonday + offset * 7);
+  d.setUTCHours(0, 0, 0, 0);
   return d;
 }
 
@@ -67,13 +69,16 @@ export function scoreReleaseRisk(
     const threatSum = inWindow.reduce((sum, release) => {
       const confidence = DATE_CONFIDENCE_WEIGHT[release.dateConfidence];
       const possibleWeeks = overlapCount.get(release.igdbId) ?? 1;
-      return sum + (release.threat * release.similarity / 100) * confidence / possibleWeeks;
+      return sum + release.threat * confidence / possibleWeeks;
     }, 0);
     const risk = clamp(0, 100, Math.round(threatSum));
 
     const drivers: Driver[] = [
-      driver('Competitor density', Math.min(risk, 60), `${inWindow.length} releases in window`),
-      driver('Residual factors', Math.max(0, risk - 60), 'seasonal + historical'),
+      driver(
+        'Upcoming competitor pressure',
+        risk,
+        `${inWindow.length} dated comparable release${inWindow.length === 1 ? '' : 's'} in window`,
+      ),
     ];
 
     windows.push({
@@ -112,7 +117,9 @@ export function scoreReleaseRisk(
     reasoning.push('The planned release date falls outside the available analysis horizon.');
   } else if (currentRisk - bestRisk >= MOVE_THRESHOLD) {
     const bestIdx = windows.indexOf(best!);
-    if (bestIdx <= MIN_MOVE_NOTICE_WEEKS + MAX_MOVE_WEEKS) {
+    const currentIdx = windows.indexOf(currentWindow);
+    const moveDistanceWeeks = Math.abs(bestIdx - currentIdx);
+    if (moveDistanceWeeks <= MAX_MOVE_WEEKS) {
       decision = 'MOVE';
       recommendedDate = best!.weekStart;
       reasoning.push(
@@ -122,7 +129,7 @@ export function scoreReleaseRisk(
     } else {
       decision = 'MITIGATE';
       reasoning.push(
-        `A better window exists but is ${bestIdx} weeks out.`,
+        `A better window exists but requires moving ${moveDistanceWeeks} weeks.`,
         'Consider tactical mitigations: shift announcement timing, adjust price positioning.',
       );
     }
