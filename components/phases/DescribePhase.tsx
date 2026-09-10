@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import StepPills from "@/components/phases/StepPills";
+import { GENRE_SUGGESTIONS, GAME_SUGGESTIONS, type AnalysisResponse } from "@/lib/mock-data";
 
 interface Props {
   description: string;
@@ -11,20 +12,18 @@ interface Props {
   similarGames: string[];
   onSimilarGamesChange: (v: string[]) => void;
   analyzed: boolean;
-  onAnalyze: () => void;
+  questions: string[];
+  onAnalyze: () => Promise<AnalysisResponse>;
   onNext: () => void;
   onStartNewSession: () => void;
 }
-
-const GENRE_SUGGESTIONS = ["Survival", "Atmospheric", "Psychological Horror", "Co-op"];
-const GAME_SUGGESTIONS = ["Barotrauma", "Lethal Company", "Subnautica", "Phasmophobia"];
 
 export default function DescribePhase({
   description, onDescriptionChange,
   genres, onGenresChange,
   similarGames, onSimilarGamesChange,
-  analyzed, onAnalyze,
-  onNext, onStartNewSession,
+  analyzed, questions,
+  onAnalyze, onNext, onStartNewSession,
 }: Props) {
   const [genreInput, setGenreInput] = useState("");
   const [gameInput, setGameInput] = useState("");
@@ -35,9 +34,10 @@ export default function DescribePhase({
   const addGame = (title: string) => { if (title && !similarGames.includes(title)) onSimilarGamesChange([...similarGames, title]); };
   const removeGame = (title: string) => onSimilarGamesChange(similarGames.filter((g) => g !== title));
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     setAnalyzing(true);
-    setTimeout(() => { setAnalyzing(false); onAnalyze(); }, 1200);
+    await onAnalyze();
+    setAnalyzing(false);
   };
 
   return (
@@ -45,7 +45,7 @@ export default function DescribePhase({
       <StepPills active="describe" />
 
       <div className="flex flex-col gap-12">
-        {/* Description */}
+        {/* ══════ SECTION 1: Description ══════ */}
         <section>
           <h1 className="font-heading text-[32px] font-semibold text-white tracking-tight mb-1">Description</h1>
           <p className="text-[15px] text-on-surface-variant mb-4">Tell us about your game.</p>
@@ -62,6 +62,26 @@ export default function DescribePhase({
             </div>
           </div>
 
+          {/* Follow-up questions from analyzer */}
+          {questions.length > 0 && !analyzed && (
+            <div className="mt-4 rounded-xl bg-surface-container-high p-4 flex flex-col gap-3">
+              <div className="flex items-center gap-2 text-primary text-[13px] font-semibold">
+                <span className="material-symbols-outlined text-[18px]">help</span>
+                We need a bit more detail:
+              </div>
+              <ul className="flex flex-col gap-2">
+                {questions.map((q, i) => (
+                  <li key={i} className="text-[14px] text-on-surface-variant pl-6 relative">
+                    <span className="absolute left-0 text-primary font-mono text-[12px]">{i + 1}.</span>
+                    {q}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[12px] text-on-surface-variant/60">Add these details to your description above, then click Update.</p>
+            </div>
+          )}
+
+          {/* Analyze / Update button */}
           <div className="flex justify-end mt-4">
             <button
               onClick={handleAnalyze}
@@ -77,12 +97,12 @@ export default function DescribePhase({
           </div>
         </section>
 
-        {/* Genres + Similar Games — only after analysis */}
+        {/* ══════ SECTION 2: Genres + Similar Games (after analysis) ══════ */}
         {analyzed && (
           <>
             <section>
               <h2 className="font-heading text-[32px] font-semibold text-white tracking-tight mb-1">Genres</h2>
-              <p className="text-[15px] text-on-surface-variant mb-4">What are the genres of your game?</p>
+              <p className="text-[15px] text-on-surface-variant mb-4">Auto-detected from your description. Edit as needed.</p>
 
               <div className="flex flex-col gap-2">
                 {genres.map((g) => (
@@ -107,7 +127,7 @@ export default function DescribePhase({
               </div>
 
               <div className="flex flex-wrap gap-2 mt-3">
-                {GENRE_SUGGESTIONS.map((s) => (
+                {GENRE_SUGGESTIONS.filter((s) => !genres.includes(s)).map((s) => (
                   <button key={s} onClick={() => addGenre(s)} className="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface-variant text-[12px] hover:text-on-surface transition-colors">+ {s}</button>
                 ))}
               </div>
@@ -115,7 +135,7 @@ export default function DescribePhase({
 
             <section>
               <h2 className="font-heading text-[32px] font-semibold text-white tracking-tight mb-1">Similar games</h2>
-              <p className="text-[15px] text-on-surface-variant mb-4">What games feel like yours? <span className="text-primary text-[13px]">(optional)</span></p>
+              <p className="text-[15px] text-on-surface-variant mb-4">Games that feel like yours. <span className="text-primary text-[13px]">(you can add non-Steam games too)</span></p>
 
               <div className="flex flex-col gap-2">
                 {similarGames.map((g) => (
@@ -140,13 +160,13 @@ export default function DescribePhase({
               </div>
 
               <div className="flex flex-wrap gap-2 mt-3">
-                {GAME_SUGGESTIONS.map((s) => (
+                {GAME_SUGGESTIONS.filter((s) => !similarGames.includes(s)).map((s) => (
                   <button key={s} onClick={() => addGame(s)} className="px-3 py-1 rounded-lg bg-surface-container-high text-on-surface-variant text-[12px] hover:text-on-surface transition-colors">+ {s}</button>
                 ))}
               </div>
             </section>
 
-            {/* Proceed */}
+            {/* Proceed button */}
             <div className="flex justify-end">
               <button onClick={onNext} className="px-6 py-3 rounded-xl bg-primary-container hover:bg-inverse-primary text-white font-heading text-[16px] font-semibold flex items-center gap-2 shadow-md transition-all active:scale-95">
                 Find comparables <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
@@ -156,7 +176,6 @@ export default function DescribePhase({
         )}
       </div>
 
-      {/* Start new session */}
       <div className="flex justify-center mt-16">
         <button onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[13px] transition-colors flex items-center gap-1.5">
           <span className="material-symbols-outlined text-[16px]">restart_alt</span>
