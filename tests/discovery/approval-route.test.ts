@@ -33,4 +33,15 @@ describe('approval collection API', () => {
     expect(response.status).toBe(500);
     expect(await response.text()).not.toContain('private');
   });
+
+  it('returns successful approved collection with live metadata', async () => {
+    vi.mocked(approvePreview).mockResolvedValue({ games: [{ identity: { steamAppId: 1 } }], failures: [],
+      query: 'horror', validation: {}, approval: { previewId: id, approvedCount: 1, returnedCount: 1, complete: true } } as never);
+    const response = await POST(request(JSON.stringify({ previewId: id, selectedSteamAppIds: [1] })));
+    expect(response.status).toBe(200);
+    expect(approvePreview).toHaveBeenCalledWith({ previewId: id, selectedSteamAppIds: [1] });
+    const body = await response.json();
+    expect(body.ok).toBe(true);
+    expect(body.meta.mode).toBe('live');
+  });
 });
