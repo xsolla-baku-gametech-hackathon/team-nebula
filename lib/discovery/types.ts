@@ -36,7 +36,14 @@ export const DiscoverInput = z.object({
     answer: z.string().trim().min(1).max(1000),
   }).strict()).max(3).optional(),
 }).strict();
-export type Candidate = { igdbId: number; name: string; description: string; context: string; gameModes: number[] };
+export type Candidate = {
+  igdbId: number;
+  name: string;
+  description: string;
+  context: string;
+  gameModes: number[];
+  semanticScore: number;
+};
 export const RankingSchema = z.object({ selections: z.array(z.object({
   igdbId: z.number().int().positive(), reason: z.string().min(1).max(400),
   matchedTags: z.array(z.string().trim().min(1).max(80)).max(12).default([]),
@@ -46,6 +53,7 @@ export const PreviewCandidateSchema = z.object({
   steamAppId: z.number().int().positive().max(2 ** 32 - 1),
   igdbId: z.number().int().positive(),
   name: z.string().min(1).max(300),
+  semanticScore: z.number().min(0).max(1),
   reason: z.string().min(1).max(400),
   matchedTags: z.array(z.string().min(1).max(80)).max(12),
 }).strict();

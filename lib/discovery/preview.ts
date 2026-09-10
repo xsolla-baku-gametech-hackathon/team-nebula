@@ -32,6 +32,7 @@ export async function previewGames(input: unknown, deps: PreviewProviders = defa
     if (!candidate || !steamAppId || seen.has(steamAppId)) return [];
     seen.add(steamAppId);
     return [{ steamAppId, igdbId: selection.igdbId, name: candidate.name,
+      semanticScore: candidate.semanticScore,
       reason: selection.reason, matchedTags: selection.matchedTags }];
   }).slice(0, request.limit);
   if (!previewCandidates.length) return {

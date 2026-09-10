@@ -49,6 +49,7 @@ export interface DiscoveryCandidate {
   steamAppId: number;
   igdbId: number;
   name: string;
+  semanticScore: number;
   reason: string;
   matchedTags: string[];
 }
@@ -85,6 +86,7 @@ export type ApprovedGame = CollectedGame & {
     reason: string;
     matchedTags: string[];
     candidateIgdbId: number;
+    semanticScore: number;
   };
 };
 

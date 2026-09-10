@@ -19,7 +19,7 @@ export async function approvePreview(input: unknown, deps: ApprovalProviders = d
     const collected = await deps.collect({ steamAppIds: selected.map(candidate => candidate.steamAppId) });
     const bySteamId = new Map<number, PreviewCandidate>(selected.map(candidate => [candidate.steamAppId, candidate]));
     const failures: CollectionFailure[] = [...collected.failures];
-    const games: (CollectedGame & { match: { source: 'xai'; reason: string; matchedTags: string[]; candidateIgdbId: number } })[] = [];
+    const games: (CollectedGame & { match: { source: 'xai'; reason: string; matchedTags: string[]; candidateIgdbId: number; semanticScore: number } })[] = [];
     for (const game of collected.games) {
       const candidate = bySteamId.get(game.identity.steamAppId);
       if (!candidate) continue;
@@ -28,7 +28,8 @@ export async function approvePreview(input: unknown, deps: ApprovalProviders = d
         continue;
       }
       games.push({ ...game, match: { source: 'xai', reason: candidate.reason,
-        matchedTags: candidate.matchedTags, candidateIgdbId: candidate.igdbId } });
+        matchedTags: candidate.matchedTags, candidateIgdbId: candidate.igdbId,
+        semanticScore: candidate.semanticScore } });
     }
     deps.store.complete(record.id);
     return { query: record.query, validation: record.validation, games, failures,
