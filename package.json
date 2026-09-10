@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
+    "cheerio": "^1.2.0",
     "clsx": "^2",
     "lucide-react": "^0.500",
     "nanoid": "^5",
@@ -26,6 +27,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "recharts": "^2",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^3",
     "zod": "^3",
     "zustand": "^5"
