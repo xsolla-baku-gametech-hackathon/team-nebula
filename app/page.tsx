@@ -50,11 +50,15 @@ export default function Home() {
       setConcept(result.concept);
       setQuestions(result.questions.map((q) => q.question));
 
-      if (result.readyToProceed) {
-        setAnalyzed(true);
-        const t = result.concept.taxonomy;
-        const extracted = [t.primaryGenre, ...t.secondaryGenres].filter(Boolean) as string[];
-        if (extracted.length) setGenres((prev) => [...new Set([...prev, ...extracted])]);
+      // Always reveal Section 2 after first analysis — user can proceed even with gaps
+      setAnalyzed(true);
+      const t = result.concept.taxonomy;
+      const extracted = [t.primaryGenre, ...t.secondaryGenres].filter(Boolean) as string[];
+      if (extracted.length) setGenres((prev) => [...new Set([...prev, ...extracted])]);
+      // Extract game modes as well
+      if (t.gameModes.length) {
+        const modeGenres = t.gameModes.filter((m) => m !== "Singleplayer");
+        if (modeGenres.length) setGenres((prev) => [...new Set([...prev, ...modeGenres])]);
       }
     } catch (e) {
       console.error("Analyze failed:", e);
