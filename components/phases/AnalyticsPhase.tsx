@@ -2,26 +2,26 @@
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import StepPills from "@/components/phases/StepPills";
+import {
+  PREDICTION_REVENUE,
+  PREDICTION_RELEASE_WINDOW,
+  PREDICTION_SENTIMENT,
+  PREDICTION_SATURATION,
+  PREDICTION_SUCCESS,
+} from "@/lib/mock-data";
 
 interface Props {
   onStartNewSession: () => void;
 }
 
-const MARKET_DATA = [
-  { week: "W36", releases: 42 }, { week: "W37", releases: 38 }, { week: "W38", releases: 55 },
-  { week: "W39", releases: 31 }, { week: "W40", releases: 48 }, { week: "W41", releases: 62 },
-  { week: "W42", releases: 74 }, { week: "W43", releases: 88 }, { week: "W44", releases: 29 },
-  { week: "W45", releases: 45 }, { week: "W46", releases: 37 }, { week: "W47", releases: 52 },
-];
-
-function Donut({ positive, size = 160 }: { positive: number; size?: number }) {
+function Donut({ positive, size = 150 }: { positive: number; size?: number }) {
   const s = 14, r = (size - s) / 2, c = 2 * Math.PI * r, g = (positive / 100) * c, red = c - g, mid = size / 2;
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
       <circle cx={mid} cy={mid} r={r} fill="none" stroke="#292935" strokeWidth={s} />
       <circle cx={mid} cy={mid} r={r} fill="none" stroke="#3FB37C" strokeWidth={s} strokeDasharray={`${g} ${c}`} strokeDashoffset={c * 0.25} strokeLinecap="round" />
       <circle cx={mid} cy={mid} r={r} fill="none" stroke="#D9534F" strokeWidth={s} strokeDasharray={`${red} ${c}`} strokeDashoffset={-(g - c * 0.25)} strokeLinecap="round" />
-      <text x={mid} y={mid + 2} textAnchor="middle" dominantBaseline="middle" className="fill-on-surface font-heading text-[36px] font-bold">{positive}%</text>
+      <text x={mid} y={mid + 2} textAnchor="middle" dominantBaseline="middle" className="fill-on-surface font-heading text-[32px] font-bold">{positive}%</text>
     </svg>
   );
 }
@@ -30,10 +30,16 @@ function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-1 p-4 rounded-xl bg-[#D9D9DE]/90 border-t border-white/70">
       <span className="text-[11px] text-[#6E6E7C] font-mono uppercase tracking-wider">{label}</span>
-      <span className="font-heading text-[28px] font-bold text-[#1E1E2A] leading-none">{value}</span>
+      <span className="font-heading text-[26px] font-bold text-[#1E1E2A] leading-none">{value}</span>
     </div>
   );
 }
+
+const r = PREDICTION_REVENUE;
+const w = PREDICTION_RELEASE_WINDOW;
+const sent = PREDICTION_SENTIMENT;
+const sat = PREDICTION_SATURATION;
+const suc = PREDICTION_SUCCESS;
 
 export default function AnalyticsPhase({ onStartNewSession }: Props) {
   return (
@@ -43,21 +49,22 @@ export default function AnalyticsPhase({ onStartNewSession }: Props) {
       <h1 className="font-heading text-[32px] font-bold text-white tracking-tight mb-1">Analytics</h1>
       <p className="text-[15px] text-on-surface-variant mb-8">Predicted performance based on your comparables and market conditions.</p>
 
-      {/* Metrics row */}
+      {/* Service 1: Revenue / copies / cost */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-        <Metric label="Copies sold" value="~1.2k" />
-        <Metric label="Average cost" value="~$7.99" />
-        <Metric label="Projected revenue" value="~$9.6k" />
-        <Metric label="Est. total revenue" value="~$1.2M" />
+        <Metric label="Est. Revenue" value={r.estRevenue} />
+        <Metric label="Est. Copies" value={r.estCopies} />
+        <Metric label="Best Price" value={r.bestPrice} />
+        <Metric label="Avg Price" value={r.avgPrice} />
       </div>
 
-      {/* 3-col grid */}
+      {/* Row: Saturation + Release Window + Sentiment */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
-        {/* Market saturation */}
+        {/* Service 4: Market saturation */}
         <div className="rounded-xl bg-[#D9D9DE]/90 border-t border-white/70 p-5 shadow-md">
-          <h3 className="font-heading text-[16px] font-bold text-[#1E1E2A] mb-3">Market saturation</h3>
-          <ResponsiveContainer width="100%" height={180}>
-            <LineChart data={MARKET_DATA}>
+          <h3 className="font-heading text-[16px] font-bold text-[#1E1E2A] mb-1">Market saturation</h3>
+          <p className="text-[12px] text-[#6E6E7C] mb-3">{sat.insight}</p>
+          <ResponsiveContainer width="100%" height={160}>
+            <LineChart data={sat.weeklyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#B0B0B8" />
               <XAxis dataKey="week" tick={{ fill: "#6E6E7C", fontSize: 10 }} axisLine={{ stroke: "#6E6E7C" }} />
               <YAxis tick={{ fill: "#6E6E7C", fontSize: 10 }} axisLine={{ stroke: "#6E6E7C" }} />
@@ -65,31 +72,42 @@ export default function AnalyticsPhase({ onStartNewSession }: Props) {
               <Line type="monotone" dataKey="releases" stroke="#1E1E2A" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
-          <p className="text-[11px] text-[#6E6E7C] mt-2">Competing releases per week</p>
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-[11px] text-[#6E6E7C]">Co-op horror releases per week</span>
+            <span className="text-[12px] font-semibold text-[#1E1E2A]">{sat.level} ({sat.score}/100)</span>
+          </div>
         </div>
 
-        {/* Release window */}
+        {/* Service 2: Release window */}
         <div className="rounded-xl bg-[#D9D9DE]/90 border-t border-white/70 p-5 shadow-md flex flex-col items-center justify-center gap-3">
           <span className="material-symbols-outlined text-[36px] text-[#4354B4]">calendar_today</span>
           <h3 className="font-heading text-[16px] font-bold text-[#1E1E2A]">Best release window</h3>
-          <p className="font-heading text-[24px] font-bold text-[#1E1E2A] text-center">Oct 26 &ndash; Nov 1</p>
-          <p className="text-[13px] text-[#6E6E7C]">Week 44 &middot; 2026</p>
-          <div className="px-4 py-1.5 rounded-lg bg-[#3FB37C] text-white font-heading text-[13px] font-bold tracking-wider">KEEP</div>
+          <p className="font-heading text-[22px] font-bold text-[#1E1E2A] text-center">{w.bestWeek}</p>
+          <p className="text-[13px] text-[#6E6E7C]">Week {w.weekNumber} &middot; {w.year}</p>
+          <div className="px-4 py-1.5 rounded-lg bg-[#3FB37C] text-white font-heading text-[13px] font-bold tracking-wider">{w.verdict}</div>
+          <p className="text-[11px] text-[#6E6E7C] text-center leading-snug mt-1">{w.reason}</p>
         </div>
 
-        {/* Reviews / sentiment */}
-        <div className="rounded-xl bg-surface-container-lowest/60 border border-outline-variant/30 p-5 shadow-md flex flex-col items-center justify-center gap-3">
+        {/* Service 3: Sentiment / reviews */}
+        <div className="rounded-xl bg-surface-container-lowest/60 border border-outline-variant/30 p-5 shadow-md flex flex-col items-center justify-center gap-2">
           <h3 className="font-heading text-[16px] font-bold text-on-surface">Predicted reviews</h3>
-          <Donut positive={70} />
-          <p className="font-heading text-[15px] font-semibold text-on-surface">Overall positive</p>
+          <Donut positive={sent.positivePercent} />
+          <p className="font-heading text-[15px] font-semibold text-on-surface">{sent.label}</p>
+          <p className="text-[12px] text-on-surface-variant">~{sent.estReviewCount} reviews expected</p>
+          <p className="text-[11px] text-on-surface-variant/70 text-center leading-snug mt-1">{sent.reasoning}</p>
         </div>
       </div>
 
-      {/* Success rate + exports */}
+      {/* Service 6: Success % + Exports */}
       <div className="flex items-end justify-between">
-        <h2 className="font-heading text-[48px] font-bold text-white tracking-tighter leading-[1]">
-          Success rate: <span className="text-[#E0D438]">67%</span>
-        </h2>
+        <div>
+          <h2 className="font-heading text-[48px] font-bold text-white tracking-tighter leading-[1]">
+            Success rate: <span className="text-[#E0D438]">{suc.percent}%</span>
+          </h2>
+          <p className="text-[14px] text-on-surface-variant mt-2">{suc.label} — {suc.reasoning}</p>
+        </div>
+
+        {/* Service 7 + 8: Exporters */}
         <div className="flex gap-3">
           <button className="h-[44px] px-5 rounded-xl bg-primary-container hover:bg-inverse-primary text-white font-heading text-[14px] font-semibold flex items-center gap-2 shadow-md transition-all active:scale-95">
             <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span> Export PDF
