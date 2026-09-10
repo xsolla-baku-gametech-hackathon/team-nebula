@@ -1,9 +1,9 @@
-import type { NormalizedGame, GameConcept, ConfidenceBand, Driver } from '@/lib/types';
-import { driver } from './drivers';
+/**
+ * Predicts revenue range for comparable games or a candidate launch.
+ */
 
-function clamp(min: number, max: number, v: number): number {
-  return Math.max(min, Math.min(max, v));
-}
+import type { NormalizedGame, GameConcept, ConfidenceBand, Driver, EstimatedRevenue } from '@/lib/types';
+import { driver } from './drivers';
 
 function roundSig(n: number, sig: number): number {
   if (n === 0) return 0;
@@ -26,19 +26,22 @@ function weightedPercentile(values: number[], weights: number[], p: number): num
   return pairs[pairs.length - 1].v;
 }
 
+/**
+ * Estimates a likely revenue range for a game concept by comparing it against similar released titles.
+ *
+ * Each comparable's revenue is normalized to the user's target price using a mild price elasticity
+ * adjustment: revenue × (userPrice / comparablePrice)^0.6. The adjusted values are then summarized into
+ * a conservative, base, and upside estimate using the 25th, 50th, and 80th percentiles.
+ *
+ * After the percentile-based estimate is calculated, the model applies a saturation penalty/boost and a
+ * first-title discount to account for market crowding and launch experience risk. The result is rounded
+ * to 2 significant figures and returned with a confidence band and explanatory drivers.
+ */
 export function scoreRevenue(
   concept: GameConcept,
   comparables: NormalizedGame[],
   saturationScore: number,
-): {
-  conservative: number;
-  base: number;
-  upside: number;
-  confidence: ConfidenceBand;
-  basedOnCount: number;
-  method: string;
-  drivers: Driver[];
-} {
+): EstimatedRevenue {
   const withRevenue = comparables.filter(g => g.commercial.estimatedRevenueUsd.value !== null);
 
   if (withRevenue.length === 0) {
