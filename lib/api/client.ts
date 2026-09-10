@@ -24,6 +24,7 @@ export interface DiscoverResult {
 
 export interface AnalyzeResult {
   report: MarketReport;
+  corpusVersion: string;
 }
 
 export interface DiscoveryTag {
@@ -111,7 +112,15 @@ export class ApiClientError extends Error {
   }
 }
 
-async function post<T>(url: string, body: unknown): Promise<T> {
+type ApiEnvelope<T> = {
+  data: T;
+  meta: {
+    durationMs: number;
+    corpusVersion: string;
+  };
+};
+
+async function postEnvelope<T>(url: string, body: unknown): Promise<ApiEnvelope<T>> {
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -125,7 +134,11 @@ async function post<T>(url: string, body: unknown): Promise<T> {
       res.status,
     );
   }
-  return json.data as T;
+  return { data: json.data as T, meta: json.meta };
+}
+
+async function post<T>(url: string, body: unknown): Promise<T> {
+  return (await postEnvelope<T>(url, body)).data;
 }
 
 /** Call /api/concept/analyze — extract concept from description text. */
@@ -179,5 +192,9 @@ export async function analyzeMarket(
   const input = typeof games[0] === "number"
     ? { concept, competitorAppIds: games, horizonWeeks }
     : { concept, comparables: games, horizonWeeks };
-  return post<AnalyzeResult>("/api/analyze", input);
+  const response = await postEnvelope<{ report: MarketReport }>("/api/analyze", input);
+  return {
+    report: response.data.report,
+    corpusVersion: response.meta.corpusVersion,
+  };
 }
