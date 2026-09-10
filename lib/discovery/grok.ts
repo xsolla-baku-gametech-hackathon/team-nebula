@@ -17,8 +17,8 @@ async function structured<T extends z.ZodTypeAny>(schema: T, system: string, inp
       providerOptions: { xai: { store: false, reasoningEffort: 'low' } },
     });
     return schema.parse(result.output);
-  } catch {
-    throw new DiscoveryError('AI_UNAVAILABLE', 'Grok could not produce a valid response; retry later');
+  } catch (cause) {
+    throw new DiscoveryError('AI_UNAVAILABLE', 'Grok could not produce a valid response; retry later', { cause });
   }
 }
 

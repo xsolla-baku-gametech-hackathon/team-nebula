@@ -18,8 +18,8 @@ export const RankingSchema = z.object({ selections: z.array(z.object({
 })).max(20) });
 export type Ranking = z.infer<typeof RankingSchema>;
 export class DiscoveryError extends Error {
-  constructor(public code: 'AI_NOT_CONFIGURED' | 'AI_UNAVAILABLE' | 'INVALID_AI_OUTPUT' | 'DISCOVERY_UNAVAILABLE', message: string) {
-    super(message);
+  constructor(public code: 'AI_NOT_CONFIGURED' | 'AI_UNAVAILABLE' | 'INVALID_AI_OUTPUT' | 'DISCOVERY_UNAVAILABLE', message: string, options?: ErrorOptions) {
+    super(message, options);
     this.name = 'DiscoveryError';
   }
 }
