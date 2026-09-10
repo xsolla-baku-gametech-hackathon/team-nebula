@@ -149,9 +149,9 @@ saturation = clamp(0, 100,
 | Factor | Definition | Range |
 | --- | --- | --- |
 | `density` | comparables (sim ≥ 70) released in trailing 12 months, normalized against the corpus-wide median for that tag cluster | 0–1 |
-| `successRate` | **inverted** share of comparables exceeding a revenue floor (default $50k). Few succeed → high saturation | 0–1 |
+| `successRate` | **inverted** share of comparables with known revenue exceeding a floor (default $50k). Missing estimates are omitted | 0–1 |
 | `upcomingPressure` | comparables launching in the next 90 days vs the trailing-12-month average rate | 0–1 |
-| `concentration` | Herfindahl index over comparable revenue. One game owning the space is its own kind of hard | 0–1 |
+| `concentration` | Herfindahl index over positive known comparable revenue. Missing estimates are omitted | 0–1 |
 
 Bands: `<30 LOW`, `30–55 MODERATE`, `55–80 HIGH`, `>80 CRITICAL`.
 
@@ -237,6 +237,8 @@ predicted = cohortMedianPositiveRatio × priceAdjustment
 priceAdjustment = clamp(0.92, 1.05, 1 - 0.004 × (userPrice - cohortMedianPrice))
 ```
 
+Both cohort values are true medians over valid known values. Missing prices are omitted rather than converted to zero. If either side of the price comparison is unavailable, no price adjustment is applied. The result is clamped to 0–100%; when no valid review ratios exist, both reception values are `null` and the report states that evidence is insufficient.
+
 Framed in the UI as: *"Comparable games in this space average 87% positive. Games priced above their cohort median tend to review slightly lower."*
 
 We cannot predict whether an unbuilt game is good. Pretending otherwise is exactly the kind of overreach a technical judge will find in ten seconds. The honest framing is more useful anyway — it is a bar to clear, not a fortune.
@@ -248,23 +250,18 @@ We cannot predict whether an unbuilt game is good. Pretending otherwise is exact
 `release-risk.ts` — the differentiator. Scores every week in a forward horizon.
 
 ```
-for each week w in [today, today + 26 weeks]:
-
+for each UTC Monday week w in [today, today + horizon]:
   risk(w) = clamp(0, 100,
-      40 × competitorThreatDensity(w)
-    + 25 × majorReleasePressure(w)
-    + 15 × seasonalFactor(w)
-    + 10 × platformEventFactor(w)
-    + 10 × historicalWeekDensity(w)
+    Σ threat(g) × dateConfidence(g) ÷ overlappingWeeks(g)
   )
 ```
 
 ### competitorThreatDensity
 
-Sum of threat scores of upcoming releases in the week, weighted by similarity to the concept and by date confidence, normalized against the horizon mean.
+Sum of upstream threat scores of upcoming releases in the week, weighted by date confidence and spread across every possible week for imprecise dates. Upstream threat already incorporates semantic similarity and hype, so release scoring does not multiply by similarity again.
 
 ```ts
-density(w) = Σ_{g in upcoming(w)} threat(g) × sim(g) × dateWeight(g)
+pressure(w) = Σ_{g in upcoming(w)} threat(g) × dateWeight(g) ÷ overlapCount(g)
 ```
 
 ### Date-confidence weighting
@@ -280,18 +277,6 @@ Announced dates slip. Rather than pretending precision, uncertain dates are spre
 
 This is the intellectually honest handling and it is also load-bearing for credibility. *"Why should I believe your calendar when release dates slip?"* is the sharpest available question, and the answer is: we weight by announcement precision, we never claim a week is certain, and undated competition is shown separately rather than hidden or guessed at.
 
-### majorReleasePressure
-
-Any upcoming release with a major publisher or follower count above the 95th percentile, regardless of genre. A blockbuster launch week suppresses discovery across the entire store — the Steam front page has finite slots and they are not genre-partitioned.
-
-### seasonalFactor
-
-From historical corpus density by week-of-year. Late November through mid-December is structurally hostile for indies: Steam sales, AAA season, spending already committed. Early Q1 and late summer are structurally kinder. Derived from the corpus, not asserted.
-
-### platformEventFactor
-
-Hardcoded window list — Steam seasonal sales, Next Fest, major showcases. A small JSON file, `data/platform-events.json`, easy to update and easy to point at when asked where it comes from.
-
 ### The verdict
 
 ```
@@ -299,10 +284,11 @@ current  = risk(week containing plannedRelease)
 best     = min risk over horizon, excluding the next 3 weeks
                                   (nobody moves a launch on 14 days' notice)
 
-if plannedRelease is null        → KEEP,     recommend `best`
+if plannedRelease is null        → INSUFFICIENT_DATA
 if current − best < 15           → KEEP
 if current − best >= 15 and
-   best is within 8 weeks        → MOVE      to best
+   best is within 8 weeks of
+   the planned launch week       → MOVE      to best
 otherwise                        → MITIGATE
 ```
 
