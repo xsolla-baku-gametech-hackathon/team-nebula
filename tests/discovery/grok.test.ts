@@ -1,24 +1,29 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('ai', () => ({ generateText: vi.fn(), Output: { object: vi.fn(options => options) } }));
 import { generateText } from 'ai';
-import { interpretQuery } from '@/lib/discovery/grok';
-const intent = { summary: 'Horror', searchQueries: ['horror'], mustHave: ['horror'], avoid: [], multiplayer: null };
+import { validateDescription } from '@/lib/discovery/grok';
+const validation = { status: 'ready' as const, normalizedDescription: 'Horror game', confidence: 0.9,
+  tags: [
+    { name: 'Horror', category: 'theme' as const, priority: 'required' as const, basis: 'explicit' as const },
+    { name: 'Atmospheric', category: 'tone' as const, priority: 'preferred' as const, basis: 'inferred' as const },
+  ], mustHave: ['horror'], avoid: [], multiplayer: null, questions: [] };
 beforeEach(() => { vi.clearAllMocks(); vi.stubEnv('XAI_API_KEY', 'test-key'); });
 describe('Grok integration', () => {
   it('calls the provider with validated output and storage disabled', async () => {
-    vi.mocked(generateText).mockResolvedValue({ output: intent } as Awaited<ReturnType<typeof generateText>>);
-    expect(await interpretQuery('horror')).toEqual(intent);
+    vi.mocked(generateText).mockResolvedValue({ output: validation } as Awaited<ReturnType<typeof generateText>>);
+    expect(await validateDescription('horror', [{ question: 'Tone?', answer: 'Atmospheric' }])).toEqual(validation);
+    expect(generateText).toHaveBeenCalledWith(expect.objectContaining({ prompt: JSON.stringify({ query: 'horror', clarifications: [{ question: 'Tone?', answer: 'Atmospheric' }] }) }));
     expect(generateText).toHaveBeenCalledWith(expect.objectContaining({ maxRetries: 1, providerOptions: { xai: { store: false, reasoningEffort: 'low' } } }));
   });
   it('fails explicitly when credentials are missing', async () => {
     vi.stubEnv('XAI_API_KEY', '');
-    await expect(interpretQuery('horror')).rejects.toMatchObject({ code: 'AI_NOT_CONFIGURED' });
+    await expect(validateDescription('horror')).rejects.toMatchObject({ code: 'AI_NOT_CONFIGURED' });
     expect(generateText).not.toHaveBeenCalled();
   });
   it('never substitutes manual games or leaks provider errors', async () => {
     vi.mocked(generateText).mockRejectedValue(new Error('secret provider response'));
-    await expect(interpretQuery('horror')).rejects.toThrow('Grok could not produce');
+    await expect(validateDescription('horror')).rejects.toThrow('Grok could not produce');
     vi.mocked(generateText).mockResolvedValue({ output: { bad: true } } as unknown as Awaited<ReturnType<typeof generateText>>);
-    await expect(interpretQuery('horror')).rejects.toMatchObject({ code: 'AI_UNAVAILABLE' });
+    await expect(validateDescription('horror')).rejects.toMatchObject({ code: 'AI_UNAVAILABLE' });
   });
 });
