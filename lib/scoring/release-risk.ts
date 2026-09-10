@@ -1,4 +1,8 @@
-import type { GameConcept, UpcomingRelease, ReleaseWindow, RiskBand, Verdict, Driver } from '@/lib/types';
+/**
+ * Scores risk of a given release week based on competition and timing.
+ */
+
+import type { GameConcept, UpcomingRelease, ReleaseWindow, RiskBand, Verdict, Driver, ReleaseWindowRisk } from '@/lib/types';
 import { driver } from './drivers';
 
 const MIN_MOVE_NOTICE_WEEKS = 3;
@@ -31,7 +35,7 @@ export function scoreReleaseRisk(
   upcoming: UpcomingRelease[],
   today: Date,
   horizonWeeks: number = 26,
-): { windows: ReleaseWindow[]; verdict: { decision: Verdict; currentDate: string | null; recommendedDate: string | null; reasoning: string[] } } {
+): ReleaseWindowRisk {
   const windows: ReleaseWindow[] = [];
 
   for (let w = 0; w < horizonWeeks; w++) {

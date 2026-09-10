@@ -223,6 +223,18 @@ export type ReleaseWindow = {
   drivers: Driver[];
 };
 
+export type ReleaseWindowRisk = {
+	windows: ReleaseWindow[]; 
+	verdict: 
+	{ 
+		decision: Verdict;
+		currentDate: string | null;
+		recommendedDate: string | null;
+		reasoning: string[];
+	}
+	
+}
+
 export type MarketReport = {
   saturation: {
     score: number;
