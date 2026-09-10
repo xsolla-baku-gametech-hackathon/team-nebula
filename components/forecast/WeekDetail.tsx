@@ -2,35 +2,30 @@
 
 import type { ReleaseWindow } from "@/lib/types";
 
-export function WeekDetail({ window: w }: { window: ReleaseWindow }) {
-  const vague = w.competingReleases.filter((r) => r.dateConfidence === "vague");
-  const dated = w.competingReleases.filter((r) => r.dateConfidence !== "vague");
-
+export function WeekDetail({ window: releaseWindow }: { window: ReleaseWindow }) {
   return (
-    <div className="ml-24 mt-2 mb-3 rounded-lg border border-zinc-200 dark:border-zinc-800 p-3 text-sm space-y-2">
-      <p className="font-medium">
-        {w.weekStart} &mdash; {w.weekEnd}
-      </p>
-      {dated.length === 0 && vague.length === 0 && (
-        <p className="text-zinc-500">No close competitors in this window.</p>
-      )}
-      {dated.length > 0 && (
-        <div className="space-y-1">
-          {dated.map((r) => (
-            <div key={r.steamAppId} className="flex justify-between text-xs">
-              <span>{r.name}</span>
-              <span className="text-zinc-400">
-                {r.expectedDate} · {r.dateConfidence} · sim {r.similarity}
+    <div className="border-t border-outline-variant/20 bg-surface-container-low px-4 py-3 text-[12px] space-y-2">
+      <p className="font-medium text-on-surface">{releaseWindow.weekStart} to {releaseWindow.weekEnd}</p>
+      {releaseWindow.competingReleases.length === 0 ? (
+        <p className="text-on-surface-variant">No close competitors in this window.</p>
+      ) : (
+        <div className="space-y-2">
+          {releaseWindow.competingReleases.map((release) => (
+            <div key={release.igdbId} className="flex flex-wrap justify-between gap-x-4 gap-y-1">
+              <span className="font-medium text-on-surface">{release.name}</span>
+              <span className="text-on-surface-variant font-mono text-[10px]">
+                {release.dateLabel} · {release.dateConfidence} · {Math.round(release.similarity * 100)}% similar
+                {release.hypes !== null ? ` · ${release.hypes} hypes` : ""}
               </span>
             </div>
           ))}
         </div>
       )}
-      {vague.length > 0 && (
-        <p className="text-xs text-zinc-400">
-          + {vague.length} undated game{vague.length > 1 ? "s" : ""} that may land in this window
-        </p>
-      )}
+      {releaseWindow.drivers.length ? (
+        <ul className="pt-1 space-y-1 text-[10px] text-on-surface-variant">
+          {releaseWindow.drivers.map((driver) => <li key={`${driver.label}-${driver.detail}`}>{driver.detail}</li>)}
+        </ul>
+      ) : null}
     </div>
   );
 }
