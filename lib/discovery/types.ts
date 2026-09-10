@@ -50,6 +50,21 @@ export const RankingSchema = z.object({ selections: z.array(z.object({
   matchedTags: z.array(z.string().trim().min(1).max(80)).max(12).default([]),
 })).max(20) });
 export type Ranking = z.infer<typeof RankingSchema>;
+export const PreviewCandidateSchema = z.object({
+  steamAppId: z.number().int().positive().max(2 ** 32 - 1),
+  igdbId: z.number().int().positive(),
+  name: z.string().min(1).max(300),
+  reason: z.string().min(1).max(400),
+  matchedTags: z.array(z.string().min(1).max(80)).max(12),
+}).strict();
+export type PreviewCandidate = z.infer<typeof PreviewCandidateSchema>;
+
+const previewId = z.string().uuid();
+export const ApprovalInput = z.union([
+  z.object({ previewId, approveAll: z.literal(true) }).strict(),
+  z.object({ previewId, selectedSteamAppIds: z.array(z.number().int().positive().max(2 ** 32 - 1)).min(1).max(10) }).strict(),
+]);
+export type ApprovalInputValue = z.infer<typeof ApprovalInput>;
 export class DiscoveryError extends Error {
   constructor(public code: 'AI_NOT_CONFIGURED' | 'AI_UNAVAILABLE' | 'INVALID_AI_OUTPUT' | 'DISCOVERY_UNAVAILABLE', message: string, options?: ErrorOptions) {
     super(message, options);
