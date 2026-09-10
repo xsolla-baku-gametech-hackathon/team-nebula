@@ -38,4 +38,30 @@ describe('preview approval', () => {
     expect(result.games.map(item => item.identity.steamAppId)).toEqual([100, 200]);
     expect(result.approval.complete).toBe(true);
   });
+
+  it('rejects unapproved or duplicate selections and releases the preview', async () => {
+    const { record, deps } = setup();
+    await expect(approvePreview({ previewId: record.id, selectedSteamAppIds: [999] }, deps)).rejects.toMatchObject({ code: 'INVALID_SELECTION' });
+    expect(deps.store.get(record.id).state).toBe('ready');
+    await expect(approvePreview({ previewId: record.id, selectedSteamAppIds: [100, 100] }, deps)).rejects.toMatchObject({ code: 'INVALID_SELECTION' });
+    expect(deps.collect).not.toHaveBeenCalled();
+  });
+
+  it('releases provider failures and consumes normal results', async () => {
+    const { record, deps } = setup();
+    deps.collect.mockRejectedValueOnce(new Error('provider failed'));
+    await expect(approvePreview({ previewId: record.id, approveAll: true }, deps)).rejects.toThrow('provider failed');
+    expect(deps.store.get(record.id).state).toBe('ready');
+    await approvePreview({ previewId: record.id, approveAll: true }, deps);
+    expect(() => deps.store.claim(record.id)).toThrow('already been used');
+  });
+
+  it('does not replace an approved game that collection cannot load', async () => {
+    const { record, deps } = setup();
+    deps.collect.mockResolvedValueOnce({ games: [game(100, 1)], failures: [{ steamAppId: 200, code: 'not_found', message: 'Unavailable' }] });
+    const result = await approvePreview({ previewId: record.id, approveAll: true }, deps);
+    expect(result.games.map(item => item.identity.steamAppId)).toEqual([100]);
+    expect(result.failures[0].steamAppId).toBe(200);
+    expect(deps.collect).toHaveBeenCalledTimes(1);
+  });
 });
