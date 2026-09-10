@@ -1,21 +1,37 @@
 "use client";
 
+import { useState } from "react";
 import type { Snapshot } from "@/lib/types";
 
 export function ExportBar({ snapshot }: { snapshot: Snapshot }) {
+  const [exporting, setExporting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const exportJson = async () => {
-    const res = await fetch("/api/export/json", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ snapshot }),
-    });
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `releasesignal-${snapshot.snapshotId}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    setExporting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/export/json", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ snapshot }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error?.message ?? "JSON export failed");
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `releasesignal-${snapshot.snapshotId}.json`;
+      link.click();
+      window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    } catch (exportError) {
+      setError(exportError instanceof Error ? exportError.message : "JSON export failed");
+    } finally {
+      setExporting(false);
+    }
   };
 
   const exportPdf = () => {
@@ -23,19 +39,26 @@ export function ExportBar({ snapshot }: { snapshot: Snapshot }) {
   };
 
   return (
-    <div className="flex gap-3 justify-center pt-4">
+    <div className="print:hidden">
+      <div className="flex gap-2">
       <button
+        type="button"
         onClick={exportPdf}
-        className="px-5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+        className="h-9 px-4 rounded-lg border border-outline-variant/30 text-on-surface text-[13px] font-medium hover:bg-surface-container transition-colors flex items-center gap-1.5"
       >
-        Export PDF
+        <span className="material-symbols-outlined text-[16px]">picture_as_pdf</span> PDF
       </button>
       <button
+        type="button"
         onClick={exportJson}
-        className="px-5 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+        disabled={exporting}
+        className="h-9 px-4 rounded-lg border border-outline-variant/30 text-on-surface text-[13px] font-medium hover:bg-surface-container transition-colors flex items-center gap-1.5 disabled:opacity-40"
       >
-        Export JSON
+        <span className="material-symbols-outlined text-[16px]">data_object</span>
+        {exporting ? "Exporting..." : "JSON"}
       </button>
+      </div>
+      {error ? <p role="alert" className="text-[11px] text-red mt-1.5 text-right">{error}</p> : null}
     </div>
   );
 }
