@@ -1,7 +1,6 @@
 import 'server-only';
 import { load } from 'cheerio';
 import { z } from 'zod';
-import { DataCache, STEAM_TTL } from './cache';
 import { parseJson, parseProvider, requestText } from './http';
 import { ProviderError } from './types';
 
@@ -61,10 +60,7 @@ export function steamDate(text: string): { date: string | null; precision: 'exac
   return { date: null, precision: 'unknown' };
 }
 
-declare global { var __collectorDetails: DataCache<SteamDetails> | undefined; }
-const cache = globalThis.__collectorDetails ??= new DataCache<SteamDetails>(STEAM_TTL);
-export function fetchSteamDetails(appId: number) {
-  return cache.get(String(appId), async () => {
+export async function fetchSteamDetails(appId: number) {
     const raw = parseJson('steam', await requestText('steam', `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=us&l=en`));
     const outer = parseProvider('steam', z.record(z.object({success:z.boolean(),data:z.unknown().optional()})), raw);
     const entry = outer[String(appId)];
@@ -72,6 +68,5 @@ export function fetchSteamDetails(appId: number) {
     const game = parseProvider('steam', SteamDetailsSchema, entry.data);
     if (game.steam_appid !== appId) throw new ProviderError('steam','invalid_data','Steam returned a different AppID');
     if (game.type !== 'game') throw new ProviderError('steam','not_found','Selected Steam app is not a game');
-    return game;
-  });
+    return { data: game, fetchedAt: new Date().toISOString() };
 }

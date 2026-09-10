@@ -1,6 +1,5 @@
 import 'server-only';
 import { z } from 'zod';
-import { DataCache, STEAM_TTL } from './cache';
 import { parseJson, parseProvider, requestText } from './http';
 import { plainText } from './steam-details';
 import type { ReviewComment } from './types';
@@ -41,19 +40,15 @@ export function parseReviewComments(input: unknown): ReviewComment[] {
   return [...unique.values()].sort((a,b) => b.createdAt.localeCompare(a.createdAt)).slice(0,3);
 }
 
-declare global {
-  var __collectorReviewSummary: DataCache<ReviewSummary> | undefined;
-  var __collectorComments: DataCache<ReviewComment[]> | undefined;
-}
-const summaries = globalThis.__collectorReviewSummary ??= new DataCache<ReviewSummary>(STEAM_TTL);
-const comments = globalThis.__collectorComments ??= new DataCache<ReviewComment[]>(STEAM_TTL);
-export function fetchSteamReviews(appId: number) {
-  return summaries.get(String(appId), async () => parseReviewSummary(parseJson('steam', await requestText(
+export async function fetchSteamReviews(appId: number) {
+  const data = parseReviewSummary(parseJson('steam', await requestText(
     'steam', `https://store.steampowered.com/appreviews/${appId}?json=1&language=all&purchase_type=all&review_type=all&filter=all&num_per_page=1`,
-  ))));
+  )));
+  return { data, fetchedAt: new Date().toISOString() };
 }
-export function fetchSteamComments(appId: number) {
-  return comments.get(String(appId), async () => parseReviewComments(parseJson('steam', await requestText(
+export async function fetchSteamComments(appId: number) {
+  const data = parseReviewComments(parseJson('steam', await requestText(
     'steam', `https://store.steampowered.com/appreviews/${appId}?json=1&language=english&purchase_type=all&review_type=all&filter=recent&num_per_page=3`,
-  ))));
+  )));
+  return { data, fetchedAt: new Date().toISOString() };
 }

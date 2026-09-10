@@ -24,13 +24,13 @@ export type CollectedGame = NormalizedGame & {
   collection: {
     collectedAt: string;
     sources: Record<string, Source>;
-    fetches: Record<string, { fetchedAt: string; cached: boolean }>;
+    fetches: Record<string, { fetchedAt: string }>;
     issues: ProviderIssue[];
   };
 };
 export type CollectionFailure = { steamAppId: number; code: IssueCode; message: string };
 export type CollectionResult = { games: CollectedGame[]; failures: CollectionFailure[] };
-export type Fetched<T> = { data: T; fetchedAt: string; cached: boolean };
+export type Fetched<T> = { data: T; fetchedAt: string };
 
 export class ProviderError extends Error {
   constructor(public readonly provider: Provider, public readonly code: IssueCode, message: string) {
