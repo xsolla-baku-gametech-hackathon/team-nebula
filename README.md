@@ -58,8 +58,8 @@ pnpm collector:smoke 739630       # optional live backend check; no data files
 pnpm dev
 ```
 
-The app runs without API keys if `data/games.json` and `data/index.bin` are present. That is deliberate — see [decisions.md](docs/decisions.md#adr-001).
+The interactive discovery flow requires `XAI_API_KEY` plus the IGDB MCP credentials. It validates with Grok, searches IGDB, and fetches approved records live. `data/games.json` and `data/index.bin` remain available only to legacy corpus routes; the main UI does not use them.
 
 ## Stack
 
-Next.js 15 (App Router) · TypeScript strict · Tailwind + shadcn/ui · Recharts · Zustand · Vitest · Python 3.11 for the offline corpus builder only.
+Next.js 16 (App Router) · TypeScript strict · Tailwind + shadcn/ui · Recharts · Zustand · Vitest · Python 3.11 for the offline corpus builder only.
