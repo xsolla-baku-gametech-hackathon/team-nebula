@@ -2,15 +2,12 @@
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import StepPills from "@/components/phases/StepPills";
-import {
-  PREDICTION_REVENUE,
-  PREDICTION_RELEASE_WINDOW,
-  PREDICTION_SENTIMENT,
-  PREDICTION_SATURATION,
-  PREDICTION_SUCCESS,
-} from "@/lib/mock-data";
+import type { MarketReport, GameConcept, ScoredCompetitor } from "@/lib/types";
 
 interface Props {
+  report: MarketReport | null;
+  concept: GameConcept | null;
+  competitors: ScoredCompetitor[];
   onStartNewSession: () => void;
 }
 
@@ -36,13 +33,40 @@ function MetricCard({ label, value, sub }: { label: string; value: string; sub?:
   );
 }
 
-const r = PREDICTION_REVENUE;
-const w = PREDICTION_RELEASE_WINDOW;
-const sent = PREDICTION_SENTIMENT;
-const sat = PREDICTION_SATURATION;
-const suc = PREDICTION_SUCCESS;
+function fmt(n: number): string {
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`;
+  return `$${n}`;
+}
 
-export default function AnalyticsPhase({ onStartNewSession }: Props) {
+function sentimentLabel(ratio: number): string {
+  if (ratio >= 0.95) return "Overwhelmingly Positive";
+  if (ratio >= 0.85) return "Very Positive";
+  if (ratio >= 0.75) return "Mostly Positive";
+  if (ratio >= 0.60) return "Mixed";
+  return "Mostly Negative";
+}
+
+export default function AnalyticsPhase({ report, concept, competitors, onStartNewSession }: Props) {
+  if (!report) {
+    return (
+      <div className="max-w-[1200px] mx-auto px-6 py-5">
+        <StepPills active="launch-window" />
+        <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-8 text-center text-on-surface-variant">
+          No analysis data available. Go back and run the analysis.
+        </div>
+      </div>
+    );
+  }
+
+  const satData = report.releaseWindows.map((w, i) => ({
+    week: `W${i + 1}`,
+    risk: Math.round(w.risk * 100),
+  }));
+
+  const positivePercent = Math.round(report.reception.predictedPositiveRatio * 100);
+  const price = concept?.commercial.priceUsd;
+
   return (
     <div className="max-w-[1200px] mx-auto px-6 py-5">
       <StepPills active="launch-window" />
@@ -50,7 +74,7 @@ export default function AnalyticsPhase({ onStartNewSession }: Props) {
       <div className="flex items-baseline justify-between mb-5">
         <div>
           <h1 className="font-heading text-[24px] font-semibold text-on-surface">Analytics</h1>
-          <p className="text-[13px] text-on-surface-variant">Predicted performance based on comparables and market data</p>
+          <p className="text-[13px] text-on-surface-variant">Based on {competitors.length} comparable games &middot; {report.revenue.method}</p>
         </div>
         <div className="flex gap-2">
           <button className="h-9 px-4 rounded-lg border border-outline-variant/30 text-on-surface text-[13px] font-medium hover:bg-surface-container transition-colors flex items-center gap-1.5">
@@ -62,12 +86,12 @@ export default function AnalyticsPhase({ onStartNewSession }: Props) {
         </div>
       </div>
 
-      {/* Metrics row */}
+      {/* Revenue metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-        <MetricCard label="Est. Revenue" value={r.estRevenue} />
-        <MetricCard label="Est. Copies" value={r.estCopies} />
-        <MetricCard label="Best Price" value={r.bestPrice} />
-        <MetricCard label="Avg Price" value={r.avgPrice} />
+        <MetricCard label="Conservative" value={fmt(report.revenue.conservative)} sub="25th percentile" />
+        <MetricCard label="Base estimate" value={fmt(report.revenue.base)} sub="50th percentile" />
+        <MetricCard label="Upside" value={fmt(report.revenue.upside)} sub="80th percentile" />
+        <MetricCard label="Price point" value={price ? `$${price.toFixed(2)}` : "—"} sub={`Confidence: ${report.revenue.confidence}`} />
       </div>
 
       {/* 3 cards */}
@@ -75,50 +99,49 @@ export default function AnalyticsPhase({ onStartNewSession }: Props) {
         {/* Saturation */}
         <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">
           <h3 className="text-[14px] font-semibold text-on-surface mb-1">Market saturation</h3>
-          <p className="text-[11px] text-on-surface-variant mb-3">{sat.insight}</p>
-          <ResponsiveContainer width="100%" height={140}>
-            <LineChart data={sat.weeklyData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#363842" />
-              <XAxis dataKey="week" tick={{ fill: "#9da0ab", fontSize: 10 }} axisLine={{ stroke: "#363842" }} />
-              <YAxis tick={{ fill: "#9da0ab", fontSize: 10 }} axisLine={{ stroke: "#363842" }} />
-              <Tooltip contentStyle={{ background: "#1a1c26", border: "1px solid #363842", borderRadius: 6, color: "#e8e9ed", fontSize: 11 }} />
-              <Line type="monotone" dataKey="releases" stroke="#6c8cff" strokeWidth={2} dot={false} />
-            </LineChart>
-          </ResponsiveContainer>
-          <div className="flex justify-between mt-2 text-[11px] text-on-surface-variant">
-            <span>Competing releases / week</span>
-            <span className="font-medium text-on-surface">{sat.level} ({sat.score}/100)</span>
-          </div>
+          <p className="text-[11px] text-on-surface-variant mb-3">
+            {report.saturation.band} ({report.saturation.score}/100)
+            {report.saturation.drivers[0] && ` — ${report.saturation.drivers[0].detail}`}
+          </p>
+          {satData.length > 0 && (
+            <ResponsiveContainer width="100%" height={140}>
+              <LineChart data={satData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#363842" />
+                <XAxis dataKey="week" tick={{ fill: "#9da0ab", fontSize: 10 }} axisLine={{ stroke: "#363842" }} />
+                <YAxis tick={{ fill: "#9da0ab", fontSize: 10 }} axisLine={{ stroke: "#363842" }} />
+                <Tooltip contentStyle={{ background: "#1a1c26", border: "1px solid #363842", borderRadius: 6, color: "#e8e9ed", fontSize: 11 }} />
+                <Line type="monotone" dataKey="risk" stroke="#6c8cff" strokeWidth={2} dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
         </div>
 
         {/* Release window */}
         <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4 flex flex-col items-center justify-center text-center gap-2">
           <span className="material-symbols-outlined text-primary text-[28px]">calendar_today</span>
-          <h3 className="text-[14px] font-semibold text-on-surface">Best release window</h3>
-          <p className="font-heading text-[20px] font-bold text-on-surface">{w.bestWeek}</p>
-          <p className="text-[12px] text-on-surface-variant">Week {w.weekNumber} &middot; {w.year}</p>
-          <span className="px-3 py-1 rounded-lg bg-green/15 text-green text-[12px] font-semibold">{w.verdict}</span>
-          <p className="text-[11px] text-on-surface-variant leading-snug">{w.reason}</p>
+          <h3 className="text-[14px] font-semibold text-on-surface">Release verdict</h3>
+          <span className={`px-3 py-1 rounded-lg text-[14px] font-bold ${
+            report.verdict.decision === "KEEP" ? "bg-green/15 text-green" :
+            report.verdict.decision === "MOVE" ? "bg-red/15 text-red" :
+            "bg-yellow/15 text-yellow"
+          }`}>
+            {report.verdict.decision}
+          </span>
+          {report.verdict.recommendedDate && (
+            <p className="font-heading text-[18px] font-bold text-on-surface">{report.verdict.recommendedDate}</p>
+          )}
+          {report.verdict.reasoning.map((r, i) => (
+            <p key={i} className="text-[11px] text-on-surface-variant leading-snug">{r}</p>
+          ))}
         </div>
 
         {/* Sentiment */}
         <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4 flex flex-col items-center justify-center text-center gap-2">
           <h3 className="text-[14px] font-semibold text-on-surface">Predicted reviews</h3>
-          <Donut value={sent.positivePercent} />
-          <p className="text-[14px] font-semibold text-on-surface">{sent.label}</p>
-          <p className="text-[12px] text-on-surface-variant">~{sent.estReviewCount} reviews</p>
-          <p className="text-[11px] text-on-surface-variant/70 leading-snug">{sent.reasoning}</p>
-        </div>
-      </div>
-
-      {/* Success rate */}
-      <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-5 flex items-center justify-between">
-        <div>
-          <span className="text-[11px] text-on-surface-variant font-mono uppercase tracking-wide">Success rate</span>
-          <p className="font-heading text-[40px] font-bold text-on-surface leading-tight">
-            {suc.percent}<span className="text-primary">%</span>
-          </p>
-          <p className="text-[13px] text-on-surface-variant mt-1">{suc.label} — {suc.reasoning}</p>
+          <Donut value={positivePercent} />
+          <p className="text-[14px] font-semibold text-on-surface">{sentimentLabel(report.reception.predictedPositiveRatio)}</p>
+          <p className="text-[12px] text-on-surface-variant">Cohort median: {Math.round(report.reception.cohortMedian * 100)}%</p>
+          <p className="text-[11px] text-on-surface-variant">Confidence: {report.reception.band}</p>
         </div>
       </div>
 

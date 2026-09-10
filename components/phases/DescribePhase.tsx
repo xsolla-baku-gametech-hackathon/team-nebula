@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import StepPills from "@/components/phases/StepPills";
-import { GENRE_SUGGESTIONS, GAME_SUGGESTIONS, type AnalysisResponse, type FollowUpQuestion } from "@/lib/mock-data";
+import { GENRE_SUGGESTIONS, GAME_SUGGESTIONS } from "@/lib/mock-data";
 
 interface Props {
   description: string;
@@ -12,10 +12,11 @@ interface Props {
   similarGames: string[];
   onSimilarGamesChange: (v: string[]) => void;
   analyzed: boolean;
-  questions: FollowUpQuestion[];
-  onAnalyze: () => Promise<AnalysisResponse>;
+  questions: string[];
+  onAnalyze: () => Promise<void>;
   onNext: () => void;
   onStartNewSession: () => void;
+  loading?: boolean;
 }
 
 function TagList({ items, onRemove }: { items: string[]; onRemove: (v: string) => void }) {
@@ -68,7 +69,7 @@ export default function DescribePhase({
   genres, onGenresChange,
   similarGames, onSimilarGamesChange,
   analyzed, questions,
-  onAnalyze, onNext, onStartNewSession,
+  onAnalyze, onNext, onStartNewSession, loading,
 }: Props) {
   const [genreInput, setGenreInput] = useState("");
   const [gameInput, setGameInput] = useState("");

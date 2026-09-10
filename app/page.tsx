@@ -5,12 +5,8 @@ import WelcomePhase from "@/components/phases/WelcomePhase";
 import DescribePhase from "@/components/phases/DescribePhase";
 import ComparablesPhase from "@/components/phases/ComparablesPhase";
 import AnalyticsPhase from "@/components/phases/AnalyticsPhase";
-import {
-  ANALYSIS_INSUFFICIENT,
-  ANALYSIS_SUFFICIENT,
-  type AnalysisResponse,
-  type FollowUpQuestion,
-} from "@/lib/mock-data";
+import { analyzeDescription, discoverCompetitors, analyzeMarket } from "@/lib/api/client";
+import type { GameConcept, ScoredCompetitor, MarketReport } from "@/lib/types";
 
 export type Phase = "landing" | "describe" | "comparables" | "analytics";
 
@@ -19,9 +15,12 @@ export default function Home() {
   const [description, setDescription] = useState("");
   const [genres, setGenres] = useState<string[]>([]);
   const [similarGames, setSimilarGames] = useState<string[]>([]);
+  const [concept, setConcept] = useState<GameConcept | null>(null);
   const [analyzed, setAnalyzed] = useState(false);
-  const [questions, setQuestions] = useState<FollowUpQuestion[]>([]);
-  const [analyzeCount, setAnalyzeCount] = useState(0);
+  const [questions, setQuestions] = useState<string[]>([]);
+  const [competitors, setCompetitors] = useState<ScoredCompetitor[]>([]);
+  const [report, setReport] = useState<MarketReport | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const goTo = useCallback((p: Phase) => setPhase(p), []);
 
@@ -30,51 +29,65 @@ export default function Home() {
     setDescription("");
     setGenres([]);
     setSimilarGames([]);
+    setConcept(null);
     setAnalyzed(false);
     setQuestions([]);
-    setAnalyzeCount(0);
+    setCompetitors([]);
+    setReport(null);
   }, []);
 
   const handleImport = useCallback((data: Record<string, unknown>) => {
     if (typeof data.description === "string") setDescription(data.description);
     if (Array.isArray(data.genres)) setGenres(data.genres as string[]);
     if (Array.isArray(data.similarGames)) setSimilarGames(data.similarGames as string[]);
-    if (data.description || data.genres || data.similarGames) setAnalyzed(true);
+    setAnalyzed(true);
     setPhase("describe");
   }, []);
 
-  const handleAnalyze = useCallback((): Promise<AnalysisResponse> => {
-    // Simulate user-game-analyzer service with diff logic:
-    // First call: not enough info → ask questions
-    // Second call: enough info → populate Section 2
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const count = analyzeCount + 1;
-        setAnalyzeCount(count);
+  const handleAnalyze = useCallback(async () => {
+    try {
+      const result = await analyzeDescription(description, concept ?? undefined);
+      setConcept(result.concept);
+      setQuestions(result.questions.map((q) => q.question));
 
-        let response: AnalysisResponse;
-        if (count === 1 && description.length < 150) {
-          response = ANALYSIS_INSUFFICIENT;
-          setQuestions(response.questions);
-        } else {
-          response = ANALYSIS_SUFFICIENT;
-          // Keep questions visible — don't clear them
-          if (questions.length === 0) setQuestions(ANALYSIS_INSUFFICIENT.questions);
-          setAnalyzed(true);
-          // Auto-populate genres and similar games from analysis
-          setGenres((prev) => {
-            const merged = new Set([...prev, ...response.genres]);
-            return [...merged];
-          });
-          setSimilarGames((prev) => {
-            const merged = new Set([...prev, ...response.suggestedGames]);
-            return [...merged];
-          });
-        }
-        resolve(response);
-      }, 1200);
-    });
-  }, [analyzeCount, description.length]);
+      if (result.readyToProceed) {
+        setAnalyzed(true);
+        const t = result.concept.taxonomy;
+        const extracted = [t.primaryGenre, ...t.secondaryGenres].filter(Boolean) as string[];
+        if (extracted.length) setGenres((prev) => [...new Set([...prev, ...extracted])]);
+      }
+    } catch (e) {
+      console.error("Analyze failed:", e);
+      setAnalyzed(true);
+    }
+  }, [description, concept]);
+
+  const handleDiscover = useCallback(async () => {
+    if (!concept) { goTo("comparables"); return; }
+    setLoading(true);
+    try {
+      const result = await discoverCompetitors(concept);
+      setCompetitors(result.competitors);
+    } catch (e) {
+      console.error("Discover failed:", e);
+    }
+    setLoading(false);
+    goTo("comparables");
+  }, [concept, goTo]);
+
+  const handleRunPredictions = useCallback(async () => {
+    if (!concept) { goTo("analytics"); return; }
+    setLoading(true);
+    try {
+      const appIds = competitors.map((c) => c.game.identity.steamAppId);
+      const result = await analyzeMarket(concept, appIds);
+      setReport(result.report);
+    } catch (e) {
+      console.error("Analyze market failed:", e);
+    }
+    setLoading(false);
+    goTo("analytics");
+  }, [concept, competitors, goTo]);
 
   if (phase === "landing") {
     return <WelcomePhase onStartScratch={() => goTo("describe")} onImport={handleImport} />;
@@ -92,8 +105,9 @@ export default function Home() {
         analyzed={analyzed}
         questions={questions}
         onAnalyze={handleAnalyze}
-        onNext={() => goTo("comparables")}
+        onNext={handleDiscover}
         onStartNewSession={startNewSession}
+        loading={loading}
       />
     );
   }
@@ -101,12 +115,21 @@ export default function Home() {
   if (phase === "comparables") {
     return (
       <ComparablesPhase
-        onNext={() => goTo("analytics")}
+        competitors={competitors}
+        onNext={handleRunPredictions}
         onBack={() => goTo("describe")}
         onStartNewSession={startNewSession}
+        loading={loading}
       />
     );
   }
 
-  return <AnalyticsPhase onStartNewSession={startNewSession} />;
+  return (
+    <AnalyticsPhase
+      report={report}
+      concept={concept}
+      competitors={competitors}
+      onStartNewSession={startNewSession}
+    />
+  );
 }
