@@ -14,6 +14,9 @@ describe('Grok integration', () => {
     expect(await validateDescription('horror', [{ question: 'Tone?', answer: 'Atmospheric' }])).toEqual(validation);
     expect(generateText).toHaveBeenCalledWith(expect.objectContaining({ prompt: JSON.stringify({ query: 'horror', clarifications: [{ question: 'Tone?', answer: 'Atmospheric' }] }) }));
     expect(generateText).toHaveBeenCalledWith(expect.objectContaining({ maxRetries: 1, providerOptions: { xai: { store: false, reasoningEffort: 'low' } } }));
+    // The canonical vocabulary belongs in the system prompt, never in the untrusted payload.
+    expect(vi.mocked(generateText).mock.calls[0][0].system).toContain('Platformer');
+    expect(vi.mocked(generateText).mock.calls[0][0].prompt).not.toContain('Platformer');
   });
   it('fails explicitly when credentials are missing', async () => {
     vi.stubEnv('XAI_API_KEY', '');
