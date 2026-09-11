@@ -60,4 +60,14 @@ describe('Grok integration', () => {
     // The id must survive verbatim — it is the membership key.
     expect(prompt).toContain('"igdbId":1');
   });
+
+  it('keeps ranking instructions in the system prompt', async () => {
+    vi.mocked(generateText).mockResolvedValue({ output: { selections: [] } } as unknown as Awaited<ReturnType<typeof generateText>>);
+    await rankPreviewCandidates(validation, [candidate()]);
+
+    const { system, prompt } = vi.mocked(generateText).mock.calls[0][0];
+    expect(system).toContain('inspirations, not candidates');
+    expect(system).toContain('untrusted data');
+    expect(prompt).not.toContain('inspirations, not candidates');
+  });
 });
