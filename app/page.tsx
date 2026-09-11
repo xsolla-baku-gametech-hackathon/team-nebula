@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import WelcomePhase from "@/components/phases/WelcomePhase";
-import DescribePhase from "@/components/phases/DescribePhase";
-import type { Step } from "@/components/phases/StepPills";
+import WelcomePhase from "@/components/landing/WelcomePhase";
+import DescribePhase from "@/components/concept/DescribePhase";
+import type { Step } from "@/components/shared/StepPills";
 import {
   analyzeDescription,
   analyzeMarket,
@@ -36,11 +36,11 @@ import type {
 
 type DiscoveryStage = "idle" | "validating" | "collecting";
 
-const ComparablesPhase = dynamic(() => import("@/components/phases/ComparablesPhase"), {
+const ComparablesPhase = dynamic(() => import("@/components/comparables/ComparablesPhase"), {
   loading: () => <PhaseLoader label="Preparing comparable evidence…" />,
 });
 
-const AnalyticsPhase = dynamic(() => import("@/components/phases/AnalyticsPhase"), {
+const AnalyticsPhase = dynamic(() => import("@/components/analysis/AnalyticsPhase"), {
   loading: () => <PhaseLoader label="Preparing the investment memo…" />,
 });
 

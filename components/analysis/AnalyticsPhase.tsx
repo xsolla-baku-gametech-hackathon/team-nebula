@@ -1,12 +1,12 @@
 "use client";
 
 import { CalendarDays, CircleDollarSign, Gauge, RotateCcw, ShieldCheck, Star } from "lucide-react";
-import { ComparableRevenueChart } from "@/components/forecast/ComparableRevenueChart";
-import { ExportBar } from "@/components/forecast/ExportBar";
-import { LaunchRiskChart } from "@/components/forecast/LaunchRiskChart";
-import { PrintReport } from "@/components/forecast/PrintReport";
-import { ReleaseCalendar } from "@/components/forecast/ReleaseCalendar";
-import StepPills, { type Step } from "@/components/phases/StepPills";
+import { ComparableRevenueChart } from "@/components/analysis/ComparableRevenueChart";
+import { ExportBar } from "@/components/analysis/ExportBar";
+import { LaunchRiskChart } from "@/components/analysis/LaunchRiskChart";
+import { PrintReport } from "@/components/analysis/PrintReport";
+import { ReleaseCalendar } from "@/components/analysis/ReleaseCalendar";
+import StepPills, { type Step } from "@/components/shared/StepPills";
 import type { GameConcept, MarketReport, ScoredCompetitor, Snapshot } from "@/lib/types";
 
 interface Props {

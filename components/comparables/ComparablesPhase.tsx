@@ -2,7 +2,7 @@
 
 import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
 import { ArrowLeft, ArrowRight, ExternalLink, RotateCcw } from "lucide-react";
-import StepPills, { type Step } from "@/components/phases/StepPills";
+import StepPills, { type Step } from "@/components/shared/StepPills";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
 import type { ScoredCompetitor } from "@/lib/types";
 
