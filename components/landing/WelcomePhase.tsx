@@ -3,18 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
-  BarChart3,
-  Building2,
   Check,
   FileUp,
-  Gamepad2,
-  Landmark,
-  SearchCheck,
-  ShieldCheck,
   Upload,
   X,
 } from "lucide-react";
-import { InvestorPreview } from "@/components/landing/InvestorPreview";
 
 interface Props {
   onStartScratch: () => void;
@@ -130,7 +123,7 @@ function ImportModal({
         <div className="mt-5 flex justify-end gap-2">
           <button type="button" onClick={onClose} className="h-10 rounded-lg px-4 text-[13px] text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface">Cancel</button>
           <button type="button" onClick={handleSubmit} disabled={!file || loading} className="h-10 rounded-lg bg-primary px-4 text-[13px] font-semibold text-on-primary transition-colors hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-40">
-            {loading ? "Reading file…" : "Import session"}
+            {loading ? "Reading file..." : "Import session"}
           </button>
         </div>
       </div>
@@ -138,182 +131,163 @@ function ImportModal({
   );
 }
 
-const outcomes = [
-  ["Commercial upside", "Comparable revenue range", "Frame opportunity without false precision."],
-  ["Market evidence", "Reviewed Steam cohort", "See why every comparable belongs."],
-  ["Category pressure", "Saturation and timing", "Map concentration and release collisions."],
-  ["Decision", "Keep, move, or mitigate", "Leave with a clear next action."],
+const genreTags = ["Co-op horror", "Survival", "Psychological", "1-4 Players"];
+
+const metrics = [
+  { value: "72", label: "Market Fit" },
+  { value: "$280K", label: "Est Revenue base" },
+  { value: "LOW", label: "Saturation" },
 ];
 
-const audiences = [
-  {
-    icon: Gamepad2,
-    label: "Studios",
-    title: "Pressure-test positioning",
-    body: "Compare price, demand, reception, and timing before product and marketing plans harden.",
-    decision: "Differentiate or de-risk",
-  },
-  {
-    icon: Building2,
-    label: "Publishers",
-    title: "Sequence the portfolio",
-    body: "See launch collisions and category concentration before committing campaign support.",
-    decision: "Keep, move, or mitigate",
-  },
-  {
-    icon: Landmark,
-    label: "Investors",
-    title: "Standardize market diligence",
-    body: "Bring comparable selection, commercial ranges, and confidence into one investment view.",
-    decision: "Advance, revise, or decline",
-  },
+const bulletPoints = [
+  "Real market data",
+  "AI-powered competitor discovery",
+  "Quantitative analysis not guesswork",
 ];
+
+const dataProviders = ["Steam", "IGDB", "Gamalytic"];
 
 export default function WelcomePhase({ onStartScratch, onImport }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    const nodes = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-      nodes.forEach((node) => node.dataset.visible = "true");
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        (entry.target as HTMLElement).dataset.visible = "true";
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.12 });
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div className="overflow-hidden">
-      <section className="landing-grid relative border-b border-outline-variant/20">
-        <div className="landing-glow pointer-events-none absolute -right-48 -top-52 size-[760px]" />
-        <div className="relative mx-auto grid min-h-[720px] max-w-[1280px] grid-cols-1 items-center gap-14 px-5 py-16 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:py-20">
-          <div className="landing-intro max-w-[600px]">
-            <p className="flex items-center gap-3 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-secondary">
-              <span className="h-px w-8 bg-primary" />
-              Steam launch &amp; commercial intelligence
-            </p>
-            <h1 className="mt-6 font-heading text-[clamp(2.8rem,5.5vw,4.9rem)] font-semibold leading-[1.01] tracking-[-0.052em] text-on-surface">
-              Know what a Steam game could earn—and when it should launch.
-            </h1>
-            <p className="mt-6 max-w-[570px] text-[16px] leading-[1.7] text-on-surface-variant md:text-[17px]">
-              Turn one game concept into reviewed comparables, a revenue range, market pressure, and a launch recommendation for studios, publishers, and investors.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <button type="button" onClick={onStartScratch} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-6 text-[14px] font-semibold text-on-primary shadow-[0_0_28px_rgba(108,140,255,0.16)] transition-all hover:-translate-y-0.5 hover:bg-primary-container">
-                Analyze a game
-                <ArrowRight size={17} />
-              </button>
-              <button type="button" onClick={() => setModalOpen(true)} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-outline-variant bg-surface-container-high px-6 text-[14px] font-medium text-on-surface transition-colors hover:bg-surface-container-highest">
-                <Upload size={17} />
-                Import session
-              </button>
-            </div>
-
-            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2.5 text-[11px] text-on-surface-variant">
-              {["Reviewed comparables", "Visible provenance", "Range-based outputs"].map((item) => (
-                <span key={item} className="inline-flex items-center gap-1.5"><Check size={13} className="text-green" />{item}</span>
-              ))}
-            </div>
-          </div>
-
-          <InvestorPreview />
-        </div>
-      </section>
-
-      <section id="outcomes" className="border-b border-outline-variant/20 bg-surface-container-lowest/70">
-        <div className="mx-auto grid max-w-[1280px] grid-cols-1 divide-y divide-outline-variant/25 px-5 sm:grid-cols-2 sm:divide-x sm:divide-y-0 md:px-8 lg:grid-cols-4">
-          {outcomes.map(([label, title, body]) => (
-            <article key={label} className="py-6 sm:px-6 sm:first:pl-0">
-              <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.12em] text-secondary">{label}</p>
-              <h2 className="mt-2 font-heading text-[15px] font-semibold text-on-surface">{title}</h2>
-              <p className="mt-1 text-[11px] leading-relaxed text-on-surface-variant">{body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="evidence" className="mx-auto max-w-[1280px] px-5 py-20 md:px-8 lg:py-24">
-        <div data-reveal className="reveal-section grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+    <div className="min-h-screen bg-[#0f1117]">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        <div className="mx-auto grid max-w-[1320px] grid-cols-1 items-center gap-12 px-6 py-20 md:px-10 lg:grid-cols-2 lg:gap-16 lg:py-28">
+          {/* LEFT column */}
           <div>
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-secondary">Evidence process</p>
-            <h2 className="mt-4 max-w-[580px] font-heading text-[34px] font-semibold leading-[1.12] tracking-[-0.035em] text-on-surface md:text-[42px]">
-              A defensible market view in three reviewable stages.
-            </h2>
-          </div>
-          <p className="max-w-[560px] text-[15px] leading-[1.7] text-on-surface-variant lg:justify-self-end">
-            You approve the comparable cohort before commercial analysis begins. Every conclusion remains connected to its evidence and confidence.
-          </p>
-        </div>
+            <span className="inline-block rounded-full border border-[#363842] bg-[#1a1c26] px-4 py-1.5 font-sans text-[11px] font-medium uppercase tracking-[0.1em] text-[#9da0ab]">
+              Team Nebula &middot; Game Market Intelligence
+            </span>
 
-        <div data-reveal className="reveal-section process-track relative mt-12 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <span className="process-signal hidden lg:block" aria-hidden="true" />
-          {[
-            { n: "01", icon: SearchCheck, title: "Structure the concept", body: "Map gameplay, audience, price, and launch assumptions from plain language.", tags: ["Concept signals", "Editable"] },
-            { n: "02", icon: ShieldCheck, title: "Review the cohort", body: "Inspect ten verified Steam comparables and approve the evidence set.", tags: ["Steam facts", "Human review"] },
-            { n: "03", icon: BarChart3, title: "Build the decision", body: "Compare revenue, reception, saturation, and weekly launch risk.", tags: ["Market estimate", "Recommendation"] },
-          ].map((step) => (
-            <article key={step.n} className="relative rounded-2xl border border-outline-variant/35 bg-surface-container-low p-6 transition-all hover:-translate-y-0.5 hover:border-primary/30">
-              <div className="flex items-center justify-between">
-                <span className="flex size-11 items-center justify-center rounded-xl border border-primary/25 bg-primary/8 text-primary"><step.icon size={19} /></span>
-                <span className="font-mono text-[9px] font-semibold tracking-[0.12em] text-on-surface-variant">{step.n}</span>
+            <h1 className="mt-8 font-heading text-[clamp(2.4rem,5vw,4rem)] font-bold leading-[1.08] tracking-[-0.04em] text-[#e8e9ed]">
+              Know your market{" "}
+              <span className="italic text-[#34d399]">before</span>{" "}
+              you build it.
+            </h1>
+
+            <p className="mt-6 max-w-[520px] text-[16px] leading-[1.75] text-[#9da0ab] md:text-[17px]">
+              AI-powered market analysis for game developers. Validate your concept with real data before investing months of development.
+            </p>
+
+            <ul className="mt-8 flex flex-col gap-3">
+              {bulletPoints.map((point) => (
+                <li key={point} className="flex items-center gap-3 text-[14px] text-[#e8e9ed]">
+                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#34d399]/15">
+                    <Check size={12} className="text-[#34d399]" />
+                  </span>
+                  <span className="font-sans">{point}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <button
+                type="button"
+                onClick={() => setModalOpen(true)}
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-[#363842] bg-transparent px-6 font-sans text-[14px] font-medium text-[#e8e9ed] transition-all hover:border-[#9da0ab] hover:bg-[#1a1c26]"
+              >
+                Try a Sample Concept
+                <ArrowRight size={16} />
+              </button>
+              <button
+                type="button"
+                onClick={onStartScratch}
+                className="inline-flex h-12 items-center justify-center rounded-xl bg-[#6c8cff] px-6 font-sans text-[14px] font-semibold text-white shadow-[0_0_32px_rgba(108,140,255,0.2)] transition-all hover:-translate-y-0.5 hover:bg-[#5a7bf0]"
+              >
+                Start Your Own
+              </button>
+            </div>
+
+            <p className="mt-5 font-sans text-[12px] text-[#9da0ab]/70">
+              No account required &middot; Free to use during the hackathon
+            </p>
+          </div>
+
+          {/* RIGHT column - Preview Card */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="w-full max-w-[480px] rounded-2xl border border-[#363842] bg-[#1a1c26] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.4)]">
+              {/* Sample game quote */}
+              <div className="rounded-xl border border-[#363842]/60 bg-[#0f1117] p-5">
+                <p className="font-sans text-[13px] italic leading-[1.7] text-[#9da0ab]">
+                  &ldquo;A cooperative horror survival game where 1-4 players explore a procedurally generated research facility, managing sanity and resources while uncovering psychological terrors.&rdquo;
+                </p>
               </div>
-              <h3 className="mt-7 font-heading text-[18px] font-semibold text-on-surface">{step.title}</h3>
-              <p className="mt-3 text-[13px] leading-[1.65] text-on-surface-variant">{step.body}</p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {step.tags.map((tag) => <span key={tag} className="rounded-md border border-outline-variant/60 px-2 py-1 font-mono text-[9px] text-on-surface-variant">{tag}</span>)}
+
+              {/* Genre tags */}
+              <div className="mt-5 flex flex-wrap gap-2">
+                {genreTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-lg border border-[#363842] bg-[#0f1117] px-3 py-1.5 font-sans text-[11px] font-medium text-[#9da0ab]"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
-            </article>
-          ))}
+
+              {/* Market Analysis Complete badge */}
+              <div className="mt-5 flex items-center gap-2">
+                <span className="flex size-5 items-center justify-center rounded-full bg-[#34d399]/15">
+                  <Check size={12} className="text-[#34d399]" />
+                </span>
+                <span className="font-sans text-[13px] font-semibold text-[#34d399]">
+                  Market Analysis Complete
+                </span>
+              </div>
+
+              {/* Metrics row */}
+              <div className="mt-5 grid grid-cols-3 gap-3">
+                {metrics.map((metric) => (
+                  <div
+                    key={metric.label}
+                    className="rounded-xl border border-[#363842] bg-[#0f1117] px-4 py-4 text-center"
+                  >
+                    <p className="font-heading text-[22px] font-bold text-[#e8e9ed]">
+                      {metric.value}
+                    </p>
+                    <p className="mt-1 font-sans text-[10px] font-medium uppercase tracking-[0.06em] text-[#9da0ab]">
+                      {metric.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="border-y border-outline-variant/20 bg-surface-container-lowest/70">
-        <div className="mx-auto max-w-[1280px] px-5 py-20 md:px-8 lg:py-24">
-          <div data-reveal className="reveal-section max-w-[760px]">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-secondary">Built for decisions</p>
-            <h2 className="mt-4 font-heading text-[34px] font-semibold leading-[1.12] tracking-[-0.035em] text-on-surface md:text-[42px]">One evidence layer for product, portfolio, and capital.</h2>
-          </div>
-          <div data-reveal className="reveal-section mt-11 grid grid-cols-1 gap-4 lg:grid-cols-3">
-            {audiences.map((audience) => (
-              <article key={audience.label} className="rounded-2xl border border-outline-variant/35 bg-surface-container/65 p-6 transition-all hover:-translate-y-0.5 hover:border-primary/30">
-                <audience.icon size={21} className="text-primary" />
-                <p className="mt-7 font-mono text-[9px] font-semibold uppercase tracking-[0.13em] text-on-surface-variant">{audience.label}</p>
-                <h3 className="mt-2 font-heading text-[19px] font-semibold text-on-surface">{audience.title}</h3>
-                <p className="mt-3 text-[13px] leading-[1.65] text-on-surface-variant">{audience.body}</p>
-                <p className="mt-6 border-t border-outline-variant/35 pt-4 text-[11px] font-medium text-secondary">Decision: {audience.decision}</p>
-              </article>
+      {/* Trusted Data Providers bar */}
+      <section className="border-t border-[#363842]/40">
+        <div className="mx-auto flex max-w-[1320px] flex-col items-center gap-6 px-6 py-8 sm:flex-row sm:justify-center sm:gap-10 md:px-10">
+          <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9da0ab]/60">
+            Trusted Data Providers
+          </span>
+          <div className="flex items-center gap-8">
+            {dataProviders.map((provider) => (
+              <span
+                key={provider}
+                className="font-heading text-[15px] font-semibold text-[#9da0ab]/50 transition-colors hover:text-[#9da0ab]"
+              >
+                {provider}
+              </span>
             ))}
+            <span className="font-sans text-[13px] text-[#9da0ab]/40">
+              &amp; more
+            </span>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1280px] px-5 py-20 md:px-8 lg:py-24">
-        <div data-reveal className="reveal-section landing-cta relative overflow-hidden rounded-[20px] border border-primary/25 bg-surface-container-low px-6 py-14 text-center md:px-12 md:py-16">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-secondary">Build the investment view</p>
-          <h2 className="mx-auto mt-4 max-w-[800px] font-heading text-[34px] font-semibold leading-[1.12] tracking-[-0.035em] text-on-surface md:text-[46px]">Make the launch decision with the evidence visible.</h2>
-          <p className="mx-auto mt-5 max-w-[620px] text-[14px] leading-[1.7] text-on-surface-variant">Start with a plain-language concept. Review the games that define the market before any recommendation is produced.</p>
-          <button type="button" onClick={onStartScratch} className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-6 text-[14px] font-semibold text-on-primary transition-all hover:-translate-y-0.5 hover:bg-primary-container">
-            Analyze a game <ArrowRight size={17} />
-          </button>
-        </div>
-      </section>
-
-      <footer className="border-t border-outline-variant/20 bg-surface-container-lowest/70 px-5 py-7 md:px-8">
-        <div className="mx-auto flex max-w-[1280px] flex-col justify-between gap-2 text-[11px] text-on-surface-variant sm:flex-row sm:items-center">
-          <p>ReleaseSignal · Steam market intelligence</p>
-          <p>For studios, publishers, investors, and launch teams.</p>
-        </div>
-      </footer>
-
-      <ImportModal open={modalOpen} onClose={() => setModalOpen(false)} onImport={(data) => { setModalOpen(false); onImport(data); }} />
+      <ImportModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onImport={(data) => {
+          setModalOpen(false);
+          onImport(data);
+        }}
+      />
     </div>
   );
 }
