@@ -64,6 +64,7 @@ function AddInput({
   return (
     <div className="flex gap-1.5 mt-1.5">
       <input
+        aria-label="Additional genre or gameplay tag"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         onKeyDown={(event) => {
@@ -259,11 +260,12 @@ export default function DescribePhase({
         <div className="flex flex-col gap-4">
           <div>
             <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-[12px] font-semibold uppercase tracking-[0.1em] text-on-surface">Game description</h2>
+              <label htmlFor="game-description" className="text-[12px] font-semibold uppercase tracking-[0.1em] text-on-surface">Game description</label>
               <span className="font-mono text-[10px] text-on-surface-variant">{description.length} characters</span>
             </div>
             <div className="overflow-hidden rounded-2xl border border-outline-variant/25 bg-surface-container shadow-[0_18px_55px_rgba(0,0,0,0.12)] focus-within:border-primary/45">
               <textarea
+                id="game-description"
                 value={description}
                 onChange={(event) => onDescriptionChange(event.target.value)}
                 className="h-[210px] w-full resize-none bg-transparent p-5 text-[15px] leading-7 text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none"
