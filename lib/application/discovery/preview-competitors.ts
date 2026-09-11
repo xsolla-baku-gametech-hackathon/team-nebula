@@ -1,11 +1,17 @@
 import 'server-only';
 import { findPreviewCandidates } from '@/lib/infrastructure/igdb/find-candidates';
 import { grokModelId, rankPreviewCandidates, validateDescription } from '@/lib/infrastructure/grok/discovery';
+import { fallbackValidateDescription, fallbackRankCandidates } from './fallback-discovery';
 import { previewStore, type PreviewStore } from './preview-store';
 import { rankingDropIssues, validatePreviewRanking, type RankingOutcome } from './selection';
 import { resolveSteamIds } from '@/lib/infrastructure/igdb/steam-identities';
 import { DiscoverInput, type PreviewCandidate } from '@/lib/domain/schemas';
 import { normalizeDiscoveryTags } from '@/lib/domain/discovery-tags';
+
+type ValidateFn = typeof validateDescription;
+type CandidateFn = typeof findPreviewCandidates;
+type RankFn = typeof rankPreviewCandidates;
+type ResolveFn = typeof resolveSteamIds;
 
 const defaults = {
   validate: validateDescription, candidates: findPreviewCandidates,
@@ -13,10 +19,30 @@ const defaults = {
 };
 export type PreviewProviders = Omit<typeof defaults, 'store'> & { store: PreviewStore };
 
+/** Try Grok, fall back to keyword extraction */
+async function validateWithFallback(query: string, clarifications: { question: string; answer: string }[], validate: ValidateFn) {
+  try {
+    return await validate(query, clarifications);
+  } catch (e) {
+    console.warn('Grok validation failed, using keyword fallback:', (e as Error).message);
+    return fallbackValidateDescription(query, clarifications);
+  }
+}
+
+/** Try Grok ranking, fall back to tag-based scoring */
+async function rankWithFallback(validation: Parameters<RankFn>[0], candidates: Parameters<RankFn>[1], rank: RankFn) {
+  try {
+    return await rank(validation, candidates);
+  } catch (e) {
+    console.warn('Grok ranking failed, using tag-overlap fallback:', (e as Error).message);
+    return fallbackRankCandidates(validation, candidates);
+  }
+}
+
 export async function previewGames(input: unknown, deps: PreviewProviders = defaults) {
   const request = DiscoverInput.parse(input);
   const validation = normalizeDiscoveryTags(
-    await deps.validate(request.query, request.clarifications ?? []),
+    await validateWithFallback(request.query, request.clarifications ?? [], deps.validate),
     request.query,
   );
   if (validation.status === 'needs_clarification') {
@@ -25,7 +51,7 @@ export async function previewGames(input: unknown, deps: PreviewProviders = defa
   }
   const candidates = await deps.candidates(validation);
   const { selections: ranked, drops }: RankingOutcome = candidates.length
-    ? validatePreviewRanking(await deps.rank(validation, candidates), candidates, validation)
+    ? validatePreviewRanking(await rankWithFallback(validation, candidates, deps.rank), candidates, validation)
     : { selections: [], drops: [] };
   if (drops.length) {
     console.warn('Grok ranking drops', {
@@ -51,7 +77,6 @@ export async function previewGames(input: unknown, deps: PreviewProviders = defa
     validation, candidates: [], discovery: { provider: 'xai' as const, model: grokModelId(),
       candidateCount: candidates.length, rankedCount: ranked.length, requestedCount: request.limit,
       returnedCount: 0, complete: false,
-      // This branch's own message stays first: the UI reads only issues[0] here.
       issues: ['No matching game with one exact Steam identity was available.', ...dropIssues] },
   };
   const record = deps.store.create({ query: request.query, validation, candidates: previewCandidates });
