@@ -2,7 +2,7 @@
  * Scores risk of a given release week based on competition and timing.
  */
 
-import type { GameConcept, UpcomingRelease, ReleaseWindow, RiskBand, Verdict, Driver, ReleaseWindowRisk } from '@/lib/types';
+import type { GameConcept, UpcomingRelease, ReleaseWindow, RiskBand, Verdict, Driver, ReleaseWindowRisk } from '@/lib/domain/types';
 import { driver } from './drivers';
 
 const MIN_MOVE_NOTICE_WEEKS = 3;

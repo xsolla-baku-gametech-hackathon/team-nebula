@@ -1,4 +1,4 @@
-import type { GameConcept, NormalizedGame, ScoredCompetitor } from '@/lib/types';
+import type { GameConcept, NormalizedGame, ScoredCompetitor } from '@/lib/domain/types';
 import { scoreSimilarity } from './similarity';
 
 export function scoreCompetitor(

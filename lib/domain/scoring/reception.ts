@@ -3,7 +3,7 @@
  */
 
 
-import type { NormalizedGame, GameConcept, EstimatedPlayerReception, ConfidenceBand } from '@/lib/types';
+import type { NormalizedGame, GameConcept, EstimatedPlayerReception, ConfidenceBand } from '@/lib/domain/types';
 
 const DEFAULT_CONFIDENCE_BAND: ConfidenceBand = 'LOW';
 

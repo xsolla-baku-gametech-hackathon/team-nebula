@@ -2,7 +2,7 @@
  * Predicts a revenue range from scored comparable games.
  */
 
-import type { ConfidenceBand, EstimatedRevenue, GameConcept, ScoredCompetitor } from '@/lib/types';
+import type { ConfidenceBand, EstimatedRevenue, GameConcept, ScoredCompetitor } from '@/lib/domain/types';
 import { driver } from './drivers';
 
 type RevenueObservation = {

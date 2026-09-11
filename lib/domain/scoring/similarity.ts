@@ -3,7 +3,7 @@
  */
 
 
-import type { GameConcept, NormalizedGame, SimilarityComponents, Driver } from '@/lib/types';
+import type { GameConcept, NormalizedGame, SimilarityComponents, Driver } from '@/lib/domain/types';
 import { driver } from './drivers';
 
 /** Semantic match dominates: description-over-tags is the core claim. */

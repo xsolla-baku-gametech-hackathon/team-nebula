@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { ok, fail } from '@/lib/api/envelope';
 import { fetchUpcomingReleases, type UpcomingCollection } from '@/lib/analysis/upcoming';
 import { getCorpus } from '@/lib/corpus/load';
-import { scoreCompetitor, scoreSaturation, scoreRevenue, scoreReception, scoreReleaseRisk } from '@/lib/scoring';
+import { scoreCompetitor, scoreSaturation, scoreRevenue, scoreReception, scoreReleaseRisk } from '@/lib/domain/scoring';
 import type { GameConcept, NormalizedGame, MarketReport, ScoredCompetitor } from '@/lib/types';
 
 export const runtime = 'nodejs';

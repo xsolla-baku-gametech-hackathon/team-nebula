@@ -2,7 +2,7 @@
  * This files is used to measure market saturation; how crowded a release window or genre space is.
  */
 
-import type { NormalizedGame, Driver, SaturationBand } from '@/lib/types';
+import type { NormalizedGame, Driver, SaturationBand } from '@/lib/domain/types';
 import { driver } from './drivers';
 
 function clamp(min: number, max: number, v: number): number {

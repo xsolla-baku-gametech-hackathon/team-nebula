@@ -27,7 +27,7 @@ import {
   createSnapshot,
   snapshotFromImport,
 } from "@/lib/session/snapshot";
-import { scoreCompetitor } from "@/lib/scoring/competitor";
+import { scoreCompetitor } from "@/lib/domain/scoring/competitor";
 import type {
   GameConcept,
   GameMode,

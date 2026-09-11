@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { ok, fail } from '@/lib/api/envelope';
 import { getCorpus } from '@/lib/corpus/load';
 import { tagOverlap } from '@/lib/corpus/search';
-import { scoreSimilarity } from '@/lib/scoring';
+import { scoreSimilarity } from '@/lib/domain/scoring';
 import type { GameConcept, ScoredCompetitor } from '@/lib/types';
 
 const Schema = z.object({

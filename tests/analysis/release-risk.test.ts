@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { scoreReleaseRisk } from '@/lib/scoring/release-risk';
+import { scoreReleaseRisk } from '@/lib/domain/scoring/release-risk';
 import { conceptHorrorCoop } from '@/lib/fixtures/concept.horror-coop';
 import type { GameConcept, UpcomingRelease } from '@/lib/types';
 

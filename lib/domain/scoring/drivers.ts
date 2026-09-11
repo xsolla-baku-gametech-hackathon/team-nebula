@@ -1,4 +1,4 @@
-import type { Driver } from '@/lib/types';
+import type { Driver } from '@/lib/domain/types';
 
 export function driver(label: string, contribution: number, detail: string): Driver {
   return { label, contribution, detail };

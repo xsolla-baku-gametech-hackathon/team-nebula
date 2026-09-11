@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { scoreSimilarity } from '@/lib/scoring/similarity';
+import { scoreSimilarity } from '@/lib/domain/scoring/similarity';
 import { conceptHorrorCoop } from '@/lib/fixtures/concept.horror-coop';
 import type { NormalizedGame } from '@/lib/types';
 
