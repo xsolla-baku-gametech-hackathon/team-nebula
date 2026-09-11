@@ -3,7 +3,7 @@ import { createXai } from '@ai-sdk/xai';
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { DescriptionValidationSchema, DiscoveryError, RankingSchema,
-  type Candidate, type DescriptionValidation } from './types';
+  type Candidate, type DescriptionValidation } from '@/lib/domain/schemas';
 
 export const grokModelId = () => process.env.XAI_MODEL?.trim() || 'grok-4.6';
 async function structured<T extends z.ZodTypeAny>(schema: T, system: string, input: unknown): Promise<z.infer<T>> {

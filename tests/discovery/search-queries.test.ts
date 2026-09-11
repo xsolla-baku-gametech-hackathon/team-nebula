@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildSearchQueries } from '@/lib/discovery/search-queries';
-import type { DescriptionValidation } from '@/lib/discovery/types';
+import type { DescriptionValidation } from '@/lib/domain/schemas';
 
 describe('candidate search queries', () => {
   it('uses every validated tag across the queries', () => {

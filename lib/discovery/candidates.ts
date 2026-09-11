@@ -4,7 +4,7 @@ import { withMcp } from '@/lib/collector/mcp-client';
 import { parseProvider } from '@/lib/collector/http';
 import { plainText } from '@/lib/collector/steam-details';
 import { buildSearchQueries } from './search-queries';
-import type { Candidate, DescriptionValidation } from './types';
+import type { Candidate, DescriptionValidation } from '@/lib/domain/schemas';
 
 const SearchResult = z.object({ results: z.array(z.object({
   game: z.object({ id: z.number().int().positive(), name: z.string().min(1), summary: z.string().nullish(), game_modes: z.array(z.number().int()).nullish() }),

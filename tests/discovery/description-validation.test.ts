@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DescriptionValidationSchema, DiscoverInput } from '@/lib/discovery/types';
+import { DescriptionValidationSchema, DiscoverInput } from '@/lib/domain/schemas';
 
 const tag = (name: string, priority: 'required' | 'preferred' = 'required') =>
   ({ name, category: 'theme' as const, priority, basis: 'explicit' as const });

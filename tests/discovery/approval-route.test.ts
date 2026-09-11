@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('@/lib/discovery/approve', () => ({ approvePreview: vi.fn() }));
 import { approvePreview } from '@/lib/discovery/approve';
-import { DiscoveryError } from '@/lib/discovery/types';
+import { DiscoveryError } from '@/lib/domain/schemas';
 import { POST } from '@/app/api/games/discover/collect/route';
 
 const id = '123e4567-e89b-42d3-a456-426614174000';

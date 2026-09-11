@@ -1,6 +1,6 @@
 import { approvePreview } from '@/lib/discovery/approve';
 import { discoveryErrorResponse } from '@/lib/discovery/http-error';
-import { ApprovalInput, DiscoveryError } from '@/lib/discovery/types';
+import { ApprovalInput, DiscoveryError } from '@/lib/domain/schemas';
 
 export const runtime = 'nodejs';
 export const maxDuration = 180;

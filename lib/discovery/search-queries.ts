@@ -1,4 +1,4 @@
-import type { DescriptionValidation } from './types';
+import type { DescriptionValidation } from '@/lib/domain/schemas';
 
 export function buildSearchQueries(validation: DescriptionValidation): string[] {
   const required = validation.tags.filter(tag => tag.priority === 'required').map(tag => tag.name);

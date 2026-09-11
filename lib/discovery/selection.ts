@@ -1,4 +1,4 @@
-import { DiscoveryError, RankingSchema, type Candidate, type DescriptionValidation } from './types';
+import { DiscoveryError, RankingSchema, type Candidate, type DescriptionValidation } from '@/lib/domain/schemas';
 
 export function validateRanking(input: unknown, candidates: Candidate[]) {
   const parsed = RankingSchema.safeParse(input);

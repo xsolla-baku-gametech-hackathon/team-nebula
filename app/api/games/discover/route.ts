@@ -1,5 +1,5 @@
 import { previewGames } from '@/lib/discovery/preview';
-import { DiscoverInput, DiscoveryError } from '@/lib/discovery/types';
+import { DiscoverInput, DiscoveryError } from '@/lib/domain/schemas';
 import { ProviderError } from '@/lib/collector/types';
 import { discoveryErrorResponse } from '@/lib/discovery/http-error';
 

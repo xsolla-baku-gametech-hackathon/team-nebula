@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DiscoverInput, type Candidate } from '@/lib/discovery/types';
+import { DiscoverInput, type Candidate } from '@/lib/domain/schemas';
 import { validatePreviewRanking, validateRanking } from '@/lib/discovery/selection';
 import { parseCandidates } from '@/lib/discovery/candidates';
 import { steamIdentity } from '@/lib/discovery/steam-identities';

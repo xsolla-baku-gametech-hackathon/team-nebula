@@ -4,7 +4,7 @@ import { grokModelId, rankPreviewCandidates, validateDescription } from './grok'
 import { previewStore, type PreviewStore } from './preview-store';
 import { validatePreviewRanking } from './selection';
 import { resolveSteamIds } from './steam-identities';
-import { DiscoverInput, type PreviewCandidate } from './types';
+import { DiscoverInput, type PreviewCandidate } from '@/lib/domain/schemas';
 
 const defaults = {
   validate: validateDescription, candidates: findPreviewCandidates,

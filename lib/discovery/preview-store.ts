@@ -1,6 +1,6 @@
 import 'server-only';
 import { randomUUID } from 'node:crypto';
-import { DiscoveryError, type DescriptionValidation, type PreviewCandidate } from './types';
+import { DiscoveryError, type DescriptionValidation, type PreviewCandidate } from '@/lib/domain/schemas';
 
 export type PreviewRecord = {
   id: string;

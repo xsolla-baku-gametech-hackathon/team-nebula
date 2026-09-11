@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+/** Runtime contracts for the concept-to-comparable discovery workflow. */
+
 export const DiscoveryTagSchema = z.object({
   name: z.string().trim().min(1).max(80),
   category: z.enum(['genre', 'theme', 'mechanic', 'mode', 'perspective', 'setting', 'tone']),

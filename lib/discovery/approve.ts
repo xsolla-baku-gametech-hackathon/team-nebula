@@ -2,7 +2,7 @@ import 'server-only';
 import { collectGames } from '@/lib/collector/collect';
 import type { CollectedGame, CollectionFailure } from '@/lib/collector/types';
 import { previewStore, type PreviewStore } from './preview-store';
-import { ApprovalInput, DiscoveryError, type PreviewCandidate } from './types';
+import { ApprovalInput, DiscoveryError, type PreviewCandidate } from '@/lib/domain/schemas';
 
 const defaults = { store: previewStore, collect: collectGames };
 export type ApprovalProviders = Omit<typeof defaults, 'store'> & { store: PreviewStore };

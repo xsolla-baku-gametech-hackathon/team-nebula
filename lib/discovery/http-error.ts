@@ -1,4 +1,4 @@
-import { DiscoveryError } from './types';
+import { DiscoveryError } from '@/lib/domain/schemas';
 
 const statuses: Record<DiscoveryError['code'], number> = {
   AI_NOT_CONFIGURED: 503,

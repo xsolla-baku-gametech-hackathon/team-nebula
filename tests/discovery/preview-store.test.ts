@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { PreviewStore } from '@/lib/discovery/preview-store';
-import type { DescriptionValidation } from '@/lib/discovery/types';
+import type { DescriptionValidation } from '@/lib/domain/schemas';
 
 const validation: DescriptionValidation = {
   status: 'ready', normalizedDescription: 'Multiplayer horror', confidence: 0.9,
