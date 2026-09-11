@@ -46,4 +46,18 @@ describe('Grok integration', () => {
     await rankPreviewCandidates(validation, [candidate()]);
     expect(vi.mocked(generateText).mock.calls[1][0].maxOutputTokens).toBe(16000);
   });
+
+  it('sends a trimmed candidate payload to the ranking model', async () => {
+    // Full-length prose made copying exact ids a needle-in-a-haystack task.
+    vi.mocked(generateText).mockResolvedValue({ output: { selections: [] } } as unknown as Awaited<ReturnType<typeof generateText>>);
+    await rankPreviewCandidates(validation, [candidate({ description: 'd'.repeat(5000), context: 'c'.repeat(5000) })]);
+
+    const { prompt } = vi.mocked(generateText).mock.calls[0][0];
+    expect(prompt).toContain('d'.repeat(600));
+    expect(prompt).not.toContain('d'.repeat(601));
+    expect(prompt).toContain('c'.repeat(300));
+    expect(prompt).not.toContain('c'.repeat(301));
+    // The id must survive verbatim — it is the membership key.
+    expect(prompt).toContain('"igdbId":1');
+  });
 });
