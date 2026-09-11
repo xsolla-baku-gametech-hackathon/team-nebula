@@ -11,10 +11,11 @@ export function ok<T>(data: T, t0: number, corpusVersion: string = '', degraded?
   return NextResponse.json({ ok: true, data, meta });
 }
 
-export function fail(e: unknown, _t0: number) {
+export function fail(e: unknown, t0: number) {
+  const meta = { durationMs: Math.round(performance.now() - t0) };
   if (e instanceof ZodError) {
     return NextResponse.json(
-      { ok: false, error: { code: 'INVALID_INPUT', message: 'Invalid request body', details: e.issues } },
+      { ok: false, error: { code: 'INVALID_INPUT', message: 'Invalid request body', details: e.issues }, meta },
       { status: 400 },
     );
   }
@@ -24,7 +25,7 @@ export function fail(e: unknown, _t0: number) {
   const status = code === 'CORPUS_UNAVAILABLE' ? 503 : 500;
 
   return NextResponse.json(
-    { ok: false, error: { code, message: process.env.NODE_ENV === 'production' ? 'Internal error' : message } },
+    { ok: false, error: { code, message: process.env.NODE_ENV === 'production' ? 'Internal error' : message }, meta },
     { status },
   );
 }
