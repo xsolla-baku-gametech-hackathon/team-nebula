@@ -2,6 +2,7 @@
 
 import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
 import StepPills, { type Step } from "@/components/phases/StepPills";
+import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
 import type { ScoredCompetitor } from "@/lib/types";
 
 interface Props {
@@ -165,7 +166,7 @@ export default function ComparablesPhase({
             disabled={loading || Boolean(launchInputError)}
             className="h-10 px-5 rounded-xl bg-primary text-on-primary text-[14px] font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
           >
-            {loading ? "Loading live calendar..." : "Run predictions"}
+            {loading ? "Building investment view..." : "Build investment view"}
             <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
           </button>
         </div>
@@ -173,6 +174,8 @@ export default function ComparablesPhase({
 
       {launchInputError ? <p className="text-[11px] text-red text-right mb-3">{launchInputError}</p> : null}
       {targetPrice === null ? <p className="text-[10px] text-on-surface-variant text-right mb-3">Without a target price, revenue uses reported comparable revenue without price normalization.</p> : null}
+
+      {loading ? <div className="mb-4"><ProcessIndicator kind="analysis" /></div> : null}
 
       {competitors.length === 0 ? (
         <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-8 text-center text-on-surface-variant">
