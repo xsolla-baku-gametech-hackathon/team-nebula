@@ -12,7 +12,7 @@ config({ path: '.env.local' });
 
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
-import { connectIgdb, disconnectIgdb, igdbQuery, igdbGetDetails } from './igdb-mcp-client';
+import { connectIgdb, disconnectIgdb, igdbQuery } from './igdb-mcp-client';
 
 const DATA_DIR = join(process.cwd(), 'data');
 const RAW_DIR = join(DATA_DIR, 'raw');
