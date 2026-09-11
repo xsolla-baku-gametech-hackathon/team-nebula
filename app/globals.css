@@ -175,6 +175,21 @@ textarea {
   background: radial-gradient(circle, rgb(108 140 255 / 12%), transparent 64%);
 }
 
+.processing-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgb(108 140 255 / 28%);
+  border-top-color: var(--color-primary);
+  border-radius: 999px;
+  animation: processing-spin 1.4s linear infinite;
+}
+
+.processing-progress {
+  transition: width 520ms cubic-bezier(.22, 1, .36, 1);
+  box-shadow: 0 0 14px rgb(108 140 255 / 42%);
+}
+
 @keyframes landing-reveal {
   from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
@@ -192,6 +207,10 @@ textarea {
 @keyframes process-flow {
   0%, 100% { left: 16.666%; opacity: .35; }
   50% { left: 83.333%; opacity: 1; }
+}
+
+@keyframes processing-spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 1023px) {
