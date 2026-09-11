@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import StepPills, { type Step } from "@/components/phases/StepPills";
+import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
 import { GENRE_SUGGESTIONS } from "@/lib/mock-data";
 import type {
   DiscoveryCandidate,
@@ -88,7 +89,7 @@ function ValidationPanel({ validation }: { validation: DiscoveryValidation }) {
       <div className="flex items-center justify-between gap-3 mb-3">
         <p className="text-[13px] font-semibold text-on-surface flex items-center gap-1.5">
           <span className="material-symbols-outlined text-primary text-[16px]">neurology</span>
-          Grok validation
+          Concept interpretation
         </p>
         <span className="text-[11px] text-primary font-mono">
           {Math.round(validation.confidence * 100)}% confidence
@@ -265,7 +266,7 @@ export default function DescribePhase({
                   className="px-4 py-1.5 rounded-lg bg-primary text-on-primary text-[13px] font-semibold flex items-center gap-1.5 hover:bg-primary/90 transition-all disabled:opacity-30"
                 >
                   {validating
-                    ? "Grok is validating..."
+                    ? "Checking concept..."
                     : questions.length && hasAnsweredQuestion
                       ? "Validate answers"
                       : validation
@@ -275,7 +276,7 @@ export default function DescribePhase({
               </div>
             </div>
             <p className="text-[11px] text-on-surface-variant mt-1.5">
-              Grok checks the description and extracts search tags before IGDB is queried.
+              We structure your concept and confirm the search criteria before finding comparable games.
             </p>
           </div>
 
@@ -285,14 +286,18 @@ export default function DescribePhase({
             </div>
           ) : null}
 
+          {stage !== "idle" ? (
+            <ProcessIndicator kind={stage === "collecting" ? "collection" : "discovery"} />
+          ) : null}
+
           {questions.length > 0 ? (
             <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">
               <p className="text-[13px] font-semibold text-on-surface mb-1 flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-primary text-[16px]">help</span>
-                Grok needs more detail before searching
+                A few details will improve the comparable search
               </p>
               <p className="text-[11px] text-on-surface-variant mb-3">
-                Answer what you can, then validate again. IGDB has not been searched yet.
+                Answer what you can, then check the concept again. No games have been searched yet.
               </p>
               <div className="flex flex-col gap-2.5">
                 {questions.map((question, index) => (
