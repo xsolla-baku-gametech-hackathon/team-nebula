@@ -7,7 +7,7 @@ vi.mock('@/lib/corpus/load', () => ({
   }),
 }));
 
-vi.mock('@/lib/analysis/upcoming', () => ({
+vi.mock('@/lib/application/analysis/upcoming-releases', () => ({
   fetchUpcomingReleases: vi.fn(async () => ({
     dated: [{
       igdbId: 999,
