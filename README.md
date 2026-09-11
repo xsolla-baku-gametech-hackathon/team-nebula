@@ -33,27 +33,40 @@ The current backend validates natural-language descriptions with Grok, previews 
 
 | Doc | What's in it |
 | --- | --- |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Current domain, application, infrastructure, API, and UI boundaries |
+| [DATA_SOURCES.md](docs/DATA_SOURCES.md) | Live provider ownership, provenance, and missing-data rules |
+| [SCORING.md](docs/SCORING.md) | Current similarity, revenue, reception, saturation, and release-risk invariants |
+| [API.md](docs/API.md) | Current HTTP routes and interactive request sequence |
+| [TESTING.md](docs/TESTING.md) | Local and CI verification mapped to the architecture |
+| [DEMO.md](docs/DEMO.md) | Investor-ready product walkthrough and preflight checks |
 | [backend-reference](docs/backend-reference/README.md) | Code-oriented reference for the complete discovery and collection backend |
 | [discovery.md](docs/discovery.md) | Grok validation, compact previews, approval, and verified collection |
 | [collector.md](docs/collector.md) | Current live collection API, setup, provenance, and limitations |
-| [architecture.md](docs/architecture.md) | System shape, request flow, what we cut and why |
 | [data-model.md](docs/data-model.md) | The frozen type contract every lane codes against |
-| [api-data-guide.md](docs/api-data-guide.md) | Source-priority matrix, endpoints, rate limits, provenance rules |
 | [corpus-build.md](docs/corpus-build.md) | The offline pipeline that produces `games.json` + `index.bin` |
 | [ai-integration.md](docs/ai-integration.md) | LLM extraction, the diff loop, embeddings, prompts, failure modes |
-| [scoring-models.md](docs/scoring-models.md) | Similarity, saturation, revenue range, release risk — the actual math |
-| [backend-api.md](docs/backend-api.md) | Every route, request/response shape, error envelope |
 | [frontend-workflow.md](docs/frontend-workflow.md) | Sections 0–4, state machine, component tree, snapshot freeze |
-| [testing.md](docs/testing.md) | What is tested, what is deliberately not, how to run it |
 | [contributing.md](docs/contributing.md) | Commit conventions, branch model, CI, definition of done |
 | [decisions.md](docs/decisions.md) | ADR log — every significant choice with its rejected alternative |
-| [demo-runbook.md](docs/demo-runbook.md) | Freeze protocol, cached queries, fallback chain |
+
+## Source layout
+
+```text
+app/api/                 HTTP route adapters
+components/              landing, concept, comparables, analysis, shared UI
+lib/domain/              contracts, schemas, deterministic scoring
+lib/application/         concept, discovery, and analysis use cases
+lib/infrastructure/      Steam, IGDB, Gamalytic, Grok, MCP, and corpus adapters
+lib/session/             browser session and immutable snapshots
+lib/api/                 response envelope and browser API client
+tests/                   mirrors domain, application, infrastructure, and API
+```
 
 ## Quick start
 
 ```bash
 pnpm install
-cp .env.example .env.local        # see api-data-guide.md
+cp .env.example .env.local        # see docs/DATA_SOURCES.md
 pnpm collector:smoke 739630       # optional live backend check; no data files
 pnpm dev
 ```
@@ -62,4 +75,4 @@ The interactive discovery flow requires `XAI_API_KEY` plus the IGDB MCP credenti
 
 ## Stack
 
-Next.js 16 (App Router) · TypeScript strict · Tailwind + shadcn/ui · Recharts · Zustand · Vitest · Python 3.11 for the offline corpus builder only.
+Next.js 16 (App Router) · React 19 · strict TypeScript · Tailwind CSS · Recharts · Zustand · Vitest.
