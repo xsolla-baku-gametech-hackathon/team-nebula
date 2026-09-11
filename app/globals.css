@@ -102,6 +102,124 @@ textarea {
   color: white;
 }
 
+.landing-grid {
+  background-image:
+    linear-gradient(rgb(90 93 106 / 7%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(90 93 106 / 7%) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.landing-glow {
+  background: radial-gradient(circle, rgb(108 140 255 / 16%) 0%, rgb(108 140 255 / 5%) 36%, transparent 70%);
+}
+
+.landing-intro {
+  animation: landing-reveal 650ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.landing-preview {
+  animation: landing-reveal 720ms 100ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.preview-chart-line {
+  stroke-dasharray: 720;
+  stroke-dashoffset: 720;
+  animation: chart-draw 900ms 420ms cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.preview-chart-area {
+  animation: chart-area 700ms 600ms ease-out both;
+}
+
+.reveal-section {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 650ms cubic-bezier(.22, 1, .36, 1),
+    transform 650ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.reveal-section[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-track::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  right: 16.666%;
+  left: 16.666%;
+  height: 1px;
+  background: rgb(54 56 66 / 72%);
+}
+
+.process-signal {
+  position: absolute;
+  z-index: 1;
+  top: 19px;
+  left: 16.666%;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--color-primary);
+  box-shadow: 0 0 16px rgb(108 140 255 / 65%);
+  animation: process-flow 4.2s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+
+.landing-cta::before {
+  content: "";
+  position: absolute;
+  inset: -60% 10%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgb(108 140 255 / 12%), transparent 64%);
+}
+
+@keyframes landing-reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes chart-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes chart-area {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes process-flow {
+  0%, 100% { left: 16.666%; opacity: .35; }
+  50% { left: 83.333%; opacity: 1; }
+}
+
+@media (max-width: 1023px) {
+  .process-track::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+
+  .preview-chart-line {
+    stroke-dashoffset: 0;
+  }
+
+  .reveal-section {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .print-report {
   display: none;
 }
