@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Braces, FileDown } from "lucide-react";
 import type { Snapshot } from "@/lib/types";
 
 export function ExportBar({ snapshot }: { snapshot: Snapshot }) {
@@ -46,7 +47,7 @@ export function ExportBar({ snapshot }: { snapshot: Snapshot }) {
         onClick={exportPdf}
         className="h-9 px-4 rounded-lg border border-outline-variant/30 text-on-surface text-[13px] font-medium hover:bg-surface-container transition-colors flex items-center gap-1.5"
       >
-        <span className="material-symbols-outlined text-[16px]">picture_as_pdf</span> PDF
+        <FileDown size={15} aria-hidden="true" /> PDF
       </button>
       <button
         type="button"
@@ -54,7 +55,7 @@ export function ExportBar({ snapshot }: { snapshot: Snapshot }) {
         disabled={exporting}
         className="h-9 px-4 rounded-lg border border-outline-variant/30 text-on-surface text-[13px] font-medium hover:bg-surface-container transition-colors flex items-center gap-1.5 disabled:opacity-40"
       >
-        <span className="material-symbols-outlined text-[16px]">data_object</span>
+        <Braces size={15} aria-hidden="true" />
         {exporting ? "Exporting..." : "JSON"}
       </button>
       </div>

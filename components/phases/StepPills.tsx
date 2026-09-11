@@ -1,11 +1,13 @@
 "use client";
 
+import { BarChart3, CheckCircle2, FileText, Lock, Network, type LucideIcon } from "lucide-react";
+
 export type Step = "describe" | "comparables" | "launch-window";
 
-const STEPS: { id: Step; label: string; icon: string }[] = [
-  { id: "describe", label: "Describe", icon: "edit_note" },
-  { id: "comparables", label: "Comparables", icon: "hub" },
-  { id: "launch-window", label: "Analytics", icon: "query_stats" },
+const STEPS: { id: Step; label: string; icon: LucideIcon }[] = [
+  { id: "describe", label: "Describe", icon: FileText },
+  { id: "comparables", label: "Comparables", icon: Network },
+  { id: "launch-window", label: "Analytics", icon: BarChart3 },
 ];
 
 const ORDER: Record<Step, number> = { describe: 0, comparables: 1, "launch-window": 2 };
@@ -28,6 +30,7 @@ export default function StepPills({
         const isActive = i === activeIdx;
         const isLocked = !unlockedSet.has(step.id);
         const isComplete = !isActive && !isLocked;
+        const Icon = isComplete ? CheckCircle2 : isLocked ? Lock : step.icon;
 
         return (
           <button
@@ -42,9 +45,7 @@ export default function StepPills({
               "text-on-surface-variant/50"
             } disabled:cursor-not-allowed`}
           >
-            <span className="material-symbols-outlined text-[16px]" style={isComplete ? { fontVariationSettings: "'FILL' 1" } : undefined}>
-              {isComplete ? "check_circle" : isLocked ? "lock" : step.icon}
-            </span>
+            <Icon size={15} aria-hidden="true" />
             {step.label}
           </button>
         );

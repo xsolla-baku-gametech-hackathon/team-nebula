@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight, BrainCircuit, CircleHelp, Plus, RotateCcw, X } from "lucide-react";
 import StepPills, { type Step } from "@/components/phases/StepPills";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
 import { GENRE_SUGGESTIONS } from "@/lib/mock-data";
@@ -43,7 +44,7 @@ function TagList({ items, onRemove }: { items: string[]; onRemove: (value: strin
             onClick={() => onRemove(item)}
             className="text-on-surface-variant/40 hover:text-on-surface opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
           >
-            <span className="material-symbols-outlined text-[16px]">close</span>
+            <X size={15} aria-hidden="true" />
           </button>
         </div>
       ))}
@@ -77,7 +78,7 @@ function AddInput({
         onClick={onAdd}
         className="h-9 w-9 rounded-lg bg-surface-container-highest border border-outline-variant/20 text-on-surface-variant hover:text-on-surface flex items-center justify-center"
       >
-        <span className="material-symbols-outlined text-[18px]">add</span>
+        <Plus size={17} aria-hidden="true" />
       </button>
     </div>
   );
@@ -88,7 +89,7 @@ function ValidationPanel({ validation }: { validation: DiscoveryValidation }) {
     <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">
       <div className="flex items-center justify-between gap-3 mb-3">
         <p className="text-[13px] font-semibold text-on-surface flex items-center gap-1.5">
-          <span className="material-symbols-outlined text-primary text-[16px]">neurology</span>
+          <BrainCircuit size={16} className="text-primary" aria-hidden="true" />
           Concept interpretation
         </p>
         <span className="text-[11px] text-primary font-mono">
@@ -197,7 +198,7 @@ function CandidateReview({
         {collecting
           ? "Collecting live game data..."
           : `Collect details for ${selected.size} game${selected.size === 1 ? "" : "s"}`}
-        <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+        <ArrowRight size={18} aria-hidden="true" />
       </button>
     </div>
   );
@@ -293,7 +294,7 @@ export default function DescribePhase({
           {questions.length > 0 ? (
             <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">
               <p className="text-[13px] font-semibold text-on-surface mb-1 flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-primary text-[16px]">help</span>
+                <CircleHelp size={16} className="text-primary" aria-hidden="true" />
                 A few details will improve the comparable search
               </p>
               <p className="text-[11px] text-on-surface-variant mb-3">
@@ -389,7 +390,7 @@ export default function DescribePhase({
           onClick={onStartNewSession}
           className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1"
         >
-          <span className="material-symbols-outlined text-[14px]">restart_alt</span> New session
+          <RotateCcw size={14} aria-hidden="true" /> New session
         </button>
       </div>
     </div>

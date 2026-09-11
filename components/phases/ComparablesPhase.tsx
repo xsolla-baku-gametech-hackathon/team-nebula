@@ -1,6 +1,7 @@
 "use client";
 
 import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
+import { ArrowLeft, ArrowRight, ExternalLink, RotateCcw } from "lucide-react";
 import StepPills, { type Step } from "@/components/phases/StepPills";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
 import type { ScoredCompetitor } from "@/lib/types";
@@ -59,7 +60,7 @@ function Card({ c }: { c: ScoredCompetitor }) {
           <div className="flex items-center gap-2 shrink-0">
             <span className="text-[11px] text-primary font-mono">{Math.round(c.similarity.score * 100)}% match</span>
             <a href={g.identity.steamUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-primary hover:underline flex items-center gap-0.5">
-              Steam <span className="material-symbols-outlined text-[12px]">open_in_new</span>
+              Steam <ExternalLink size={12} aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -167,7 +168,7 @@ export default function ComparablesPhase({
             className="h-10 px-5 rounded-xl bg-primary text-on-primary text-[14px] font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading ? "Building investment view..." : "Build investment view"}
-            <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+            <ArrowRight size={18} aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -189,10 +190,10 @@ export default function ComparablesPhase({
 
       <div className="flex justify-center gap-5 mt-8">
         <button type="button" onClick={onBack} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
-          <span className="material-symbols-outlined text-[14px]">arrow_back</span> Change selection
+          <ArrowLeft size={14} aria-hidden="true" /> Change selection
         </button>
         <button type="button" onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
-          <span className="material-symbols-outlined text-[14px]">restart_alt</span> New session
+          <RotateCcw size={14} aria-hidden="true" /> New session
         </button>
       </div>
     </div>

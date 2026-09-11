@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import type { ReleaseWindow } from "@/lib/types";
 import { WeekDetail } from "./WeekDetail";
 
@@ -52,7 +53,7 @@ export function ReleaseCalendar({
                   {isCurrent ? <span className="ml-1 text-red">planned</span> : null}
                   {isBest ? <span className="ml-1 text-green">best</span> : null}
                 </span>
-                <span className="material-symbols-outlined text-[16px] text-on-surface-variant">{isExpanded ? "expand_less" : "expand_more"}</span>
+                {isExpanded ? <ChevronUp size={16} className="text-on-surface-variant" /> : <ChevronDown size={16} className="text-on-surface-variant" />}
               </div>
             </button>
             {isExpanded ? <WeekDetail window={window} /> : null}
