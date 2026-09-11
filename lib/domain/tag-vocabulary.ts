@@ -31,7 +31,7 @@ const VOCABULARY: readonly VocabularyEntry[] = [
   { name: 'Shooter', category: 'genre' },
   { name: 'FPS', category: 'genre', aliases: ['first person shooter'] },
   { name: 'Third-Person Shooter', category: 'genre' },
-  { name: 'Platformer', category: 'genre', aliases: ['2d platformer', '3d platformer', 'side scroller', 'sidescroller', 'platforming', 'platform game'] },
+  { name: 'Platformer', category: 'genre', aliases: ['2d platformer', '3d platformer', 'side scroller', 'sidescroller', 'platforming', '2d platforming', '3d platforming', 'platform game'] },
   { name: 'Metroidvania', category: 'genre' },
   { name: 'Horror', category: 'genre', aliases: ['scary', 'spooky', 'creepy', 'frightening', 'terrifying'] },
   { name: 'Survival Horror', category: 'genre' },
