@@ -1,7 +1,9 @@
 "use client";
 
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { CalendarDays, CircleDollarSign, Gauge, RotateCcw, ShieldCheck, Star } from "lucide-react";
+import { ComparableRevenueChart } from "@/components/forecast/ComparableRevenueChart";
 import { ExportBar } from "@/components/forecast/ExportBar";
+import { LaunchRiskChart } from "@/components/forecast/LaunchRiskChart";
 import { PrintReport } from "@/components/forecast/PrintReport";
 import { ReleaseCalendar } from "@/components/forecast/ReleaseCalendar";
 import StepPills, { type Step } from "@/components/phases/StepPills";
@@ -18,29 +20,31 @@ interface Props {
   onStartNewSession: () => void;
 }
 
-function Donut({ value, size = 120 }: { value: number; size?: number }) {
-  const stroke = 10;
+function Donut({ value, size = 116 }: { value: number; size?: number }) {
+  const stroke = 9;
   const radius = (size - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
   const positive = (value / 100) * circumference;
   const midpoint = size / 2;
-  return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      <circle cx={midpoint} cy={midpoint} r={radius} fill="none" stroke="#22242f" strokeWidth={stroke} />
-      <circle cx={midpoint} cy={midpoint} r={radius} fill="none" stroke="#34d399" strokeWidth={stroke} strokeDasharray={`${positive} ${circumference}`} strokeDashoffset={circumference * 0.25} strokeLinecap="round" />
-      <circle cx={midpoint} cy={midpoint} r={radius} fill="none" stroke="#f87171" strokeWidth={stroke} strokeDasharray={`${circumference - positive} ${circumference}`} strokeDashoffset={-(positive - circumference * 0.25)} strokeLinecap="round" />
-      <text x={midpoint} y={midpoint} textAnchor="middle" dominantBaseline="middle" className="fill-on-surface font-heading text-[24px] font-bold">{value}%</text>
-    </svg>
-  );
-}
 
-function MetricCard({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">
-      <span className="text-[11px] text-on-surface-variant font-mono uppercase tracking-wide">{label}</span>
-      <p className="font-heading text-[24px] font-bold text-on-surface leading-tight mt-1">{value}</p>
-      {sub ? <p className="text-[11px] text-on-surface-variant mt-0.5">{sub}</p> : null}
-    </div>
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label={`${value}% predicted positive reviews`}>
+      <circle cx={midpoint} cy={midpoint} r={radius} fill="none" stroke="#272a35" strokeWidth={stroke} />
+      <circle
+        cx={midpoint}
+        cy={midpoint}
+        r={radius}
+        fill="none"
+        stroke="#34d399"
+        strokeWidth={stroke}
+        strokeDasharray={`${positive} ${circumference}`}
+        strokeDashoffset={circumference * 0.25}
+        strokeLinecap="round"
+      />
+      <text x={midpoint} y={midpoint} textAnchor="middle" dominantBaseline="middle" className="fill-on-surface font-heading text-[24px] font-semibold">
+        {value}%
+      </text>
+    </svg>
   );
 }
 
@@ -48,7 +52,7 @@ function fmt(value: number | null): string {
   if (value === null) return "Unavailable";
   if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
   if (value >= 1_000) return `$${(value / 1_000).toFixed(0)}K`;
-  return `$${value}`;
+  return `$${Math.round(value).toLocaleString("en-US")}`;
 }
 
 function sentimentLabel(ratio: number): string {
@@ -57,6 +61,33 @@ function sentimentLabel(ratio: number): string {
   if (ratio >= 0.75) return "Mostly Positive";
   if (ratio >= 0.60) return "Mixed";
   return "Mostly Negative";
+}
+
+function verdictTone(decision: MarketReport["verdict"]["decision"]): string {
+  if (decision === "KEEP") return "border-green/25 bg-green/10 text-green";
+  if (decision === "MOVE") return "border-red/25 bg-red/10 text-red";
+  if (decision === "MITIGATE") return "border-yellow/25 bg-yellow/10 text-yellow";
+  return "border-outline-variant/30 bg-surface-container-high text-on-surface-variant";
+}
+
+function EvidenceMetric({
+  label,
+  value,
+  detail,
+  accent = false,
+}: {
+  label: string;
+  value: string;
+  detail: string;
+  accent?: boolean;
+}) {
+  return (
+    <div className={`rounded-2xl border p-5 ${accent ? "border-primary/25 bg-primary/[0.07]" : "border-outline-variant/20 bg-surface-container"}`}>
+      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">{label}</p>
+      <p className={`mt-2 font-heading text-[26px] font-semibold tracking-[-0.04em] ${accent ? "text-primary" : "text-on-surface"}`}>{value}</p>
+      <p className="mt-1 text-[11px] leading-5 text-on-surface-variant">{detail}</p>
+    </div>
+  );
 }
 
 export default function AnalyticsPhase({
@@ -71,133 +102,182 @@ export default function AnalyticsPhase({
 }: Props) {
   if (!report) {
     return (
-      <div className="max-w-[1200px] mx-auto px-6 py-5">
+      <div className="mx-auto max-w-[1240px] px-6 py-8">
         <StepPills active="launch-window" unlocked={unlockedSteps} onNavigate={onNavigate} />
-        <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-8 text-center">
-          <p className="text-on-surface-variant mb-3">No analysis data is available yet.</p>
-          <button type="button" onClick={() => onNavigate("comparables")} className="text-primary text-[13px] hover:underline">Return to comparables</button>
+        <div className="rounded-2xl border border-outline-variant/20 bg-surface-container p-10 text-center">
+          <p className="mb-3 text-on-surface-variant">No analysis data is available yet.</p>
+          <button type="button" onClick={() => onNavigate("comparables")} className="text-sm text-primary hover:underline">
+            Return to comparables
+          </button>
         </div>
       </div>
     );
   }
 
-  const saturationData = report.releaseWindows.map((window, index) => ({
-    week: `W${index + 1}`,
-    risk: Math.round(window.risk),
-  }));
   const positivePercent = report.reception.predictedPositiveRatio === null
     ? null
     : Math.round(report.reception.predictedPositiveRatio * 100);
   const price = concept?.commercial.priceUsd;
+  const revenueEvidence = report.revenue.basedOnCount > 0
+    ? `${report.revenue.basedOnCount} commercially verified comparables`
+    : "No verified commercial comparables";
 
   return (
     <>
-      <div className="screen-report max-w-[1200px] mx-auto px-6 py-5">
+      <div className="screen-report mx-auto max-w-[1240px] px-6 py-8">
         <StepPills active="launch-window" unlocked={unlockedSteps} onNavigate={onNavigate} />
 
         {resultsStale ? (
-          <div className="rounded-xl border border-yellow/30 bg-yellow/10 px-4 py-3 mb-4 text-[13px] text-yellow">
-            This report uses the previous concept inputs. Run predictions again to refresh it.
+          <div className="mb-5 rounded-xl border border-yellow/25 bg-yellow/10 px-4 py-3 text-[13px] text-yellow">
+            This memo uses the previous concept inputs. Run the analysis again to refresh it.
           </div>
         ) : null}
 
-        <div className="flex items-baseline justify-between gap-4 mb-5">
-          <div>
-            <h1 className="font-heading text-[24px] font-semibold text-on-surface">Analytics</h1>
-            <p className="text-[13px] text-on-surface-variant">Based on {competitors.length} comparable games · {report.revenue.method}</p>
+        <header className="mb-7 flex flex-wrap items-end justify-between gap-5">
+          <div className="max-w-2xl">
+            <div className="mb-2 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
+              <ShieldCheck size={14} /> Decision intelligence
+            </div>
+            <h1 className="font-heading text-[32px] font-semibold tracking-[-0.04em] text-on-surface sm:text-[38px]">
+              Investment memo
+            </h1>
+            <p className="mt-2 text-sm leading-6 text-on-surface-variant">
+              A traceable commercial outlook built from {competitors.length} relevant games and the live release landscape.
+            </p>
           </div>
           {snapshot ? <ExportBar snapshot={snapshot} /> : null}
-        </div>
+        </header>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-          <MetricCard label="Conservative" value={fmt(report.revenue.conservative)} sub="25th percentile" />
-          <MetricCard label="Base estimate" value={fmt(report.revenue.base)} sub="50th percentile" />
-          <MetricCard label="Upside" value={fmt(report.revenue.upside)} sub="80th percentile" />
-          <MetricCard label="Price point" value={price === null || price === undefined ? "Not provided" : `$${price.toFixed(2)}`} sub={`Confidence: ${report.revenue.confidence}`} />
-        </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-1 mb-5 text-[10px] text-on-surface-variant">
-          {report.revenue.drivers?.map((item) => <span key={item.label}>{item.detail}</span>)}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-5">
-          <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">
-            <h2 className="text-[14px] font-semibold text-on-surface mb-1">Launch pressure</h2>
-            <p className="text-[11px] text-on-surface-variant mb-3">{report.saturation.band} market saturation ({report.saturation.score}/100)</p>
-            {saturationData.length ? (
-              <ResponsiveContainer width="100%" height={140}>
-                <LineChart data={saturationData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#363842" />
-                  <XAxis dataKey="week" tick={{ fill: "#9da0ab", fontSize: 10 }} axisLine={{ stroke: "#363842" }} />
-                  <YAxis domain={[0, 100]} tick={{ fill: "#9da0ab", fontSize: 10 }} axisLine={{ stroke: "#363842" }} />
-                  <Tooltip contentStyle={{ background: "#1a1c26", border: "1px solid #363842", borderRadius: 6, color: "#e8e9ed", fontSize: 11 }} />
-                  <Line type="monotone" dataKey="risk" stroke="#6c8cff" strokeWidth={2} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            ) : null}
-          </div>
-
-          <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4 flex flex-col items-center justify-center text-center gap-2">
-            <span className="material-symbols-outlined text-primary text-[28px]">calendar_today</span>
-            <h2 className="text-[14px] font-semibold text-on-surface">Release verdict</h2>
-            <span className={`px-3 py-1 rounded-lg text-[14px] font-bold ${
-              report.verdict.decision === "KEEP" ? "bg-green/15 text-green" :
-              report.verdict.decision === "MOVE" ? "bg-red/15 text-red" :
-              report.verdict.decision === "MITIGATE" ? "bg-yellow/15 text-yellow" : "bg-outline-variant/30 text-on-surface-variant"
-            }`}>{report.verdict.decision.replace("_", " ")}</span>
-            {report.verdict.recommendedDate ? <p className="font-heading text-[18px] font-bold text-on-surface">{report.verdict.recommendedDate}</p> : null}
-            {report.verdict.reasoning.map((reason) => <p key={reason} className="text-[11px] text-on-surface-variant leading-snug">{reason}</p>)}
-          </div>
-
-          <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-4 flex flex-col items-center justify-center text-center gap-2">
-            <h2 className="text-[14px] font-semibold text-on-surface">Predicted reviews</h2>
-            {positivePercent === null ? (
-              <p className="text-[13px] text-on-surface-variant py-8">Insufficient review evidence</p>
-            ) : (
-              <>
-                <Donut value={positivePercent} />
-                <p className="text-[14px] font-semibold text-on-surface">{sentimentLabel(report.reception.predictedPositiveRatio!)}</p>
-              </>
-            )}
-            <p className="text-[12px] text-on-surface-variant">
-              Cohort median: {report.reception.cohortMedian === null ? "Unavailable" : `${Math.round(report.reception.cohortMedian * 100)}%`}
-            </p>
-            <p className="text-[11px] text-on-surface-variant">Confidence: {report.reception.band}</p>
-          </div>
-        </div>
-
-        <section className="rounded-xl bg-surface-container border border-outline-variant/20 p-4">
-          <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-            <div>
-              <h2 className="text-[16px] font-semibold text-on-surface">Live upcoming PC releases</h2>
-              <p className="text-[11px] text-on-surface-variant mt-1">IGDB MCP · {report.releaseData.datedCount} dated and {report.releaseData.undatedCount} undated matches</p>
+        <section className="mb-5 grid gap-4 rounded-2xl border border-outline-variant/20 bg-surface-container p-5 lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-on-surface-variant">Launch recommendation</p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <span className={`rounded-lg border px-3 py-1.5 text-sm font-semibold ${verdictTone(report.verdict.decision)}`}>
+                {report.verdict.decision.replace("_", " ")}
+              </span>
+              {report.verdict.recommendedDate ? (
+                <span className="font-heading text-xl font-semibold text-on-surface">Target {report.verdict.recommendedDate}</span>
+              ) : null}
             </div>
-            <span className={`px-2 py-1 rounded-md text-[10px] font-mono ${report.releaseData.status === "live" ? "bg-green/15 text-green" : "bg-red/15 text-red"}`}>
-              {report.releaseData.status === "live" ? "LIVE DATA" : "DATA UNAVAILABLE"}
-            </span>
+            <div className="mt-4 max-w-3xl space-y-1.5">
+              {report.verdict.reasoning.map((reason) => (
+                <p key={reason} className="text-[13px] leading-5 text-on-surface-variant">{reason}</p>
+              ))}
+            </div>
           </div>
-          {report.releaseData.issues.length ? (
-            <div className="rounded-lg bg-yellow/10 border border-yellow/20 px-3 py-2 mb-3 text-[11px] text-yellow">
-              {report.releaseData.issues.join(" ")}
+          <div className="grid grid-cols-2 gap-3 border-t border-outline-variant/20 pt-5 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
+            <div className="min-w-[128px]">
+              <div className="mb-2 flex items-center gap-2 text-on-surface-variant"><Gauge size={15} /><span className="text-[11px]">Market pressure</span></div>
+              <p className="font-heading text-2xl font-semibold text-on-surface">{report.saturation.score}<span className="text-sm text-on-surface-variant">/100</span></p>
+              <p className="mt-1 text-[10px] uppercase tracking-wider text-on-surface-variant">{report.saturation.band}</p>
             </div>
-          ) : null}
-          <ReleaseCalendar windows={report.releaseWindows} currentDate={report.verdict.currentDate} recommendedDate={report.verdict.recommendedDate} />
-          {report.undatedReleases.length ? (
-            <div className="mt-4 pt-4 border-t border-outline-variant/20">
-              <h3 className="text-[12px] font-semibold text-on-surface mb-2">Related releases with uncertain timing</h3>
-              <div className="flex flex-wrap gap-2">
-                {report.undatedReleases.map((release) => (
-                  <span key={release.igdbId} className="rounded-lg border border-outline-variant/20 px-2.5 py-1.5 text-[10px] text-on-surface-variant">
-                    <strong className="text-on-surface">{release.name}</strong> · {release.dateLabel} · {release.similarity}% similar
-                  </span>
-                ))}
-              </div>
+            <div className="min-w-[128px]">
+              <div className="mb-2 flex items-center gap-2 text-on-surface-variant"><CircleDollarSign size={15} /><span className="text-[11px]">Revenue confidence</span></div>
+              <p className="font-heading text-2xl font-semibold text-on-surface">{report.revenue.confidence}</p>
+              <p className="mt-1 text-[10px] uppercase tracking-wider text-on-surface-variant">{revenueEvidence}</p>
             </div>
-          ) : null}
+          </div>
         </section>
 
-        <div className="flex justify-center mt-8">
-          <button type="button" onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
-            <span className="material-symbols-outlined text-[14px]">restart_alt</span> New session
+        <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <EvidenceMetric label="Conservative" value={fmt(report.revenue.conservative)} detail="25th percentile outcome" />
+          <EvidenceMetric label="Base case" value={fmt(report.revenue.base)} detail="Similarity-weighted median" accent />
+          <EvidenceMetric label="Upside" value={fmt(report.revenue.upside)} detail="80th percentile outcome" />
+          <EvidenceMetric
+            label="Planned price"
+            value={price === null || price === undefined ? "Not provided" : `$${price.toFixed(2)}`}
+            detail={`Forecast confidence: ${report.revenue.confidence.toLowerCase()}`}
+          />
+        </div>
+
+        {report.revenue.drivers.length ? (
+          <div className="mb-5 flex flex-wrap gap-2">
+            {report.revenue.drivers.map((item) => (
+              <span key={`${item.label}-${item.detail}`} className="rounded-full border border-outline-variant/20 bg-surface-container-low px-3 py-1.5 text-[10px] text-on-surface-variant">
+                {item.detail}
+              </span>
+            ))}
+          </div>
+        ) : null}
+
+        <div className="mb-5 grid gap-4 xl:grid-cols-2">
+          <section className="rounded-2xl border border-outline-variant/20 bg-surface-container p-5">
+            <div className="mb-2 flex items-start justify-between gap-4">
+              <div>
+                <h2 className="font-heading text-lg font-semibold text-on-surface">Launch pressure by week</h2>
+                <p className="mt-1 text-[11px] text-on-surface-variant">Competitive collision risk across the decision window</p>
+              </div>
+              <CalendarDays size={18} className="mt-1 text-primary" />
+            </div>
+            <LaunchRiskChart windows={report.releaseWindows} currentDate={report.verdict.currentDate} recommendedDate={report.verdict.recommendedDate} />
+          </section>
+
+          <section className="rounded-2xl border border-outline-variant/20 bg-surface-container p-5">
+            <div className="mb-2 flex items-start justify-between gap-4">
+              <div>
+                <h2 className="font-heading text-lg font-semibold text-on-surface">Comparable revenue evidence</h2>
+                <p className="mt-1 text-[11px] text-on-surface-variant">Available estimates, ordered by relevance to the concept</p>
+              </div>
+              <CircleDollarSign size={18} className="mt-1 text-primary" />
+            </div>
+            <ComparableRevenueChart competitors={competitors} />
+          </section>
+        </div>
+
+        <div className="mb-5 grid gap-4 lg:grid-cols-[1fr_280px]">
+          <section className="rounded-2xl border border-outline-variant/20 bg-surface-container p-5">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 className="font-heading text-lg font-semibold text-on-surface">Live PC release landscape</h2>
+                <p className="mt-1 text-[11px] text-on-surface-variant">
+                  {report.releaseData.datedCount} dated and {report.releaseData.undatedCount} timing-uncertain relevant releases
+                </p>
+              </div>
+              <span className={`rounded-full px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider ${report.releaseData.status === "live" ? "bg-green/15 text-green" : "bg-red/15 text-red"}`}>
+                {report.releaseData.status === "live" ? "Live market data" : "Data unavailable"}
+              </span>
+            </div>
+            {report.releaseData.issues.length ? (
+              <div className="mb-3 rounded-lg border border-yellow/20 bg-yellow/10 px-3 py-2 text-[11px] text-yellow">
+                {report.releaseData.issues.join(" ")}
+              </div>
+            ) : null}
+            <ReleaseCalendar windows={report.releaseWindows} currentDate={report.verdict.currentDate} recommendedDate={report.verdict.recommendedDate} />
+            {report.undatedReleases.length ? (
+              <div className="mt-4 border-t border-outline-variant/20 pt-4">
+                <h3 className="mb-2 text-xs font-semibold text-on-surface">Related releases with uncertain timing</h3>
+                <div className="flex flex-wrap gap-2">
+                  {report.undatedReleases.map((release) => (
+                    <span key={release.igdbId} className="rounded-lg border border-outline-variant/20 px-2.5 py-1.5 text-[10px] text-on-surface-variant">
+                      <strong className="text-on-surface">{release.name}</strong> · {release.dateLabel} · {release.similarity}% similar
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </section>
+
+          <section className="flex flex-col items-center justify-center rounded-2xl border border-outline-variant/20 bg-surface-container p-6 text-center">
+            <Star size={18} className="mb-3 text-primary" />
+            <h2 className="font-heading text-lg font-semibold text-on-surface">Reception outlook</h2>
+            {positivePercent === null ? (
+              <p className="py-8 text-sm leading-6 text-on-surface-variant">Insufficient review evidence for a responsible prediction.</p>
+            ) : (
+              <>
+                <div className="my-5"><Donut value={positivePercent} /></div>
+                <p className="text-sm font-semibold text-on-surface">{sentimentLabel(report.reception.predictedPositiveRatio!)}</p>
+              </>
+            )}
+            <p className="mt-3 text-xs text-on-surface-variant">
+              Cohort median: {report.reception.cohortMedian === null ? "Unavailable" : `${Math.round(report.reception.cohortMedian * 100)}%`}
+            </p>
+            <p className="mt-1 text-[10px] uppercase tracking-wider text-on-surface-variant">{report.reception.band} confidence</p>
+          </section>
+        </div>
+
+        <div className="flex justify-center pt-4">
+          <button type="button" onClick={onStartNewSession} className="flex items-center gap-2 text-xs text-on-surface-variant transition-colors hover:text-on-surface">
+            <RotateCcw size={14} /> Start a new analysis
           </button>
         </div>
       </div>
