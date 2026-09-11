@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import type { ResponseMeta, DegradedFlag } from '@/lib/types';
+import type { ResponseMeta, DegradedFlag } from '@/lib/domain/types';
 
 export function ok<T>(data: T, t0: number, corpusVersion: string = '', degraded?: DegradedFlag[]) {
   const meta: ResponseMeta = {

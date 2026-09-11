@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { scoreSaturation } from '@/lib/domain/scoring/saturation';
-import type { NormalizedGame } from '@/lib/types';
+import type { NormalizedGame } from '@/lib/domain/types';
 
 function game(revenue: number | null, steamAppId: number): NormalizedGame {
   return {

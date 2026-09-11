@@ -1,6 +1,6 @@
 "use client";
 
-import type { Driver } from "@/lib/types";
+import type { Driver } from "@/lib/domain/types";
 
 export function DriverList({ drivers }: { drivers: Driver[] }) {
   return (

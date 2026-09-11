@@ -1,6 +1,6 @@
 "use client";
 
-import type { NormalizedGame } from "@/lib/types";
+import type { NormalizedGame } from "@/lib/domain/types";
 import { ProvenanceTag } from "@/components/shared/ProvenanceTag";
 
 export function CompetitorDrawer({

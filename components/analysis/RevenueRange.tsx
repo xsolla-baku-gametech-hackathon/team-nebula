@@ -1,6 +1,6 @@
 "use client";
 
-import type { MarketReport } from "@/lib/types";
+import type { MarketReport } from "@/lib/domain/types";
 
 function fmt(n: number | null): string {
   if (n === null) return "Unavailable";

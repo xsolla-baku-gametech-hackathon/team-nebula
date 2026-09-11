@@ -1,6 +1,6 @@
 "use client";
 
-import type { ScoredCompetitor } from "@/lib/types";
+import type { ScoredCompetitor } from "@/lib/domain/types";
 import { ProvenanceTag } from "@/components/shared/ProvenanceTag";
 import { SimilarityBadge } from "./SimilarityBadge";
 

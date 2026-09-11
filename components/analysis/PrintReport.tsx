@@ -1,4 +1,4 @@
-import type { Snapshot } from "@/lib/types";
+import type { Snapshot } from "@/lib/domain/types";
 
 function money(value: number | null): string {
   if (value === null) return "Unavailable";

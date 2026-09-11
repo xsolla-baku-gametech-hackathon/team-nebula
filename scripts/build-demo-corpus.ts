@@ -7,7 +7,7 @@
 
 import { writeFileSync, mkdirSync } from "fs";
 import { join } from "path";
-import type { NormalizedGame, Sourced, CorpusMeta, GameMode, Perspective, Platform } from "@/lib/types";
+import type { NormalizedGame, Sourced, CorpusMeta, GameMode, Perspective, Platform } from "@/lib/domain/types";
 
 const OUT = process.env.CORPUS_PATH ?? "./data";
 const DIMS = 16; // tiny dims since we use tag matching, not real embeddings

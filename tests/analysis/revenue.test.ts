@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { scoreRevenue } from '@/lib/domain/scoring/revenue';
-import type { GameConcept, NormalizedGame, ScoredCompetitor } from '@/lib/types';
+import type { GameConcept, NormalizedGame, ScoredCompetitor } from '@/lib/domain/types';
 
 function concept(priceUsd: number | null): GameConcept {
   return {

@@ -8,7 +8,7 @@ import type {
   MarketReport,
   ScoredCompetitor,
   Snapshot,
-} from "@/lib/types";
+} from "@/lib/domain/types";
 
 export const SESSION_STORAGE_KEY = "releasesignal-session-v1";
 

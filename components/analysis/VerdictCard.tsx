@@ -1,6 +1,6 @@
 "use client";
 
-import type { MarketReport } from "@/lib/types";
+import type { MarketReport } from "@/lib/domain/types";
 
 const VERDICT_COLORS: Record<string, string> = {
   KEEP: "border-green-500 bg-green-50 dark:bg-green-950",

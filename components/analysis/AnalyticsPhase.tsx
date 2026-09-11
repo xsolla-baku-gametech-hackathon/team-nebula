@@ -7,7 +7,7 @@ import { LaunchRiskChart } from "@/components/analysis/LaunchRiskChart";
 import { PrintReport } from "@/components/analysis/PrintReport";
 import { ReleaseCalendar } from "@/components/analysis/ReleaseCalendar";
 import StepPills, { type Step } from "@/components/shared/StepPills";
-import type { GameConcept, MarketReport, ScoredCompetitor, Snapshot } from "@/lib/types";
+import type { GameConcept, MarketReport, ScoredCompetitor, Snapshot } from "@/lib/domain/types";
 
 interface Props {
   report: MarketReport | null;

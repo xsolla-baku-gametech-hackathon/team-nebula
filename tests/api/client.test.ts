@@ -5,7 +5,7 @@ import {
   collectApprovedGames,
   discoverGamePreview,
 } from '@/lib/api/client';
-import type { GameConcept, ScoredCompetitor } from '@/lib/types';
+import type { GameConcept, ScoredCompetitor } from '@/lib/domain/types';
 
 const preview = {
   status: 'ready_for_approval',

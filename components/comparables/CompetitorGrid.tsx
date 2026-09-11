@@ -1,6 +1,6 @@
 "use client";
 
-import type { ScoredCompetitor } from "@/lib/types";
+import type { ScoredCompetitor } from "@/lib/domain/types";
 import { CompetitorCard } from "./CompetitorCard";
 
 export function CompetitorGrid({

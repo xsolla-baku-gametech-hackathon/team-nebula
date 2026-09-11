@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { NormalizedGame } from '@/lib/types';
+import type { NormalizedGame } from '@/lib/domain/types';
 
 vi.mock('@/lib/infrastructure/corpus/load', () => ({
   getCorpus: vi.fn(() => {

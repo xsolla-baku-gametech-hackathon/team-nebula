@@ -1,6 +1,6 @@
 "use client";
 
-import type { MarketReport } from "@/lib/types";
+import type { MarketReport } from "@/lib/domain/types";
 import { ScoreBar } from "@/components/shared/ScoreBar";
 import { DriverList } from "@/components/shared/DriverList";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { SimilarityComponents } from "@/lib/types";
+import type { SimilarityComponents } from "@/lib/domain/types";
 
 const LABELS: (keyof SimilarityComponents)[] = [
   "semantic",

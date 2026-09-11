@@ -4,7 +4,7 @@ import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
 import { ArrowLeft, ArrowRight, ExternalLink, RotateCcw } from "lucide-react";
 import StepPills, { type Step } from "@/components/shared/StepPills";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
-import type { ScoredCompetitor } from "@/lib/types";
+import type { ScoredCompetitor } from "@/lib/domain/types";
 
 interface Props {
   competitors: ScoredCompetitor[];

@@ -1,6 +1,6 @@
 "use client";
 
-import type { DegradedFlag } from "@/lib/types";
+import type { DegradedFlag } from "@/lib/domain/types";
 
 const MESSAGES: Record<DegradedFlag, string> = {
   llm_fallback: "Using simplified analysis \u2014 you can edit fields directly",

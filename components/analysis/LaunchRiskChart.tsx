@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import type { ReleaseWindow } from "@/lib/types";
+import type { ReleaseWindow } from "@/lib/domain/types";
 
 interface Props {
   windows: ReleaseWindow[];

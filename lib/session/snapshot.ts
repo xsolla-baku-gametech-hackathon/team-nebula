@@ -1,4 +1,4 @@
-import type { GameConcept, MarketReport, ScoredCompetitor, Snapshot } from '@/lib/types';
+import type { GameConcept, MarketReport, ScoredCompetitor, Snapshot } from '@/lib/domain/types';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);

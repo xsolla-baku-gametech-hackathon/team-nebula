@@ -32,7 +32,7 @@ import type {
   GameConcept,
   GameMode,
   Perspective,
-} from "@/lib/types";
+} from "@/lib/domain/types";
 
 type DiscoveryStage = "idle" | "validating" | "collecting";
 

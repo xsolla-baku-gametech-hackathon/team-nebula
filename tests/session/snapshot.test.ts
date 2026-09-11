@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { conceptHorrorCoop } from '@/lib/fixtures/concept.horror-coop';
 import { createSnapshot, snapshotFromImport } from '@/lib/session/snapshot';
-import type { MarketReport } from '@/lib/types';
+import type { MarketReport } from '@/lib/domain/types';
 
 const report: MarketReport = {
   saturation: { score: 20, band: 'LOW', drivers: [] },

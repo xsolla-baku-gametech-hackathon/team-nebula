@@ -1,6 +1,6 @@
 "use client";
 
-import type { ClarifyingQuestion, ConceptField } from "@/lib/types";
+import type { ClarifyingQuestion, ConceptField } from "@/lib/domain/types";
 
 export function ClarifyingQuestions({
   questions,

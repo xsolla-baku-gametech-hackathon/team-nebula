@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { GameConcept } from "@/lib/types";
+import type { GameConcept } from "@/lib/domain/types";
 
 function TagChip({
   label,

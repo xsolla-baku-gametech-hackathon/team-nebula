@@ -1,4 +1,4 @@
-import type { GameConcept } from '@/lib/types';
+import type { GameConcept } from '@/lib/domain/types';
 
 export const conceptHorrorCoop: GameConcept = {
   version: 1,

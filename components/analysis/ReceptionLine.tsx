@@ -1,6 +1,6 @@
 "use client";
 
-import type { MarketReport } from "@/lib/types";
+import type { MarketReport } from "@/lib/domain/types";
 
 export function ReceptionLine({ reception }: { reception: MarketReport["reception"] }) {
   if (reception.cohortMedian === null || reception.predictedPositiveRatio === null) {

@@ -8,7 +8,7 @@ import type {
   GameConcept,
   MarketReport,
   ScoredCompetitor,
-} from "@/lib/types";
+} from "@/lib/domain/types";
 
 export interface ConceptAnalyzeResult {
   concept: GameConcept;

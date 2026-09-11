@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReleaseWindow } from "@/lib/types";
+import type { ReleaseWindow } from "@/lib/domain/types";
 
 export function WeekDetail({ window: releaseWindow }: { window: ReleaseWindow }) {
   return (

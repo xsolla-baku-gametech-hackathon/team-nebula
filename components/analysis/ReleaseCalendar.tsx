@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import type { ReleaseWindow } from "@/lib/types";
+import type { ReleaseWindow } from "@/lib/domain/types";
 import { WeekDetail } from "./WeekDetail";
 
 export function ReleaseCalendar({

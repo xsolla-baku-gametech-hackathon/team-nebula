@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Braces, FileDown } from "lucide-react";
-import type { Snapshot } from "@/lib/types";
+import type { Snapshot } from "@/lib/domain/types";
 
 export function ExportBar({ snapshot }: { snapshot: Snapshot }) {
   const [exporting, setExporting] = useState(false);

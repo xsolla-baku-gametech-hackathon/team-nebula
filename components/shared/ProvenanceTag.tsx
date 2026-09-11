@@ -1,6 +1,6 @@
 "use client";
 
-import type { Sourced } from "@/lib/types";
+import type { Sourced } from "@/lib/domain/types";
 
 export function ProvenanceTag<T>({ sourced }: { sourced: Sourced<T> }) {
   const color = {

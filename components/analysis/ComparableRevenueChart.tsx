@@ -1,7 +1,7 @@
 "use client";
 
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { ScoredCompetitor } from "@/lib/types";
+import type { ScoredCompetitor } from "@/lib/domain/types";
 
 interface Props {
   competitors: ScoredCompetitor[];
