@@ -1,12 +1,17 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('ai', () => ({ generateText: vi.fn(), Output: { object: vi.fn(options => options) } }));
 import { generateText } from 'ai';
-import { validateDescription } from '@/lib/infrastructure/grok/discovery';
+import { rankPreviewCandidates, validateDescription } from '@/lib/infrastructure/grok/discovery';
+import type { Candidate } from '@/lib/domain/schemas';
 const validation = { status: 'ready' as const, normalizedDescription: 'Horror game', confidence: 0.9,
   tags: [
     { name: 'Horror', category: 'theme' as const, priority: 'required' as const, basis: 'explicit' as const },
     { name: 'Atmospheric', category: 'tone' as const, priority: 'preferred' as const, basis: 'inferred' as const },
   ], mustHave: ['horror'], avoid: [], multiplayer: null, questions: [] };
+function candidate(overrides: Partial<Candidate> = {}): Candidate {
+  return { igdbId: 1, name: 'Comparable', description: 'A haunted investigation', context: 'Horror',
+    gameModes: [1], semanticScore: 0.8, ...overrides };
+}
 beforeEach(() => { vi.clearAllMocks(); vi.stubEnv('XAI_API_KEY', 'test-key'); });
 describe('Grok integration', () => {
   it('calls the provider with validated output and storage disabled', async () => {
@@ -28,5 +33,17 @@ describe('Grok integration', () => {
     await expect(validateDescription('horror')).rejects.toThrow('Grok could not produce');
     vi.mocked(generateText).mockResolvedValue({ output: { bad: true } } as unknown as Awaited<ReturnType<typeof generateText>>);
     await expect(validateDescription('horror')).rejects.toMatchObject({ code: 'AI_UNAVAILABLE' });
+  });
+
+  it('gives each call its own output budget', async () => {
+    // A shared 4k ceiling truncated the ranking list, because reasoning tokens are
+    // billed against the same budget as the answer.
+    vi.mocked(generateText).mockResolvedValue({ output: validation } as Awaited<ReturnType<typeof generateText>>);
+    await validateDescription('horror');
+    expect(vi.mocked(generateText).mock.calls[0][0].maxOutputTokens).toBe(4000);
+
+    vi.mocked(generateText).mockResolvedValue({ output: { selections: [] } } as unknown as Awaited<ReturnType<typeof generateText>>);
+    await rankPreviewCandidates(validation, [candidate()]);
+    expect(vi.mocked(generateText).mock.calls[1][0].maxOutputTokens).toBe(16000);
   });
 });
