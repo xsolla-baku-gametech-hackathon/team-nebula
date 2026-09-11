@@ -21,6 +21,7 @@ interface Props {
   selectedSteamAppIds: number[];
   questions: string[];
   error: string | null;
+  notices: string[];
   stage: "idle" | "validating" | "collecting";
   onAnalyze: (clarifications: { question: string; answer: string }[]) => Promise<void>;
   onToggleCandidate: (steamAppId: number) => void;
@@ -225,6 +226,7 @@ export default function DescribePhase({
   selectedSteamAppIds,
   questions,
   error,
+  notices,
   stage,
   onAnalyze,
   onToggleCandidate,
@@ -304,6 +306,12 @@ export default function DescribePhase({
           {error ? (
             <div role="alert" className="rounded-xl border border-red/30 bg-red/10 px-4 py-3 text-[13px] text-red">
               {error}
+            </div>
+          ) : null}
+
+          {notices.length > 0 ? (
+            <div role="status" className="rounded-xl border border-outline-variant/30 bg-surface-container px-4 py-3 text-[12px] text-on-surface-variant">
+              {notices.map((notice) => <p key={notice}>{notice}</p>)}
             </div>
           ) : null}
 

@@ -138,6 +138,8 @@ export default function Home() {
   const [discoveryStage, setDiscoveryStage] = useState<DiscoveryStage>("idle");
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  /** Non-fatal discovery notes — a preview that succeeded but dropped something. */
+  const [discoveryNotices, setDiscoveryNotices] = useState<string[]>([]);
 
   useEffect(() => {
     void rehydrateSession();
@@ -241,6 +243,7 @@ export default function Home() {
   ) => {
     setDiscoveryStage("validating");
     setError(null);
+    setDiscoveryNotices([]);
     setPreviewId(null);
     setCandidates([]);
     setSelectedSteamAppIds([]);
@@ -265,6 +268,9 @@ export default function Home() {
 
       if (result.status === "no_matches") {
         setError(result.discovery.issues[0] ?? "No verified Steam matches were found.");
+      } else {
+        // A degraded-but-usable preview is not an error, so it gets a neutral notice.
+        setDiscoveryNotices(result.discovery.issues);
       }
     } catch (requestError) {
       patchSession({ validation: null, questions: [] });
@@ -434,6 +440,7 @@ export default function Home() {
         selectedSteamAppIds={selectedSteamAppIds}
         questions={questions}
         error={error}
+        notices={discoveryNotices}
         stage={discoveryStage}
         onAnalyze={handleAnalyze}
         onToggleCandidate={handleToggleCandidate}
