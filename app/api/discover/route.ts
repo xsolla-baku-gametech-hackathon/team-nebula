@@ -4,6 +4,7 @@ import { ok, fail } from '@/lib/api/envelope';
 import { getCorpus } from '@/lib/infrastructure/corpus/load';
 import { tagOverlap } from '@/lib/infrastructure/corpus/search';
 import { scoreSimilarity } from '@/lib/domain/scoring';
+import { isCanonicalTag } from '@/lib/domain/tag-vocabulary';
 import type { GameConcept, ScoredCompetitor } from '@/lib/domain/types';
 
 const Schema = z.object({
@@ -37,6 +38,7 @@ export async function POST(req: NextRequest) {
       ...concept.taxonomy.mechanics,
       ...concept.taxonomy.gameModes,
     ].filter(Boolean) as string[];
+    const matchableTagCount = Math.max(conceptTags.filter(isCanonicalTag).length, 1);
 
     // Score all games by tag overlap (no embeddings needed)
     const candidates = corpus.games
@@ -49,8 +51,10 @@ export async function POST(req: NextRequest) {
           ...g.metadata.keywords,
           ...g.metadata.gameModes,
         ]);
-        // Use tag overlap as a pseudo-semantic score (0-1 range)
-        const pseudoSemantic = Math.min(overlap / Math.max(conceptTags.length, 1), 1);
+        // Use tag overlap as a pseudo-semantic score (0-1 range). The divisor counts only
+        // tags that could ever match a corpus field; a free-form facet such as a setting is
+        // unmatchable, so including it would suppress every candidate's score.
+        const pseudoSemantic = Math.min(overlap / matchableTagCount, 1);
         const sim = scoreSimilarity(concept, g, pseudoSemantic);
         return {
           game: g,
