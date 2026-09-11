@@ -5,6 +5,7 @@ import { ArrowRight, BrainCircuit, CircleDollarSign, CircleHelp, Gamepad2, Plus,
 import StepPills, { type Step } from "@/components/shared/StepPills";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
 import { GENRE_SUGGESTIONS } from "@/components/concept/options";
+import { isCanonicalTag } from "@/lib/domain/tag-vocabulary";
 import type {
   DiscoveryCandidate,
   DiscoveryValidation,
@@ -97,23 +98,32 @@ function ValidationPanel({ validation }: { validation: DiscoveryValidation }) {
           {Math.round(validation.confidence * 100)}% confidence
         </span>
       </div>
-      <p className="text-[12px] text-on-surface-variant leading-relaxed mb-3">
+      <p className="text-[12px] text-on-surface-variant leading-relaxed mb-2">
         {validation.normalizedDescription}
       </p>
+      <p className="text-[11px] text-on-surface-variant/70 leading-relaxed mb-3">
+        Search facets used to find comparable games — not Steam store tags.
+      </p>
       <div className="flex flex-wrap gap-1.5">
-        {validation.tags.map((tag) => (
-          <span
-            key={tag.name.toLocaleLowerCase()}
-            title={`${tag.category} · ${tag.priority} · ${tag.basis}`}
-            className={`px-2 py-1 rounded-md text-[10px] font-mono border ${
-              tag.priority === "required"
-                ? "text-primary border-primary/30 bg-primary/10"
-                : "text-on-surface-variant border-outline-variant/20"
-            }`}
-          >
-            {tag.name}
-          </span>
-        ))}
+        {validation.tags.map((tag) => {
+          const canonical = isCanonicalTag(tag.name);
+          return (
+            <span
+              key={tag.name.toLocaleLowerCase()}
+              title={`${tag.category} · ${tag.priority} · ${tag.basis}${canonical ? "" : " · free-form facet"}`}
+              className={`px-2 py-1 rounded-md text-[10px] font-mono ${
+                canonical ? "border" : "border border-dashed"
+              } ${
+                tag.priority === "required"
+                  ? "text-primary border-primary/30 bg-primary/10"
+                  : "text-on-surface-variant border-outline-variant/20"
+              }`}
+            >
+              <span className="opacity-50">{tag.category} · </span>
+              {tag.name}
+            </span>
+          );
+        })}
       </div>
     </div>
   );
