@@ -61,9 +61,9 @@
   --color-yellow: #fbbf24;
   --color-red: #f87171;
 
-  --font-sans: "Inter", sans-serif;
-  --font-heading: "Sora", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: var(--font-inter), sans-serif;
+  --font-heading: var(--font-sora), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
 ::-webkit-scrollbar { width: 6px; }
@@ -77,10 +77,24 @@ html {
 }
 
 body {
-  background: var(--color-background);
+  background:
+    radial-gradient(circle at 82% -12%, rgb(108 140 255 / 10%), transparent 32rem),
+    var(--color-background);
   color: var(--color-on-surface);
   font-family: var(--font-sans);
   overscroll-behavior: none;
+}
+
+button,
+a,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 ::selection {
