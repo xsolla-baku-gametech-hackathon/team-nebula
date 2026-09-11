@@ -1,7 +1,7 @@
 import 'server-only';
 import { z } from 'zod';
-import { withMcp } from '@/lib/collector/mcp-client';
-import { parseProvider } from '@/lib/collector/http';
+import { withMcp } from '@/lib/infrastructure/mcp/client';
+import { parseProvider } from '@/lib/infrastructure/collector/http';
 import type { GameConcept, UpcomingRelease } from '@/lib/types';
 
 const PC_PLATFORM_ID = 6;

@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { parseJson, parseProvider } from './http';
-import { ProviderError } from './types';
+import { parseJson, parseProvider } from '@/lib/infrastructure/collector/http';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 
 export function mcpResult(input: unknown): unknown {
   const result = parseProvider('igdb', z.object({

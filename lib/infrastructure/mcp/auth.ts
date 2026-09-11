@@ -1,7 +1,7 @@
 import 'server-only';
 import { z } from 'zod';
-import { mcpCredentials } from './mcp-config';
-import { parseJson, parseProvider, requestText } from './http';
+import { mcpCredentials } from './config';
+import { parseJson, parseProvider, requestText } from '@/lib/infrastructure/collector/http';
 
 export async function requestMcpToken() {
   const { clientId, clientSecret } = mcpCredentials();

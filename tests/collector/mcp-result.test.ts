@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mcpResult } from '@/lib/collector/mcp-result';
+import { mcpResult } from '@/lib/infrastructure/mcp/result';
 
 describe('MCP result validation', () => {
   it('accepts structured results and JSON text', () => {

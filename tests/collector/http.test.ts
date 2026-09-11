@@ -1,5 +1,5 @@
 import { afterEach, expect, it, vi } from 'vitest';
-import { RequestGate, requestText } from '@/lib/collector/http';
+import { RequestGate, requestText } from '@/lib/infrastructure/collector/http';
 
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); });
 it('spaces concurrent reservations', async () => {

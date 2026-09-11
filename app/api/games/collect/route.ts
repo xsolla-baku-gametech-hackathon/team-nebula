@@ -1,5 +1,5 @@
-import { collectGames } from '@/lib/collector/collect';
-import { CollectInput } from '@/lib/collector/types';
+import { collectGames } from '@/lib/infrastructure/collector/collect-games';
+import { CollectInput } from '@/lib/infrastructure/collector/types';
 
 export const runtime = 'nodejs';
 export const maxDuration = 180;

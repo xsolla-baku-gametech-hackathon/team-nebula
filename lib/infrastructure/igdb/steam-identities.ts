@@ -1,7 +1,7 @@
 import 'server-only';
 import { z } from 'zod';
-import { withMcp } from '@/lib/collector/mcp-client';
-import { parseProvider } from '@/lib/collector/http';
+import { withMcp } from '@/lib/infrastructure/mcp/client';
+import { parseProvider } from '@/lib/infrastructure/collector/http';
 
 const Links = z.object({ results: z.array(z.object({
   game: z.number().int().positive(), external_game_source: z.number().int(), uid: z.string(),

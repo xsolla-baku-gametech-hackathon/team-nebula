@@ -1,6 +1,6 @@
 import { previewGames } from '@/lib/application/discovery/preview-competitors';
 import { DiscoverInput, DiscoveryError } from '@/lib/domain/schemas';
-import { ProviderError } from '@/lib/collector/types';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 import { discoveryErrorResponse } from '@/lib/api/discovery-error';
 
 export const runtime = 'nodejs';

@@ -1,8 +1,8 @@
 import { expect, it, vi } from 'vitest';
-import { fetchGamalytic, parseGamalytic } from '@/lib/collector/gamalytic';
-import { requestText } from '@/lib/collector/http';
-vi.mock('@/lib/collector/http', async importOriginal => ({
-  ...await importOriginal<typeof import('@/lib/collector/http')>(), requestText:vi.fn(),
+import { fetchGamalytic, parseGamalytic } from '@/lib/infrastructure/gamalytic/client';
+import { requestText } from '@/lib/infrastructure/collector/http';
+vi.mock('@/lib/infrastructure/collector/http', async importOriginal => ({
+  ...await importOriginal<typeof import('@/lib/infrastructure/collector/http')>(), requestText:vi.fn(),
 }));
 
 it('retains missing revenue, legitimate zeros, and exact AppID matches', () => {

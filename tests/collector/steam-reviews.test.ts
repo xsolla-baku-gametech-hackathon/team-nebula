@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { parseReviewComments, parseReviewSummary } from '@/lib/collector/steam-reviews';
+import { parseReviewComments, parseReviewSummary } from '@/lib/infrastructure/steam/reviews';
 
 const comment = (id: number) => ({
   recommendationid:String(id), review:'<b>Enjoyed it &amp; recommend it.</b>', language:'english',

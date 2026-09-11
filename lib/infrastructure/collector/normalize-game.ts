@@ -1,8 +1,8 @@
-import type { GameMode, Perspective, Platform, Source, Sourced } from '@/lib/types';
-import { plainText, steamDate, steamPrices, type SteamDetails } from './steam-details';
-import type { ReviewSummary } from './steam-reviews';
-import type { GamalyticGame } from './gamalytic';
-import type { IgdbMetadata } from './igdb';
+import type { GameMode, Perspective, Platform, Source, Sourced } from '@/lib/domain/types';
+import { plainText, steamDate, steamPrices, type SteamDetails } from '@/lib/infrastructure/steam/details';
+import type { ReviewSummary } from '@/lib/infrastructure/steam/reviews';
+import type { GamalyticGame } from '@/lib/infrastructure/gamalytic/client';
+import type { IgdbMetadata } from '@/lib/infrastructure/igdb/client';
 import type { CollectedGame, ProviderIssue, ReviewComment } from './types';
 
 const sourced = <T>(value: T | null | undefined, source: Source, estimated = false, method?: string): Sourced<T> =>

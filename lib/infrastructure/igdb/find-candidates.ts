@@ -1,8 +1,8 @@
 import 'server-only';
 import { z } from 'zod';
-import { withMcp } from '@/lib/collector/mcp-client';
-import { parseProvider } from '@/lib/collector/http';
-import { plainText } from '@/lib/collector/steam-details';
+import { withMcp } from '@/lib/infrastructure/mcp/client';
+import { parseProvider } from '@/lib/infrastructure/collector/http';
+import { plainText } from '@/lib/infrastructure/steam/details';
 import { buildSearchQueries } from '@/lib/application/discovery/search-queries';
 import type { Candidate, DescriptionValidation } from '@/lib/domain/schemas';
 

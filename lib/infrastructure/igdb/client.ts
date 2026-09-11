@@ -1,8 +1,8 @@
 import 'server-only';
 import { z } from 'zod';
-import { withMcp } from './mcp-client';
-import { parseProvider } from './http';
-import { providerIssue, type ProviderIssue } from './types';
+import { withMcp } from '@/lib/infrastructure/mcp/client';
+import { parseProvider } from '@/lib/infrastructure/collector/http';
+import { providerIssue, type ProviderIssue } from '@/lib/infrastructure/collector/types';
 
 const id = z.number().int().positive();
 const relations = z.array(id).default([]);

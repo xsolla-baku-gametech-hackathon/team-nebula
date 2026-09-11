@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { parseSteamTags } from '@/lib/collector/steam-tags';
+import { parseSteamTags } from '@/lib/infrastructure/steam/tags';
 
 it('extracts Steam user tags without replacing them with genres', () => {
   expect(parseSteamTags('<a class="app_tag">Horror</a><a class="app_tag">Online Co-Op</a><a class="app_tag">Horror</a><a class="app_tag">+</a><div class="genre">Indie</div>',739630)).toEqual(['Horror','Online Co-Op']);

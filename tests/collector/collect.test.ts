@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { collectGames, type CollectorProviders } from '@/lib/collector/collect';
-import { SteamDetailsSchema } from '@/lib/collector/steam-details';
-import { ProviderError } from '@/lib/collector/types';
+import { collectGames, type CollectorProviders } from '@/lib/infrastructure/collector/collect-games';
+import { SteamDetailsSchema } from '@/lib/infrastructure/steam/details';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 
 const fetched = <T>(data: T) => ({ data, fetchedAt: '2026-09-10T00:00:00.000Z' });
 function providers(): CollectorProviders {

@@ -2,7 +2,7 @@
  * Frontend API client — calls real backend routes.
  */
 
-import type { CollectedGame } from "@/lib/collector/types";
+import type { CollectedGame } from "@/lib/infrastructure/collector/types";
 import type {
   ClarifyingQuestion,
   GameConcept,

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-vi.mock('@/lib/collector/collect', () => ({ collectGames: vi.fn() }));
-import { collectGames } from '@/lib/collector/collect';
+vi.mock('@/lib/infrastructure/collector/collect-games', () => ({ collectGames: vi.fn() }));
+import { collectGames } from '@/lib/infrastructure/collector/collect-games';
 import { POST } from '@/app/api/games/collect/route';
 const request = (body: string) => new Request('http://localhost/api/games/collect', { method: 'POST', body });
 beforeEach(() => vi.resetAllMocks());

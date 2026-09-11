@@ -1,8 +1,8 @@
 import 'server-only';
 import { z } from 'zod';
-import { parseJson, parseProvider, requestText } from './http';
-import { plainText } from './steam-details';
-import type { ReviewComment } from './types';
+import { parseJson, parseProvider, requestText } from '@/lib/infrastructure/collector/http';
+import { plainText } from './details';
+import type { ReviewComment } from '@/lib/infrastructure/collector/types';
 
 const count = z.number().int().nonnegative().finite();
 const SummarySchema = z.object({

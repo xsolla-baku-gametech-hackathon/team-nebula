@@ -1,10 +1,10 @@
 import 'server-only';
-import { fetchSteamDetails } from './steam-details';
-import { fetchSteamComments, fetchSteamReviews } from './steam-reviews';
-import { fetchSteamTags } from './steam-tags';
-import { fetchGamalytic } from './gamalytic';
-import { fetchIgdb } from './igdb';
-import { normalizeGame, type Enrichment } from './normalize';
+import { fetchSteamDetails } from '@/lib/infrastructure/steam/details';
+import { fetchSteamComments, fetchSteamReviews } from '@/lib/infrastructure/steam/reviews';
+import { fetchSteamTags } from '@/lib/infrastructure/steam/tags';
+import { fetchGamalytic } from '@/lib/infrastructure/gamalytic/client';
+import { fetchIgdb } from '@/lib/infrastructure/igdb/client';
+import { normalizeGame, type Enrichment } from './normalize-game';
 import { CollectInput, providerIssue, type CollectionResult, type Fetched, type Provider } from './types';
 
 const providers = { details: fetchSteamDetails, reviews: fetchSteamReviews, comments: fetchSteamComments,

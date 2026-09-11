@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
-vi.mock('@/lib/collector/mcp-client', () => ({ withMcp: vi.fn() }));
-import { withMcp } from '@/lib/collector/mcp-client';
-import { fetchIgdb } from '@/lib/collector/igdb';
-import { ProviderError } from '@/lib/collector/types';
+vi.mock('@/lib/infrastructure/mcp/client', () => ({ withMcp: vi.fn() }));
+import { withMcp } from '@/lib/infrastructure/mcp/client';
+import { fetchIgdb } from '@/lib/infrastructure/igdb/client';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 
 describe('IGDB identity matching', () => {
   it('stops remaining lookups after an outage', async () => {

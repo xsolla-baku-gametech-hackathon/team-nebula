@@ -1,9 +1,9 @@
 import { expect, it, vi } from 'vitest';
-import { fetchSteamDetails } from '@/lib/collector/steam-details';
-import { requestText } from '@/lib/collector/http';
+import { fetchSteamDetails } from '@/lib/infrastructure/steam/details';
+import { requestText } from '@/lib/infrastructure/collector/http';
 
-vi.mock('@/lib/collector/http', async importOriginal => ({
-  ...await importOriginal<typeof import('@/lib/collector/http')>(),
+vi.mock('@/lib/infrastructure/collector/http', async importOriginal => ({
+  ...await importOriginal<typeof import('@/lib/infrastructure/collector/http')>(),
   requestText: vi.fn(),
 }));
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { SteamDetailsSchema, plainText, steamDate, steamPrices } from '@/lib/collector/steam-details';
+import { SteamDetailsSchema, plainText, steamDate, steamPrices } from '@/lib/infrastructure/steam/details';
 
 export const detailsFixture = (extra: Record<string, unknown> = {}) => SteamDetailsSchema.parse({
   steam_appid:739630, type:'game', name:'Phasmophobia', short_description:'Co-op horror',

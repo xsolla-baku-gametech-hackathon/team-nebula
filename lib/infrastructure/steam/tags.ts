@@ -1,7 +1,7 @@
 import 'server-only';
 import { load } from 'cheerio';
-import { requestText } from './http';
-import { ProviderError } from './types';
+import { requestText } from '@/lib/infrastructure/collector/http';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 
 export function parseSteamTags(html: string, appId: number): string[] {
   const $ = load(html);

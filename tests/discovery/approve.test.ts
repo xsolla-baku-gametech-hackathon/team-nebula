@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 import { approvePreview, type ApprovalProviders } from '@/lib/application/discovery/approve-competitors';
 import { PreviewStore } from '@/lib/application/discovery/preview-store';
-import { normalizeGame } from '@/lib/collector/normalize';
-import { SteamDetailsSchema } from '@/lib/collector/steam-details';
+import { normalizeGame } from '@/lib/infrastructure/collector/normalize-game';
+import { SteamDetailsSchema } from '@/lib/infrastructure/steam/details';
 import type { DescriptionValidation, PreviewCandidate } from '@/lib/domain/schemas';
-import type { CollectionResult } from '@/lib/collector/types';
+import type { CollectionResult } from '@/lib/infrastructure/collector/types';
 
 const validation: DescriptionValidation = { status: 'ready', normalizedDescription: 'Co-op horror', confidence: 0.9,
   tags: [

@@ -1,8 +1,8 @@
 import { afterEach, expect, it, vi } from 'vitest';
-import { McpTokenManager } from '@/lib/collector/mcp-auth';
-import { requestText } from '@/lib/collector/http';
-vi.mock('@/lib/collector/http', async importOriginal => ({
-  ...await importOriginal<typeof import('@/lib/collector/http')>(), requestText: vi.fn(),
+import { McpTokenManager } from '@/lib/infrastructure/mcp/auth';
+import { requestText } from '@/lib/infrastructure/collector/http';
+vi.mock('@/lib/infrastructure/collector/http', async importOriginal => ({
+  ...await importOriginal<typeof import('@/lib/infrastructure/collector/http')>(), requestText: vi.fn(),
 }));
 afterEach(() => { vi.useRealTimers(); vi.unstubAllEnvs(); vi.clearAllMocks(); });
 

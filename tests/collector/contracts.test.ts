@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CollectInput } from '@/lib/collector/types';
+import { CollectInput } from '@/lib/infrastructure/collector/types';
 
 describe('collector input', () => {
   it('deduplicates IDs while preserving selection order', () => {

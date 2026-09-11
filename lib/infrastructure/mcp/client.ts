@@ -1,11 +1,11 @@
 import 'server-only';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
-import { mcpTokens } from './mcp-auth';
-import { mcpCredentials } from './mcp-config';
-import { providerGate } from './http';
-import { mcpResult } from './mcp-result';
-import { ProviderError } from './types';
+import { mcpTokens } from './auth';
+import { mcpCredentials } from './config';
+import { providerGate } from '@/lib/infrastructure/collector/http';
+import { mcpResult } from './result';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 
 export async function withMcp<T>(run: (call: (name: string, args: Record<string, unknown>) => Promise<unknown>) => Promise<T>): Promise<T> {
   const { clientId } = mcpCredentials();

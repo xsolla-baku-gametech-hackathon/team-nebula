@@ -1,7 +1,7 @@
 import 'server-only';
 import { z } from 'zod';
-import { parseJson, parseProvider, requestText } from './http';
-import { ProviderError } from './types';
+import { parseJson, parseProvider, requestText } from '@/lib/infrastructure/collector/http';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 
 const appId = z.union([z.number(), z.string().regex(/^\d+$/).transform(Number)])
   .pipe(z.number().int().positive().max(2 ** 32 - 1));

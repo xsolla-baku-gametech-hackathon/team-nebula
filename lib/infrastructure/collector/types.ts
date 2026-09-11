@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { NormalizedGame, Source, Sourced } from '@/lib/types';
+import type { NormalizedGame, Source, Sourced } from '@/lib/domain/types';
 
 export const CollectInput = z.object({
   steamAppIds: z.array(z.number().int().positive().max(2 ** 32 - 1))

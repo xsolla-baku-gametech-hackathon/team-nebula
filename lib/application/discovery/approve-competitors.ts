@@ -1,6 +1,6 @@
 import 'server-only';
-import { collectGames } from '@/lib/collector/collect';
-import type { CollectedGame, CollectionFailure } from '@/lib/collector/types';
+import { collectGames } from '@/lib/infrastructure/collector/collect-games';
+import type { CollectedGame, CollectionFailure } from '@/lib/infrastructure/collector/types';
 import { previewStore, type PreviewStore } from './preview-store';
 import { ApprovalInput, DiscoveryError, type PreviewCandidate } from '@/lib/domain/schemas';
 

@@ -1,8 +1,8 @@
 import 'server-only';
 import { load } from 'cheerio';
 import { z } from 'zod';
-import { parseJson, parseProvider, requestText } from './http';
-import { ProviderError } from './types';
+import { parseJson, parseProvider, requestText } from '@/lib/infrastructure/collector/http';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 
 const money = z.number().int().nonnegative().finite();
 export const SteamDetailsSchema = z.object({

@@ -1,5 +1,5 @@
 import 'server-only';
-import { ProviderError } from './types';
+import { ProviderError } from '@/lib/infrastructure/collector/types';
 
 export function mcpCredentials() {
   const clientId = process.env.IGDB_MCP_CLIENT_ID;
