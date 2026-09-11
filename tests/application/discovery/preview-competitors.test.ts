@@ -40,6 +40,33 @@ describe('discovery preview', () => {
     expect(deps.store.get(result.previewId).candidates).toEqual(result.candidates);
   });
 
+  it('restores a stated genre before searching for candidates', async () => {
+    const deps = providers();
+    vi.mocked(deps.validate).mockResolvedValue({ ...ready,
+      tags: [{ name: 'apartment', category: 'setting', priority: 'required', basis: 'explicit' }] });
+    vi.mocked(deps.rank).mockResolvedValue({ selections: [{ igdbId: 1, reason: 'Side-scrolling horror', matchedTags: ['Platformer'] }] });
+
+    const result = await previewGames({ query: '2d platformer scary game set in an apartment' }, deps);
+
+    const names = result.validation.tags.map(tag => tag.name);
+    expect(names).toEqual(expect.arrayContaining(['Platformer', 'Horror']));
+    // The normalized object must be what drives retrieval and ranking, not the raw model output.
+    expect(vi.mocked(deps.candidates).mock.calls[0][0].tags.map(tag => tag.name)).toContain('Platformer');
+    expect(vi.mocked(deps.rank).mock.calls[0][0].tags.map(tag => tag.name)).toContain('Platformer');
+  });
+
+  it('still previews when normalization cannot improve the tags', async () => {
+    const deps = providers();
+    vi.mocked(deps.validate).mockResolvedValue({ ...ready,
+      tags: [{ name: 'Invented Genre', category: 'genre', priority: 'required', basis: 'explicit' }] });
+    vi.mocked(deps.rank).mockResolvedValue({ selections: [{ igdbId: 1, reason: 'Closest available', matchedTags: ['Invented Genre'] }] });
+
+    const result = await previewGames({ query: 'a game about nothing in particular' }, deps);
+
+    expect(result.status).toBe('ready_for_approval');
+    expect(result.validation.tags.map(tag => tag.name)).toEqual(['Invented Genre']);
+  });
+
   it('returns an explicit no-match result without storing it', async () => {
     const deps = providers();
     vi.mocked(deps.resolve).mockResolvedValue({});

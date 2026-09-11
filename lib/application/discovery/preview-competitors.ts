@@ -5,6 +5,7 @@ import { previewStore, type PreviewStore } from './preview-store';
 import { validatePreviewRanking } from './selection';
 import { resolveSteamIds } from '@/lib/infrastructure/igdb/steam-identities';
 import { DiscoverInput, type PreviewCandidate } from '@/lib/domain/schemas';
+import { normalizeDiscoveryTags } from '@/lib/domain/discovery-tags';
 
 const defaults = {
   validate: validateDescription, candidates: findPreviewCandidates,
@@ -14,7 +15,10 @@ export type PreviewProviders = Omit<typeof defaults, 'store'> & { store: Preview
 
 export async function previewGames(input: unknown, deps: PreviewProviders = defaults) {
   const request = DiscoverInput.parse(input);
-  const validation = await deps.validate(request.query, request.clarifications ?? []);
+  const validation = normalizeDiscoveryTags(
+    await deps.validate(request.query, request.clarifications ?? []),
+    request.query,
+  );
   if (validation.status === 'needs_clarification') {
     return { status: 'needs_clarification' as const, previewId: null, expiresAt: null,
       query: request.query, validation, questions: validation.questions };
