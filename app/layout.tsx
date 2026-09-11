@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Inter, JetBrains_Mono, Sora } from "next/font/google";
 import "./globals.css";
 
@@ -35,9 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col font-sans">
         <header className="sticky top-0 z-40 h-16 shrink-0 border-b border-outline-variant/25 bg-background/90 px-5 backdrop-blur-xl md:px-8">
           <div className="mx-auto flex h-full w-full max-w-[1280px] items-center justify-between">
-            <a href="/" aria-label="ReleaseSignal home" className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+            <Link href="/" aria-label="ReleaseSignal home" className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
               <Image src="/logo.svg" alt="ReleaseSignal" width={200} height={48} priority className="h-7 w-auto" />
-            </a>
+            </Link>
             <p className="hidden font-mono text-[10px] uppercase tracking-[0.12em] text-on-surface-variant sm:block">
               Steam launch &amp; commercial intelligence
             </p>
