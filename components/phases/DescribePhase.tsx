@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, BrainCircuit, CircleHelp, Plus, RotateCcw, X } from "lucide-react";
+import { ArrowRight, BrainCircuit, CircleDollarSign, CircleHelp, Gamepad2, Plus, RotateCcw, UsersRound, X } from "lucide-react";
 import StepPills, { type Step } from "@/components/phases/StepPills";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
 import { GENRE_SUGGESTIONS } from "@/lib/mock-data";
@@ -244,27 +244,38 @@ export default function DescribePhase({
   const validating = stage === "validating";
 
   return (
-    <div className="max-w-[1200px] mx-auto px-6 py-5">
+    <div className="mx-auto max-w-[1200px] px-6 py-8">
       <StepPills active="describe" unlocked={unlockedSteps} onNavigate={onNavigate} />
 
-      <div className={validation ? "grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-5 items-start" : "max-w-[720px]"}>
+      <div className="mb-7 max-w-[680px]">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">Concept intake</p>
+        <h1 className="mt-2 font-heading text-[30px] font-semibold tracking-[-0.04em] text-on-surface">Frame the game and its commercial context.</h1>
+        <p className="mt-2 text-[13px] leading-6 text-on-surface-variant">
+          Describe what players do, who they play with, and what makes the concept distinct. You will review the interpreted concept and every comparable before analysis.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div className="flex flex-col gap-4">
           <div>
-            <h1 className="text-[14px] font-semibold text-on-surface mb-2 uppercase tracking-wide">Description</h1>
-            <div className="rounded-xl bg-surface-container border border-outline-variant/20 overflow-hidden">
+            <div className="mb-2 flex items-center justify-between">
+              <h2 className="text-[12px] font-semibold uppercase tracking-[0.1em] text-on-surface">Game description</h2>
+              <span className="font-mono text-[10px] text-on-surface-variant">{description.length} characters</span>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-outline-variant/25 bg-surface-container shadow-[0_18px_55px_rgba(0,0,0,0.12)] focus-within:border-primary/45">
               <textarea
                 value={description}
                 onChange={(event) => onDescriptionChange(event.target.value)}
-                className="w-full h-[140px] p-4 bg-transparent resize-none text-[15px] text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none leading-relaxed"
-                placeholder="Describe the moment-to-moment gameplay. What does the player actually do?"
+                className="h-[210px] w-full resize-none bg-transparent p-5 text-[15px] leading-7 text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none"
+                placeholder="Example: A four-player survival horror game where crews investigate abandoned orbital stations, recover salvage, and escape an adaptive creature. Sessions last 30–45 minutes with proximity voice chat and persistent ship upgrades."
               />
-              <div className="px-4 py-2 border-t border-outline-variant/10 flex items-center justify-between">
-                <span className="text-[11px] text-on-surface-variant font-mono">{description.length} chars</span>
+              <div className="flex items-center justify-between border-t border-outline-variant/15 px-4 py-3">
+                <span className="text-[11px] text-on-surface-variant">No market search begins before validation.</span>
                 <button
                   type="button"
                   onClick={handleAnalyze}
                   disabled={description.trim().length < 20 || validating || stage === "collecting"}
-                  className="px-4 py-1.5 rounded-lg bg-primary text-on-primary text-[13px] font-semibold flex items-center gap-1.5 hover:bg-primary/90 transition-all disabled:opacity-30"
+                  className="flex h-9 items-center gap-1.5 rounded-lg bg-primary px-4 text-[13px] font-semibold text-on-primary transition-all hover:bg-primary/90 disabled:opacity-30"
                 >
                   {validating
                     ? "Checking concept..."
@@ -276,9 +287,6 @@ export default function DescribePhase({
                 </button>
               </div>
             </div>
-            <p className="text-[11px] text-on-surface-variant mt-1.5">
-              We structure your concept and confirm the search criteria before finding comparable games.
-            </p>
           </div>
 
           {error ? (
@@ -322,8 +330,8 @@ export default function DescribePhase({
           {validation ? <ValidationPanel validation={validation} /> : null}
 
           <div>
-            <h2 className="text-[14px] font-semibold text-on-surface mb-2 uppercase tracking-wide">Your extra tags</h2>
-            <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-3">
+            <h2 className="mb-2 text-[12px] font-semibold uppercase tracking-[0.1em] text-on-surface">Optional market signals</h2>
+            <div className="rounded-2xl border border-outline-variant/20 bg-surface-container p-4">
               <TagList items={genres} onRemove={(genre) => onGenresChange(genres.filter((item) => item !== genre))} />
               <AddInput
                 value={genreInput}
@@ -381,7 +389,26 @@ export default function DescribePhase({
               </div>
             ) : null}
           </div>
-        ) : null}
+        ) : (
+          <aside className="rounded-2xl border border-outline-variant/20 bg-surface-container-low p-5">
+            <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.15em] text-secondary">Strong inputs include</p>
+            <div className="mt-5 space-y-5">
+              {[
+                { icon: Gamepad2, title: "The player loop", body: "Actions, session structure, progression, and what creates repeat play." },
+                { icon: UsersRound, title: "Audience and mode", body: "Solo, co-op, PvP, perspective, tone, and intended player profile." },
+                { icon: CircleDollarSign, title: "Commercial assumptions", body: "Target price, launch timing, and any positioning constraints you already know." },
+              ].map((item) => (
+                <div key={item.title} className="flex gap-3 border-b border-outline-variant/20 pb-5 last:border-0 last:pb-0">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/8 text-primary"><item.icon size={16} /></span>
+                  <div>
+                    <h3 className="text-[13px] font-semibold text-on-surface">{item.title}</h3>
+                    <p className="mt-1 text-[11px] leading-5 text-on-surface-variant">{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </aside>
+        )}
       </div>
 
       <div className="flex justify-center mt-10">
