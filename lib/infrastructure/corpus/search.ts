@@ -1,4 +1,4 @@
-import type { NormalizedGame, CorpusMeta } from '@/lib/types';
+import type { NormalizedGame, CorpusMeta } from '@/lib/domain/types';
 
 export function cosine(q: Float32Array, vecs: Float32Array, i: number, dims: number): number {
   let s = 0;

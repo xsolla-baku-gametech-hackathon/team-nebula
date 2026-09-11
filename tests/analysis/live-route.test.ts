@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { NormalizedGame } from '@/lib/types';
 
-vi.mock('@/lib/corpus/load', () => ({
+vi.mock('@/lib/infrastructure/corpus/load', () => ({
   getCorpus: vi.fn(() => {
     throw new Error('the live path must not load the demo corpus');
   }),
@@ -30,7 +30,7 @@ vi.mock('@/lib/application/analysis/upcoming-releases', () => ({
   })),
 }));
 
-import { getCorpus } from '@/lib/corpus/load';
+import { getCorpus } from '@/lib/infrastructure/corpus/load';
 import { conceptHorrorCoop } from '@/lib/fixtures/concept.horror-coop';
 import { POST } from '@/app/api/analyze/route';
 

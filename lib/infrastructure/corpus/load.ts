@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import type { NormalizedGame, CorpusMeta } from '@/lib/types';
+import type { NormalizedGame, CorpusMeta } from '@/lib/domain/types';
 
 const CORPUS_PATH = process.env.CORPUS_PATH ?? './data';
 

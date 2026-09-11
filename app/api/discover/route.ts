@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { ok, fail } from '@/lib/api/envelope';
-import { getCorpus } from '@/lib/corpus/load';
-import { tagOverlap } from '@/lib/corpus/search';
+import { getCorpus } from '@/lib/infrastructure/corpus/load';
+import { tagOverlap } from '@/lib/infrastructure/corpus/search';
 import { scoreSimilarity } from '@/lib/domain/scoring';
 import type { GameConcept, ScoredCompetitor } from '@/lib/types';
 

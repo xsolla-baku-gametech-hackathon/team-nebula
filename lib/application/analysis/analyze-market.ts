@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { getCorpus } from '@/lib/corpus/load';
+import { getCorpus } from '@/lib/infrastructure/corpus/load';
 import {
   scoreCompetitor,
   scoreReception,
