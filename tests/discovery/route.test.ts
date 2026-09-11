@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-vi.mock('@/lib/discovery/preview', () => ({ previewGames: vi.fn() }));
-import { previewGames } from '@/lib/discovery/preview';
+vi.mock('@/lib/application/discovery/preview-competitors', () => ({ previewGames: vi.fn() }));
+import { previewGames } from '@/lib/application/discovery/preview-competitors';
 import { DiscoveryError } from '@/lib/domain/schemas';
 import { POST } from '@/app/api/games/discover/route';
 const request = (body: string) => new Request('http://localhost/api/games/discover', { method: 'POST', body });

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { approvePreview, type ApprovalProviders } from '@/lib/discovery/approve';
-import { PreviewStore } from '@/lib/discovery/preview-store';
+import { approvePreview, type ApprovalProviders } from '@/lib/application/discovery/approve-competitors';
+import { PreviewStore } from '@/lib/application/discovery/preview-store';
 import { normalizeGame } from '@/lib/collector/normalize';
 import { SteamDetailsSchema } from '@/lib/collector/steam-details';
 import type { DescriptionValidation, PreviewCandidate } from '@/lib/domain/schemas';

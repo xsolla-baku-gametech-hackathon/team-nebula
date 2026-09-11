@@ -1,7 +1,7 @@
-import { previewGames } from '@/lib/discovery/preview';
+import { previewGames } from '@/lib/application/discovery/preview-competitors';
 import { DiscoverInput, DiscoveryError } from '@/lib/domain/schemas';
 import { ProviderError } from '@/lib/collector/types';
-import { discoveryErrorResponse } from '@/lib/discovery/http-error';
+import { discoveryErrorResponse } from '@/lib/api/discovery-error';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;

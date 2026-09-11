@@ -1,9 +1,9 @@
 import 'server-only';
-import { findPreviewCandidates } from './candidates';
-import { grokModelId, rankPreviewCandidates, validateDescription } from './grok';
+import { findPreviewCandidates } from '@/lib/infrastructure/igdb/find-candidates';
+import { grokModelId, rankPreviewCandidates, validateDescription } from '@/lib/infrastructure/grok/discovery';
 import { previewStore, type PreviewStore } from './preview-store';
 import { validatePreviewRanking } from './selection';
-import { resolveSteamIds } from './steam-identities';
+import { resolveSteamIds } from '@/lib/infrastructure/igdb/steam-identities';
 import { DiscoverInput, type PreviewCandidate } from '@/lib/domain/schemas';
 
 const defaults = {

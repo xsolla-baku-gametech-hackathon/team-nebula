@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PreviewStore } from '@/lib/discovery/preview-store';
+import { PreviewStore } from '@/lib/application/discovery/preview-store';
 import type { DescriptionValidation } from '@/lib/domain/schemas';
 
 const validation: DescriptionValidation = {

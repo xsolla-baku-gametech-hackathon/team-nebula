@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('ai', () => ({ generateText: vi.fn(), Output: { object: vi.fn(options => options) } }));
 import { generateText } from 'ai';
-import { validateDescription } from '@/lib/discovery/grok';
+import { validateDescription } from '@/lib/infrastructure/grok/discovery';
 const validation = { status: 'ready' as const, normalizedDescription: 'Horror game', confidence: 0.9,
   tags: [
     { name: 'Horror', category: 'theme' as const, priority: 'required' as const, basis: 'explicit' as const },

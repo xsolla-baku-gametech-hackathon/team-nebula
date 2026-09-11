@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { DiscoverInput, type Candidate } from '@/lib/domain/schemas';
-import { validatePreviewRanking, validateRanking } from '@/lib/discovery/selection';
-import { parseCandidates } from '@/lib/discovery/candidates';
-import { steamIdentity } from '@/lib/discovery/steam-identities';
+import { validatePreviewRanking, validateRanking } from '@/lib/application/discovery/selection';
+import { parseCandidates } from '@/lib/infrastructure/igdb/find-candidates';
+import { steamIdentity } from '@/lib/infrastructure/igdb/steam-identities';
 const intent = { multiplayer: true };
 const candidates: Candidate[] = [{ igdbId: 1, name: 'Game', description: 'Horror', context: '', gameModes: [2], semanticScore: 0.8 }];
 const validation = { status: 'ready' as const, normalizedDescription: 'Horror multiplayer', confidence: 0.9,

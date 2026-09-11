@@ -1,5 +1,5 @@
-import { approvePreview } from '@/lib/discovery/approve';
-import { discoveryErrorResponse } from '@/lib/discovery/http-error';
+import { approvePreview } from '@/lib/application/discovery/approve-competitors';
+import { discoveryErrorResponse } from '@/lib/api/discovery-error';
 import { ApprovalInput, DiscoveryError } from '@/lib/domain/schemas';
 
 export const runtime = 'nodejs';

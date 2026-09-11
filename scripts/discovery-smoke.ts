@@ -12,12 +12,12 @@ async function main() {
     process.exitCode = 1;
     return;
   }
-  const { previewGames } = await import('../lib/discovery/preview');
+  const { previewGames } = await import('../lib/application/discovery/preview-competitors');
   const started = Date.now();
   const preview = await previewGames({ query, limit: 10 });
   let collection;
   if (approveAll && preview.status === 'ready_for_approval') {
-    const { approvePreview } = await import('../lib/discovery/approve');
+  const { approvePreview } = await import('../lib/application/discovery/approve-competitors');
     collection = await approvePreview({ previewId: preview.previewId, approveAll: true });
   }
   console.log(JSON.stringify({ preview, collection, durationMs: Date.now() - started }, null, 2));

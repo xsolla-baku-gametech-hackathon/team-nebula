@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { withMcp } from '@/lib/collector/mcp-client';
 import { parseProvider } from '@/lib/collector/http';
 import { plainText } from '@/lib/collector/steam-details';
-import { buildSearchQueries } from './search-queries';
+import { buildSearchQueries } from '@/lib/application/discovery/search-queries';
 import type { Candidate, DescriptionValidation } from '@/lib/domain/schemas';
 
 const SearchResult = z.object({ results: z.array(z.object({

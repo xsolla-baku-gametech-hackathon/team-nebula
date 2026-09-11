@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-vi.mock('@/lib/discovery/approve', () => ({ approvePreview: vi.fn() }));
-import { approvePreview } from '@/lib/discovery/approve';
+vi.mock('@/lib/application/discovery/approve-competitors', () => ({ approvePreview: vi.fn() }));
+import { approvePreview } from '@/lib/application/discovery/approve-competitors';
 import { DiscoveryError } from '@/lib/domain/schemas';
 import { POST } from '@/app/api/games/discover/collect/route';
 
