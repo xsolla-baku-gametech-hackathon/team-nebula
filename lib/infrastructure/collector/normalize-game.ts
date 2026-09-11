@@ -4,6 +4,7 @@ import type { ReviewSummary } from '@/lib/infrastructure/steam/reviews';
 import type { GamalyticGame } from '@/lib/infrastructure/gamalytic/client';
 import type { IgdbMetadata } from '@/lib/infrastructure/igdb/client';
 import type { CollectedGame, ProviderIssue, ReviewComment } from './types';
+import { estimateCopies, estimateRevenue } from '@/lib/domain/scoring/boxleiter';
 
 const sourced = <T>(value: T | null | undefined, source: Source, estimated = false, method?: string): Sourced<T> =>
   ({ value: value ?? null, source, estimated, ...(method ? { method } : {}) });
@@ -46,11 +47,34 @@ export function normalizeGame(steam: SteamDetails, extra: Enrichment): Collected
     },
     release: { date: date.date, dateText: steam.release_date.date || null, datePrecision: date.precision,
       isReleased: !steam.release_date.coming_soon, isEarlyAccess: steam.genres.some(genre => genre.id === '70') },
-    commercial: {
-      currency: 'USD', priceUsd: sourced(price.current, 'steam'), regularPriceUsd: sourced(price.regular, 'steam'),
-      estimatedCopiesSold: sourced(extra.gamalytic?.copiesSold, 'gamalytic', true, 'Gamalytic estimate of Steam purchases; not owners'),
-      estimatedRevenueUsd: sourced(extra.gamalytic?.revenue, 'gamalytic', true, 'Gamalytic gross USD estimate before platform fees and taxes'),
-    },
+    commercial: (() => {
+      let copies = extra.gamalytic?.copiesSold ?? null;
+      let copiesSource: Source = 'gamalytic';
+      let copiesMethod = 'Gamalytic estimate of Steam purchases; not owners';
+      let rev = extra.gamalytic?.revenue ?? null;
+      let revSource: Source = 'gamalytic';
+      let revMethod = 'Gamalytic gross USD estimate before platform fees and taxes';
+
+      // Boxleiter fallback: estimate from reviews + price when Gamalytic is missing data
+      const reviewCount = reviews?.total_reviews ?? 0;
+      const currentPrice = price.current ?? 0;
+      if (copies == null && reviewCount > 0 && currentPrice > 0) {
+        copies = estimateCopies(reviewCount, currentPrice);
+        copiesSource = 'releasesignal';
+        copiesMethod = 'Boxleiter model: review count × price-band multiplier';
+      }
+      if (rev == null && reviewCount > 0 && currentPrice > 0) {
+        rev = estimateRevenue(reviewCount, currentPrice);
+        revSource = 'releasesignal';
+        revMethod = 'Boxleiter model: copies × price × Valve cut × refund/discount adjustment';
+      }
+
+      return {
+        currency: 'USD' as const, priceUsd: sourced(price.current, 'steam'), regularPriceUsd: sourced(price.regular, 'steam'),
+        estimatedCopiesSold: sourced(copies, copiesSource, true, copiesMethod),
+        estimatedRevenueUsd: sourced(rev, revSource, true, revMethod),
+      };
+    })(),
     reviews: {
       total: sourced(reviews?.total_reviews, 'steam'), positive: sourced(reviews?.total_positive, 'steam'), negative: sourced(reviews?.total_negative, 'steam'),
       positiveRatio: sourced(reviews && reviews.total_reviews > 0 ? reviews.total_positive / reviews.total_reviews : null, 'steam'),
