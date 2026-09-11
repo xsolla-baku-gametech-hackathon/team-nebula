@@ -1,10 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import WelcomePhase from "@/components/phases/WelcomePhase";
 import DescribePhase from "@/components/phases/DescribePhase";
-import ComparablesPhase from "@/components/phases/ComparablesPhase";
-import AnalyticsPhase from "@/components/phases/AnalyticsPhase";
 import type { Step } from "@/components/phases/StepPills";
 import {
   analyzeDescription,
@@ -36,6 +35,22 @@ import type {
 } from "@/lib/types";
 
 type DiscoveryStage = "idle" | "validating" | "collecting";
+
+const ComparablesPhase = dynamic(() => import("@/components/phases/ComparablesPhase"), {
+  loading: () => <PhaseLoader label="Preparing comparable evidence…" />,
+});
+
+const AnalyticsPhase = dynamic(() => import("@/components/phases/AnalyticsPhase"), {
+  loading: () => <PhaseLoader label="Preparing the investment memo…" />,
+});
+
+function PhaseLoader({ label }: { label: string }) {
+  return (
+    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center px-6 text-sm text-on-surface-variant">
+      {label}
+    </div>
+  );
+}
 
 function errorMessage(error: unknown): string {
   if (error instanceof ApiClientError) return error.message;
