@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "targets": {
+    "/": {
+      "targetKind": "existing-ui",
+      "projectId": "e11c7628-64cb-4137-92ed-20565473aeb4",
+      "baselineDraftId": "dfec9bb8-1622-4d17-9f6a-c6861f57b692",
+      "activeDraftId": "dfec9bb8-1622-4d17-9f6a-c6861f57b692",
+      "designSystemPath": ".superdesign/design-system.md",
+      "referenceIds": [
+        "public-logo.svg"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "public-logo.svg",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/e11c7628-64cb-4137-92ed-20565473aeb4/brand-assets/public-logo.svg/logo.svg",
+          "sourcePath": "public/logo.svg"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        "app/globals.css",
+        "app/layout.tsx",
+        "app/page.tsx",
+        "components/phases/WelcomePhase.tsx"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "55d527100d3264f3b522dea52ae00fe00d6f175316edbb2b8ec93175b00ce771",
+        "app/globals.css": "54076c0d0e69f0edea0e9f34d26c09677fc9290cbddc19598b96516b4064bf49",
+        "app/layout.tsx": "c24cb20f25122ffb5c3c4338240966afd20a88fc8dcdca84eb4e93c504ac5298",
+        "app/page.tsx": "bee534a961d06c451fad56c457dfed43e05cd57d31f8a6e6d4388eb0bcdc6434",
+        "components/phases/WelcomePhase.tsx": "f0597d42e3fc3815d8dd4e4a9d02ba8ed6c7ef74f51e5903e8666e52e9e01c08"
+      },
+      "components": [
+        {
+          "name": "RootProductHeader",
+          "id": "0d385b9f-c5fa-480b-8f0d-1c8c7c595dd6",
+          "sourcePath": "app/layout.tsx",
+          "logoAssetKey": "public-logo.svg"
+        }
+      ],
+      "drafts": {
+        "dfec9bb8-1622-4d17-9f6a-c6861f57b692": {
+          "title": "Current ReleaseSignal landing",
+          "visualDirection": "faithful current UI baseline",
+          "currentVersion": 1
+        },
+        "29749675-1a60-4a77-a2a2-347624e9ca46": {
+          "title": "Executive Market-Intelligence Command Center",
+          "visualDirection": "compact executive market briefing with process timeline",
+          "parentDraftId": "dfec9bb8-1622-4d17-9f6a-c6861f57b692",
+          "currentVersion": 1
+        },
+        "84d8c795-f87c-4505-b49c-3cf2cf296eec": {
+          "title": "Investor Decision Narrative",
+          "visualDirection": "asymmetric investment story with dashboard preview and investor use cases",
+          "parentDraftId": "dfec9bb8-1622-4d17-9f6a-c6861f57b692",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-10T20:13:37-04:00"
+    }
+  }
+}

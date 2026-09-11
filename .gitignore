@@ -51,3 +51,6 @@ data/*.bin
 
 # MCP config (contains secrets)
 .mcp.json
+
+# Superdesign temporary render files
+.superdesign/tmp/
