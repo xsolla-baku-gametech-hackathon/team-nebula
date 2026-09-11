@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRight, BrainCircuit, CircleDollarSign, CircleHelp, Gamepad2, Plus, RotateCcw, UsersRound, X } from "lucide-react";
 import StepPills, { type Step } from "@/components/shared/StepPills";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
-import { GENRE_SUGGESTIONS } from "@/lib/mock-data";
+import { GENRE_SUGGESTIONS } from "@/components/concept/options";
 import type {
   DiscoveryCandidate,
   DiscoveryValidation,
