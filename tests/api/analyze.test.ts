@@ -31,7 +31,7 @@ vi.mock('@/lib/application/analysis/upcoming-releases', () => ({
 }));
 
 import { getCorpus } from '@/lib/infrastructure/corpus/load';
-import { conceptHorrorCoop } from '@/lib/fixtures/concept.horror-coop';
+import { conceptHorrorCoop } from '@/tests/fixtures/concept.horror-coop';
 import { POST } from '@/app/api/analyze/route';
 
 const liveGame: NormalizedGame = {

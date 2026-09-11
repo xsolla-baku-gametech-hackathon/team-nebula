@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { conceptHorrorCoop } from '@/lib/fixtures/concept.horror-coop';
+import { conceptHorrorCoop } from '@/tests/fixtures/concept.horror-coop';
 import { fetchUpcomingReleases, releaseDateWindow } from '@/lib/application/analysis/upcoming-releases';
 
 describe('live upcoming release collection', () => {
