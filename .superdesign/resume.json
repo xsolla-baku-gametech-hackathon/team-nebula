@@ -22,20 +22,20 @@
         "app/globals.css",
         "app/layout.tsx",
         "app/page.tsx",
-        "components/phases/WelcomePhase.tsx",
+        "components/landing/WelcomePhase.tsx",
         "components/landing/InvestorPreview.tsx",
-        "components/phases/DescribePhase.tsx",
-        "components/phases/AnalyticsPhase.tsx"
+        "components/concept/DescribePhase.tsx",
+        "components/analysis/AnalyticsPhase.tsx"
       ],
       "fingerprints": {
         ".superdesign/design-system.md": "55d527100d3264f3b522dea52ae00fe00d6f175316edbb2b8ec93175b00ce771",
         "app/globals.css": "ad5ca67724413977634983bca0b2e71c340f8d4d60a94664f0066e73cac1ce33",
         "app/layout.tsx": "f72109b619de6447d2baeabd2b94660e87533f232f9f95f59401959b69b9fc7e",
-        "app/page.tsx": "7c8b3c1b2544a790adff1befcd6cec0b648e3768064fbd83a9c344c59942bb29",
-        "components/phases/WelcomePhase.tsx": "a28f377f8de702b73154c438ff6454fce3973c4897a1405e3dca5e6634ec8587",
+        "app/page.tsx": "c4e901782ed3bcc02c234fa90b5a632c232a49d85ae6a949828027853f2fc205",
+        "components/landing/WelcomePhase.tsx": "a28f377f8de702b73154c438ff6454fce3973c4897a1405e3dca5e6634ec8587",
         "components/landing/InvestorPreview.tsx": "1aa78d84adc80564cfa1ab6da9548e1925797b5cf03fc4259807d5557d0faf7d",
-        "components/phases/DescribePhase.tsx": "88a7b10c9b04f65288335c96531ca9ec7329b36bbbb3c0bcb3ffffd5298e68ca",
-        "components/phases/AnalyticsPhase.tsx": "6a5be63223211f47f644b5d043f3dce76a2f87837d77a4c1744382a51407a7d3"
+        "components/concept/DescribePhase.tsx": "3a0b1a688af157c61a44fdecbc643e00597b1b4bb3da06817511f157d01f4b0b",
+        "components/analysis/AnalyticsPhase.tsx": "c7e25ffd081bdf5d55a072a90a9185dc26aed359d741983bd5eb0a541549d06d"
       },
       "components": [
         {
@@ -64,7 +64,7 @@
           "currentVersion": 2
         }
       },
-      "updatedAt": "2026-09-10T20:39:56-04:00"
+      "updatedAt": "2026-09-10T21:01:20-04:00"
     }
   }
 }

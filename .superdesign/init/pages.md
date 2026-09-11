@@ -7,13 +7,13 @@ Entry: `app/page.tsx`
 Dependencies:
 - `app/layout.tsx`
   - `app/globals.css`
-- `components/phases/WelcomePhase.tsx`
-- `components/phases/DescribePhase.tsx`
-  - `components/phases/StepPills.tsx`
+- `components/landing/WelcomePhase.tsx`
+- `components/concept/DescribePhase.tsx`
+  - `components/shared/StepPills.tsx`
   - `lib/mock-data.ts`
   - `lib/api/client.ts`
-- `components/phases/ComparablesPhase.tsx`
-  - `components/phases/StepPills.tsx`
+- `components/comparables/ComparablesPhase.tsx`
+  - `components/shared/StepPills.tsx`
   - `components/comparables/CompetitorGrid.tsx`
     - `components/comparables/CompetitorCard.tsx`
       - `components/comparables/SimilarityBadge.tsx`
@@ -22,27 +22,27 @@ Dependencies:
     - `components/comparables/SimilarityBadge.tsx`
     - `components/shared/ProvenanceTag.tsx`
   - `components/shared/StaleSnapshotBanner.tsx`
-- `components/phases/AnalyticsPhase.tsx`
-  - `components/phases/StepPills.tsx`
-  - `components/forecast/VerdictCard.tsx`
-  - `components/forecast/RevenueRange.tsx`
+- `components/analysis/AnalyticsPhase.tsx`
+  - `components/shared/StepPills.tsx`
+  - `components/analysis/VerdictCard.tsx`
+  - `components/analysis/RevenueRange.tsx`
     - `components/shared/ProvenanceTag.tsx`
-  - `components/forecast/ReceptionLine.tsx`
+  - `components/analysis/ReceptionLine.tsx`
     - `components/shared/ProvenanceTag.tsx`
-  - `components/forecast/SaturationPanel.tsx`
+  - `components/analysis/SaturationPanel.tsx`
     - `components/shared/ScoreBar.tsx`
     - `components/shared/DriverList.tsx`
-  - `components/forecast/ReleaseCalendar.tsx`
-    - `components/forecast/WeekDetail.tsx`
-  - `components/forecast/ExportBar.tsx`
-  - `components/forecast/PrintReport.tsx`
+  - `components/analysis/ReleaseCalendar.tsx`
+    - `components/analysis/WeekDetail.tsx`
+  - `components/analysis/ExportBar.tsx`
+  - `components/analysis/PrintReport.tsx`
   - `components/shared/StaleSnapshotBanner.tsx`
 - `lib/api/client.ts`
 - `lib/session/launch-inputs.ts`
 - `lib/session/store.ts`
 - `lib/session/snapshot.ts`
-- `lib/scoring/competitor.ts`
-- `lib/types.ts`
+- `lib/domain/scoring/competitor.ts`
+- `lib/domain/types.ts`
 
 Rendered branches:
 - `phase === "landing"`: `WelcomePhase`

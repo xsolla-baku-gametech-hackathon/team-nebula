@@ -8,7 +8,7 @@
 - Hardcoded: radar icon, product wordmark, border and dimensions.
 
 ## StepPills
-- Source: `components/phases/StepPills.tsx`
+- Source: `components/shared/StepPills.tsx`
 - Category: layout
 - Description: Three-step journey navigation with active, completed, and locked states.
 - Extractable props: `active`, `unlocked`, `onNavigate`.
@@ -50,21 +50,21 @@
 - Hardcoded: metric arrangement and Steam action.
 
 ## VerdictCard
-- Source: `components/forecast/VerdictCard.tsx`
+- Source: `components/analysis/VerdictCard.tsx`
 - Category: basic
 - Description: Final KEEP, MOVE, or MITIGATE recommendation with rationale.
 - Extractable props: `verdict`.
 - Hardcoded: verdict color mapping and label hierarchy.
 
 ## RevenueRange
-- Source: `components/forecast/RevenueRange.tsx`
+- Source: `components/analysis/RevenueRange.tsx`
 - Category: basic
 - Description: Conservative, base, and upside revenue forecast visualization.
 - Extractable props: `revenue`.
 - Hardcoded: axis structure, currency formatting, evidence copy.
 
 ## ReleaseCalendar
-- Source: `components/forecast/ReleaseCalendar.tsx`
+- Source: `components/analysis/ReleaseCalendar.tsx`
 - Category: basic
 - Description: Weekly launch collision list with expandable week evidence.
 - Extractable props: `weeks`.

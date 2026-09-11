@@ -23,7 +23,7 @@ Source and estimation disclosure for facts and forecasts.
 ```tsx
 "use client";
 
-import type { Sourced } from "@/lib/types";
+import type { Sourced } from "@/lib/domain/types";
 
 export function ProvenanceTag<T>({ sourced }: { sourced: Sourced<T> }) {
   const color = {
@@ -90,7 +90,7 @@ Compact model-driver list.
 ```tsx
 "use client";
 
-import type { Driver } from "@/lib/types";
+import type { Driver } from "@/lib/domain/types";
 
 export function DriverList({ drivers }: { drivers: Driver[] }) {
   return (
@@ -116,7 +116,7 @@ Honest notice when a source or analysis capability is reduced.
 ```tsx
 "use client";
 
-import type { DegradedFlag } from "@/lib/types";
+import type { DegradedFlag } from "@/lib/domain/types";
 
 const MESSAGES: Record<DegradedFlag, string> = {
   llm_fallback: "Using simplified analysis — you can edit fields directly",
