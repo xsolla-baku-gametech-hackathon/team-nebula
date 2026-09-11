@@ -1,4 +1,5 @@
 import { DiscoveryError, RankingSchema, type Candidate, type DescriptionValidation } from '@/lib/domain/schemas';
+import { normalizeTagKey } from '@/lib/domain/tag-vocabulary';
 
 export function validateRanking(input: unknown, candidates: Candidate[]) {
   const parsed = RankingSchema.safeParse(input);
@@ -16,11 +17,18 @@ export function validateRanking(input: unknown, candidates: Candidate[]) {
 
 export function validatePreviewRanking(input: unknown, candidates: Candidate[], validation: DescriptionValidation) {
   const selections = validateRanking(input, candidates);
-  const tags = new Set(validation.tags.map(tag => tag.name));
-  for (const selection of selections) {
-    if (new Set(selection.matchedTags).size !== selection.matchedTags.length || selection.matchedTags.some(tag => !tags.has(tag))) {
-      throw new DiscoveryError('INVALID_AI_OUTPUT', 'Grok selected an unknown or duplicate discovery tag');
+  // Matched on a normalized key, then returned in the validated spelling: the ranking
+  // stage must not fail the whole request over case or punctuation drift.
+  const tags = new Map(validation.tags.map(tag => [normalizeTagKey(tag.name), tag.name]));
+  return selections.map(selection => {
+    const matchedTags: string[] = [];
+    for (const tag of selection.matchedTags) {
+      const canonical = tags.get(normalizeTagKey(tag));
+      if (!canonical || matchedTags.includes(canonical)) {
+        throw new DiscoveryError('INVALID_AI_OUTPUT', 'Grok selected an unknown or duplicate discovery tag');
+      }
+      matchedTags.push(canonical);
     }
-  }
-  return selections;
+    return { ...selection, matchedTags };
+  });
 }

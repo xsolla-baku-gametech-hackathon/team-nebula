@@ -24,6 +24,17 @@ describe('discovery validation', () => {
     expect(() => validatePreviewRanking({ selections: [{ igdbId: 1, reason: 'Match', matchedTags: ['Survival'] }] }, candidates, validation)).toThrow('unknown');
     expect(validatePreviewRanking({ selections: [{ igdbId: 1, reason: 'Match', matchedTags: ['Horror'] }] }, candidates, validation)[0].matchedTags).toEqual(['Horror']);
   });
+  it('tolerates case and punctuation drift but still rejects invented tags', () => {
+    // Canonicalization changes the spellings Grok is asked to copy back, so drift must not 503.
+    const drifted = (matchedTags: string[]) => validatePreviewRanking({ selections: [{ igdbId: 1, reason: 'Match', matchedTags }] }, candidates, validation);
+    expect(drifted(['horror'])[0].matchedTags).toEqual(['Horror']);
+    expect(drifted(['MULTIPLAYER', ' Horror '])[0].matchedTags).toEqual(['Multiplayer', 'Horror']);
+    expect(() => drifted(['Horror', 'horror'])).toThrow('duplicate');
+    expect(() => drifted(['Platformer'])).toThrow('unknown');
+
+    const punctuated = { ...validation, tags: [{ name: 'Online Co-Op', category: 'mode' as const, priority: 'required' as const, basis: 'explicit' as const }, ...validation.tags] };
+    expect(validatePreviewRanking({ selections: [{ igdbId: 1, reason: 'Match', matchedTags: ['online co op'] }] }, candidates, punctuated)[0].matchedTags).toEqual(['Online Co-Op']);
+  });
   it('filters missing multiplayer evidence and empty descriptions', () => {
     const result = parseCandidates({ results: [
       { game: { id: 1, name: 'Solo', summary: 'Horror', game_modes: [1] }, similarity: 0.7 },
