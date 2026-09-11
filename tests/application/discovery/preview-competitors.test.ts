@@ -135,10 +135,11 @@ describe('discovery preview', () => {
     await expect(previewGames({ query: 'multiplayer horror' }, unparseable))
       .rejects.toMatchObject({ code: 'INVALID_AI_OUTPUT' });
 
+    // Grok outage now falls back to tag-overlap ranking instead of throwing
     const outage = providers();
     vi.mocked(outage.rank).mockRejectedValue(new DiscoveryError('AI_UNAVAILABLE', 'Grok is down'));
-    await expect(previewGames({ query: 'multiplayer horror' }, outage))
-      .rejects.toMatchObject({ code: 'AI_UNAVAILABLE' });
+    const fallbackResult = await previewGames({ query: 'multiplayer horror' }, outage);
+    expect(fallbackResult.status).toBe('ready_for_approval');
   });
 
   it('returns an explicit no-match result without storing it', async () => {
