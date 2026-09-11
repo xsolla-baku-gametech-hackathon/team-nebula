@@ -3,7 +3,7 @@
  * Falls back to keyword extraction if Grok is unavailable.
  */
 
-import type { GameConcept, GameMode, Perspective, Platform } from "@/lib/types";
+import type { GameConcept, GameMode, Perspective, Platform } from "@/lib/domain/types";
 
 const GROK_API_URL = "https://api.x.ai/v1/chat/completions";
 

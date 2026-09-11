@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { ok, fail } from '@/lib/api/envelope';
-import { analyzeConcept } from '@/lib/ai/concept-analyzer';
+import { analyzeConcept } from '@/lib/application/concept/analyze-concept';
 
 export async function POST(req: NextRequest) {
   const t0 = performance.now();

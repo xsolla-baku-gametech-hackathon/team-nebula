@@ -1,7 +1,7 @@
-import type { GameConcept, ClarifyingQuestion } from '@/lib/types';
+import type { GameConcept, ClarifyingQuestion } from '@/lib/domain/types';
 import { fallbackExtract } from './fallback-extract';
-import { generateQuestions } from './grok-questions';
-import { grokExtract } from './grok-extract';
+import { generateQuestions } from '@/lib/infrastructure/grok/generate-questions';
+import { grokExtract } from '@/lib/infrastructure/grok/extract-concept';
 
 export async function analyzeConcept(input: {
   text: string;

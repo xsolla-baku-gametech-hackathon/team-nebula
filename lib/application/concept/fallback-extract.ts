@@ -1,4 +1,4 @@
-import type { GameConcept, ConceptField, GameMode, Perspective, Platform } from '@/lib/types';
+import type { GameConcept, ConceptField, GameMode, Perspective, Platform } from '@/lib/domain/types';
 
 const GENRE_KEYWORDS: Record<string, string> = {
   'horror': 'Horror', 'roguelike': 'Roguelike', 'rpg': 'RPG', 'platformer': 'Platformer',

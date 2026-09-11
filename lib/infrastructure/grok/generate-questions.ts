@@ -5,7 +5,7 @@
  * Falls back to hardcoded questions if Grok is not configured.
  */
 
-import type { GameConcept, ConceptField } from "@/lib/types";
+import type { GameConcept, ConceptField } from "@/lib/domain/types";
 
 const GROK_API_URL = "https://api.x.ai/v1/chat/completions";
 

@@ -1,4 +1,4 @@
-import type { GameConcept } from '@/lib/types';
+import type { GameConcept } from '@/lib/domain/types';
 
 export function buildConceptEmbedText(c: GameConcept): string {
   const t = c.taxonomy;

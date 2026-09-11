@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { ok, fail } from '@/lib/api/envelope';
-import { analyzeConcept } from '@/lib/ai/concept-analyzer';
+import { analyzeConcept } from '@/lib/application/concept/analyze-concept';
 
 const Schema = z.object({
   text: z.string().min(1).max(8000),
