@@ -5,7 +5,7 @@
       "targetKind": "existing-ui",
       "projectId": "e11c7628-64cb-4137-92ed-20565473aeb4",
       "baselineDraftId": "dfec9bb8-1622-4d17-9f6a-c6861f57b692",
-      "activeDraftId": "dfec9bb8-1622-4d17-9f6a-c6861f57b692",
+      "activeDraftId": "84d8c795-f87c-4505-b49c-3cf2cf296eec",
       "designSystemPath": ".superdesign/design-system.md",
       "referenceIds": [
         "public-logo.svg"
@@ -55,10 +55,10 @@
           "title": "Investor Decision Narrative",
           "visualDirection": "asymmetric investment story with dashboard preview and investor use cases",
           "parentDraftId": "dfec9bb8-1622-4d17-9f6a-c6861f57b692",
-          "currentVersion": 1
+          "currentVersion": 2
         }
       },
-      "updatedAt": "2026-09-10T20:13:37-04:00"
+      "updatedAt": "2026-09-10T20:22:23-04:00"
     }
   }
 }
