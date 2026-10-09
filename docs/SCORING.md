@@ -5,6 +5,8 @@ The scoring engine lives in `lib/domain/scoring`. Its functions are synchronous 
 ## Outputs
 
 - `similarity.ts` compares semantic evidence, mechanics, genre, theme, game mode, and price.
+- Live comparables use IGDB semantic-search evidence and structured features, then sort by the combined score. The corpus discovery endpoint uses compatible text embeddings; tag overlap is never labeled as semantic evidence.
+- Missing semantic evidence is `null`, omitted from the weighted denominator, and shown as unavailable. A measured zero similarity remains zero.
 - `saturation.ts` measures cohort density, commercial concentration, and upcoming-release pressure.
 - `revenue.ts` returns conservative, base, and upside estimates from available revenue evidence, weighted by competitor similarity.
 - `reception.ts` estimates positive-review ratio only when review evidence exists and clamps the result to 0–100%.

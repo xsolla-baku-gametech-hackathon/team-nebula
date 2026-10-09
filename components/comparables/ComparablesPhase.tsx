@@ -1,9 +1,19 @@
 "use client";
 
-import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
-import { ArrowLeft, ArrowRight, ExternalLink, RotateCcw } from "lucide-react";
-import StepPills, { type Step } from "@/components/shared/StepPills";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CalendarDays,
+  CircleDollarSign,
+  ExternalLink,
+  Gamepad2,
+  Layers3,
+  ShieldCheck,
+} from "lucide-react";
+import type { Step } from "@/components/shared/StepPills";
+import { WorkspaceShell } from "@/components/shared/WorkspaceShell";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
+import { SimilarityBadge } from "./SimilarityBadge";
 import type { ScoredCompetitor } from "@/lib/domain/types";
 
 interface Props {
@@ -23,179 +33,355 @@ interface Props {
   onTargetPriceChange: (value: number | null) => void;
 }
 
-function steamHeaderUrl(appId: number): string {
-  return `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/header.jpg`;
+function compact(value: number | null, money = false): string {
+  if (value === null) return "Unavailable";
+  const prefix = money ? "$" : "";
+  if (value >= 1_000_000) return `${prefix}${(value / 1_000_000).toFixed(1)}M`;
+  if (value >= 1_000) return `${prefix}${(value / 1_000).toFixed(0)}K`;
+  return `${prefix}${value.toLocaleString("en-US", { maximumFractionDigits: money ? 2 : 0 })}`;
 }
 
-function fmt(n: number | null): string {
-  if (n === null) return "—";
-  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`;
-  return `$${n}`;
+function median(values: (number | null)[]): number | null {
+  const known = values
+    .filter(
+      (value): value is number => value !== null && Number.isFinite(value),
+    )
+    .sort((a, b) => a - b);
+  if (!known.length) return null;
+  const mid = Math.floor(known.length / 2);
+  return known.length % 2 ? known[mid] : (known[mid - 1] + known[mid]) / 2;
 }
 
-function fmtCount(n: number | null): string {
-  if (n === null) return "—";
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`;
-  return `${n}`;
-}
-
-function Card({ c }: { c: ScoredCompetitor }) {
-  const g = c.game;
-  const appId = g.identity.steamAppId;
-
+function ComparableRow({ competitor }: { competitor: ScoredCompetitor }) {
+  const { game, similarity } = competitor;
   return (
-    <div className="relative rounded-xl overflow-hidden border border-outline-variant/20 hover:border-outline-variant/40 transition-colors group">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={steamHeaderUrl(appId)} alt="" className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity" />
-      <div className="absolute inset-0 bg-gradient-to-r from-surface-container via-surface-container/90 to-surface-container/50" />
-
-      <div className="relative p-4 flex flex-col gap-2.5">
-        <div className="flex items-start justify-between">
-          <div>
-            <h3 className="font-heading text-[16px] font-semibold text-on-surface">{g.identity.name}</h3>
-            <p className="text-[12px] text-on-surface-variant truncate max-w-[280px]">{g.metadata.summary}</p>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[11px] text-primary font-mono">{Math.round(c.similarity.score * 100)}% match</span>
-            <a href={g.identity.steamUrl} target="_blank" rel="noopener noreferrer" className="text-[11px] text-primary hover:underline flex items-center gap-0.5">
-              Steam <ExternalLink size={12} aria-hidden="true" />
-            </a>
-          </div>
+    <article className="ws-game">
+      <div className="ws-game-overview">
+        <div className="ws-game-art-frame" aria-hidden="true">
+          <Gamepad2 size={24} />
+          <span>
+            {game.identity.name
+              .split(/\s+/)
+              .slice(0, 3)
+              .map((word) => word[0])
+              .join("")}
+          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="ws-game-art"
+            src={`https://cdn.akamai.steamstatic.com/steam/apps/${game.identity.steamAppId}/header.jpg`}
+            alt=""
+            loading="lazy"
+            onError={(event) => {
+              event.currentTarget.style.visibility = "hidden";
+            }}
+          />
         </div>
-
-        <div className="grid grid-cols-4 gap-3">
-          <div><span className="text-[10px] text-on-surface-variant/60 uppercase font-mono">Revenue</span><p className="font-heading text-[15px] font-bold text-on-surface leading-tight">{fmt(g.commercial.estimatedRevenueUsd.value)}</p></div>
-          <div><span className="text-[10px] text-on-surface-variant/60 uppercase font-mono">Copies</span><p className="font-heading text-[15px] font-bold text-on-surface leading-tight">{fmtCount(g.commercial.estimatedCopiesSold.value)}</p></div>
-          <div><span className="text-[10px] text-on-surface-variant/60 uppercase font-mono">Reviews</span><p className="font-heading text-[15px] font-bold text-on-surface leading-tight">{fmtCount(g.reviews.total.value)}</p></div>
-          <div><span className="text-[10px] text-on-surface-variant/60 uppercase font-mono">Price</span><p className="font-heading text-[15px] font-bold text-on-surface leading-tight">${g.commercial.priceUsd.value?.toFixed(2) ?? "—"}</p></div>
-        </div>
-
-        <p className="text-[11px] text-on-surface-variant leading-relaxed">{c.similarity.rationale}</p>
-
-        <div className="flex items-end gap-3 pt-1 border-t border-outline-variant/10">
-          {g.history?.revenue && g.history.revenue.length > 0 && (
-            <div className="w-[100px] h-[28px] shrink-0">
-              <ResponsiveContainer width="100%" height={28}>
-                <LineChart data={g.history.revenue}>
-                  <Tooltip contentStyle={{ background: "#1a1c26", border: "1px solid #363842", borderRadius: 6, color: "#e8e9ed", fontSize: 10, padding: "3px 6px" }} />
-                  <Line type="monotone" dataKey="v" stroke="#6c8cff" strokeWidth={1.5} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
+        <div className="min-w-0">
+          <div className="ws-game-title">
+            <div>
+              <h3>{game.identity.name}</h3>
+              <a
+                href={game.identity.steamUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on Steam <ExternalLink size={11} />
+              </a>
             </div>
-          )}
-          <div className="flex flex-wrap gap-1 flex-1">
-            {g.metadata.tags.slice(0, 5).map((t) => (
-              <span key={t} className="px-1.5 py-0.5 rounded text-[9px] text-on-surface-variant/60 border border-outline-variant/20 font-mono">{t}</span>
+            <div className="ws-match">
+              <strong>{Math.round(similarity.score * 100)}%</strong>
+              <span>similarity</span>
+            </div>
+          </div>
+          <dl className="ws-game-stats">
+            <div>
+              <dt>
+                Gross revenue <span title="Provider estimate">est.</span>
+              </dt>
+              <dd>
+                {compact(game.commercial.estimatedRevenueUsd.value, true)}
+              </dd>
+            </div>
+            <div>
+              <dt>
+                Copies sold <span title="Provider estimate">est.</span>
+              </dt>
+              <dd>{compact(game.commercial.estimatedCopiesSold.value)}</dd>
+            </div>
+            <div>
+              <dt>Steam reviews</dt>
+              <dd>{compact(game.reviews.total.value)}</dd>
+            </div>
+            <div>
+              <dt>Store price</dt>
+              <dd>{compact(game.commercial.priceUsd.value, true)}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <details className="ws-game-details">
+        <summary>Why this game matches &amp; supporting evidence</summary>
+        <p>{similarity.rationale}</p>
+        <div className="flex items-center gap-3 mt-3">
+          <span className="text-[11px] ws-muted">Explore match factors</span>
+          <SimilarityBadge
+            score={Math.round(similarity.score * 100)}
+            components={similarity.components}
+          />
+        </div>
+        <p>{game.metadata.summary || "No game description available."}</p>
+        <div className="ws-tags">
+          {game.metadata.tags.slice(0, 8).map((tag) => (
+            <span className="ws-badge" key={tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+        <p className="text-[10px]">
+          Released {game.release.date ?? "date unavailable"}. Revenue source:{" "}
+          {game.commercial.estimatedRevenueUsd.source}. Prices and reviews:
+          Steam.
+        </p>
+        {game.reviews.comments?.length ? (
+          <div className="mt-4 border-t border-[var(--ws-border)] pt-4">
+            <h4 className="text-[12px] font-medium">What players are saying</h4>
+            {game.reviews.comments.slice(0, 3).map((comment) => (
+              <blockquote
+                key={comment.id}
+                className="mt-3 border-l-2 border-[var(--ws-border)] pl-3"
+              >
+                <span
+                  className={`text-[10px] ${comment.recommended ? "text-green" : "text-red"}`}
+                >
+                  {comment.recommended ? "Recommended" : "Not recommended"}
+                </span>
+                <p className="mt-1!">{comment.text}</p>
+              </blockquote>
             ))}
           </div>
-          <span className="text-[11px] text-on-surface-variant/50 shrink-0">{g.release.date?.slice(0, 7) ?? "TBD"}</span>
-        </div>
-
-        {g.reviews.comments?.length ? (
-          <div className="pt-2 border-t border-outline-variant/10">
-            <p className="text-[10px] uppercase font-mono text-on-surface-variant/60 mb-1.5">Recent helpful reviews</p>
-            <div className="grid gap-1.5">
-              {g.reviews.comments.slice(0, 3).map((comment) => (
-                <p key={comment.id} className="text-[10px] text-on-surface-variant leading-relaxed line-clamp-2">
-                  <span className={comment.recommended ? "text-green" : "text-red"}>
-                    {comment.recommended ? "Recommended" : "Not recommended"}:
-                  </span>{" "}
-                  {comment.text}
-                </p>
-              ))}
-            </div>
-          </div>
         ) : null}
-      </div>
-    </div>
+      </details>
+    </article>
   );
 }
 
 export default function ComparablesPhase({
-  competitors, onNext, onBack, onStartNewSession, loading, error, resultsStale,
-  plannedRelease, targetPrice, launchInputError, unlockedSteps, onNavigate,
-  onPlannedReleaseChange, onTargetPriceChange,
+  competitors,
+  onNext,
+  onBack,
+  onStartNewSession,
+  loading,
+  error,
+  resultsStale,
+  plannedRelease,
+  targetPrice,
+  launchInputError,
+  unlockedSteps,
+  onNavigate,
+  onPlannedReleaseChange,
+  onTargetPriceChange,
 }: Props) {
+  const averageMatch = competitors.length
+    ? Math.round(
+        (competitors.reduce((sum, c) => sum + c.similarity.score, 0) /
+          competitors.length) *
+          100,
+      )
+    : null;
+  const knownRevenue = competitors.filter(
+    (c) => c.game.commercial.estimatedRevenueUsd.value !== null,
+  ).length;
+  const medianRevenue = median(
+    competitors.map((c) => c.game.commercial.estimatedRevenueUsd.value),
+  );
+  const medianPrice = median(
+    competitors.map((c) => c.game.commercial.priceUsd.value),
+  );
   return (
-    <div className="max-w-[1200px] mx-auto px-6 py-5">
-      <StepPills active="comparables" unlocked={unlockedSteps} onNavigate={onNavigate} />
-
+    <WorkspaceShell
+      active="comparables"
+      unlocked={unlockedSteps}
+      onNavigate={onNavigate}
+      onStartNewSession={onStartNewSession}
+    >
+      <header className="ws-page-heading">
+        <div>
+          <span className="ws-step-caption">Step 2 of 3</span>
+          <h1>Your game doesn’t launch alone.</h1>
+          <p>
+            Meet the games competing for the same players. Review their
+            performance, then set the assumptions for your launch analysis.
+          </p>
+        </div>
+        <button type="button" className="ws-button secondary" onClick={onBack}>
+          <ArrowLeft size={14} /> Refine selection
+        </button>
+      </header>
       {resultsStale ? (
-        <div className="rounded-xl border border-yellow/30 bg-yellow/10 px-4 py-3 mb-4 text-[13px] text-yellow">
-          These results belong to the previous description. They remain available until you approve a new comparable set.
+        <div className="ws-alert warning">
+          These games belong to your previous concept. Approve a new shortlist
+          to replace them.
         </div>
       ) : null}
-
       {error ? (
-        <div role="alert" className="rounded-xl border border-red/30 bg-red/10 px-4 py-3 mb-4 text-[13px] text-red">
+        <div role="alert" className="ws-alert">
           {error}
         </div>
       ) : null}
-
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-4">
-        <div>
-          <h1 className="font-heading text-[24px] font-semibold text-on-surface">Comparable games</h1>
-          <p className="text-[13px] text-on-surface-variant">{competitors.length} games matched on gameplay description</p>
+      <div className="ws-stat-strip">
+        <div className="ws-stat">
+          <span>Comparable games</span>
+          <strong>{competitors.length.toString().padStart(2, "0")}</strong>
+          <small>Approved by you</small>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 sm:items-end">
-          <label className="text-[11px] text-on-surface-variant">
-            Planned release
-            <input
-              type="date"
-              value={plannedRelease}
-              onChange={(event) => onPlannedReleaseChange(event.target.value)}
-              className="block mt-1 h-10 px-3 rounded-lg bg-surface-container border border-outline-variant/30 text-on-surface text-[13px] focus:outline-none focus:border-primary/50"
-            />
-          </label>
-          <label className="text-[11px] text-on-surface-variant">
-            Target price (USD)
-            <input
-              type="number"
-              min="0"
-              step="0.01"
-              value={targetPrice ?? ""}
-              onChange={(event) => onTargetPriceChange(event.target.value ? Number(event.target.value) : null)}
-              placeholder="Optional"
-              className="block mt-1 h-10 w-[140px] px-3 rounded-lg bg-surface-container border border-outline-variant/30 text-on-surface text-[13px] focus:outline-none focus:border-primary/50"
-            />
-          </label>
-          <button
-            type="button"
-            onClick={onNext}
-            disabled={loading || Boolean(launchInputError)}
-            className="h-10 px-5 rounded-xl bg-primary text-on-primary text-[14px] font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
-          >
-            {loading ? "Building investment view..." : "Build investment view"}
-            <ArrowRight size={18} aria-hidden="true" />
-          </button>
+        <div className="ws-stat">
+          <span>Average similarity</span>
+          <strong>{averageMatch === null ? "—" : `${averageMatch}%`}</strong>
+          <small>Semantic + structured evidence</small>
+        </div>
+        <div className="ws-stat">
+          <span>Median gross revenue</span>
+          <strong>{compact(medianRevenue, true)}</strong>
+          <small>{knownRevenue} available estimates</small>
+        </div>
+        <div className="ws-stat">
+          <span>Median store price</span>
+          <strong>{compact(medianPrice, true)}</strong>
+          <small>Known Steam prices</small>
         </div>
       </div>
-
-      {launchInputError ? <p className="text-[11px] text-red text-right mb-3">{launchInputError}</p> : null}
-      {targetPrice === null ? <p className="text-[10px] text-on-surface-variant text-right mb-3">Without a target price, revenue uses reported comparable revenue without price normalization.</p> : null}
-
-      {loading ? <div className="mb-4"><ProcessIndicator kind="analysis" /></div> : null}
-
-      {competitors.length === 0 ? (
-        <div className="rounded-xl bg-surface-container border border-outline-variant/20 p-8 text-center text-on-surface-variant">
-          No comparable games found. Try adjusting your description.
+      {loading ? (
+        <div className="mb-6">
+          <ProcessIndicator kind="analysis" />
         </div>
-      ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          {competitors.map((c) => <Card key={c.game.identity.steamAppId} c={c} />)}
-        </div>
-      )}
-
-      <div className="flex justify-center gap-5 mt-8">
-        <button type="button" onClick={onBack} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
-          <ArrowLeft size={14} aria-hidden="true" /> Change selection
-        </button>
-        <button type="button" onClick={onStartNewSession} className="text-on-surface-variant hover:text-on-surface text-[12px] transition-colors flex items-center gap-1">
-          <RotateCcw size={14} aria-hidden="true" /> New session
-        </button>
+      ) : null}
+      <div className="ws-comparison-grid">
+        <section className="ws-panel">
+          <div className="ws-panel-head">
+            <div>
+              <h2>Your comparable set</h2>
+              <p>Ordered by gameplay similarity, not commercial success.</p>
+            </div>
+            <span className="ws-badge blue">
+              <Layers3 size={12} /> {competitors.length} games
+            </span>
+          </div>
+          {competitors.length ? (
+            competitors.map((competitor) => (
+              <ComparableRow
+                key={competitor.game.identity.steamAppId}
+                competitor={competitor}
+              />
+            ))
+          ) : (
+            <div className="ws-empty">
+              <Layers3 size={30} />
+              <h2>Your market starts with a shortlist.</h2>
+              <p>Return to your concept and approve comparable games.</p>
+              <button type="button" className="ws-button mt-5" onClick={onBack}>
+                Find comparable games
+              </button>
+            </div>
+          )}
+        </section>
+        <aside className="ws-stack ws-sticky">
+          <section className="ws-panel">
+            <div className="ws-panel-head">
+              <div>
+                <h2>Plan your launch</h2>
+                <p>A date to evaluate. A price to position.</p>
+              </div>
+              <CalendarDays size={18} className="ws-muted" />
+            </div>
+            <div className="ws-panel-body ws-launch-fields">
+              <label className="ws-field">
+                Planned release
+                <input
+                  type="date"
+                  className="ws-input"
+                  value={plannedRelease}
+                  onChange={(event) =>
+                    onPlannedReleaseChange(event.target.value)
+                  }
+                  aria-invalid={Boolean(launchInputError)}
+                  aria-describedby={
+                    launchInputError ? "launch-date-error" : undefined
+                  }
+                />
+              </label>
+              {launchInputError ? (
+                <p
+                  id="launch-date-error"
+                  role="alert"
+                  className="text-[11px] text-red leading-5"
+                >
+                  {launchInputError}
+                </p>
+              ) : null}
+              <label className="ws-field">
+                Target price (USD)
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  className="ws-input"
+                  value={targetPrice ?? ""}
+                  onChange={(event) =>
+                    onTargetPriceChange(
+                      event.target.value ? Number(event.target.value) : null,
+                    )
+                  }
+                  placeholder="Optional"
+                />
+              </label>
+              <p className="ws-muted text-[11px] leading-6">
+                {targetPrice === null
+                  ? "No price set? We’ll use comparable revenue as reported, without price normalization."
+                  : "Revenue estimates will account for your target price where comparable prices are available."}
+              </p>
+              <button
+                type="button"
+                className="ws-button"
+                onClick={onNext}
+                disabled={
+                  loading || Boolean(launchInputError) || !competitors.length
+                }
+              >
+                {loading
+                  ? "Building your analysis…"
+                  : "Build launch intelligence"}
+                <ArrowRight size={16} />
+              </button>
+              <p className="ws-safety-note">
+                <ShieldCheck size={15} className="shrink-0 mt-0.5" />
+                Your inputs and comparable set are saved on this device.
+              </p>
+            </div>
+          </section>
+          <section className="ws-panel">
+            <div className="ws-panel-body">
+              <div className="flex items-center gap-2 text-[12px] font-medium mb-4">
+                <CircleDollarSign size={16} className="text-primary" /> Read the
+                evidence clearly
+              </div>
+              <div className="flex gap-3 items-start mb-4">
+                <span className="ws-badge green">Fact</span>
+                <p className="text-[11px] ws-muted leading-6">
+                  Steam store prices and review counts.
+                </p>
+              </div>
+              <div className="flex gap-3 items-start">
+                <span className="ws-badge amber">Estimate</span>
+                <p className="text-[11px] ws-muted leading-6">
+                  Revenue and copies sold are provider estimates. Missing values
+                  stay unavailable.
+                </p>
+              </div>
+            </div>
+          </section>
+        </aside>
       </div>
-    </div>
+    </WorkspaceShell>
   );
 }

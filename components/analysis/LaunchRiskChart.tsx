@@ -28,7 +28,11 @@ function dateLabel(value: string): string {
   return dateFormatter.format(new Date(`${value}T00:00:00Z`));
 }
 
-export function LaunchRiskChart({ windows, currentDate, recommendedDate }: Props) {
+export function LaunchRiskChart({
+  windows,
+  currentDate,
+  recommendedDate,
+}: Props) {
   if (!windows.length) {
     return (
       <div className="flex h-[280px] items-center justify-center rounded-xl border border-dashed border-outline-variant/30 text-sm text-on-surface-variant">
@@ -43,20 +47,33 @@ export function LaunchRiskChart({ windows, currentDate, recommendedDate }: Props
     risk: Math.round(window.risk),
     competingReleases: window.competingReleases.length,
   }));
-  const currentLabel = currentDate ? dateLabel(currentDate) : null;
+  const currentWeek = currentDate
+    ? windows.find(
+        (window) =>
+          currentDate >= window.weekStart && currentDate < window.weekEnd,
+      )
+    : null;
+  const currentLabel = currentWeek ? dateLabel(currentWeek.weekStart) : null;
   const recommendedLabel = recommendedDate ? dateLabel(recommendedDate) : null;
 
   return (
     <div className="h-[280px] w-full" aria-label="Weekly launch collision risk">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 18, right: 12, bottom: 0, left: -18 }}>
+        <AreaChart
+          data={data}
+          margin={{ top: 18, right: 12, bottom: 0, left: -18 }}
+        >
           <defs>
             <linearGradient id="launchRiskFill" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#8da2ff" stopOpacity={0.36} />
               <stop offset="100%" stopColor="#8da2ff" stopOpacity={0.02} />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke="#2d303b" strokeDasharray="3 5" vertical={false} />
+          <CartesianGrid
+            stroke="#2d303b"
+            strokeDasharray="3 5"
+            vertical={false}
+          />
           <XAxis
             dataKey="label"
             axisLine={false}
@@ -88,7 +105,12 @@ export function LaunchRiskChart({ windows, currentDate, recommendedDate }: Props
               x={currentLabel}
               stroke="#fbbf24"
               strokeDasharray="4 4"
-              label={{ value: "Planned", fill: "#fbbf24", fontSize: 10, position: "insideTopLeft" }}
+              label={{
+                value: "Planned",
+                fill: "#fbbf24",
+                fontSize: 10,
+                position: "insideTopLeft",
+              }}
             />
           ) : null}
           {recommendedLabel && recommendedLabel !== currentLabel ? (
@@ -96,7 +118,12 @@ export function LaunchRiskChart({ windows, currentDate, recommendedDate }: Props
               x={recommendedLabel}
               stroke="#34d399"
               strokeDasharray="4 4"
-              label={{ value: "Recommended", fill: "#34d399", fontSize: 10, position: "insideTopRight" }}
+              label={{
+                value: "Recommended",
+                fill: "#34d399",
+                fontSize: 10,
+                position: "insideTopRight",
+              }}
             />
           ) : null}
           <Area
@@ -105,7 +132,12 @@ export function LaunchRiskChart({ windows, currentDate, recommendedDate }: Props
             stroke="#8da2ff"
             strokeWidth={2.5}
             fill="url(#launchRiskFill)"
-            activeDot={{ r: 5, fill: "#d9e0ff", stroke: "#667eea", strokeWidth: 2 }}
+            activeDot={{
+              r: 5,
+              fill: "#d9e0ff",
+              stroke: "#667eea",
+              strokeWidth: 2,
+            }}
           />
         </AreaChart>
       </ResponsiveContainer>

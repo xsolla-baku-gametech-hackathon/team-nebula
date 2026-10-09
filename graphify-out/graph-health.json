@@ -1,26 +1,26 @@
 {
-  "node_count": 1232,
+  "node_count": 1259,
   "unverified_node_count": 0,
   "raw_edge_count": 2183,
   "non_object_edges": 0,
   "missing_endpoint_edges": 0,
-  "dangling_endpoint_edges": 1,
-  "external_reference_edges": 15,
+  "dangling_endpoint_edges": 0,
+  "external_reference_edges": 0,
   "self_loop_edges": 2,
-  "valid_candidate_edges": 2167,
-  "exact_duplicate_edges": 6,
-  "directed_unique_endpoint_pairs": 2095,
-  "directed_same_endpoint_collapsed_edges": 72,
-  "undirected_unique_endpoint_pairs": 2095,
-  "undirected_same_endpoint_collapsed_edges": 72,
-  "same_endpoint_group_count": 70,
-  "relation_variant_groups": 57,
+  "valid_candidate_edges": 2183,
+  "exact_duplicate_edges": 0,
+  "directed_unique_endpoint_pairs": 2183,
+  "directed_same_endpoint_collapsed_edges": 0,
+  "undirected_unique_endpoint_pairs": 2183,
+  "undirected_same_endpoint_collapsed_edges": 0,
+  "same_endpoint_group_count": 0,
+  "relation_variant_groups": 0,
   "source_file_variant_groups": 0,
-  "source_location_variant_groups": 7,
+  "source_location_variant_groups": 0,
   "context_variant_groups": 0,
   "post_build_graph_type": "Graph",
-  "post_build_node_count": 1239,
-  "post_build_edge_count": 2111,
+  "post_build_node_count": 1259,
+  "post_build_edge_count": 2183,
   "post_build_error": "",
   "producer_suppression": {
     "path": "/root/.local/share/pipx/venvs/graphifyy/lib/python3.14/site-packages/graphify/extract.py",
@@ -101,98 +101,6 @@
     ],
     "error": ""
   },
-  "examples": [
-    {
-      "source": "app_layout",
-      "target": "ref_next",
-      "edge_count": 4,
-      "relations": [
-        "imports_from"
-      ],
-      "source_files": [
-        "app/layout.tsx"
-      ],
-      "source_locations": [
-        "L1",
-        "L2",
-        "L3",
-        "L4"
-      ],
-      "contexts": [
-        "import"
-      ]
-    },
-    {
-      "source": "app_api_discover_route",
-      "target": "lib_domain_scoring_similarity_scoresimilarity",
-      "edge_count": 2,
-      "relations": [
-        "imports"
-      ],
-      "source_files": [
-        "app/api/discover/route.ts"
-      ],
-      "source_locations": [
-        "L6"
-      ],
-      "contexts": [
-        "import"
-      ]
-    },
-    {
-      "source": "eslint_config",
-      "target": "ref_eslint_config_next",
-      "edge_count": 2,
-      "relations": [
-        "imports_from"
-      ],
-      "source_files": [
-        "eslint.config.mjs"
-      ],
-      "source_locations": [
-        "L2",
-        "L3"
-      ],
-      "contexts": [
-        "import"
-      ]
-    },
-    {
-      "source": "lib_application_analysis_analyze_market",
-      "target": "lib_infrastructure_corpus_load_getcorpus",
-      "edge_count": 2,
-      "relations": [
-        "imports",
-        "indirect_call"
-      ],
-      "source_files": [
-        "lib/application/analysis/analyze-market.ts"
-      ],
-      "source_locations": [
-        "L3",
-        "L37"
-      ],
-      "contexts": [
-        "collection",
-        "import"
-      ]
-    },
-    {
-      "source": "lib_application_analysis_analyze_market",
-      "target": "lib_domain_scoring_competitor_scorecompetitor",
-      "edge_count": 2,
-      "relations": [
-        "imports"
-      ],
-      "source_files": [
-        "lib/application/analysis/analyze-market.ts"
-      ],
-      "source_locations": [
-        "L4"
-      ],
-      "contexts": [
-        "import"
-      ]
-    }
-  ]
+  "examples": [],
+  "audit_scope": "Post-build graph; prior raw same-endpoint relationship loss cannot be measured here."
 }

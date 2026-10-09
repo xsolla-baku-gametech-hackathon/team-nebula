@@ -47,6 +47,11 @@ function competitor(steamAppId: number, revenue: number | null, price: number | 
 }
 
 describe('similarity-weighted revenue', () => {
+  it('keeps reported zero revenue distinct from missing evidence', () => {
+    const result = scoreRevenue(concept(null), [competitor(1, 0, null, 0.9)], 50);
+    expect(result).toMatchObject({ conservative: 0, base: 0, upside: 0, basedOnCount: 1, confidence: 'LOW' });
+  });
+
   it('abstains instead of returning zeroes without usable revenue evidence', () => {
     const result = scoreRevenue(concept(null), [competitor(1, null, null, 0.9)], 50);
 

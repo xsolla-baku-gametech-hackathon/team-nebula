@@ -163,7 +163,7 @@ export type NormalizedGame = {
  *  the user's game concept and a candidate title.
  */
 export type SimilarityComponents = {
-  semantic: number;
+  semantic: number | null;
   mechanics: number;
   genre: number;
   theme: number;

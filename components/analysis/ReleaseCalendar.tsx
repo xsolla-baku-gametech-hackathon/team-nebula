@@ -1,9 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { CalendarDays, ChevronDown, ChevronUp } from "lucide-react";
 import type { ReleaseWindow } from "@/lib/domain/types";
 import { WeekDetail } from "./WeekDetail";
+
+const dayLabel = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+});
+const monthLabel = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 export function ReleaseCalendar({
   windows,
@@ -15,48 +26,125 @@ export function ReleaseCalendar({
   recommendedDate: string | null;
 }) {
   const [expandedWeek, setExpandedWeek] = useState<string | null>(null);
+  const [month, setMonth] = useState(
+    currentDate?.slice(0, 7) ?? windows[0]?.weekStart.slice(0, 7) ?? "all",
+  );
+  const months = [
+    ...new Set(windows.map((window) => window.weekStart.slice(0, 7))),
+  ];
+  const activeMonth =
+    month === "all" || months.includes(month) ? month : (months[0] ?? "all");
+  const visible =
+    activeMonth === "all"
+      ? windows
+      : windows.filter((window) => window.weekStart.startsWith(activeMonth));
 
-  if (!windows.length) {
-    return <p className="text-[12px] text-on-surface-variant">No dated releases were returned for this horizon.</p>;
-  }
-
+  if (!windows.length)
+    return (
+      <div className="ws-empty">
+        <CalendarDays size={28} />
+        <h3>No dated release evidence</h3>
+        <p>A launch recommendation needs dated releases for this horizon.</p>
+      </div>
+    );
   return (
-    <div className="space-y-2">
-      {windows.map((window) => {
-        const isCurrent = Boolean(currentDate && currentDate >= window.weekStart && currentDate < window.weekEnd);
-        const isBest = recommendedDate === window.weekStart;
-        const isExpanded = expandedWeek === window.weekStart;
-
-        return (
-          <div key={window.weekStart} className="rounded-lg border border-outline-variant/20 overflow-hidden">
+    <div>
+      <div className="ws-calendar-toolbar">
+        <div
+          className="ws-calendar-months"
+          role="group"
+          aria-label="Filter release weeks by month"
+        >
+          {months.map((value) => (
             <button
               type="button"
-              aria-expanded={isExpanded}
-              onClick={() => setExpandedWeek(isExpanded ? null : window.weekStart)}
-              className="w-full px-3 py-2.5 text-left hover:bg-surface-container-high transition-colors"
+              key={value}
+              aria-pressed={activeMonth === value}
+              onClick={() => setMonth(value)}
             >
-              <div className="flex items-center gap-3">
-                <span className="w-[72px] text-[11px] font-mono text-on-surface-variant">{window.weekStart.slice(5)}</span>
-                <div className="h-1.5 flex-1 rounded-full bg-surface-container-highest overflow-hidden">
-                  <div
-                    className={`h-full rounded-full ${
-                      window.band === "CRITICAL" ? "bg-red" :
-                      window.band === "HIGH" ? "bg-yellow" :
-                      window.band === "MODERATE" ? "bg-primary" : "bg-green"
-                    }`}
-                    style={{ width: `${Math.max(2, window.risk)}%` }}
-                  />
-                </div>
-                <span className="w-8 text-right text-[11px] font-mono text-on-surface">{window.risk}</span>
-                <span className="w-[120px] text-right text-[10px] font-mono text-on-surface-variant">
-                  {window.competingReleases.length} release{window.competingReleases.length === 1 ? "" : "s"}
-                  {isCurrent ? <span className="ml-1 text-red">planned</span> : null}
-                  {isBest ? <span className="ml-1 text-green">best</span> : null}
-                </span>
-                {isExpanded ? <ChevronUp size={16} className="text-on-surface-variant" /> : <ChevronDown size={16} className="text-on-surface-variant" />}
-              </div>
+              {monthLabel.format(new Date(`${value}-01T00:00:00Z`))}
             </button>
-            {isExpanded ? <WeekDetail window={window} /> : null}
+          ))}
+          <button
+            type="button"
+            aria-pressed={activeMonth === "all"}
+            onClick={() => setMonth("all")}
+          >
+            All weeks
+          </button>
+        </div>
+      </div>
+      <div className="ws-calendar-toolbar">
+        <span>
+          {visible.length} weeks · Select a week to see its competition
+        </span>
+        <div>
+          <span className="ws-badge green">Low pressure</span>
+          <span className="ws-badge amber">Higher pressure</span>
+        </div>
+      </div>
+      {visible.map((window) => {
+        const planned = Boolean(
+          currentDate &&
+          currentDate >= window.weekStart &&
+          currentDate < window.weekEnd,
+        );
+        const best = recommendedDate === window.weekStart;
+        const expanded = expandedWeek === window.weekStart;
+        const color =
+          window.band === "CRITICAL"
+            ? "#ff8b8b"
+            : window.band === "HIGH"
+              ? "#ffc16b"
+              : window.band === "MODERATE"
+                ? "#89a8ff"
+                : "#70d8b0";
+        const label = dayLabel.format(
+          new Date(`${window.weekStart}T00:00:00Z`),
+        );
+        return (
+          <div key={window.weekStart}>
+            <button
+              type="button"
+              className="ws-calendar-row"
+              aria-expanded={expanded}
+              aria-controls={`week-${window.weekStart}`}
+              aria-label={`Week of ${label}${planned ? ", planned release" : ""}${best ? ", recommended" : ""}, risk ${window.risk} of 100, ${window.competingReleases.length} competing releases`}
+              onClick={() =>
+                setExpandedWeek(expanded ? null : window.weekStart)
+              }
+            >
+              <span className="ws-calendar-date">
+                <strong>{label}</strong>
+                {planned || best ? (
+                  <small>{planned ? "Your planned week" : "Recommended"}</small>
+                ) : null}
+              </span>
+              <span className="ws-risk-track">
+                <span
+                  style={{
+                    width: `${Math.max(0, Math.min(100, window.risk))}%`,
+                    background: color,
+                  }}
+                />
+              </span>
+              <span className="ws-risk-value" style={{ color }}>
+                {window.risk}
+                <span className="ws-muted text-[9px]"> /100</span>
+              </span>
+              <span className="ws-calendar-count">
+                {window.competingReleases.length} release
+                {window.competingReleases.length === 1 ? "" : "s"}
+              </span>
+              {expanded ? (
+                <ChevronUp size={15} className="ws-muted" />
+              ) : (
+                <ChevronDown size={15} className="ws-muted" />
+              )}
+            </button>
+            <div id={`week-${window.weekStart}`} hidden={!expanded}>
+              {expanded ? <WeekDetail window={window} /> : null}
+            </div>
           </div>
         );
       })}

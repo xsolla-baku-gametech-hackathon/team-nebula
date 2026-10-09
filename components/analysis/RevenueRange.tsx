@@ -15,6 +15,7 @@ export function RevenueRange({ revenue }: { revenue: MarketReport["revenue"] }) 
       <div className="space-y-1">
         <h3 className="text-lg font-semibold">Estimated First-Year Gross</h3>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">Insufficient revenue evidence.</p>
+        <p className="text-xs text-zinc-500">{revenue.confidence} confidence · {revenue.basedOnCount} usable comparables</p>
       </div>
     );
   }

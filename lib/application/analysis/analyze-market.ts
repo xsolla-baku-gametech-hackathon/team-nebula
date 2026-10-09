@@ -61,7 +61,7 @@ export async function analyzeMarket(
     competitors = input.comparables.map((game) => scoreCompetitor(
       concept,
       game,
-      0,
+      null,
       'Semantic evidence was unavailable for this compatibility request.',
     ));
   }
@@ -74,7 +74,7 @@ export async function analyzeMarket(
       .map((game) => scoreCompetitor(
         concept,
         game,
-        0,
+        null,
         'Semantic evidence was unavailable for this compatibility request.',
       ));
     corpusVersion = corpus.meta.corpusVersion;

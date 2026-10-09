@@ -29,7 +29,11 @@ export function ExportBar({ snapshot }: { snapshot: Snapshot }) {
       link.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 0);
     } catch (exportError) {
-      setError(exportError instanceof Error ? exportError.message : "JSON export failed");
+      setError(
+        exportError instanceof Error
+          ? exportError.message
+          : "JSON export failed",
+      );
     } finally {
       setExporting(false);
     }
@@ -42,24 +46,28 @@ export function ExportBar({ snapshot }: { snapshot: Snapshot }) {
   return (
     <div className="print:hidden">
       <div className="flex gap-2">
-      <button
-        type="button"
-        onClick={exportPdf}
-        className="h-9 px-4 rounded-lg border border-outline-variant/30 text-on-surface text-[13px] font-medium hover:bg-surface-container transition-colors flex items-center gap-1.5"
-      >
-        <FileDown size={15} aria-hidden="true" /> PDF
-      </button>
-      <button
-        type="button"
-        onClick={exportJson}
-        disabled={exporting}
-        className="h-9 px-4 rounded-lg border border-outline-variant/30 text-on-surface text-[13px] font-medium hover:bg-surface-container transition-colors flex items-center gap-1.5 disabled:opacity-40"
-      >
-        <Braces size={15} aria-hidden="true" />
-        {exporting ? "Exporting..." : "JSON"}
-      </button>
+        <button
+          type="button"
+          onClick={exportPdf}
+          className="ws-button secondary"
+        >
+          <FileDown size={15} aria-hidden="true" /> PDF
+        </button>
+        <button
+          type="button"
+          onClick={exportJson}
+          disabled={exporting}
+          className="ws-button secondary"
+        >
+          <Braces size={15} aria-hidden="true" />
+          {exporting ? "Exporting..." : "JSON"}
+        </button>
       </div>
-      {error ? <p role="alert" className="text-[11px] text-red mt-1.5 text-right">{error}</p> : null}
+      {error ? (
+        <p role="alert" className="text-[11px] text-red mt-1.5 text-right">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

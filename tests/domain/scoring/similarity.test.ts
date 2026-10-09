@@ -28,6 +28,15 @@ function game(overrides: Partial<NormalizedGame['metadata']> = {}): NormalizedGa
 }
 
 describe('canonical competitor similarity', () => {
+  it('omits unavailable semantics while retaining a measured zero score', () => {
+    const absent = scoreSimilarity(conceptHorrorCoop, game(), null);
+    const zero = scoreSimilarity(conceptHorrorCoop, game(), 0);
+    expect(absent.components.semantic).toBeNull();
+    expect(absent.drivers.map(driver => driver.label)).not.toContain('semantic');
+    expect(zero.components.semantic).toBe(0);
+    expect(absent.score).toBeGreaterThan(zero.score);
+  });
+
   it('returns a normalized score with populated structured components', () => {
     const result = scoreSimilarity(conceptHorrorCoop, game(), 0.9);
 

@@ -96,6 +96,26 @@ const request = () => new Request('http://localhost/api/analyze', {
 describe('live market analysis route', () => {
   beforeEach(() => vi.clearAllMocks());
 
+  it('preserves missing revenue and reports insufficient evidence through the API', async () => {
+    const response = await POST(new Request('http://localhost/api/analyze', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        concept: conceptHorrorCoop, horizonWeeks: 26,
+        competitors: [{ ...liveCompetitor, game: {
+          ...liveGame, commercial: { ...liveGame.commercial,
+            estimatedRevenueUsd: { value: null, source: 'gamalytic', estimated: true },
+          },
+        } }],
+      }),
+    }));
+    const body = await response.json();
+    expect(response.status).toBe(200);
+    expect(body.data.report.revenue).toMatchObject({
+      conservative: null, base: null, upside: null, confidence: 'LOW', basedOnCount: 0,
+      method: 'insufficient revenue evidence',
+    });
+  });
+
   it('scores approved live game records without reading data/games.json', async () => {
     const response = await POST(request());
     const body = await response.json();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { SimilarityComponents } from "@/lib/domain/types";
 
 const LABELS: (keyof SimilarityComponents)[] = [
@@ -20,6 +20,7 @@ export function SimilarityBadge({
   components: SimilarityComponents;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const detailId = useId();
 
   const color =
     score >= 80
@@ -31,13 +32,20 @@ export function SimilarityBadge({
   return (
     <div className="relative">
       <button
+        type="button"
+        aria-expanded={expanded}
+        aria-controls={detailId}
+        aria-label={`Similarity ${score} percent. Show match factors`}
         onClick={() => setExpanded(!expanded)}
         className={`px-2.5 py-1 rounded-full text-sm font-mono font-semibold ${color}`}
       >
-        {score}
+        {score}%
       </button>
       {expanded && (
-        <div className="absolute right-0 top-full mt-1 z-20 w-56 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-3 shadow-lg text-xs space-y-1.5">
+        <div
+          id={detailId}
+          className="absolute right-0 top-full mt-1 z-20 w-56 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-3 shadow-lg text-xs space-y-1.5"
+        >
           {LABELS.map((key) => {
             const val = components[key];
             return (
@@ -46,11 +54,13 @@ export function SimilarityBadge({
                 <div className="flex-1 h-1.5 rounded-full bg-zinc-200 dark:bg-zinc-800">
                   <div
                     className="h-full rounded-full bg-blue-500"
-                    style={{ width: `${Math.round(val * 100)}%` }}
+                    style={{
+                      width: `${val === null ? 0 : Math.round(val * 100)}%`,
+                    }}
                   />
                 </div>
                 <span className="w-8 text-right font-mono">
-                  {(val * 100).toFixed(0)}
+                  {val === null ? "N/A" : (val * 100).toFixed(0)}
                 </span>
               </div>
             );

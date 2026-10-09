@@ -315,7 +315,7 @@ export default function Home() {
       };
       const nextCompetitors = collectionResult.value.games.map((game) =>
         scoreCompetitor(nextConcept, game, game.match.semanticScore, game.match.reason),
-      );
+      ).sort((a, b) => b.similarity.score - a.similarity.score);
       if (!nextCompetitors.length) throw new Error("No approved game details could be collected.");
 
       patchSession({

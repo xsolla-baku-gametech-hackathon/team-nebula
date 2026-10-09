@@ -4,7 +4,7 @@ import { scoreSimilarity } from './similarity';
 export function scoreCompetitor(
   concept: GameConcept,
   game: NormalizedGame,
-  semanticScore: number,
+  semanticScore: number | null,
   rationalePrefix = '',
   userAdded = false,
 ): ScoredCompetitor {

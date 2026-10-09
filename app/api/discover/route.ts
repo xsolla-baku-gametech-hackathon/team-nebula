@@ -2,9 +2,9 @@ import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { ok, fail } from '@/lib/api/envelope';
 import { getCorpus } from '@/lib/infrastructure/corpus/load';
-import { tagOverlap } from '@/lib/infrastructure/corpus/search';
-import { scoreSimilarity } from '@/lib/domain/scoring';
-import type { GameConcept, ScoredCompetitor } from '@/lib/domain/types';
+import { embedConcept } from '@/lib/infrastructure/embeddings/client';
+import { rankCorpus } from '@/lib/application/discovery/rank-corpus';
+import type { GameConcept } from '@/lib/domain/types';
 
 const Schema = z.object({
   concept: z.unknown(),
@@ -26,46 +26,23 @@ export async function POST(req: NextRequest) {
       return fail(new Error('Corpus not available'), t0);
     }
 
-    const excludeSet = new Set(body.excludeAppIds ?? []);
-    const includeSet = new Set(body.includeAppIds ?? []);
-
-    // Build concept tags from taxonomy
-    const conceptTags = [
-      concept.taxonomy.primaryGenre,
-      ...concept.taxonomy.secondaryGenres,
-      ...concept.taxonomy.themes,
-      ...concept.taxonomy.mechanics,
-      ...concept.taxonomy.gameModes,
-    ].filter(Boolean) as string[];
-
-    // Score all games by tag overlap (no embeddings needed)
-    const candidates = corpus.games
-      .filter(g => g.release.isReleased)
-      .filter(g => !excludeSet.has(g.identity.steamAppId))
-      .map(g => {
-        const overlap = tagOverlap(conceptTags, [
-          ...g.metadata.tags,
-          ...g.metadata.genres,
-          ...g.metadata.keywords,
-          ...g.metadata.gameModes,
-        ]);
-        // Use tag overlap as a pseudo-semantic score (0-1 range)
-        const pseudoSemantic = Math.min(overlap / Math.max(conceptTags.length, 1), 1);
-        const sim = scoreSimilarity(concept, g, pseudoSemantic);
-        return {
-          game: g,
-          similarity: { score: sim.score, components: sim.components, rationale: sim.rationale },
-          competitiveThreat: sim.score * 100,
-          userAdded: includeSet.has(g.identity.steamAppId),
-        } satisfies ScoredCompetitor;
-      })
-      .sort((a, b) => b.similarity.score - a.similarity.score)
-      .slice(0, body.limit);
+    let query: Float32Array | null = null;
+    // The bundled demo corpus has tag-only vectors, incompatible with text embeddings.
+    if (corpus.meta.embeddingModel === 'text-embedding-3-small') {
+      try {
+        query = await embedConcept(concept);
+      } catch {
+        // Provider failure still permits honest structured-only ranking.
+      }
+    }
+    const candidates = rankCorpus(concept, corpus.games, corpus.vecs, query, corpus.meta.dims, body);
 
     return ok(
       { competitors: candidates, totalCandidates: corpus.games.length, filterRelaxed: false },
       t0,
       corpus.meta.corpusVersion,
+      candidates.some(candidate => candidate.similarity.components.semantic === null)
+        ? ['embedding_fallback'] : undefined,
     );
   } catch (e) {
     return fail(e, t0);

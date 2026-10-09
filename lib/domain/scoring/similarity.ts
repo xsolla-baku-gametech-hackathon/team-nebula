@@ -73,9 +73,10 @@ function genreScore(concept: GameConcept, game: NormalizedGame): number {
 export function scoreSimilarity(
   concept: GameConcept,
   game: NormalizedGame,
-  semanticScore: number,
+  semanticScore: number | null,
 ): { score: number; components: SimilarityComponents; drivers: Driver[]; rationale: string } {
-  const semantic = Number.isFinite(semanticScore) ? Math.max(0, Math.min(1, semanticScore)) : 0;
+  const hasSemantic = semanticScore !== null && Number.isFinite(semanticScore);
+  const semantic = hasSemantic ? Math.max(0, Math.min(1, semanticScore!)) : 0;
   const mechanics = jaccard(concept.taxonomy.mechanics, game.metadata.keywords);
   const genre = genreScore(concept, game);
   const theme = jaccard(concept.taxonomy.themes, game.metadata.themes);
@@ -88,7 +89,7 @@ export function scoreSimilarity(
   const price = priceComponent(conceptPrice, gamePrice);
 
   const components: ComponentEntry[] = [
-    { name: 'semantic', weight: W_SEMANTIC, value: semantic, available: true },
+    { name: 'semantic', weight: W_SEMANTIC, value: semantic, available: hasSemantic },
     { name: 'mechanics', weight: W_MECHANICS, value: mechanics, available: concept.taxonomy.mechanics.length > 0 && game.metadata.keywords.length > 0 },
     { name: 'genre', weight: W_GENRE, value: genre, available: Boolean(concept.taxonomy.primaryGenre || concept.taxonomy.secondaryGenres.length) && game.metadata.genres.length > 0 },
     { name: 'theme', weight: W_THEME, value: theme, available: concept.taxonomy.themes.length > 0 && game.metadata.themes.length > 0 },
@@ -106,7 +107,9 @@ export function scoreSimilarity(
 
   const sorted = [...active].sort((a, b) => b.value * b.weight - a.value * a.weight);
   const top = sorted.slice(0, 2);
-  const rationale = `${top.map(c => c.name).join(' and ')} are the strongest match factors.`;
+  const rationale = top.length
+    ? `${top.map(c => c.name).join(' and ')} are the strongest match factors.`
+    : 'Insufficient similarity evidence.';
 
   const drivers: Driver[] = active.map(c =>
     driver(c.name, Math.round((c.weight / totalWeight) * c.value * 100), `${c.name}: ${(c.value * 100).toFixed(0)}%`),
@@ -115,7 +118,7 @@ export function scoreSimilarity(
   return {
     score,
     components: {
-      semantic: components[0].value,
+      semantic: hasSemantic ? components[0].value : null,
       mechanics: components[1].value,
       genre: components[2].value,
       theme: components[3].value,
