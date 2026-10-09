@@ -1,0 +1,15 @@
+{
+  "runs": [
+    {
+      "date": "2026-10-09T14:24:33.980865+00:00",
+      "input_tokens": null,
+      "output_tokens": null,
+      "files": 230,
+      "usage_available": false,
+      "external_llm_api_called": false
+    }
+  ],
+  "total_input_tokens": 0,
+  "total_output_tokens": 0,
+  "usage_note": "Host-agent token usage is unavailable. Totals contain measured usage only and exclude unmetered runs."
+}
