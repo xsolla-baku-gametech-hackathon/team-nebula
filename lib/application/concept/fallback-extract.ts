@@ -1,12 +1,5 @@
 import type { GameConcept, ConceptField, GameMode, Perspective, Platform } from '@/lib/domain/types';
-
-const GENRE_KEYWORDS: Record<string, string> = {
-  'horror': 'Horror', 'roguelike': 'Roguelike', 'rpg': 'RPG', 'platformer': 'Platformer',
-  'shooter': 'Shooter', 'strategy': 'Strategy', 'puzzle': 'Puzzle', 'simulation': 'Simulation',
-  'survival': 'Survival', 'adventure': 'Adventure', 'racing': 'Racing', 'fighting': 'Fighting',
-  'stealth': 'Stealth', 'sandbox': 'Sandbox', 'tower defense': 'Tower Defense',
-  'visual novel': 'Visual Novel', 'metroidvania': 'Metroidvania',
-};
+import { explicitGenreTags } from '@/lib/domain/tag-vocabulary';
 
 const MECHANIC_KEYWORDS = [
   'permadeath', 'crafting', 'base building', 'deck building', 'turn-based', 'real-time',
@@ -31,10 +24,7 @@ const PERSPECTIVE_MAP: Record<string, Perspective> = {
 export function fallbackExtract(text: string): { concept: GameConcept; questions: { field: ConceptField; question: string; suggestions?: string[]; skippable: true }[] } {
   const lower = text.toLowerCase();
 
-  const genres: string[] = [];
-  for (const [kw, genre] of Object.entries(GENRE_KEYWORDS)) {
-    if (lower.includes(kw)) genres.push(genre);
-  }
+  const genres = explicitGenreTags(text).map(genre => genre.name);
 
   const mechanics: string[] = [];
   for (const m of MECHANIC_KEYWORDS) {

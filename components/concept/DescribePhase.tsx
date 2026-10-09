@@ -17,6 +17,7 @@ import type { Step } from "@/components/shared/StepPills";
 import { WorkspaceShell } from "@/components/shared/WorkspaceShell";
 import { ProcessIndicator } from "@/components/shared/ProcessIndicator";
 import { GENRE_SUGGESTIONS } from "@/components/concept/options";
+import { isCanonicalTag } from "@/lib/domain/tag-vocabulary";
 import type { DiscoveryCandidate, DiscoveryValidation } from "@/lib/api/client";
 
 interface Props {
@@ -29,6 +30,7 @@ interface Props {
   selectedSteamAppIds: number[];
   questions: string[];
   error: string | null;
+  notices: string[];
   stage: "idle" | "validating" | "collecting";
   onAnalyze: (
     clarifications: { question: string; answer: string }[],
@@ -69,8 +71,8 @@ function ValidationPanel({ validation }: { validation: DiscoveryValidation }) {
           {validation.tags.map((tag) => (
             <span
               key={`${tag.category}-${tag.name.toLowerCase()}`}
-              className={`ws-badge ${tag.priority === "required" ? "blue" : ""}`}
-              title={`${tag.category} · ${tag.priority} · ${tag.basis}`}
+              className={`ws-badge ${tag.priority === "required" ? "blue" : ""} ${isCanonicalTag(tag.name) ? "" : "border-dashed"}`}
+              title={`${tag.category} · ${tag.priority} · ${tag.basis}${isCanonicalTag(tag.name) ? "" : " · free-form facet"}`}
             >
               {tag.priority === "required" ? <Check size={11} /> : null}
               {tag.name}
@@ -177,6 +179,7 @@ export default function DescribePhase({
   selectedSteamAppIds,
   questions,
   error,
+  notices,
   stage,
   onAnalyze,
   onToggleCandidate,
@@ -236,6 +239,11 @@ export default function DescribePhase({
         <div role="alert" className="ws-alert">
           <CircleHelp size={17} className="shrink-0 mt-0.5" />
           {error}
+        </div>
+      ) : null}
+      {notices.length > 0 ? (
+        <div role="status" className="ws-panel px-5 py-4 text-[12px] ws-muted mb-5">
+          {notices.map((notice) => <p key={notice}>{notice}</p>)}
         </div>
       ) : null}
       <div className="ws-intake-grid">

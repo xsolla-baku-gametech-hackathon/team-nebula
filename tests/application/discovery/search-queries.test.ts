@@ -15,4 +15,17 @@ describe('candidate search queries', () => {
     for (const tag of validation.tags) expect(queries.join(' ')).toContain(tag.name);
     expect(queries.every(query => query.length <= 500)).toBe(true);
   });
+
+  it('puts a restored genre into the primary query', () => {
+    // The tags are the retrieval query, so a dropped genre never reached IGDB at all.
+    const validation: DescriptionValidation = { status: 'ready', normalizedDescription: 'A side-scrolling horror escape game', confidence: 0.9,
+      tags: [
+        { name: 'Platformer', category: 'genre', priority: 'required', basis: 'explicit' },
+        { name: 'Horror', category: 'genre', priority: 'required', basis: 'explicit' },
+        { name: 'apartment', category: 'setting', priority: 'preferred', basis: 'explicit' },
+      ], mustHave: [], avoid: [], multiplayer: false, questions: [] };
+
+    expect(buildSearchQueries(validation)[0]).toContain('Platformer');
+    expect(buildSearchQueries(validation)[0]).toContain('Horror');
+  });
 });

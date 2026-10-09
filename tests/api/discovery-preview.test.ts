@@ -35,4 +35,18 @@ describe('discovery API', () => {
     expect(body.data.candidates[0]).toEqual({ steamAppId: 1, igdbId: 2, name: 'Game', semanticScore: 0.88, reason: 'Match', matchedTags: ['Horror'] });
     expect(body.data.candidates[0].description).toBeUndefined();
   });
+  it('returns a degraded preview as a success, not an error', async () => {
+    // Dropped selections are a valid discovery outcome, not a transport failure.
+    const issues = ['1 ranked result was skipped because Grok returned games outside the candidate pool.'];
+    vi.mocked(previewGames).mockResolvedValue({ status: 'ready_for_approval', previewId: 'id', expiresAt: 'date',
+      query: 'horror', validation: {} as never, candidates: [{ steamAppId: 1, igdbId: 2, name: 'Game', semanticScore: 0.88, reason: 'Match', matchedTags: ['Horror'] }],
+      discovery: { provider: 'xai', model: 'grok', candidateCount: 2, rankedCount: 1, requestedCount: 2, returnedCount: 1, complete: false, issues } });
+    const response = await POST(request('{"query":"horror","limit":2}'));
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(body.ok).toBe(true);
+    expect(body.data.discovery.complete).toBe(false);
+    expect(body.data.discovery.issues).toEqual(issues);
+    expect(body.data.candidates).toHaveLength(1);
+  });
 });

@@ -4,8 +4,11 @@
  */
 
 import type { GameConcept, GameMode, Perspective, Platform } from "@/lib/domain/types";
+import { GENRE_TAGS, canonicalTag } from "@/lib/domain/tag-vocabulary";
 
 const GROK_API_URL = "https://api.x.ai/v1/chat/completions";
+
+const GENRE_NAMES = GENRE_TAGS.map(tag => tag.name).join(", ");
 
 const SYSTEM_PROMPT = `You are a game market analyst. Extract structured data from a game description.
 
@@ -26,7 +29,7 @@ Return JSON only with this exact shape:
 }
 
 Rules:
-- primaryGenre: one of Horror, RPG, Shooter, Platformer, Strategy, Survival, Simulation, Adventure, Puzzle, Racing, Fighting, Sandbox, Roguelike, Metroidvania, Visual Novel, or other
+- primaryGenre and secondaryGenres: use these names exactly — ${GENRE_NAMES}. Any genre the description names outright must appear.
 - gameModes: array of "Singleplayer", "Online Co-op", "Local Co-op", "Online PvP", "Local PvP", "MMO"
 - perspective: one of "First person", "Third person", "Isometric", "Side view", "Top down", "Text", or null
 - platforms: array of "PC", "Mac", "Linux", "Switch", "PS5", "Xbox"
@@ -35,6 +38,25 @@ Rules:
 - priceUsd: extract price if mentioned, null otherwise
 - plannedRelease: extract date/quarter if mentioned, null otherwise
 - Be thorough — infer from context when not explicitly stated`;
+
+/**
+ * Canonicalizes a genre name so it can match IGDB and Steam genre fields, which
+ * `scoreSimilarity` compares by exact equality. An unrecognized name is kept rather
+ * than dropped: this path has no closed-set contract and the value is user-visible.
+ */
+function canonicalGenre(value: unknown): string | null {
+  if (typeof value !== "string" || !value.trim()) return null;
+  return canonicalTag(value)?.name ?? value.trim();
+}
+
+function canonicalGenres(value: unknown, exclude: string | null): string[] {
+  if (!Array.isArray(value)) return [];
+  const genres = value.flatMap((item: unknown) => {
+    const genre = canonicalGenre(item);
+    return genre && genre !== exclude ? [genre] : [];
+  });
+  return [...new Set(genres)];
+}
 
 export async function grokExtract(text: string): Promise<GameConcept | null> {
   const apiKey = process.env.XAI_API_KEY;
@@ -70,6 +92,8 @@ export async function grokExtract(text: string): Promise<GameConcept | null> {
     if (!jsonMatch) return null;
 
     const parsed = JSON.parse(jsonMatch[0]);
+    const primaryGenre = canonicalGenre(parsed.primaryGenre);
+    const secondaryGenres = canonicalGenres(parsed.secondaryGenres, primaryGenre);
 
     const concept: GameConcept = {
       version: 1,
@@ -81,8 +105,8 @@ export async function grokExtract(text: string): Promise<GameConcept | null> {
         targetSteam: true,
       },
       taxonomy: {
-        primaryGenre: parsed.primaryGenre ?? null,
-        secondaryGenres: parsed.secondaryGenres ?? [],
+        primaryGenre,
+        secondaryGenres,
         themes: parsed.themes ?? [],
         mechanics: parsed.mechanics ?? [],
         gameModes: (parsed.gameModes as GameMode[]) ?? [],
@@ -95,7 +119,7 @@ export async function grokExtract(text: string): Promise<GameConcept | null> {
         isFirstTitle: parsed.isFirstTitle ?? null,
       },
       confidence: {
-        primaryGenre: parsed.primaryGenre ? 0.8 : 0,
+        primaryGenre: primaryGenre ? 0.8 : 0,
         mechanics: parsed.mechanics?.length >= 2 ? 0.7 : 0.3,
         gameModes: parsed.gameModes?.length > 0 ? 0.8 : 0.2,
         perspective: parsed.perspective ? 0.8 : 0,

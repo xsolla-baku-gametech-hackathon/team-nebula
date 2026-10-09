@@ -75,7 +75,9 @@ Lifecycle errors use `PREVIEW_NOT_FOUND` (404), `PREVIEW_EXPIRED` (410), `PREVIE
 
 ## Configuration and verification
 
-Set `XAI_API_KEY`, `IGDB_MCP_CLIENT_ID`, and `IGDB_MCP_CLIENT_SECRET` in root `.env.local`. `XAI_MODEL` defaults to `grok-4.6`. Structured xAI responses use `store:false`, a 45-second timeout, a 4,000-token output limit, and one bounded transient retry.
+Set `XAI_API_KEY`, `IGDB_MCP_CLIENT_ID`, and `IGDB_MCP_CLIENT_SECRET` in root `.env.local`. `XAI_MODEL` defaults to `grok-4.6`. Structured xAI responses use `store:false`, a 45-second timeout, one bounded transient retry, and per-call output limits — 4,000 tokens for description validation and 16,000 for ranking, because a reasoning model's reasoning tokens share that ceiling.
+
+`pnpm discovery:smoke` exits non-zero whenever `complete` is false, which now includes degraded-but-usable runs where selections or matched tags were dropped. Read the printed JSON rather than the exit code.
 
 ```bash
 corepack pnpm discovery:smoke "multiplayer horror games"

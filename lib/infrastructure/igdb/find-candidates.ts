@@ -21,6 +21,11 @@ export function parseCandidates(input: unknown, intent: { multiplayer: boolean |
     if (intent.multiplayer === false && (!gameModes.includes(1) || multiplayer)) continue;
     const description = plainText(game.summary ?? '', 2500);
     if (!description) continue;
+    // Filter out adult/NSFW content
+    const nameLower = game.name.toLowerCase();
+    const descLower = description.toLowerCase();
+    const nsfw = ['sexbot', 'hentai', 'erotic', 'adult only', 'nsfw', 'porn', 'xxx', 'sex simulator', 'dating sim uncensored', 'strip ', 'nude'];
+    if (nsfw.some(term => nameLower.includes(term) || descLower.includes(term))) continue;
     unique.set(game.id, {
       igdbId: game.id,
       name: game.name,
